@@ -1,0 +1,66 @@
+{
+  "name": "do-webapp",
+  "version": "1.0.0",
+  "main": "src/index.tsx",
+  "repository": "https://github.com/DigitalOasisv2/do-webapp.git",
+  "author": "Jaroslav Khorishchenko <websnipter@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "yarn start:dev",
+    "start:dev": "webpack-dev-server --mode development --env.ENVFILE=.env.dev",
+    "start:loc": "webpack-dev-server --mode development --env.ENVFILE=.env.loc",
+    "start:prd": "webpack-dev-server --mode production --env.ENVFILE=.env.dev",
+    "dist": "yarn dist:prd",
+    "dist:dev": "rm -rf dist/* && webpack -p --env.ENVFILE=.env.dev",
+    "dist:prd": "rm -rf dist/* && webpack -p --env.ENVFILE=.env.prd",
+    "profile:build:prd": "webpack --profile --mode production --env.ENVFILE=.env.prd --json > stats.prd.json",
+    "profile:analyse:prd": "webpack-bundle-analyzer stats.prd.json",
+    "lint": "yarn lint:types && yarn lint:eslint",
+    "lint:types": "tsc --noEmit --skipLibCheck",
+    "lint:eslint": "eslint \"src/**\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "clear:cache": "rm -rf ./.cache",
+    "postinstall": "yarn clear:cache"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{*.ts,*tsx}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-router-dom": "5.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.1",
+    "@types/react-dom": "17.0.0",
+    "@types/react-router-dom": "5.1.7",
+    "@typescript-eslint/eslint-plugin": "4.14.2",
+    "@typescript-eslint/parser": "4.14.2",
+    "copy-webpack-plugin": "7.0.0",
+    "css-loader": "5.0.1",
+    "dotenv": "8.2.0",
+    "eslint": "7.19.0",
+    "eslint-plugin-react": "7.22.0",
+    "html-webpack-plugin": "5.0.0",
+    "husky": "4.3.8",
+    "lint-staged": "10.5.3",
+    "markdown-loader": "6.0.0",
+    "prettier": "2.2.1",
+    "raw-loader": "4.0.2",
+    "style-loader": "2.0.0",
+    "ts-loader": "8.0.14",
+    "typescript": "4.1.3",
+    "url-loader": "4.1.1",
+    "webpack": "5.20.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.2"
+  }
+}
