@@ -1,7 +1,6 @@
 .cache
 .DS_*
 .env
-.env.*
 .idea
 .tmp
 .vscode

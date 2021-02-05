@@ -25,8 +25,7 @@ declare module '*.md' {
 }
 
 declare const VERSION: string | undefined;
-declare const ENV: 'dev' | 'prd' | 'loc' | 'qa' | 'demo' | undefined;
-declare const MAPS_API_KEY: string | undefined;
+declare const ENV: 'loc' | 'dev' | 'qa' | 'beta' | 'prd' | undefined;
 declare const APP_NAME: string | undefined;
 declare const APP_TITLE: string | undefined;
 declare const APP_COMPANY: string | undefined;

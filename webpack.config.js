@@ -56,41 +56,41 @@ module.exports = env => {
         chunks: 'all',
         maxInitialRequests: Infinity,
         minSize: 0,
-        // cacheGroups: {
-        //   react: {
-        //     test: /[\\/]node_modules[\\/](react|react-router-dom)[\\/]/,
-        //     priority: 1,
-        //     name: 'react',
-        //   },
-        //   lodash: {
-        //     test: /[\\/]node_modules[\\/]lodash/,
-        //     priority: 1,
-        //     name: 'lodash',
-        //   },
-        //   material: {
-        //     test: /[\\/]node_modules[\\/]@material-ui/,
-        //     priority: 1,
-        //     name: 'material-ui',
-        //   },
-        //   redux: {
-        //     test: /[\\/]node_modules[\\/]redux/,
-        //     priority: 1,
-        //     name: 'redux',
-        //   },
-        //   vendors: {
-        //     test: /[\\/]node_modules[\\/]/,
-        //     name: 'vendors',
-        //   },
-        // },
+        cacheGroups: {
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-router-dom)[\\/]/,
+            priority: 1,
+            name: 'react',
+          },
+          lodash: {
+            test: /[\\/]node_modules[\\/]lodash/,
+            priority: 1,
+            name: 'lodash',
+          },
+          material: {
+            test: /[\\/]node_modules[\\/]@material-ui/,
+            priority: 1,
+            name: 'material-ui',
+          },
+          redux: {
+            test: /[\\/]node_modules[\\/]redux/,
+            priority: 1,
+            name: 'redux',
+          },
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+          },
+        },
       },
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'Main',
-        company: 'DigitalOasis',
-        description: '',
-        url: '',
-        keywords: [],
+        title: 'Home',
+        company: package.company,
+        description: package.description,
+        url: package.url || '',
+        keywords: package.keywords,
         filename: 'index.html',
         template: 'src/templates/app.ejs',
         hash: true,
@@ -100,17 +100,20 @@ module.exports = env => {
           minifyJS: true,
         },
       }),
-      // new CopyWebpackPlugin({
-      //   patterns: [{ from: 'src/assets/img/*.{png,jpg}', to: 'assets', flatten: true }],
-      // }),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'public/*.{txt,json,ico}', to: '[name].[ext]' },
+          { from: '**/*.{png,jpg}', context: path.resolve(__dirname, 'public') },
+        ],
+      }),
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(package.version),
-        // ENV: JSON.stringify(process.env.ENV),
-        // APP_NAME: JSON.stringify(package.name),
-        // APP_TITLE: JSON.stringify(package.title),
-        // APP_COMPANY: JSON.stringify(package.company),
-        // APP_DESCRIPTION: JSON.stringify(package.description),
-        // APP_URL: JSON.stringify(package.url),
+        ENV: JSON.stringify(process.env.ENV),
+        APP_NAME: JSON.stringify(package.name),
+        APP_TITLE: JSON.stringify(package.title),
+        APP_COMPANY: JSON.stringify(package.company),
+        APP_DESCRIPTION: JSON.stringify(package.description),
+        APP_URL: JSON.stringify(package.url || ''),
       }),
     ],
     devServer: {

@@ -12,27 +12,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>"/>
     <meta property="og:description" content="<%= htmlWebpackPlugin.options.description %>"/>
-    <meta property="og:url" content="<%= htmlWebpackPlugin.options.url %>"/>
+    <meta property="og:url" content="<%= htmlWebpackPlugin.options.url %>/"/>
     <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.title %>"/>
-    <meta property="og:image" content="/assets/banner.png?v=4"/>
+    <!-- <meta property="og:image" content="/assets/banner.png?v=4"/> -->
     <!-- Favicons -->
-    <link rel="shortcut icon" href="/assets/fav-32.png?v=4">
-    <link rel="apple-touch-icon" href="/assets/fav-180.png?v=4">
+    <link rel="shortcut icon" type='image/x-icon' href="<%= htmlWebpackPlugin.options.url %>/favicon.ico">
+    <link rel="icon" type="image/png" href="<%= htmlWebpackPlugin.options.url %>/assets/logo32.png">
+    <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.options.url %>/assets/logo180.png">
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77334417-5"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-77334417-5');
-    </script>
 </head>
 <body>
 <div id="app"></div>
 </body>
-<!-- Cloudflare Web Analytics -->
-<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e4f597a432d844b3a7ccc6bff03ef73e"}'></script>
-<!-- End Cloudflare Web Analytics -->
 </html>

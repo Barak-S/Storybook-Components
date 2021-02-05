@@ -1,8 +1,7 @@
 import './index.css';
 
-import React, { FC } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import { Screens } from 'screens';
 
-const AppContainer: FC = () => <div>{'Hello'}</div>;
-
-ReactDOM.render(<AppContainer />, document.getElementById('app'));
+ReactDOM.render(<Screens />, document.getElementById('app'));
