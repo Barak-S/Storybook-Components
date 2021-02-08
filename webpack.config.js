@@ -7,7 +7,7 @@ const package = require('./package.json');
 const srcPath = path.resolve(__dirname, 'src');
 const distPath = path.resolve(__dirname, 'dist');
 
-module.exports = env => {
+module.exports = (env = {}) => {
   const envFile = env.ENVFILE ? env.ENVFILE : '.env';
   require('dotenv').config({
     path: path.resolve(process.cwd(), envFile),
