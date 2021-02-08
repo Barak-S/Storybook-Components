@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - develop
+      - 'release/*'
+      - beta
+      - master
 
 jobs:
   deploy:
@@ -13,7 +16,8 @@ jobs:
       - name: "Env: set package version"
         run: >
           echo "APP_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",\t ]//g')" >> $GITHUB_ENV
-      - name: "Env: setup DEV"
+      - name: "Env: setup DEV enviroment"
+        if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
           cat .env.dev > .env
           cat .env >> $GITHUB_ENV
