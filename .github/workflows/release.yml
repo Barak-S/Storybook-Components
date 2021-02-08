@@ -27,33 +27,33 @@ jobs:
     – name: Create pull request into master
       uses: thomaseizinger/create-pull-request@1.0.0
       with:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       head: release/v${{ github.event.inputs.versionName }}
-       base: master
-       title: v${{ github.event.inputs.versionName }} into master
-       reviewers: ${{ github.event.issue.user.login }}
-       body: |
-           Hi!
-           This PR was created in response workflow running.
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        head: release/v${{ github.event.inputs.versionName }}
+        base: master
+        title: v${{ github.event.inputs.versionName }} into master
+        reviewers: ${{ github.event.issue.user.login }}
+        body: |
+          Hi!
+          This PR was created in response workflow running.
     – name: Create pull request to develop
       uses: thomaseizinger/create-pull-request@1.0.0
       with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: release/v${{ github.event.inputs.versionName }}
-          base: develop
-          title: v${{ github.event.inputs.versionName }} into develop
-          reviewers: ${{ github.event.issue.user.login }}
-          body: |
-              Hi!
-              This PR was created in response workflow running.
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        head: release/v${{ github.event.inputs.versionName }}
+        base: develop
+        title: v${{ github.event.inputs.versionName }} into develop
+        reviewers: ${{ github.event.issue.user.login }}
+        body: |
+          Hi!
+          This PR was created in response workflow running.
     – name: Create pull request to beta
       uses: thomaseizinger/create-pull-request@1.0.0
       with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: release/v${{ github.event.inputs.versionName }}
-          base: beta
-          title: v${{ github.event.inputs.versionName }} into beta
-          reviewers: ${{ github.event.issue.user.login }}
-          body: |
-              Hi!
-              This PR was created in response workflow running.
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        head: release/v${{ github.event.inputs.versionName }}
+        base: beta
+        title: v${{ github.event.inputs.versionName }} into beta
+        reviewers: ${{ github.event.issue.user.login }}
+        body: |
+          Hi!
+          This PR was created in response workflow running.
