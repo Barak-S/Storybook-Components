@@ -3,10 +3,10 @@ name: Deploy
 on:
   push:
     branches:
-      - develop
+      - 'develop'
       - 'release/*'
-      - beta
-      - master
+      - 'beta'
+      - 'master'
 
 jobs:
   deploy:
@@ -20,6 +20,21 @@ jobs:
         if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
           cat .env.dev > .env
+          cat .env >> $GITHUB_ENV
+      - name: "Env: setup QA enviroment"
+        if: ${{ startsWith(github.ref, 'refs/heads/release') }}
+        run: |
+          cat .env.qa > .env
+          cat .env >> $GITHUB_ENV
+      - name: "Env: setup BETA enviroment"
+        if: ${{ github.ref == 'refs/heads/beta' }}
+        run: |
+          cat .env.beta > .env
+          cat .env >> $GITHUB_ENV
+      - name: "Env: setup PRD enviroment"
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: |
+          cat .env.prd > .env
           cat .env >> $GITHUB_ENV
       - name: "AWS: Configure"
         uses: aws-actions/configure-aws-credentials@v1
