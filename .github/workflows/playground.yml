@@ -24,7 +24,7 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
           SLACK_USERNAME: Github Actions
-          SLACK_CHANNEL: ${{ secrets.SLACK_LOG_CHANEL }}
+          SLACK_CHANNEL: ${{ env.SLACK_LOG_CHANEL }}
           SLACK_AVATAR: repository
         uses: Ilshidur/action-slack@master
         with:
