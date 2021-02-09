@@ -86,7 +86,7 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        url: process.env.url || '',
+        url: process.env.APP_URL || '',
         title: package.title,
         company: package.company,
         description: package.description,
@@ -113,7 +113,7 @@ module.exports = (env = {}) => {
         APP_COMPANY: JSON.stringify(package.company),
         APP_DESCRIPTION: JSON.stringify(package.description),
         APP_ENV: JSON.stringify(process.env.APP_ENV),
-        APP_URL: JSON.stringify(process.env.url || ''),
+        APP_URL: JSON.stringify(process.env.APP_URL || ''),
       }),
     ],
     devServer: {
