@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
       - name: Install CLI
         run: |
           cd scripts
