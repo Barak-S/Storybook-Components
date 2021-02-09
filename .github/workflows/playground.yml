@@ -1,0 +1,31 @@
+name: Playground
+on:
+  workflow_dispatch:
+    inputs:
+      versionName:
+        description: Name of the release  (ie 1.0)
+        required: true
+        default: "1.0"
+env:
+  SLACK_ENABLED: true
+  SLACK_LOG_CHANEL: "#ci-test"
+  SLACK_LOG_WEBHOOK: ${{ secrets.SLACK_LOG_DEV_WEBHOOK }}
+  SLACK_NOTES_CHANEL: "#release-notes"
+  SLACK_NOTES_WEBHOOK: ${{ secrets.SLACK_NOTES_WEBHOOK }}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
+      - name: "Slack: msg"
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+          SLACK_USERNAME: Github Actions
+          SLACK_CHANNEL: ${{ secrets.SLACK_LOG_CHANEL }}
+          SLACK_AVATAR: repository
+        uses: Ilshidur/action-slack@master
+        with:
+          args: ":control_knobs: :building_construction: Admin panel has been deployed to `QA`"
