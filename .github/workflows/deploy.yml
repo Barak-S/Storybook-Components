@@ -46,6 +46,9 @@ jobs:
       - name: "Yarn: lint"
         run: |
           yarn lint
+      - name: "Yarn: test"
+        run: |
+          yarn test --coverage
       - name: "Yarn: dist"
         run: yarn dist
       - name: "AWS: Deploy"
