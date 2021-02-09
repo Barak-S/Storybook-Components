@@ -2,7 +2,7 @@
   "name": "do-webapp",
   "version": "1.0.0",
   "main": "src/index.tsx",
-  "title": "",
+  "title": "Home",
   "company": "Digital Oasis",
   "description": "",
   "url": "",

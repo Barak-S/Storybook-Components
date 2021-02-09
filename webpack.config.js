@@ -86,10 +86,10 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        title: 'Home',
+        url: process.env.url || '',
+        title: package.title,
         company: package.company,
         description: package.description,
-        url: package.url || '',
         keywords: package.keywords,
         filename: 'index.html',
         template: 'src/templates/app.ejs',
@@ -107,13 +107,13 @@ module.exports = (env = {}) => {
         ],
       }),
       new webpack.DefinePlugin({
-        VERSION: JSON.stringify(package.version),
-        ENV: JSON.stringify(process.env.ENV),
+        APP_VERSION: JSON.stringify(package.version),
         APP_NAME: JSON.stringify(package.name),
         APP_TITLE: JSON.stringify(package.title),
         APP_COMPANY: JSON.stringify(package.company),
         APP_DESCRIPTION: JSON.stringify(package.description),
-        APP_URL: JSON.stringify(package.url || ''),
+        APP_ENV: JSON.stringify(process.env.APP_ENV),
+        APP_URL: JSON.stringify(process.env.url || ''),
       }),
     ],
     devServer: {

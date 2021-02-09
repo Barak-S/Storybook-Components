@@ -1,0 +1,22 @@
+{
+  "name": "do-webapp-scripts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "bin": {
+    "do-cli": "./dist/index.js"
+  },
+  "scripts": {
+    "dist": "tsc",
+    "lint": "yarn lint:types",
+    "lint:types": "tsc --noEmit --skipLibCheck",
+    "link": "yarn global add file:$PWD"
+  },
+  "dependencies": {
+    "minimist": "1.2.5"
+  },
+  "devDependencies": {
+    "@types/minimist": "1.2.1",
+    "typescript": "4.1.3"
+  }
+}

@@ -9,7 +9,7 @@ export const AuthScreen: FC<Props> = ({ style }) => {
   return (
     <>
       <ScreenTitle title="Sign in" />
-      <View style={[style]}>{appConfig.version}</View>
+      <View style={[style]}>{`v${appConfig.version}, env: ${appConfig.env}`}</View>
     </>
   );
 };

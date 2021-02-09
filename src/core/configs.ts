@@ -13,8 +13,8 @@ type AppConfigEnv = 'loc' | 'dev' | 'qa' | 'beta' | 'prd';
 const isEnv = (val: string): val is AppConfigEnv => ['loc', 'dev', 'qa', 'beta', 'prd'].includes(val);
 
 const getAppConfig = (): AppConfig => ({
-  version: VERSION || '0.0.0',
-  env: getAppConfigEnv(ENV, 'prd'),
+  version: APP_VERSION || '0.0.0',
+  env: getAppConfigEnv(APP_ENV, 'prd'),
   url: APP_URL || '',
   name: APP_NAME,
   title: APP_TITLE,

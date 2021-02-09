@@ -18,3 +18,5 @@ node_modules
 npm-debug.log
 stats.*
 yarn-error.log
+
+!scripts/dist
