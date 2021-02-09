@@ -1,7 +1,8 @@
 name: Lint
-
-on: [push]
-
+on:
+  push:
+    paths:
+      - src/**
 jobs:
   lint:
     runs-on: ubuntu-latest
