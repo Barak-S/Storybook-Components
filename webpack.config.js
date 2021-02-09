@@ -118,7 +118,7 @@ module.exports = (env = {}) => {
     ],
     devServer: {
       host: '0.0.0.0',
-      port: process.env.PORT || 7000,
+      port: process.env.PORT || process.env.APP_PORT || 7000,
       historyApiFallback: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
