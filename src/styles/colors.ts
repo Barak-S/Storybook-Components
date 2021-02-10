@@ -7,10 +7,13 @@ const base = {
   white: '#fff',
   back: '#000',
   lightGrey: '#BDC3C7',
+  gray: '#5C5C5C',
 };
 
 const named = {
-  primary: '#5097D5',
+  primary: '#012169',
+  error: '#ff1744',
+  link: '#407DC8',
 };
 
 export const withAlpha = (val: string, alpha: number) => color(val).alpha(alpha).toString();

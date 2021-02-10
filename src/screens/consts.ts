@@ -1,4 +1,5 @@
 export const routes = {
   index: '/',
-  auth: '/auth',
+  signup: '/signup',
+  signin: '/signin',
 };
