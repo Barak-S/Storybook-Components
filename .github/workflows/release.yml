@@ -6,7 +6,6 @@ on:
         description: Name of the release  (ie 1.0)
         required: true
         default: "1.0"
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -15,24 +14,31 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
-      - name: Install CLI
+      - name: "CLI: install"
         run: |
           cd scripts
           make
           echo "$(yarn global bin)" >> $GITHUB_PATH
           cd ..
           git reset --hard
-      - name: Create release branch
+      - name: "CLI: set release notes"
+        env:
+          VERSION_NAME: ${{ github.event.inputs.versionName }}
+        run: |
+          echo "APP_RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          do-cli changelog --version=$VERSION_NAME >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: "Git: create release branch"
         run: |
           git checkout develop
           git checkout -b release/${{ github.event.inputs.versionName }}
-      - name: Initialize mandatory git config
+      - name: "Git: initialize mandatory git config"
         run: |
           git config user.name "GitHub Actions"
           git config user.email noreply@github.com
-      - name: Push new branch
+      - name: "Git: push new branch"
         run: git push origin release/${{ github.event.inputs.versionName }}
-      - name: Create pull request into master
+      - name: "GitHub: create pull request into master"
         uses: thomaseizinger/create-pull-request@1.0.0
         with:
           GITHUB_TOKEN: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
@@ -42,9 +48,10 @@ jobs:
           title: v${{ github.event.inputs.versionName }} into master
           reviewers: ${{ github.event.issue.user.login }}
           body: |
-            Hi!
-            This PR was created in response workflow running.
-      - name: Create pull request into beta
+            Hi! This PR was created in response workflow running. Release notes:
+
+            ${{ env.APP_RELEASE_NOTES }}
+      - name: "GitHub: ccreate pull request into beta"
         uses: thomaseizinger/create-pull-request@1.0.0
         with:
           GITHUB_TOKEN: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
@@ -54,17 +61,6 @@ jobs:
           title: v${{ github.event.inputs.versionName }} into beta
           reviewers: ${{ github.event.issue.user.login }}
           body: |
-            Hi!
-            This PR was created in response workflow running.
-      # - name: Create pull request into develop
-      #   uses: thomaseizinger/create-pull-request@1.0.0
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
-      #     github-token: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
-      #     head: release/${{ github.event.inputs.versionName }}
-      #     base: develop
-      #     title: v${{ github.event.inputs.versionName }} into develop
-      #     reviewers: ${{ github.event.issue.user.login }}
-      #     body: |
-      #       Hi!
-      #       This PR was created in response workflow running.
+            Hi! This PR was created in response workflow running. Release notes:
+
+            ${{ env.APP_RELEASE_NOTES }}

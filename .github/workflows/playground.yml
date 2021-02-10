@@ -1,31 +1,122 @@
 name: Playground
 on:
-  workflow_dispatch:
-    inputs:
-      versionName:
-        description: Name of the release  (ie 1.0)
-        required: true
-        default: "1.0"
+  - workflow_dispatch
 env:
   SLACK_ENABLED: true
-  SLACK_LOG_CHANEL: "#ci-test"
+  SLACK_USERNAME: Github Actions
+  SLACK_AVATAR: sender
   SLACK_LOG_WEBHOOK: ${{ secrets.SLACK_LOG_DEV_WEBHOOK }}
-  SLACK_NOTES_CHANEL: "#release-notes"
-  SLACK_NOTES_WEBHOOK: ${{ secrets.SLACK_NOTES_WEBHOOK }}
+  SLACK_NOTES_WEBHOOK: ${{ secrets.SLACK_LOG_DEV_WEBHOOK }}
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GTHB_PERSONAL_ACCESS_TOKEN }}
-      - name: "Slack: msg"
+      - uses: actions/checkout@v2
+      - name: "Env: set package version"
+        run: >
+          echo "APP_VERSION=$(cat package.json | grep version | head -1 | awk
+          -F: '{ print $2 }' | sed 's/[",\t ]//g')" >> $GITHUB_ENV
+      - name: "Env: setup DEV environment"
+        run: |
+          cat .env.dev > .env
+          cat .env >> $GITHUB_ENV
+      - name: "Slack: preparing"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
         env:
           SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
-          SLACK_USERNAME: Github Actions
-          SLACK_CHANNEL: ${{ env.SLACK_LOG_CHANEL }}
-          SLACK_AVATAR: repository
-        uses: Ilshidur/action-slack@master
         with:
-          args: ":control_knobs: :building_construction: Admin panel has been deployed to `QA`"
+          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :new: `v${{ env.APP_VERSION }}`:
+            Preparing for a new `${{ env.APP_ENV }}` build"
+      - name: "AWS: Configure"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "CLI: install"
+        run: |
+          cd scripts
+          make
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+          cd ..
+          git reset --hard
+      - name: "CLI: set release notes"
+        run: |
+          echo "APP_RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          do-cli changelog --version=$APP_VERSION >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: "Yarn: install"
+        run: yarn install
+      - name: "Yarn: lint"
+        run: |
+          yarn lint
+      - name: "Slack: linter"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+        with:
+          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :white_check_mark: `v${{ env.APP_VERSION }}`: Linter passed"
+      - name: "Yarn: test"
+        run: |
+          yarn test:coverage
+          echo "APP_COVERAGE_LINES=$(cat ./coverage/coverage-summary.json | jq '.total.lines.pct')" >> $GITHUB_ENV
+          echo "APP_COVERAGE_STATEMENTS=$(cat ./coverage/coverage-summary.json | jq '.total.statements.pct')" >> $GITHUB_ENV
+          echo "APP_COVERAGE_FUNCTIONS=$(cat ./coverage/coverage-summary.json | jq '.total.functions.pct')" >> $GITHUB_ENV
+          echo "APP_COVERAGE_BRANCHES=$(cat ./coverage/coverage-summary.json | jq '.total.branches.pct')" >> $GITHUB_ENV
+      - name: "Slack: tests"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+        with:
+          args: |
+            :control_knobs: ${{ env.APP_ENV_EMOJI }} :white_check_mark: `v${{env.APP_VERSION }}`: Tests passed. Coverage:
+            Lines: `${{ env.APP_COVERAGE_LINES }}%`
+            Statements: `${{ env.APP_COVERAGE_STATEMENTS }}%`
+            Functions: `${{ env.APP_COVERAGE_FUNCTIONS }}%`
+            Branches: `${{ env.APP_COVERAGE_BRANCHES }}%`
+      - name: "Slack: build start"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+        with:
+          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :fire: `v${{ env.APP_VERSION
+            }}`: Build started"
+      - name: "Yarn: dist"
+        run: yarn dist
+      - name: "Slack: build finish"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+        with:
+          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :checkered_flag: `v${{
+            env.APP_VERSION }}`: Build finished"
+      - name: "Slack: deployed"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+        with:
+          args: |
+            :control_knobs: ${{ env.APP_ENV_EMOJI }} :rocket: `v${{ env.APP_VERSION }}`: The webapp has been deployed to the `${{ env.APP_ENV }}` environment
+            ${{ env.APP_URL }}
+      - name: "Slack: publish release notes"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_NOTES_WEBHOOK }}
+        with:
+          args: |
+            :control_knobs: ${{ env.APP_ENV_EMOJI }} `v${{ env.APP_VERSION }}`:
+            ${{ env.APP_RELEASE_NOTES }}
+      - name: "Slack: failure"
+        if: ${{ (env.SLACK_ENABLED == 'true') && failure() }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
+        with:
+          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :warning: `v${{ env.APP_VERSION }}`: The deploy workflow failed for the `${{ env.APP_ENV }}` environment"
