@@ -83,7 +83,7 @@ jobs:
             env.APP_VERSION }}`: Linter passed"
       - name: "Yarn: test"
         run: |
-          yarn test:coverag
+          yarn test:coverage
           mv ./coverage/coverage-summary.json c.json
           echo "APP_COVERAGE_LINES=$(cat ./c.json | jq '.total.lines.pct')" >> $GITHUB_ENV
           echo "APP_COVERAGE_STATEMENTS=$(cat ./c.json | jq '.total.statements.pct')" >> $GITHUB_ENV
