@@ -29,6 +29,22 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+  coverageReporters: ['json', 'json-summary', 'lcov', 'text-summary', 'clover'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!**/node_modules/**',
+    '!src/**/*.d.ts',
+    '!src/index.tsx',
+    '!src/serviceWorker.ts',
+    '!src/reportWebVitals.ts',
+    '!src/setupTests.ts',
+  ],
+  coveragePathIgnorePatterns: [
+    './src/*/types.{ts,tsx}',
+    './src/index.tsx',
+    './src/serviceWorker.ts',
+    './src/setupTests.ts',
+  ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   moduleNameMapper,

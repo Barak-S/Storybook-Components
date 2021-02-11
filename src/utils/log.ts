@@ -12,7 +12,7 @@ export enum LogLevel {
 
 let enabled: boolean = true;
 let colorized: boolean = false;
-const minLevel: LogLevel = LogLevel.Debug;
+const minLevel: LogLevel = LogLevel.Trace;
 
 export const setLogEnabled = (val: boolean) => {
   enabled = val;
@@ -119,25 +119,8 @@ const logPrefixData = (level: LogLevel, module: string): string[] => {
   return [`%c[${symbol}][${module}]:`, colorStr];
 };
 
-const levelToSymbol = (level: LogLevel) => {
-  switch (level) {
-    case LogLevel.Debug:
-      return '-';
-    case LogLevel.Info:
-      return '+';
-    case LogLevel.Warn:
-      return '!';
-    case LogLevel.Error:
-      return 'x';
-    case LogLevel.Trace:
-      return '*';
-    default:
-      return '';
-  }
-};
-
 export const logToStr = (m: string, level: LogLevel, data: unknown[]): string => {
-  const symbol = levelToSymbol(level);
+  const symbol = logLevelToSymbol(level);
   const str = logDataArrToStr(data);
   return `[${symbol}][${m}]: ${str}`;
 };

@@ -7,7 +7,7 @@ import { MergeStyleVals, Style } from './types';
  * @param {MergeStyleVals} arr - styles
  */
 export const m = (...arr: MergeStyleVals[]): Style => {
-  if (!arr) {
+  if (!arr || !arr.length) {
     return {};
   }
   let style: Style = {};

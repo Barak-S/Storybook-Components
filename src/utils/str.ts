@@ -8,8 +8,6 @@ export const pad = (val: number | string, max: number): string => {
 
 export const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
-// Errors
-
 /**
  * Convert unknown error to string
  * @param err - Error, string, number or an object with `toString()` property
@@ -30,5 +28,6 @@ export const errToStr = (err: unknown): string | undefined => {
   if (isUnknowDict(err) && isFunction(err.toString)) {
     return err.toString();
   }
+  /* istanbul ignore next */
   return undefined;
 };

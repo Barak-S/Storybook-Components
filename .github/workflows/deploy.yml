@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
       - release/**
       - beta
       - master
@@ -99,13 +98,13 @@ jobs:
             :control_knobs: ${{ env.APP_ENV_EMOJI }} :white_check_mark:
             `v${{env.APP_VERSION }}`: Tests passed. Coverage:
 
-            Lines: `${{ env.APP_COVERAGE_LINES }}%`
+            - Lines: `${{ env.APP_COVERAGE_LINES }}%`
 
-            Statements: `${{ env.APP_COVERAGE_STATEMENTS }}%`
+            - Statements: `${{ env.APP_COVERAGE_STATEMENTS }}%`
 
-            Functions: `${{ env.APP_COVERAGE_FUNCTIONS }}%`
+            - Functions: `${{ env.APP_COVERAGE_FUNCTIONS }}%`
 
-            Branches: `${{ env.APP_COVERAGE_BRANCHES }}%`
+            - Branches: `${{ env.APP_COVERAGE_BRANCHES }}%`
       - name: "Slack: build start"
         if: ${{ env.SLACK_ENABLED == 'true' }}
         uses: Ilshidur/action-slack@master

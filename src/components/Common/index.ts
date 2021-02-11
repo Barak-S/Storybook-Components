@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export * from './Image';
 export * from './ScreenTitle';
 export * from './Text';
