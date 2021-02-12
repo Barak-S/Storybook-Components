@@ -34,6 +34,7 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
     '!src/**/*.d.ts',
+    '!src/**/story.{ts,tsx}',
     '!src/index.tsx',
     '!src/serviceWorker.ts',
     '!src/reportWebVitals.ts',
