@@ -158,6 +158,7 @@ const styles: Styles = {
     color: colors.gray,
     fontSize: px(16),
     marginTop: 10,
+    position: 'relative',
   },
   form: {
     marginTop: 45,
