@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import { FacebookIcon, GoogleIcon, LinkedinIcon } from 'components/Icons';
 import React, { FC, MouseEvent, ReactNode } from 'react';
-import { colors } from 'styles';
+import { colors, StyleProps } from 'styles';
 
 import { useStyles } from './styles';
 
@@ -13,7 +13,7 @@ interface SocialNetworkIconConfig {
   bgColor: string;
 }
 
-interface Props {
+interface Props extends StyleProps {
   type: SocialNetworkType;
   disabled?: boolean;
   onClick?: () => void;
@@ -30,7 +30,7 @@ const getSocialButtonData = (type: SocialNetworkType): SocialNetworkIconConfig =
   }
 };
 
-export const SocialButton: FC<Props> = ({ type, disabled, onClick }) => {
+export const SocialButton: FC<Props> = ({ style, type, disabled, onClick }) => {
   const handleClickButton = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (onClick) {
@@ -43,7 +43,8 @@ export const SocialButton: FC<Props> = ({ type, disabled, onClick }) => {
 
   return (
     <Button
-      className={classes.root}
+      className={classes.container}
+      style={style}
       disabled={disabled}
       startIcon={icon}
       variant="contained"

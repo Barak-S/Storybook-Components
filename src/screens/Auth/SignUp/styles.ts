@@ -36,4 +36,9 @@ export const styles: Styles = {
   password: {
     marginBottom: 30,
   },
+  copyright: {
+    position: 'absolute',
+    left: 82,
+    bottom: 41,
+  },
 };

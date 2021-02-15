@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
-import { CheckboxInputProps } from './types';
-import { useStyles } from './styles';
+import { makeStyles } from '@material-ui/core';
+import { colors } from 'styles';
 
-export const CheckboxInput = (props: CheckboxInputProps) => {
+import { CheckboxProps } from '@material-ui/core';
+
+interface Props extends CheckboxProps {
+  label?: string;
+}
+
+export const CheckboxInput: FC<Props> = props => {
   const { label } = props;
   const classes = useStyles();
-  return <FormControlLabel className={classes.root} control={<Checkbox {...props} />} label={label} />;
+  return <FormControlLabel className={classes.container} control={<Checkbox {...props} />} label={label} />;
 };
+
+const useStyles = makeStyles(() => ({
+  container: {
+    marginRight: 0,
+    '& [class*="MuiFormControlLabel"]': {
+      color: colors.brownishGrey,
+    },
+  },
+}));
 
 export default CheckboxInput;

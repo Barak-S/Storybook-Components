@@ -3,7 +3,7 @@ import { colors } from 'styles';
 
 export const useStyles = (bgColor: string) =>
   makeStyles(() => ({
-    root: {
+    container: {
       width: '100%',
       background: bgColor,
       height: 41,

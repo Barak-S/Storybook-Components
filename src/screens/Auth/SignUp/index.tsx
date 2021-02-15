@@ -9,24 +9,20 @@ import { globalStyles, StyleProps } from 'styles';
 import { Log } from 'utils';
 
 import { styles } from './styles';
+import { FormData, FormErrs, getFormErrs, polishFormData } from './utils';
 
 const log = Log('screens.AuthSignUp');
 
 type Props = StyleProps;
 
-interface FormData {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-}
-
 export const AuthSignUpScreen: FC<Props> = () => {
   const [data, setData] = useState<FormData>({});
-  const [err] = useState<string | undefined>();
+  const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
+  const [reqErr] = useState<string | undefined>(undefined);
   const [processing] = useState<boolean>(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
+  const { email, firstName, lastName, password, confirmPassword } = data;
 
   const handleShowPassword = (): void => {
     setIsPasswordVisible(isPasswordVisible => !isPasswordVisible);
@@ -36,18 +32,22 @@ export const AuthSignUpScreen: FC<Props> = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { value } = event.currentTarget;
-    setData({ ...data, [key]: value });
+    setData(polishFormData({ ...data, [key]: value }));
   };
 
-  const handleSignInPress = async () => {
-    const { email, firstName, lastName } = data;
-
-    if (!email || !firstName || !lastName) {
+  const handleSubmitPress = async () => {
+    const curErrs = getFormErrs(data);
+    if (curErrs) {
+      return setErrs(curErrs);
+    }
+    setErrs(undefined);
+    if (!email || !firstName || !lastName || !password || !confirmPassword) {
       return;
     }
-
-    log.debug('handle sign in press');
+    log.debug('handle submit press');
   };
+
+  const submitDissabled = !email || !firstName || !lastName || !password || !confirmPassword || !!errs;
 
   return (
     <>
@@ -67,6 +67,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 label="First Name"
                 variant="filled"
                 fullWidth={true}
+                InputProps={{ inputProps: { maxLength: 35 } }}
+                error={!!errs?.firstName}
+                helperText={errs?.firstName}
                 onChange={handleTextFieldChanged('firstName')}
               />
             </View>
@@ -76,6 +79,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 label="Last Name"
                 variant="filled"
                 fullWidth={true}
+                InputProps={{ inputProps: { maxLength: 35 } }}
+                error={!!errs?.lastName}
+                helperText={errs?.lastName}
                 onChange={handleTextFieldChanged('lastName')}
               />
             </View>
@@ -87,7 +93,10 @@ export const AuthSignUpScreen: FC<Props> = () => {
               variant="filled"
               type="email"
               fullWidth={true}
+              InputProps={{ inputProps: { maxLength: 35 } }}
               disabled={processing}
+              error={!!errs?.email}
+              helperText={errs?.email}
               onChange={handleTextFieldChanged('email')}
             />
           </View>
@@ -102,6 +111,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
                   type="password"
                   disabled={processing}
                   isPasswordVisible={isPasswordVisible}
+                  error={!!errs?.password}
+                  helperText={errs?.password}
+                  InputProps={{ inputProps: { maxLength: 100 } }}
                   onChange={handleTextFieldChanged('password')}
                   onShowPasswordClick={handleShowPassword}
                 />
@@ -113,6 +125,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 disabled={processing}
                 variant="filled"
                 isPasswordVisible={isPasswordVisible}
+                error={!!errs?.confirmPassword}
+                helperText={errs?.confirmPassword}
+                InputProps={{ inputProps: { maxLength: 100 } }}
                 onChange={handleTextFieldChanged('confirmPassword')}
                 onShowPasswordClick={handleShowPassword}
               />
@@ -126,20 +141,20 @@ export const AuthSignUpScreen: FC<Props> = () => {
           </View>
           <View style={[globalStyles.row, globalStyles.authSubmitWrap]}>
             <View style={styles.errWrap} justifyContent="center" alignItems="center">
-              {!!err && <Text style={styles.err}>{err}</Text>}
+              {!!reqErr && <Text style={styles.err}>{reqErr}</Text>}
             </View>
             <Button
               style={globalStyles.authSubmitBtn}
               variant="contained"
               color="primary"
-              disabled={processing}
-              onClick={handleSignInPress}
+              disabled={processing || submitDissabled}
+              onClick={handleSubmitPress}
             >
               Sign Up
             </Button>
           </View>
         </AuthFormContainer>
-        <AuthCopyrights />
+        <AuthCopyrights style={styles.copyright} />
       </AuthScreenBackground>
     </>
   );

@@ -18,6 +18,7 @@ export const TextInput = ({ iconStart, iconEnd, ...props }: TextInputProps) => {
       InputProps={{
         startAdornment: iconStart ? startIconProps : undefined,
         endAdornment: iconEnd ? endIconProps : undefined,
+        ...(props.InputProps ? props.InputProps : {}),
       }}
     />
   );

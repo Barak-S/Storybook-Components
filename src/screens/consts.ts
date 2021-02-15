@@ -1,8 +1,9 @@
 /* istanbul ignore file */
 export const routes = {
   index: '/',
-  signup: '/signup',
-  signin: '/signin',
-  reset: '/reset',
-  recover: '/recover',
+  auth: '/auth',
+  signup: '/auth/signup',
+  signin: '/auth/signin',
+  reset: '/auth/reset',
+  recover: '/auth/recover',
 };

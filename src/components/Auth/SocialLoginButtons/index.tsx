@@ -1,11 +1,11 @@
+import { SocialButton } from 'components/Buttons';
 import React, { FC } from 'react';
 
-import { SocialButton, Text, View } from '../../Common';
+import { Text, View } from 'components/Common';
 import { styles, useStyles } from './styles';
 
 export const AuthSocialLoginButtons: FC = () => {
   const classes = useStyles();
-
   return (
     <View style={styles.container} column alignItems="center">
       <View className={classes.container} row justifyContent="center">

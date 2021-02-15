@@ -3,7 +3,7 @@ const appPath = path.resolve(__dirname, '../src');
 
 module.exports = {
   stories: ['../**/story.tsx'],
-  addons: ['@storybook/addon-docs'],
+  addons: ['@storybook/addon-docs', '@storybook/addon-actions'],
   webpackFinal: async config => {
     config.resolve = {
       alias: {

@@ -8,6 +8,8 @@ export const pad = (val: number | string, max: number): string => {
 
 export const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
+export const clearNameStr = (val: string): string => val.replace(/[^\w\s,.'-]+/g, '');
+
 /**
  * Convert unknown error to string
  * @param err - Error, string, number or an object with `toString()` property
