@@ -3,20 +3,23 @@ import { EyeClosedIcon, EyeIcon } from 'components/Icons';
 import React, { FC, MouseEvent } from 'react';
 
 import { TextInput } from '..';
-import { TextInputProps } from 'components/Forms/TextInput/types';
+import { TextInputProps } from 'components/Forms/TextInput';
 
-interface PasswordInputProps {
-  isPasswordVisible: boolean;
-  onShowPasswordClick: () => void;
+interface CustomProps {
+  visible: boolean;
+  variant?: TextInputProps['variant'];
+  onChangeVisibleClick?: () => void;
 }
 
-type Props = TextInputProps & PasswordInputProps;
+type Props = TextInputProps & CustomProps;
 
-export const PasswordInput: FC<Props> = ({ onShowPasswordClick, isPasswordVisible, ...props }) => {
+export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...props }) => {
   const { value, disabled: isInputDisabled } = props;
 
   const handleClickShowPassword = (): void => {
-    onShowPasswordClick();
+    if (onChangeVisibleClick) {
+      onChangeVisibleClick();
+    }
   };
 
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
@@ -26,7 +29,7 @@ export const PasswordInput: FC<Props> = ({ onShowPasswordClick, isPasswordVisibl
   return (
     <TextInput
       {...props}
-      type={isPasswordVisible ? 'text' : 'password'}
+      type={visible ? 'text' : 'password'}
       iconEnd={
         <IconButton
           aria-label="toggle password visibility"
@@ -35,11 +38,12 @@ export const PasswordInput: FC<Props> = ({ onShowPasswordClick, isPasswordVisibl
           edge="end"
           disabled={isInputDisabled || !value}
         >
-          {isPasswordVisible ? <EyeClosedIcon /> : <EyeIcon />}
+          {visible ? <EyeClosedIcon /> : <EyeIcon />}
         </IconButton>
       }
     />
   );
 };
 
+export type PasswordInputProps = Props;
 export default PasswordInput;

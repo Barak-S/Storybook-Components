@@ -21,15 +21,10 @@ interface FormData {
 }
 
 export const AuthSignInScreen: FC<Props> = () => {
-  const classes = useStyles();
   const [data, setData] = useState<FormData>({});
   const [err] = useState<string | undefined>();
   const [processing] = useState<boolean>(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-
-  const handleShowPassword = (): void => {
-    setIsPasswordVisible(isPasswordVisible => !isPasswordVisible);
-  };
+  const [passVisible, setPassVisible] = useState<boolean>(false);
 
   const handleTextFieldChanged = (key: keyof FormData) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -47,6 +42,8 @@ export const AuthSignInScreen: FC<Props> = () => {
 
     log.debug('handle log in press');
   };
+
+  const classes = useStyles();
 
   return (
     <>
@@ -72,8 +69,6 @@ export const AuthSignInScreen: FC<Props> = () => {
                 <TextInput
                   value={data.userName || ''}
                   label="First Name"
-                  variant="filled"
-                  fullWidth={true}
                   iconStart={<UserIcon />}
                   onChange={handleTextFieldChanged('userName')}
                 />
@@ -81,14 +76,11 @@ export const AuthSignInScreen: FC<Props> = () => {
               <View style={[globalStyles.row, globalStyles.lastgChild]}>
                 <PasswordInput
                   value={data.password || ''}
-                  fullWidth={true}
                   label="Password"
-                  variant="filled"
-                  type="password"
                   disabled={processing}
-                  isPasswordVisible={isPasswordVisible}
+                  visible={passVisible}
                   iconStart={<LockIcon />}
-                  onShowPasswordClick={handleShowPassword}
+                  onChangeVisibleClick={() => setPassVisible(val => !val)}
                   onChange={handleTextFieldChanged('password')}
                 />
               </View>

@@ -20,13 +20,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
   const [reqErr] = useState<string | undefined>(undefined);
   const [processing] = useState<boolean>(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [passVisible, setPassVisible] = useState<boolean>(false);
 
   const { email, firstName, lastName, password, confirmPassword } = data;
-
-  const handleShowPassword = (): void => {
-    setIsPasswordVisible(isPasswordVisible => !isPasswordVisible);
-  };
 
   const handleTextFieldChanged = (key: keyof FormData) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -65,8 +61,6 @@ export const AuthSignUpScreen: FC<Props> = () => {
               <TextInput
                 value={data.firstName || ''}
                 label="First Name"
-                variant="filled"
-                fullWidth={true}
                 InputProps={{ inputProps: { maxLength: 35 } }}
                 error={!!errs?.firstName}
                 helperText={errs?.firstName}
@@ -77,8 +71,6 @@ export const AuthSignUpScreen: FC<Props> = () => {
               <TextInput
                 value={data.lastName || ''}
                 label="Last Name"
-                variant="filled"
-                fullWidth={true}
                 InputProps={{ inputProps: { maxLength: 35 } }}
                 error={!!errs?.lastName}
                 helperText={errs?.lastName}
@@ -90,9 +82,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
             <TextInput
               value={data.email || ''}
               label="Your Email"
-              variant="filled"
               type="email"
-              fullWidth={true}
               InputProps={{ inputProps: { maxLength: 35 } }}
               disabled={processing}
               error={!!errs?.email}
@@ -105,31 +95,26 @@ export const AuthSignUpScreen: FC<Props> = () => {
               <View style={styles.password} flex="1">
                 <PasswordInput
                   value={data.password || ''}
-                  fullWidth={true}
                   label="Password"
-                  variant="filled"
-                  type="password"
                   disabled={processing}
-                  isPasswordVisible={isPasswordVisible}
+                  visible={passVisible}
                   error={!!errs?.password}
                   helperText={errs?.password}
                   InputProps={{ inputProps: { maxLength: 100 } }}
                   onChange={handleTextFieldChanged('password')}
-                  onShowPasswordClick={handleShowPassword}
+                  onChangeVisibleClick={() => setPassVisible(val => !val)}
                 />
               </View>
               <PasswordInput
                 value={data.confirmPassword || ''}
-                fullWidth={true}
                 label="Confirm Password"
                 disabled={processing}
-                variant="filled"
-                isPasswordVisible={isPasswordVisible}
+                visible={passVisible}
                 error={!!errs?.confirmPassword}
                 helperText={errs?.confirmPassword}
                 InputProps={{ inputProps: { maxLength: 100 } }}
                 onChange={handleTextFieldChanged('confirmPassword')}
-                onShowPasswordClick={handleShowPassword}
+                onChangeVisibleClick={() => setPassVisible(val => !val)}
               />
             </View>
             <View flex="1" style={globalStyles.halfBlock}>

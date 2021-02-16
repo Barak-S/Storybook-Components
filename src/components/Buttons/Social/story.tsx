@@ -11,16 +11,16 @@ export default {
 
 export const Basic = () => (
   <View column={true} style={{ width: 200 }}>
-    <SocialButton type="facebook" onClick={action('onClick')} />
-    <SocialButton style={{ marginTop: 10 }} type="google" onClick={action('onClick')} />
-    <SocialButton style={{ marginTop: 10 }} type="linkedin" onClick={action('onClick')} />
+    <SocialButton style={{ marginBottom: 10 }} type="facebook" onClick={action('onClick')} />
+    <SocialButton style={{ marginBottom: 10 }} type="google" onClick={action('onClick')} />
+    <SocialButton type="linkedin" onClick={action('onClick')} />
   </View>
 );
 
 export const Disabled = () => (
   <View column={true} style={{ width: 200 }}>
-    <SocialButton type="facebook" disabled={true} onClick={action('onClick')} />
-    <SocialButton style={{ marginTop: 10 }} disabled={true} type="google" onClick={action('onClick')} />
-    <SocialButton style={{ marginTop: 10 }} disabled={true} type="linkedin" onClick={action('onClick')} />
+    <SocialButton style={{ marginBottom: 10 }} type="facebook" disabled={true} onClick={action('onClick')} />
+    <SocialButton style={{ marginBottom: 10 }} disabled={true} type="google" onClick={action('onClick')} />
+    <SocialButton disabled={true} type="linkedin" onClick={action('onClick')} />
   </View>
 );

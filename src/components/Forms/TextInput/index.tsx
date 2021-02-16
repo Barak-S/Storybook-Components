@@ -1,20 +1,28 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { FC, ReactNode } from 'react';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { InputAdornment } from '@material-ui/core';
 import { useStyles } from './styles';
-import { TextInputProps } from './types';
 
-export const TextInput = ({ iconStart, iconEnd, ...props }: TextInputProps) => {
-  const { value } = props;
-  const isStartIcon = Boolean(iconStart);
-  const classes = useStyles(value, isStartIcon);
+interface CustomProps {
+  iconStart?: ReactNode;
+  iconEnd?: ReactNode;
+  valid?: boolean;
+}
+
+type Props = TextFieldProps & CustomProps;
+
+export const TextInput: FC<Props> = ({ iconStart, iconEnd, valid, ...props }) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
   const endIconProps = <InputAdornment position="end">{iconEnd}</InputAdornment>;
+  const isStartIcon = !!iconStart;
+  const { value } = props;
+  const classes = useStyles({ value, isStartIcon, valid });
 
   return (
     <TextField
-      {...props}
       className={classes.root}
+      fullWidth={true}
+      {...props}
       InputProps={{
         startAdornment: iconStart ? startIconProps : undefined,
         endAdornment: iconEnd ? endIconProps : undefined,
@@ -24,4 +32,5 @@ export const TextInput = ({ iconStart, iconEnd, ...props }: TextInputProps) => {
   );
 };
 
+export type TextInputProps = Props;
 export default TextInput;
