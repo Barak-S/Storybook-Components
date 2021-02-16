@@ -14,7 +14,6 @@ export const useStyles = (bgColor: string) =>
       color: colors.white,
       fontSize: 12,
       fontWeight: 400,
-      marginRight: 15,
       '&:last-child': {
         marginRight: 0,
         marginBottom: 0,

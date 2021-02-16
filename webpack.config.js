@@ -36,11 +36,11 @@ module.exports = (env = {}) => {
       extensions: ['.js', '.ts', '.tsx'],
       symlinks: false,
       cacheWithContext: false,
+      fallback: { crypto: false },
     },
     module: {
       rules: [
         { test: /\.tsx?$/, use: 'ts-loader', include: srcPath },
-        // Use url-loader for the files under 10k, for other cases - file-loader
         { test: /\.(md)/, use: ['raw-loader', { loader: 'markdown-loader' }], include: srcPath },
         {
           test: /\.(woff|woff2|eot|ttf|svg|png|jpg)/,
@@ -128,5 +128,6 @@ module.exports = (env = {}) => {
       type: 'filesystem',
       cacheDirectory: path.resolve(__dirname, '.cache'),
     },
+    devtool: 'source-map',
   };
 };

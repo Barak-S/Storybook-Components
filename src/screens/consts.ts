@@ -6,4 +6,5 @@ export const routes = {
   signin: '/auth/signin',
   reset: '/auth/reset',
   recover: '/auth/recover',
+  dashboard: '/dashboard',
 };

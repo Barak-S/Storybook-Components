@@ -26,7 +26,7 @@ export const styles: Styles = {
     color: colors.brownishGreyTwo,
   },
   errWrap: {
-    height: 0,
+    height: 40,
   },
   err: {
     color: colors.error,

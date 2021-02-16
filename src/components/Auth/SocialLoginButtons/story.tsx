@@ -1,4 +1,5 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 
 import AuthSocialLoginButtons from '.';
 
@@ -7,4 +8,4 @@ export default {
   component: AuthSocialLoginButtons,
 };
 
-export const Basic = () => <AuthSocialLoginButtons />;
+export const Basic = () => <AuthSocialLoginButtons onBtnClick={action('onBtnClick')} />;

@@ -5,21 +5,21 @@ import { colors, StyleProps } from 'styles';
 
 import { useStyles } from './styles';
 
-type SocialNetworkType = 'facebook' | 'google' | 'linkedin';
+interface Props extends StyleProps {
+  type: NetworkType;
+  disabled?: boolean;
+  onClick?: (type: NetworkType) => void;
+}
 
-interface SocialNetworkIconConfig {
+type NetworkType = 'facebook' | 'google' | 'linkedin';
+
+interface IconConfig {
   title: string;
   icon: ReactNode;
   bgColor: string;
 }
 
-interface Props extends StyleProps {
-  type: SocialNetworkType;
-  disabled?: boolean;
-  onClick?: () => void;
-}
-
-const getSocialButtonData = (type: SocialNetworkType): SocialNetworkIconConfig => {
+const getSocialButtonData = (type: NetworkType): IconConfig => {
   switch (type) {
     case 'facebook':
       return { title: 'facebook', icon: <FacebookIcon />, bgColor: colors.dodgerBlue };
@@ -34,7 +34,7 @@ export const SocialButton: FC<Props> = ({ style, type, disabled, onClick }) => {
   const handleClickButton = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (onClick) {
-      onClick();
+      onClick(type);
     }
   };
 
@@ -55,4 +55,5 @@ export const SocialButton: FC<Props> = ({ style, type, disabled, onClick }) => {
   );
 };
 
+export type SocialButtonNetworkType = NetworkType;
 export default SocialButton;

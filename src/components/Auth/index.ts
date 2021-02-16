@@ -3,3 +3,4 @@ export * from './Copyrights';
 export * from './FormContainer';
 export * from './ScreenBackground';
 export * from './SocialLoginButtons';
+export * from './SectionSplitter';

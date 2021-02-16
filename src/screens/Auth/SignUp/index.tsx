@@ -1,12 +1,20 @@
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import logoImg from 'assets/logo.png';
-import { AuthCopyrights, AuthFormContainer, AuthScreenBackground } from 'components/Auth';
+import {
+  AuthCopyrights,
+  AuthFormContainer,
+  AuthScreenBackground,
+  AuthSectionSplitter,
+  AuthSocialLoginButtons,
+} from 'components/Auth';
 import { Image, ScreenTitle, Text, TextLink, View } from 'components/Common';
 import { PasswordInput, TextInput } from 'components/Forms';
+import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
-import { Log } from 'utils';
+import { errToStr, Log, validators } from 'utils';
 
 import { styles } from './styles';
 import { FormData, FormErrs, getFormErrs, polishFormData } from './utils';
@@ -18,9 +26,12 @@ type Props = StyleProps;
 export const AuthSignUpScreen: FC<Props> = () => {
   const [data, setData] = useState<FormData>({});
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
-  const [reqErr] = useState<string | undefined>(undefined);
-  const [processing] = useState<boolean>(false);
+  const [reqErr, setReqErr] = useState<string | undefined>(undefined);
+  const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
+
+  const history = useHistory();
+  const { signUp } = useAuth();
 
   const { email, firstName, lastName, password, confirmPassword } = data;
 
@@ -36,11 +47,22 @@ export const AuthSignUpScreen: FC<Props> = () => {
     if (curErrs) {
       return setErrs(curErrs);
     }
-    setErrs(undefined);
     if (!email || !firstName || !lastName || !password || !confirmPassword) {
       return;
     }
     log.debug('handle submit press');
+    try {
+      setErrs(undefined);
+      setReqErr(undefined);
+      setProcessing(true);
+
+      await signUp({ email, firstName, lastName, password });
+
+      history.push({ pathname: routes.dashboard });
+    } catch (err) {
+      setProcessing(false);
+      setReqErr(isCognitoErrResponse(err) ? err.message : errToStr(err));
+    }
   };
 
   const submitDissabled = !email || !firstName || !lastName || !password || !confirmPassword || !!errs;
@@ -59,7 +81,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <View style={globalStyles.row} row={true} justifyContent={'space-between'}>
             <View style={globalStyles.halfBlock} flex="1">
               <TextInput
-                value={data.firstName || ''}
+                value={firstName || ''}
                 label="First Name"
                 InputProps={{ inputProps: { maxLength: 35 } }}
                 error={!!errs?.firstName}
@@ -69,7 +91,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
             </View>
             <View style={globalStyles.halfBlock} flex="1">
               <TextInput
-                value={data.lastName || ''}
+                value={lastName || ''}
                 label="Last Name"
                 InputProps={{ inputProps: { maxLength: 35 } }}
                 error={!!errs?.lastName}
@@ -80,11 +102,12 @@ export const AuthSignUpScreen: FC<Props> = () => {
           </View>
           <View style={[globalStyles.row, styles.rowIndent]}>
             <TextInput
-              value={data.email || ''}
+              value={email || ''}
               label="Your Email"
               type="email"
               InputProps={{ inputProps: { maxLength: 35 } }}
               disabled={processing}
+              valid={!validators.getEmailErr(email)}
               error={!!errs?.email}
               helperText={errs?.email}
               onChange={handleTextFieldChanged('email')}
@@ -94,10 +117,11 @@ export const AuthSignUpScreen: FC<Props> = () => {
             <View style={globalStyles.halfBlock} column={true} flex="1">
               <View style={styles.password} flex="1">
                 <PasswordInput
-                  value={data.password || ''}
+                  value={password || ''}
                   label="Password"
                   disabled={processing}
                   visible={passVisible}
+                  valid={!validators.getPasswordErr(password)}
                   error={!!errs?.password}
                   helperText={errs?.password}
                   InputProps={{ inputProps: { maxLength: 100 } }}
@@ -106,12 +130,13 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 />
               </View>
               <PasswordInput
-                value={data.confirmPassword || ''}
+                value={confirmPassword || ''}
                 label="Confirm Password"
                 disabled={processing}
                 visible={passVisible}
                 error={!!errs?.confirmPassword}
                 helperText={errs?.confirmPassword}
+                valid={!validators.getPasswordErr(confirmPassword)}
                 InputProps={{ inputProps: { maxLength: 100 } }}
                 onChange={handleTextFieldChanged('confirmPassword')}
                 onChangeVisibleClick={() => setPassVisible(val => !val)}
@@ -135,9 +160,11 @@ export const AuthSignUpScreen: FC<Props> = () => {
               disabled={processing || submitDissabled}
               onClick={handleSubmitPress}
             >
-              Sign Up
+              {processing ? <CircularProgress color="secondary" size={20} /> : 'Sign Up'}
             </Button>
           </View>
+          <AuthSectionSplitter>{`Or sign up with`}</AuthSectionSplitter>
+          <AuthSocialLoginButtons />
         </AuthFormContainer>
         <AuthCopyrights style={styles.copyright} />
       </AuthScreenBackground>
