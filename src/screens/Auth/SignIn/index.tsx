@@ -91,7 +91,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   type="email"
                   valid={!validators.getEmailErr(email)}
                   label="Email"
-                  iconStart={<UserIcon />}
+                  iconStart={<UserIcon style={{ transform: 'scale(1.5)' }} />}
                   onChange={handleTextFieldChanged('email')}
                 />
               </View>
@@ -102,7 +102,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   disabled={processing}
                   visible={passVisible}
                   valid={!validators.getPasswordErr(password)}
-                  iconStart={<LockIcon />}
+                  iconStart={<LockIcon style={{ transform: 'scale(1.3)' }} />}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
                   onChange={handleTextFieldChanged('password')}
                 />
