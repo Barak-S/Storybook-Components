@@ -2,10 +2,6 @@ import { makeStyles } from '@material-ui/core';
 import { colors, Styles } from 'styles';
 
 export const styles: Styles = {
-  row: {
-    marginBottom: 20,
-    width: '100%',
-  },
   header: {
     position: 'absolute',
     top: 0,

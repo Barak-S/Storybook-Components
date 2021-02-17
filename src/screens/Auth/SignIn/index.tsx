@@ -85,7 +85,7 @@ export const AuthSignInScreen: FC<Props> = () => {
               <Title type={'h3'} style={styles.formTitle}>
                 log in
               </Title>
-              <View style={styles.row}>
+              <View style={globalStyles.row}>
                 <TextInput
                   value={email || ''}
                   type="email"

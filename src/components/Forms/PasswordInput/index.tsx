@@ -32,6 +32,7 @@ export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...pro
       type={visible ? 'text' : 'password'}
       iconEnd={
         <IconButton
+          tabIndex={-1}
           aria-label="toggle password visibility"
           onClick={handleClickShowPassword}
           onMouseDown={handleMouseDownPassword}

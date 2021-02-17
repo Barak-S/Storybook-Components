@@ -66,6 +66,9 @@ export const muiTheme = createMuiTheme({
       inputAdornedStart: {
         paddingLeft: 74,
       },
+      inputAdornedEnd: {
+        paddingRight: 50,
+      },
     },
     MuiInput: {
       underline: {
@@ -97,6 +100,9 @@ export const muiTheme = createMuiTheme({
       },
     },
     MuiFormLabel: {
+      root: {
+        pointerEvents: 'none',
+      },
       filled: {
         color: colors.link,
         '& + .MuiInputBase-root > .MuiInputBase-input': {
