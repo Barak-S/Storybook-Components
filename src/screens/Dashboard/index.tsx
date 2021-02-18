@@ -1,10 +1,11 @@
 import { View, Text, ScreenTitle } from 'components/Common';
 import React, { FC } from 'react';
 import { Styles, StyleProps } from 'styles';
-import { Button } from '@material-ui/core';
+import { AppBar, Button, Toolbar } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'core/api';
 import { routes } from 'screens/consts';
+import { DashboardAppBar } from 'components/Dashboard';
 
 type Props = StyleProps;
 
@@ -20,18 +21,21 @@ export const DashboardScreen: FC<Props> = ({ style }) => {
   return (
     <>
       <ScreenTitle title="Dashboard" />
-      <View style={[styles.container, style]} column={true}>
-        <Text>{`Dashboard goes here`}</Text>
-        <Button style={{ width: 200, marginTop: 10 }} variant="contained" color="primary" onClick={handleLogoutClick}>
-          {'Logout'}
-        </Button>
+      <DashboardAppBar
+        onLogoClick={() => history.push({ pathname: routes.dashboard })}
+        onLogoutClick={handleLogoutClick}
+      />
+      <View style={[styles.container, style]} column={true} justifyContent="center" alignItems="center">
+        <Text>{`Dashboard will goes here`}</Text>
       </View>
     </>
   );
 };
 
 const styles: Styles = {
-  container: {},
+  container: {
+    padding: 40,
+  },
 };
 
 export type DashboardScreenProps = Props;
