@@ -190,7 +190,8 @@ jobs:
         with:
           args: >-
             :control_knobs: ${{ env.APP_ENV_EMOJI }} `v${{ env.APP_VERSION }}`:
-            New `${{env.APP_ENV }}` web app has been deployed:
+            A new `${{env.APP_ENV }}` web app has been deployed:
+
 
             Link: ${{ env.APP_URL }}
 
