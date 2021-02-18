@@ -140,22 +140,16 @@ jobs:
             env.APP_ENV }}` environment
 
             ${{ env.APP_URL }}
-      - name: "Slack: publish release notes"
-        if: ${{ env.SLACK_ENABLED == 'true' }}
-        uses: Ilshidur/action-slack@master
-        env:
-          SLACK_WEBHOOK: ${{ env.SLACK_NOTES_WEBHOOK }}
-        with:
-          args: |-
-            :control_knobs: ${{ env.APP_ENV_EMOJI }} `v${{ env.APP_VERSION }}`:
-            ${{ env.APP_RELEASE_NOTES }}
       - name: "Storybook: build"
-        run: "yarn storybook:build"
+        run: yarn storybook:build
       - name: "Storybook: upload"
-        run: |
+        run: >
           ASSET_ID=$(openssl rand -hex 5)
+
           aws s3 sync --acl public-read --follow-symlinks --delete ./storybook-static s3://$AWS_ASSETS_BUCKET/storybook/$ASSET_ID
+
           ASSET_URL="$AWS_ASSETS_URL/storybook/$ASSET_ID"
+
           echo "STORYBOOK_URL=$ASSET_URL" >> $GITHUB_ENV
       - name: "Slack: storybook"
         if: ${{ env.SLACK_ENABLED == 'true' }}
@@ -163,12 +157,19 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
         with:
-          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :art: `v${{ env.APP_VERSION }}`: Storybook has been uploaded\n${{ env.STORYBOOK_URL }}"
+          args: >-
+            :control_knobs: ${{ env.APP_ENV_EMOJI }} :art: `v${{ env.APP_VERSION
+            }}`: Storybook has been uploaded
+
+            ${{ env.STORYBOOK_URL }}
       - name: "Tests: upload coverage"
-        run: |
+        run: >
           ASSET_ID=$(openssl rand -hex 5)
+
           aws s3 sync --acl public-read --follow-symlinks --delete ./coverage/lcov-report s3://$AWS_ASSETS_BUCKET/coverage/$ASSET_ID
+
           ASSET_URL="$AWS_ASSETS_URL/coverage/$ASSET_ID"
+
           echo "TEST_COVERAGE_URL=$ASSET_URL" >> $GITHUB_ENV
       - name: "Slack: tests coverage"
         if: ${{ env.SLACK_ENABLED == 'true' }}
@@ -176,7 +177,29 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ env.SLACK_LOG_WEBHOOK }}
         with:
-          args: ":control_knobs: ${{ env.APP_ENV_EMOJI }} :test_tube: `v${{ env.APP_VERSION }}`: Tests coverage has been uploaded\n${{ env.TEST_COVERAGE_URL }}"
+          args: >-
+            :control_knobs: ${{ env.APP_ENV_EMOJI }} :test_tube: `v${{
+            env.APP_VERSION }}`: Tests coverage has been uploaded
+
+            ${{ env.TEST_COVERAGE_URL }}
+      - name: "Slack: publish release notes"
+        if: ${{ env.SLACK_ENABLED == 'true' }}
+        uses: Ilshidur/action-slack@master
+        env:
+          SLACK_WEBHOOK: ${{ env.SLACK_NOTES_WEBHOOK }}
+        with:
+          args: >-
+            :control_knobs: ${{ env.APP_ENV_EMOJI }} `v${{ env.APP_VERSION }}`:
+            New `${{env.APP_ENV }}` web app has been deployed:
+
+            Link: ${{ env.APP_URL }}
+
+            Storybook: ${{ env.STORYBOOK_URL }}
+
+            Tests coverage: ${{ env.TEST_COVERAGE_URL }}
+
+
+            ${{ env.APP_RELEASE_NOTES }}
       - name: "Slack: failure"
         if: ${{ (env.SLACK_ENABLED == 'true') && failure() }}
         uses: Ilshidur/action-slack@master
