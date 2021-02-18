@@ -2,6 +2,7 @@
 .DS_*
 .env
 .idea
+.jira.d
 .tmp
 .vscode
 *-lock.json
@@ -17,7 +18,7 @@ logs
 node_modules
 npm-debug.log
 stats.*
-yarn-error.log
 storybook-static
+yarn-error.log
 
 !scripts/dist
