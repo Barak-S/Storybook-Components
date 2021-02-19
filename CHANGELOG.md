@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.5] - 2021-02-19
 ### Fixed
+- [DO-32: SignIn/SignUp form data polishers improoved](https://digitaloasis.atlassian.net/browse/DO-32)
+- [DO-32: SignIn/SignUp validators fixed](https://digitaloasis.atlassian.net/browse/DO-32)
+
+## [1.0.5] - 2021-02-19
+### Fixed
 - [DO-38: Typo fixed](https://digitaloasis.atlassian.net/browse/DO-38)
 
 ## [1.0.4] - 2021-02-18
