@@ -1,3 +1,5 @@
+import { isEmpty, values } from 'lodash';
+
 export interface UnknowDict {
   [index: string]: unknown;
 }
@@ -20,3 +22,9 @@ export const isUndefDict = (val: UnknowDict): val is UndefDict => Object.values(
  * @param val - input value
  */
 export const dataOrUndef = <T>(val: T | null | undefined): T | undefined => (val ? val : undefined);
+
+/**
+ * Checks if all propertis of the object are empty
+ * @param val - Some object
+ */
+export const isDictEmpty = (val: UnknowDict): boolean => values(val).every(isEmpty);

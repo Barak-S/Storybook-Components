@@ -9,7 +9,7 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
-import { errToStr, Log, validators } from 'utils';
+import { errToStr, isDictEmpty, Log, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
 
@@ -22,9 +22,11 @@ interface FormData {
   password?: string;
 }
 
+type FormErrs = Partial<Record<keyof FormData, string>> & { request?: string };
+
 export const AuthSignInScreen: FC<Props> = () => {
   const [data, setData] = useState<FormData>({});
-  const [reqErr, setReqErr] = useState<string | undefined>();
+  const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
 
@@ -36,17 +38,24 @@ export const AuthSignInScreen: FC<Props> = () => {
   const handleTextFieldChanged = (key: keyof FormData) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { value } = event.currentTarget;
-    setData({ ...data, [key]: value });
+    setErrs(undefined);
+    setData({ ...data, [key]: event.currentTarget.value });
   };
 
   const handleLogInPress = async () => {
     if (!email || !password) {
       return;
     }
+    const curErrs: FormErrs = {
+      email: validators.getEmailErr(email),
+      password: validators.getPasswordErr(password),
+    };
+    if (!isDictEmpty(curErrs)) {
+      return setErrs(curErrs);
+    }
     log.debug('handle log in press');
     try {
-      setReqErr(undefined);
+      setErrs(undefined);
       setProcessing(true);
 
       log.debug('sign in with email=', email);
@@ -57,7 +66,7 @@ export const AuthSignInScreen: FC<Props> = () => {
     } catch (err) {
       log.err('sign in err=', err);
       setProcessing(false);
-      setReqErr(isCognitoErrResponse(err) ? err.message : errToStr(err));
+      setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
   };
 
@@ -90,6 +99,8 @@ export const AuthSignInScreen: FC<Props> = () => {
                   value={email || ''}
                   type="email"
                   valid={!validators.getEmailErr(email)}
+                  error={!!errs?.email}
+                  helperText={errs?.email}
                   label="Email"
                   iconStart={<UserIcon style={{ transform: 'scale(1.5)' }} />}
                   onChange={handleTextFieldChanged('email')}
@@ -102,6 +113,8 @@ export const AuthSignInScreen: FC<Props> = () => {
                   disabled={processing}
                   visible={passVisible}
                   valid={!validators.getPasswordErr(password)}
+                  error={!!errs?.password}
+                  helperText={errs?.password}
                   iconStart={<LockIcon style={{ transform: 'scale(1.3)' }} />}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
                   onChange={handleTextFieldChanged('password')}
@@ -117,7 +130,7 @@ export const AuthSignInScreen: FC<Props> = () => {
           </View>
           <View style={[globalStyles.row, globalStyles.authSubmitWrap]}>
             <View style={styles.errWrap} justifyContent="center" alignItems="center">
-              {!!reqErr && <Text style={styles.err}>{reqErr}</Text>}
+              {!!errs?.request && <Text style={styles.err}>{errs.request}</Text>}
             </View>
             <Button
               style={globalStyles.authSubmitBtn}

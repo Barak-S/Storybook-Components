@@ -26,7 +26,6 @@ type Props = StyleProps;
 export const AuthSignUpScreen: FC<Props> = () => {
   const [data, setData] = useState<FormData>({});
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
-  const [reqErr, setReqErr] = useState<string | undefined>(undefined);
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
 
@@ -38,8 +37,8 @@ export const AuthSignUpScreen: FC<Props> = () => {
   const handleTextFieldChanged = (key: keyof FormData) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { value } = event.currentTarget;
-    setData(polishFormData({ ...data, [key]: value }));
+    setErrs(undefined);
+    setData(polishFormData({ ...data, [key]: event.currentTarget.value }));
   };
 
   const handleSubmitPress = async () => {
@@ -53,7 +52,6 @@ export const AuthSignUpScreen: FC<Props> = () => {
     log.debug('handle submit press');
     try {
       setErrs(undefined);
-      setReqErr(undefined);
       setProcessing(true);
 
       await signUp({ email, firstName, lastName, password });
@@ -61,7 +59,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
       history.push({ pathname: routes.dashboard });
     } catch (err) {
       setProcessing(false);
-      setReqErr(isCognitoErrResponse(err) ? err.message : errToStr(err));
+      setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
   };
 
@@ -84,6 +82,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 value={firstName || ''}
                 label="First Name"
                 InputProps={{ inputProps: { maxLength: 35 } }}
+                valid={!validators.getNameErr(firstName)}
                 error={!!errs?.firstName}
                 helperText={errs?.firstName}
                 onChange={handleTextFieldChanged('firstName')}
@@ -94,6 +93,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 value={lastName || ''}
                 label="Last Name"
                 InputProps={{ inputProps: { maxLength: 35 } }}
+                valid={!validators.getNameErr(lastName)}
                 error={!!errs?.lastName}
                 helperText={errs?.lastName}
                 onChange={handleTextFieldChanged('lastName')}
@@ -151,7 +151,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
           </View>
           <View style={[globalStyles.row, globalStyles.authSubmitWrap]}>
             <View style={styles.errWrap} justifyContent="center" alignItems="center">
-              {!!reqErr && <Text style={styles.err}>{reqErr}</Text>}
+              {!!errs?.request && <Text style={styles.err}>{errs.request}</Text>}
             </View>
             <Button
               style={globalStyles.authSubmitBtn}
