@@ -9,7 +9,7 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
-import { errToStr, isDictEmpty, Log, validators } from 'utils';
+import { errToStr, isDictEmpty, Log, polishers, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
 
@@ -23,6 +23,11 @@ interface FormData {
 }
 
 type FormErrs = Partial<Record<keyof FormData, string>> & { request?: string };
+
+const polishData = ({ email, password }: FormData): FormData => ({
+  email: polishers.clearEmail(email),
+  password: polishers.clearPassword(password),
+});
 
 export const AuthSignInScreen: FC<Props> = () => {
   const [data, setData] = useState<FormData>({});
@@ -39,7 +44,7 @@ export const AuthSignInScreen: FC<Props> = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setErrs(undefined);
-    setData({ ...data, [key]: event.currentTarget.value });
+    setData(polishData({ ...data, [key]: event.currentTarget.value }));
   };
 
   const handleLogInPress = async () => {
