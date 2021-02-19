@@ -52,7 +52,7 @@ export const DashboardAppBar: FC<Props> = ({ style, onLogoClick, onLogoutClick }
           {'Analytics'}
         </FilledBtn>
         <FilledBtn style={styles.mainItem} href="#">
-          {'User Managment'}
+          {'User Management'}
         </FilledBtn>
       </View>
       <TextBtn href="#">{`Support`}</TextBtn>
