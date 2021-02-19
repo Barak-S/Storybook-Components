@@ -1,4 +1,5 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
+import { appConfig } from 'core/configs';
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
 import { Log } from 'utils';
 
@@ -54,7 +55,10 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const signIn = async (email: string, password: string): Promise<CognitoUser> => {
-    const user = await Auth.signIn(email, password);
+    const user = await Auth.signIn(email, password, {
+      version: appConfig.version,
+      env: appConfig.env,
+    });
     setUser(user);
     return user;
   };
