@@ -1,7 +1,6 @@
 import { View, Text, ScreenTitle } from 'components/Common';
 import React, { FC } from 'react';
 import { Styles, StyleProps } from 'styles';
-import { AppBar, Button, Toolbar } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'core/api';
 import { routes } from 'screens/consts';

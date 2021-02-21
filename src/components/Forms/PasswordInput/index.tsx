@@ -1,9 +1,9 @@
 import { IconButton } from '@material-ui/core';
-import { EyeClosedIcon, EyeIcon } from 'components/Icons';
 import React, { FC, MouseEvent } from 'react';
 
 import { TextInput } from '..';
 import { TextInputProps } from 'components/Forms/TextInput';
+import { Icon } from 'components/Icons';
 
 interface CustomProps {
   visible: boolean;
@@ -26,6 +26,8 @@ export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...pro
     event.preventDefault();
   };
 
+  const iconClassName = visible ? 'lar la-eye-slash' : 'lar la-eye';
+
   return (
     <TextInput
       {...props}
@@ -39,7 +41,7 @@ export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...pro
           edge="end"
           disabled={isInputDisabled || !value}
         >
-          {visible ? <EyeClosedIcon /> : <EyeIcon />}
+          <Icon className={iconClassName} />
         </IconButton>
       }
     />

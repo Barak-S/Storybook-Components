@@ -1,5 +1,4 @@
-import { Button, CircularProgress } from '@material-ui/core';
-import logoImg from 'assets/logo.png';
+import { CircularProgress, Grid, useTheme } from '@material-ui/core';
 import {
   AuthCopyrights,
   AuthFormContainer,
@@ -7,7 +6,8 @@ import {
   AuthSectionSplitter,
   AuthSocialLoginButtons,
 } from 'components/Auth';
-import { Image, ScreenTitle, Text, TextLink, View } from 'components/Common';
+import { SubmitButton } from 'components/Buttons';
+import { Logo, ScreenTitle, Text, TextLink, View } from 'components/Common';
 import { PasswordInput, TextInput } from 'components/Forms';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -16,7 +16,7 @@ import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, Log, validators } from 'utils';
 
-import { styles } from './styles';
+import { styles, useStyles } from './styles';
 import { FormData, FormErrs, getFormErrs, polishFormData } from './utils';
 
 const log = Log('screens.AuthSignUp');
@@ -64,20 +64,22 @@ export const AuthSignUpScreen: FC<Props> = () => {
   };
 
   const submitDissabled = !email || !firstName || !lastName || !password || !confirmPassword || !!errs;
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <>
       <ScreenTitle title="Sign up" />
       <AuthScreenBackground>
-        <Image style={styles.logo} source={logoImg} />
+        <Logo className={classes.logo} />
         <Text style={styles.title}>{`Let’s Get Started`}</Text>
         <Text style={styles.subtitle}>
           {`Already Registered? `}
           <TextLink href={routes.signin}>{`Sign In`}</TextLink>
         </Text>
         <AuthFormContainer>
-          <View style={globalStyles.row} row={true} justifyContent={'space-between'}>
-            <View style={globalStyles.halfBlock} flex="1">
+          <Grid container justify="space-between" spacing={2} style={{ marginBottom: 15 }}>
+            <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
               <TextInput
                 value={firstName || ''}
                 label="First Name"
@@ -87,8 +89,8 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 helperText={errs?.firstName}
                 onChange={handleTextFieldChanged('firstName')}
               />
-            </View>
-            <View style={globalStyles.halfBlock} flex="1">
+            </Grid>
+            <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
               <TextInput
                 value={lastName || ''}
                 label="Last Name"
@@ -98,37 +100,41 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 helperText={errs?.lastName}
                 onChange={handleTextFieldChanged('lastName')}
               />
-            </View>
-          </View>
-          <View style={[globalStyles.row, styles.rowIndent]}>
-            <TextInput
-              value={email || ''}
-              label="Your Email"
-              type="email"
-              InputProps={{ inputProps: { maxLength: 35 } }}
-              disabled={processing}
-              valid={!validators.getEmailErr(email)}
-              error={!!errs?.email}
-              helperText={errs?.email}
-              onChange={handleTextFieldChanged('email')}
-            />
-          </View>
-          <View style={[globalStyles.row, styles.rowIndent]} row={true} justifyContent="space-between">
-            <View style={globalStyles.halfBlock} column={true} flex="1">
-              <View style={styles.password} flex="1">
-                <PasswordInput
-                  value={password || ''}
-                  label="Password"
-                  disabled={processing}
-                  visible={passVisible}
-                  valid={!validators.getPasswordErr(password)}
-                  error={!!errs?.password}
-                  helperText={errs?.password}
-                  InputProps={{ inputProps: { maxLength: 100 } }}
-                  onChange={handleTextFieldChanged('password')}
-                  onChangeVisibleClick={() => setPassVisible(val => !val)}
-                />
-              </View>
+            </Grid>
+            <Grid item xs={12} style={globalStyles.inputItem}>
+              <TextInput
+                value={email || ''}
+                label="Your Email"
+                type="email"
+                InputProps={{ inputProps: { maxLength: 35 } }}
+                disabled={processing}
+                valid={!validators.getEmailErr(email)}
+                error={!!errs?.email}
+                helperText={errs?.email}
+                onChange={handleTextFieldChanged('email')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
+              <PasswordInput
+                value={password || ''}
+                label="Password"
+                disabled={processing}
+                visible={passVisible}
+                valid={!validators.getPasswordErr(password)}
+                error={!!errs?.password}
+                helperText={errs?.password}
+                InputProps={{ inputProps: { maxLength: 100 } }}
+                onChange={handleTextFieldChanged('password')}
+                onChangeVisibleClick={() => setPassVisible(val => !val)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
+              <Text style={globalStyles.passHint}>
+                {`Password length must be minimum 8 characters,
+                                should be alphanumeric with 1 special character.`}
+              </Text>
+            </Grid>
+            <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
               <PasswordInput
                 value={confirmPassword || ''}
                 label="Confirm Password"
@@ -141,32 +147,22 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 onChange={handleTextFieldChanged('confirmPassword')}
                 onChangeVisibleClick={() => setPassVisible(val => !val)}
               />
-            </View>
-            <View flex="1" style={globalStyles.halfBlock}>
-              <Text style={styles.passHint}>
-                {`Password length must be minimum 8 characters,
-                                should be alphanumeric with 1 special character.`}
-              </Text>
-            </View>
-          </View>
-          <View style={[globalStyles.row, globalStyles.authSubmitWrap]}>
-            <View style={styles.errWrap} justifyContent="center" alignItems="center">
-              {!!errs?.request && <Text style={styles.err}>{errs.request}</Text>}
-            </View>
-            <Button
-              style={globalStyles.authSubmitBtn}
-              variant="contained"
-              color="primary"
-              disabled={processing || submitDissabled}
-              onClick={handleSubmitPress}
-            >
-              {processing ? <CircularProgress color="secondary" size={20} /> : 'Sign Up'}
-            </Button>
-          </View>
+            </Grid>
+            <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
+              <View style={styles.errWrap} justifyContent="center" alignItems="center">
+                {!!errs?.request && <Text style={styles.err}>{errs.request}</Text>}
+              </View>
+              <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
+                <SubmitButton disabled={processing || submitDissabled} onClick={handleSubmitPress}>
+                  {processing ? <CircularProgress color="secondary" size={20} /> : 'Sign Up'}
+                </SubmitButton>
+              </Grid>
+            </Grid>
+          </Grid>
           <AuthSectionSplitter>{`Or sign up with`}</AuthSectionSplitter>
           <AuthSocialLoginButtons />
         </AuthFormContainer>
-        <AuthCopyrights style={styles.copyright} />
+        <AuthCopyrights className={classes.copyright} />
       </AuthScreenBackground>
     </>
   );

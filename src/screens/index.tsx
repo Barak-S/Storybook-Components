@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 
 import AuthSignInScreen from './Auth/SignIn';
 import AuthSignUpScreen from './Auth/SignUp';
+import AuthRecoverPassScreen from './Auth/RecoverPass';
+import AuthResetPass from './Auth/ResetPass';
 import { routes } from './consts';
 import DashboardScreen from './Dashboard';
 
@@ -35,6 +37,12 @@ export const Screens: FC = () => {
           </Route>
           <Route path={routes.signin}>
             <AuthSignInScreen />
+          </Route>
+          <Route path={routes.recover}>
+            <AuthRecoverPassScreen />
+          </Route>
+          <Route path={routes.reset}>
+            <AuthResetPass />
           </Route>
           <Redirect to={routes.signin} />
         </Switch>

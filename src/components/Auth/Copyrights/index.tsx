@@ -1,12 +1,17 @@
 import { Text } from 'components/Common';
 import React, { FC } from 'react';
-import { colors, Styles, StyleProps, m } from 'styles';
+import { colors, Styles, m, Style } from 'styles';
 
-type Props = StyleProps;
+interface Props {
+  style?: Style;
+  className?: string;
+}
 
-export const AuthCopyrights: FC<Props> = ({ style }) => {
+export const AuthCopyrights: FC<Props> = ({ style, className }) => {
   return (
-    <Text style={m(styles.copyright, style)}>{`Copyright © ${new Date().getFullYear()} All rights reserved.`}</Text>
+    <Text className={className} style={m(styles.copyright, style)}>
+      {`Copyright © ${new Date().getFullYear()} All rights reserved.`}
+    </Text>
   );
 };
 

@@ -1,3 +1,4 @@
+import { colors } from 'styles';
 import { Styles } from './types';
 
 export const globalStyles: Styles = {
@@ -6,17 +7,33 @@ export const globalStyles: Styles = {
   },
   authSubmitWrap: {
     width: '100%',
-    maxWidth: 187,
   },
-  authSubmitBtn: {
-    height: 52,
-  },
-  lastgChild: {
+  lastChild: {
     marginBottom: 0,
     marginRight: 0,
   },
   row: {
     width: '100%',
     marginBottom: 30,
+  },
+  inputItem: {
+    padding: '15px 8px',
+  },
+  passHint: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: colors.brownishGreyTwo,
+  },
+  authTitle: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: colors.marineBlue,
+    textTransform: 'capitalize',
+    fontWeight: 500,
+  },
+  authSubtitle: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: colors.brownishGrey,
   },
 };

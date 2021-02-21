@@ -1,9 +1,9 @@
-import { Button, CircularProgress } from '@material-ui/core';
-import logoImg from 'assets/logo.png';
+import { CircularProgress, Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
-import { Image, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
+import { SubmitButton } from 'components/Buttons';
+import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
-import { LockIcon, UserIcon } from 'components/Icons';
+import { Icon } from 'components/Icons';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -76,30 +76,30 @@ export const AuthSignInScreen: FC<Props> = () => {
   };
 
   const submitDisabled = !email || !password;
-
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <>
       <ScreenTitle title="Sign in" />
       <AuthScreenBackground>
-        <View style={styles.header} row>
+        <View className={classes.header} row>
           <Text style={styles.headerText}>Have an account?</Text>
-          <TextLink className={classes.root} style={styles.loginLink} href={routes.signin}>
+          <TextLink className={classes.textLink} style={styles.loginLink} href={routes.signin}>
             log in
           </TextLink>
           <TextLink style={styles.signupLink} href={routes.signup}>
             Sign up
           </TextLink>
         </View>
-        <Image style={styles.logo} source={logoImg} />
+        <Logo />
         <AuthFormContainer>
-          <View style={styles.fields}>
-            <View style={[globalStyles.row, styles.inputFields]} column>
+          <View className={classes.fields}>
+            <Grid container justify="center" spacing={2}>
               <Title type={'h3'} style={styles.formTitle}>
                 log in
               </Title>
-              <View style={globalStyles.row}>
+              <Grid item xs={12} style={globalStyles.inputItem}>
                 <TextInput
                   value={email || ''}
                   type="email"
@@ -107,11 +107,11 @@ export const AuthSignInScreen: FC<Props> = () => {
                   error={!!errs?.email}
                   helperText={errs?.email}
                   label="Email"
-                  iconStart={<UserIcon style={{ transform: 'scale(1.5)' }} />}
+                  iconStart={<Icon className="las la-user" style={{ transform: 'scale(1.5)' }} />}
                   onChange={handleTextFieldChanged('email')}
                 />
-              </View>
-              <View style={[globalStyles.row, globalStyles.lastgChild]}>
+              </Grid>
+              <Grid item xs={12} style={globalStyles.inputItem}>
                 <PasswordInput
                   value={password || ''}
                   label="Password"
@@ -120,33 +120,35 @@ export const AuthSignInScreen: FC<Props> = () => {
                   valid={!validators.getPasswordErr(password)}
                   error={!!errs?.password}
                   helperText={errs?.password}
-                  iconStart={<LockIcon style={{ transform: 'scale(1.3)' }} />}
+                  iconStart={<Icon className="las la-lock" style={{ transform: 'scale(1.3)' }} />}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
                   onChange={handleTextFieldChanged('password')}
                 />
-              </View>
-            </View>
-            <View style={globalStyles.row} row justifyContent="space-between" alignItems="center">
-              <CheckboxInput label="Keep me logged in" defaultChecked />
-              <TextLink style={styles.resetPass} href={routes.reset}>
-                forgot password?
-              </TextLink>
-            </View>
+              </Grid>
+            </Grid>
+            <Grid container justify="space-between" spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <CheckboxInput label="Keep me logged in" defaultChecked />
+              </Grid>
+              <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
+                <View row className={classes.forgot}>
+                  <TextLink style={styles.resetPass} href={routes.reset}>
+                    forgot password?
+                  </TextLink>
+                </View>
+              </Grid>
+            </Grid>
           </View>
-          <View style={[globalStyles.row, globalStyles.authSubmitWrap]}>
+          <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
             <View style={styles.errWrap} justifyContent="center" alignItems="center">
               {!!errs?.request && <Text style={styles.err}>{errs.request}</Text>}
             </View>
-            <Button
-              style={globalStyles.authSubmitBtn}
-              variant="contained"
-              color="primary"
-              disabled={processing || submitDisabled}
-              onClick={handleLogInPress}
-            >
-              {processing ? <CircularProgress color="secondary" size={20} /> : 'Log in'}
-            </Button>
-          </View>
+            <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
+              <SubmitButton disabled={processing || submitDisabled} onClick={handleLogInPress}>
+                {processing ? <CircularProgress color="secondary" size={20} /> : 'Log in'}
+              </SubmitButton>
+            </Grid>
+          </Grid>
           <AuthSectionSplitter>{`Or login with`}</AuthSectionSplitter>
           <AuthSocialLoginButtons />
         </AuthFormContainer>

@@ -1,13 +1,7 @@
+import { makeStyles, Theme } from '@material-ui/core';
 import { colors, Styles, sizes } from 'styles';
 
 export const styles: Styles = {
-  logo: {
-    position: 'absolute',
-    left: 72,
-    top: 58,
-    width: 224,
-    height: 126,
-  },
   title: {
     textAlign: 'center',
     color: colors.primary,
@@ -20,11 +14,6 @@ export const styles: Styles = {
     fontSize: sizes.h6,
     marginBottom: 35,
   },
-  passHint: {
-    fontSize: 12,
-    fontStyle: 'italic',
-    color: colors.brownishGreyTwo,
-  },
   errWrap: {
     height: 40,
   },
@@ -36,9 +25,25 @@ export const styles: Styles = {
   password: {
     marginBottom: 30,
   },
-  copyright: {
-    position: 'absolute',
-    left: 82,
-    bottom: 41,
-  },
 };
+
+export const useStyles = (theme: Theme) =>
+  makeStyles({
+    logo: {
+      [theme.breakpoints.up('md')]: {
+        position: 'absolute',
+        left: 72,
+        top: 58,
+      },
+    },
+    copyright: {
+      padding: 20,
+
+      [theme.breakpoints.up('lg')]: {
+        position: 'absolute',
+        left: 82,
+        bottom: 0,
+        padding: 0,
+      },
+    },
+  })();

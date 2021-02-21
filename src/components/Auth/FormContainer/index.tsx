@@ -1,28 +1,36 @@
-import { Paper } from '@material-ui/core';
+import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
-import { m, StyleProps, Styles } from 'styles';
+import { StyleProps } from 'styles';
 
 type Props = StyleProps;
 
 export const AuthFormContainer: FC<Props> = ({ style, children }) => {
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
   return (
-    <Paper style={m(styles.container, style)} elevation={2}>
+    <Paper className={classes.container} style={style} elevation={2}>
       {children}
     </Paper>
   );
 };
 
-const styles: Styles = {
-  container: {
-    padding: '45px 80px',
-    borderRadius: 30,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    position: 'relative',
-    maxWidth: 740,
-  },
-};
+export const useStyles = (theme: Theme) =>
+  makeStyles({
+    container: {
+      padding: '45px 20px',
+      borderRadius: 30,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      position: 'relative',
+      maxWidth: 740,
+
+      [theme.breakpoints.up('sm')]: {
+        padding: '45px 80px',
+      },
+    },
+  })();
 
 export default AuthFormContainer;

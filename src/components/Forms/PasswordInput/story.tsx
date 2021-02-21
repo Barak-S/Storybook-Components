@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import PasswordInput, { PasswordInputProps } from '.';
 import { View } from 'components/Common';
-import { LockIcon } from 'components/Icons';
+import { Icon } from 'components/Icons';
 
 export default {
   title: 'Components/Forms/PasswordInput',
@@ -35,14 +35,21 @@ const PasswordInputWrap: FC<
 export const Basic = () => (
   <View column={true} style={{ width: 300, padding: 20 }}>
     <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" />
-    <PasswordInputWrap label="Password" iconStart={<LockIcon style={{ transform: 'scale(1.3)' }} />} />
+    <PasswordInputWrap
+      label="Password"
+      iconStart={<Icon className="las la-lock" style={{ transform: 'scale(1.3)' }} />}
+    />
   </View>
 );
 
 export const Valid = () => (
   <View column={true} style={{ width: 300, padding: 20 }}>
     <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" valid={true} />
-    <PasswordInputWrap label="Password" iconStart={<LockIcon style={{ transform: 'scale(1.3)' }} />} valid={true} />
+    <PasswordInputWrap
+      label="Password"
+      iconStart={<Icon className="las la-lock" style={{ transform: 'scale(1.3)' }} />}
+      valid={true}
+    />
   </View>
 );
 
@@ -58,7 +65,7 @@ export const Error = () => (
     />
     <PasswordInputWrap
       label="Password"
-      iconStart={<LockIcon style={{ transform: 'scale(1.3)' }} />}
+      iconStart={<Icon className="las la-lock" style={{ transform: 'scale(1.3)' }} />}
       error={true}
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
