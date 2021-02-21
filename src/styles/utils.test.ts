@@ -23,6 +23,7 @@ describe('mc()', () => {
   test('should merge simple names', () => {
     expect(mc('one', 'two', undefined, 'three')).toBe('one two three');
     expect(mc(['one', 'two', undefined, 'three'])).toBe('one two three');
+    expect(mc()).toBe('');
   });
   test('should merge several arrays', () => {
     expect(mc('one', 'two', undefined, 'three')).toBe('one two three');
