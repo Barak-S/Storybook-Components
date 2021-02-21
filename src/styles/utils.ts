@@ -1,4 +1,4 @@
-import { each, isArray, isBoolean } from 'lodash';
+import { each, isArray, isBoolean, flattenDeep, compact, isString } from 'lodash';
 
 import { MergeStyleVals, Style } from './types';
 
@@ -25,3 +25,10 @@ export const m = (...arr: MergeStyleVals[]): Style => {
 };
 
 export const px = (val: number) => `${val}px`;
+
+type ClassNameItem = string | undefined | null | boolean;
+type ClassNameArr = ClassNameItem[];
+
+/** Merge class names */
+export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string =>
+  compact(flattenDeep(arr)).filter(isString).join(' ');
