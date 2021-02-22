@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Responsivnes added
 
+### Fixed
+- Auth screens bugfixes
+
 ## [1.0.6] - 2021-02-19
 ### Fixed
 - [DO-32: SignIn/SignUp form data polishers improoved](https://digitaloasis.atlassian.net/browse/DO-32)
