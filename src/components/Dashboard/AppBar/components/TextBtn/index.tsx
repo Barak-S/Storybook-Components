@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   text: {
-    fontSize: 18,
+    fontSize: 'inherit',
   },
 }));
 

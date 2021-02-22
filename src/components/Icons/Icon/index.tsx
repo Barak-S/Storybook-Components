@@ -10,7 +10,7 @@ interface Props {
 export const Icon: FC<Props> = ({ className, style }) => {
   return (
     <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', ...style }}>
-      <MaterialIcon className={className} />
+      <MaterialIcon style={{ fontSize: 'inherit' }} className={className} />
     </span>
   );
 };

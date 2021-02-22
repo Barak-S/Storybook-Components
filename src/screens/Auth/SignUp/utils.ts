@@ -25,11 +25,11 @@ export const getFormErrs = (data: FormData): FormErrs | undefined => {
       requiredMsg: 'Password confirmation',
     }),
   };
+  if (data.password !== data.confirmPassword) {
+    return Object.assign({}, errs, { confirmPassword: 'Passwords should be the same' });
+  }
   if (!isDictEmpty(errs)) {
     return errs;
-  }
-  if (data.password !== data.confirmPassword) {
-    return { confirmPassword: 'Passwords should be the same' };
   }
   return undefined;
 };
