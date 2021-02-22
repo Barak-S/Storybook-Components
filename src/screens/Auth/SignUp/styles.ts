@@ -14,14 +14,6 @@ export const styles: Styles = {
     fontSize: sizes.h6,
     marginBottom: 35,
   },
-  errWrap: {
-    height: 40,
-  },
-  err: {
-    color: colors.error,
-    fontSize: 12,
-    textAlign: 'center',
-  },
   password: {
     marginBottom: 30,
   },

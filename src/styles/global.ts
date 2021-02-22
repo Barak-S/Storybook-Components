@@ -36,4 +36,12 @@ export const globalStyles: Styles = {
     fontSize: 16,
     color: colors.brownishGrey,
   },
+  authErrWrap: {
+    height: 40,
+  },
+  authErr: {
+    color: colors.error,
+    fontSize: 12,
+    textAlign: 'center',
+  },
 };

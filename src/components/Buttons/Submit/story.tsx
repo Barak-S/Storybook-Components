@@ -9,13 +9,20 @@ export default {
   component: SubmitButton,
 };
 
+const processing = true;
+
 export const Basic = () => (
   <View column={true} style={{ width: '740px', margin: '0 auto' }}>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
       <SubmitButton onClick={action('onClick')}>Log In</SubmitButton>
     </View>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton disabled={true} onClick={action('onClick')}>
+      <SubmitButton disabled={processing} onClick={action('onClick')}>
+        Log In
+      </SubmitButton>
+    </View>
+    <View row style={{ width: '200px', margin: '0 auto 30px' }}>
+      <SubmitButton processing={processing} disabled={processing} onClick={action('onClick')}>
         Log In
       </SubmitButton>
     </View>

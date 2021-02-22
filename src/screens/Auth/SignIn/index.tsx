@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, useTheme } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
@@ -139,13 +139,15 @@ export const AuthSignInScreen: FC<Props> = () => {
               </Grid>
             </Grid>
           </View>
-          <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
-            <View style={styles.errWrap} justifyContent="center" alignItems="center">
-              {!!errs?.request && <Text style={styles.err}>{errs.request}</Text>}
+          <Grid container justify="center" spacing={2}>
+            <View style={globalStyles.authErrWrap} justifyContent="center" alignItems="center">
+              {!!errs?.request && <Text style={globalStyles.authErr}>{errs.request}</Text>}
             </View>
+          </Grid>
+          <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
             <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
-              <SubmitButton disabled={processing || submitDisabled} onClick={handleLogInPress}>
-                {processing ? <CircularProgress color="secondary" size={20} /> : 'Log in'}
+              <SubmitButton processing={processing} disabled={processing || submitDisabled} onClick={handleLogInPress}>
+                Log in
               </SubmitButton>
             </Grid>
           </Grid>

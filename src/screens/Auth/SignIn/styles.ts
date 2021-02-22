@@ -33,14 +33,6 @@ export const styles: Styles = {
   inputFields: {
     marginBottom: 10,
   },
-  errWrap: {
-    height: 40,
-  },
-  err: {
-    color: colors.error,
-    fontSize: 12,
-    textAlign: 'center',
-  },
 };
 
 export const useStyles = (theme: Theme) =>

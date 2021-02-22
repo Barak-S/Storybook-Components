@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
 import { Logo, ScreenTitle, Title, Text, View, TextLink } from 'components/Common';
 import { TextInput } from 'components/Forms';
@@ -73,13 +73,15 @@ export const AuthRecoverPass: FC<Props> = () => {
               />
             </Grid>
           </Grid>
-          <Grid container justify="center" spacing={2} style={{ marginBottom: 40 }}>
-            <View style={reqErr ? styles.errWrap : undefined} justifyContent="center" alignItems="center">
-              {!!reqErr && <Text style={styles.err}>{reqErr}</Text>}
+          <Grid container justify="center" spacing={2}>
+            <View style={reqErr ? globalStyles.authErrWrap : undefined} justifyContent="center" alignItems="center">
+              {!!reqErr && <Text style={globalStyles.authErr}>{reqErr}</Text>}
             </View>
+          </Grid>
+          <Grid container justify="center" spacing={2} style={{ marginBottom: 40 }}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-              <SubmitButton disabled={processing || !email} onClick={handleSubmitPress}>
-                {processing ? <CircularProgress color="secondary" size={20} /> : 'submit'}
+              <SubmitButton processing={processing} disabled={processing || !email} onClick={handleSubmitPress}>
+                submit
               </SubmitButton>
             </Grid>
           </Grid>
