@@ -15,23 +15,19 @@ export type FormErrs = Partial<Record<keyof FormData, string>> & { request?: str
  * @param data - form data
  */
 export const getFormErrs = (data: FormData): FormErrs | undefined => {
+  const confirmPassValidatorsErr = validators.getPasswordErr(data.confirmPassword, {
+    required: true,
+    requiredMsg: 'Password confirmation',
+  });
+  const passesNotSameErr = data.password !== data.confirmPassword ? 'Passwords should be the same' : undefined;
   const errs: FormErrs = {
     firstName: validators.getNameErr(data.firstName, { required: true, requiredMsg: 'First name required' }),
     lastName: validators.getNameErr(data.lastName, { required: true, requiredMsg: 'Last name required' }),
     email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'Email required' }),
     password: validators.getPasswordErr(data.password, { required: true, requiredMsg: 'Password required' }),
-    confirmPassword: validators.getPasswordErr(data.confirmPassword, {
-      required: true,
-      requiredMsg: 'Password confirmation',
-    }),
+    confirmPassword: confirmPassValidatorsErr || passesNotSameErr,
   };
-  if (data.password !== data.confirmPassword) {
-    return Object.assign({}, errs, { confirmPassword: 'Passwords should be the same' });
-  }
-  if (!isDictEmpty(errs)) {
-    return errs;
-  }
-  return undefined;
+  return !isDictEmpty(errs) ? errs : undefined;
 };
 
 /**
