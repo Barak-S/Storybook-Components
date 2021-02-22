@@ -193,7 +193,7 @@ jobs:
             A new `${{env.APP_ENV }}` web app has been deployed:
 
 
-            Link: ${{ env.APP_URL }}
+            App: ${{ env.APP_URL }}
 
             Storybook: ${{ env.STORYBOOK_URL }}
 
