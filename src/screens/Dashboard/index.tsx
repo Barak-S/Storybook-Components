@@ -1,6 +1,6 @@
 import { View, Text, ScreenTitle } from 'components/Common';
-import React, { FC } from 'react';
-import { Styles, StyleProps } from 'styles';
+import React, { FC, useEffect } from 'react';
+import { Styles, StyleProps, srollToTop } from 'styles';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'core/api';
 import { routes } from 'screens/consts';
@@ -9,6 +9,10 @@ import { DashboardAppBar } from 'components/Dashboard';
 type Props = StyleProps;
 
 export const DashboardScreen: FC<Props> = ({ style }) => {
+  useEffect(() => {
+    srollToTop();
+  }, []);
+
   const history = useHistory();
   const { signOut } = useAuth();
 

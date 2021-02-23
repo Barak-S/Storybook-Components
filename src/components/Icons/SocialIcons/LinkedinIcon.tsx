@@ -8,6 +8,7 @@ export const LinkedinIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
       width={width || '17.271'}
       height={height || '17.271'}
       viewBox="0 0 17.271 17.271"
+      style={{ overflow: 'visible' }}
     >
       <path
         fill={fill || '#fff'}

@@ -176,7 +176,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <AuthSectionSplitter>{`Or sign up with`}</AuthSectionSplitter>
           <AuthSocialLoginButtons />
         </AuthFormContainer>
-        <AuthCopyrights className={classes.copyright} />
+        <View className={classes.copyright}>
+            <AuthCopyrights />
+        </View>
         <AlertDialog
           visible={successVisible}
           title="Success!"

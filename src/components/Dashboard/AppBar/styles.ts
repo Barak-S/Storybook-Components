@@ -7,7 +7,6 @@ export const styles: Styles = {
   container: {
     height: dashboardHeight,
     backgroundColor: colors.whiteTwo,
-    paddingRight: 36,
     ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
   },
   logoWrap: {
@@ -49,11 +48,6 @@ export const styles: Styles = {
   thumbIcon: {
     fontSize: '11px',
   },
-  splitter: {
-    width: 1,
-    height: 20,
-    ...mx.borderRight(1, 'solid', colors.coolGrey),
-  },
   mobileBtn: {
     transform: 'translateX(10px)',
   },
@@ -68,45 +62,16 @@ export const useStyles = (theme: Theme) =>
       justifyContent: 'flex-end',
       alignItems: 'center',
       minHeight: '100vh',
+      paddingRight: 10,
       [theme.breakpoints.up('lg')]: {
         justifyContent: 'space-between',
+        paddingRight: 36,
       },
     },
-    mainSection: {
-      width: '100%',
-      display: 'flex',
+    navbarWrap: {
       position: 'fixed',
-      flexDirection: 'column',
-      top: dashboardHeight,
       left: 0,
-      maxWidth: 201,
-      height: '100vh',
+      top: dashboardHeight,
       zIndex: 10,
-      background: colors.white,
-      ...mx.borderRight(1, 'solid', colors.lightBlueGrey),
-
-      [theme.breakpoints.up('lg')]: {
-        position: 'relative',
-        maxWidth: 'initial',
-        top: 'initial',
-        left: 'initial',
-        flexDirection: 'row',
-        height: dashboardHeight,
-        fontSize: 18,
-        background: 'none',
-        borderRight: 'none',
-      },
-    },
-    supportLinks: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      [theme.breakpoints.up('lg')]: {
-        height: dashboardHeight,
-        position: 'absolute',
-        right: 0,
-        flexDirection: 'row',
-        fontSize: 18,
-      },
     },
   })();

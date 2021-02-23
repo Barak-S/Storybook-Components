@@ -7,7 +7,8 @@ export const FacebookIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
       xmlns="http://www.w3.org/2000/svg"
       width={width || '17.535'}
       height={height || '17.784'}
-      viewBox="0 0 17.535 17.784"
+      viewBox="0 0 18 18"
+      style={{ overflow: 'visible' }}
     >
       <path
         fill={fill || '#fff'}

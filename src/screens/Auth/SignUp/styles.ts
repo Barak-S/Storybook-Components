@@ -22,20 +22,19 @@ export const styles: Styles = {
 export const useStyles = (theme: Theme) =>
   makeStyles({
     logo: {
-      [theme.breakpoints.up('md')]: {
+      '@media screen and (min-width: 1366px)': {
         position: 'absolute',
         left: 72,
         top: 58,
       },
     },
     copyright: {
+      width: '100%',
       padding: 20,
+      textAlign: 'center',
 
       [theme.breakpoints.up('lg')]: {
-        position: 'absolute',
-        left: 82,
-        bottom: 0,
-        padding: 0,
+        textAlign: 'left',
       },
     },
   })();

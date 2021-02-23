@@ -16,5 +16,10 @@ body,
 
 body {
     font-family: "Rubik", sans-serif;
-    color: #5C5C5C;
+    color: #5c5c5c;
+}
+
+input[type="text"]::-ms-clear,
+input[type="password"]::-ms-reveal {
+    display: none;
 }

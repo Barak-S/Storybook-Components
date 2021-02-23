@@ -62,6 +62,8 @@ export const muiTheme = createMuiTheme({
         fontFamily: mainFont,
         background: colors.paleGrey,
         paddingLeft: 15,
+        boxShadow: 'none',
+        WebkitAppearance: 'none',
       },
       inputAdornedStart: {
         paddingLeft: 74,

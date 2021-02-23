@@ -32,3 +32,6 @@ type ClassNameArr = ClassNameItem[];
 /** Merge class names */
 export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string =>
   compact(flattenDeep(arr)).filter(isString).join(' ');
+
+/** Scroll to top */
+export const srollToTop = () => window.scrollTo(0, 0);

@@ -8,6 +8,7 @@ export const GoogleIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
       width={width || '16.948'}
       height={height || '17.276'}
       viewBox="0 0 16.948 17.276"
+      style={{ overflow: 'visible' }}
     >
       <path
         fill={fill || '#fff'}
