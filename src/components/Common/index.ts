@@ -6,3 +6,4 @@ export * from './TextLink';
 export * from './Title';
 export * from './View';
 export * from './Logo';
+export * from './Snackbar';

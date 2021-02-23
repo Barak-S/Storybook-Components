@@ -7,13 +7,16 @@ import ReactDOM from 'react-dom';
 import { Screens } from 'screens';
 import { muiTheme } from 'styles';
 import { AuthProvider } from 'core/api';
+import { SnackbarProvider } from 'components/Common';
 
 initAmplify();
 
 ReactDOM.render(
   <ThemeProvider theme={muiTheme}>
     <AuthProvider>
-      <Screens />
+      <SnackbarProvider>
+        <Screens />
+      </SnackbarProvider>
     </AuthProvider>
   </ThemeProvider>,
   document.getElementById('app'),

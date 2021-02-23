@@ -12,25 +12,33 @@ interface AuthContext {
   user?: CognitoUser;
   signIn: (email: string, password: string) => Promise<CognitoUser>;
   signUp: (data: AuthSignUpInput) => Promise<CognitoUser>;
+  forgotPassowrd: (email: string) => Promise<void>;
+  forgotPasswordSubmit: (username: string, code: string, pass: string) => Promise<void>;
   signOut: () => void;
 }
 
 const Context = createContext<AuthContext | undefined>(undefined);
 
+const mockFn = () => {
+  throw new Error('Mock function');
+};
+
+const getClientMetadata = () => ({
+  version: appConfig.version,
+  env: appConfig.env,
+});
+
 export const useAuth = (): AuthContext => {
   const val = useContext(Context);
-  return val
-    ? val
-    : {
-        loaded: false,
-        signIn: () => {
-          throw new Error('Mock function');
-        },
-        signUp: () => {
-          throw new Error('Mock function');
-        },
-        signOut: () => undefined,
-      };
+  const mockData = {
+    loaded: false,
+    signIn: mockFn,
+    signUp: mockFn,
+    forgotPassowrd: mockFn,
+    forgotPasswordSubmit: mockFn,
+    signOut: () => undefined,
+  };
+  return val ? val : mockData;
 };
 
 export const AuthProvider: FC = ({ children }) => {
@@ -67,13 +75,15 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const signIn = async (email: string, password: string): Promise<CognitoUser> => {
-    const user = await Auth.signIn(email, password, {
-      version: appConfig.version,
-      env: appConfig.env,
-    });
+    const user = await Auth.signIn(email, password);
     setUser(user);
     return user;
   };
+
+  const forgotPassowrd = async (email: string) => Auth.forgotPassword(email, getClientMetadata());
+
+  const forgotPasswordSubmit = async (username: string, code: string, pass: string) =>
+    Auth.forgotPasswordSubmit(username, code, pass, getClientMetadata());
 
   const signUp = async (data: AuthSignUpInput): Promise<CognitoUser> => {
     const user = await authUserSignUp(data);
@@ -96,5 +106,9 @@ export const AuthProvider: FC = ({ children }) => {
       });
   };
 
-  return <Context.Provider value={{ loaded, user, signIn, signUp, signOut }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ loaded, user, signIn, signUp, signOut, forgotPassowrd, forgotPasswordSubmit }}>
+      {children}
+    </Context.Provider>
+  );
 };

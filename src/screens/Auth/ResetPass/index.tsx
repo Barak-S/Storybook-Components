@@ -1,17 +1,19 @@
 import { Grid } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
-import { Logo, ScreenTitle, Title, Text, View } from 'components/Common';
+import { Logo, ScreenTitle, Title, Text, View, useSnackbar } from 'components/Common';
 import { PasswordInput } from 'components/Forms';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { isCognitoErrResponse } from 'core/api';
+import { isCognitoErrResponse, useAuth } from 'core/api';
 import { globalStyles, m, StyleProps } from 'styles';
-import { errToStr, Log, validators } from 'utils';
+import { errToStr, isDictEmpty, Log, validators } from 'utils';
 import { SubmitButton } from 'components/Buttons';
 
 import { styles } from './styles';
-import { FormErrs, getFormErrs } from '../SignUp/utils';
+import { useQuery } from 'core/navigation';
+import { useHistory } from 'react-router-dom';
+import { routes } from 'screens/consts';
 
-const log = Log('screens.AuthSignIn');
+const log = Log('screens.AuthResetPass');
 
 type Props = StyleProps;
 
@@ -20,14 +22,33 @@ interface FormData {
   confirmPassword?: string;
 }
 
+type FormErrs = Partial<Record<keyof FormData, string>> & { request?: string };
+
+const getFormErrs = (data: FormData): FormErrs | undefined => {
+  const confirmPassValidatorsErr = validators.getPasswordErr(data.confirmPassword, {
+    required: true,
+    requiredMsg: 'Password confirmation',
+  });
+  const passesNotSameErr = data.password !== data.confirmPassword ? 'Passwords should be the same' : undefined;
+  const errs: FormErrs = {
+    password: validators.getPasswordErr(data.password, { required: true, requiredMsg: 'Password required' }),
+    confirmPassword: confirmPassValidatorsErr || passesNotSameErr,
+  };
+  return !isDictEmpty(errs) ? errs : undefined;
+};
+
 export const AuthResetPass: FC<Props> = () => {
+  const query = useQuery();
+  const history = useHistory();
+
   const [data, setData] = useState<FormData>({});
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
-  const [reqErr, setReqErr] = useState<string | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
 
   const { password, confirmPassword } = data;
+  const { forgotPasswordSubmit } = useAuth();
+  const { showSnackbar } = useSnackbar();
 
   const handleTextFieldChanged = (key: keyof FormData) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -41,17 +62,26 @@ export const AuthResetPass: FC<Props> = () => {
     if (curErrs) {
       return setErrs(curErrs);
     }
-    if (!password || !confirmPassword) {
+    if (!password) {
       return;
+    }
+    const { username, code, email } = query;
+    if (!username || !code || !email) {
+      return setErrs({ request: 'Required data is not specified at url' });
     }
     log.debug('handle submit press');
     try {
       setErrs(undefined);
-      setReqErr(undefined);
       setProcessing(true);
+      log.debug('sending forgot password request');
+      await forgotPasswordSubmit(username, code, password);
+      log.debug('sending forgot password request done');
+      showSnackbar('The password has been changed');
+      history.push({ pathname: routes.signin, search: `?email=${email}` });
     } catch (err) {
+      log.err(err);
       setProcessing(false);
-      setReqErr(isCognitoErrResponse(err) ? err.message : errToStr(err));
+      setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
   };
 
@@ -104,8 +134,12 @@ export const AuthResetPass: FC<Props> = () => {
             </Grid>
           </Grid>
           <Grid container justify="center" spacing={2}>
-            <View style={reqErr ? globalStyles.authErrWrap : undefined} justifyContent="center" alignItems="center">
-              {!!reqErr && <Text style={globalStyles.authErr}>{reqErr}</Text>}
+            <View
+              style={errs?.request ? globalStyles.authErrWrap : undefined}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {!!errs?.request && <Text style={globalStyles.authErr}>{errs.request}</Text>}
             </View>
           </Grid>
           <Grid container justify="center" spacing={2}>

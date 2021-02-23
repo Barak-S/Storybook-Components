@@ -5,8 +5,9 @@ import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Commo
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { Icon } from 'components/Icons';
 import { isCognitoErrResponse, useAuth } from 'core/api';
+import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, isDictEmpty, Log, polishers, validators } from 'utils';
@@ -28,20 +29,6 @@ const polishData = ({ email, password }: FormData): FormData => ({
   email: polishers.clearEmail(email),
   password: polishers.clearPassword(password),
 });
-
-const useQuery = (): Record<string, string> => {
-  const { search } = useLocation();
-  if (!search || search.length === 1) {
-    return {};
-  }
-  const records = search.slice(1, search.length).split('&');
-  const data: Record<string, string> = {};
-  for (const record of records) {
-    const [key, val] = record.split('=');
-    data[key] = val;
-  }
-  return data;
-};
 
 export const AuthSignInScreen: FC<Props> = () => {
   const query = useQuery();
@@ -149,7 +136,7 @@ export const AuthSignInScreen: FC<Props> = () => {
               </Grid>
               <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
                 <View row className={classes.forgot}>
-                  <TextLink style={styles.resetPass} href={routes.reset}>
+                  <TextLink style={styles.resetPass} href={routes.recover}>
                     forgot password?
                   </TextLink>
                 </View>
