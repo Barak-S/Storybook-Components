@@ -6,7 +6,7 @@ import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { Icon } from 'components/Icons';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, isDictEmpty, Log, polishers, validators } from 'utils';
@@ -29,13 +29,30 @@ const polishData = ({ email, password }: FormData): FormData => ({
   password: polishers.clearPassword(password),
 });
 
+const useQuery = (): Record<string, string> => {
+  const { search } = useLocation();
+  if (!search || search.length === 1) {
+    return {};
+  }
+  const records = search.slice(1, search.length).split('&');
+  const data: Record<string, string> = {};
+  for (const record of records) {
+    const [key, val] = record.split('=');
+    data[key] = val;
+  }
+  return data;
+};
+
 export const AuthSignInScreen: FC<Props> = () => {
-  const [data, setData] = useState<FormData>({});
+  const query = useQuery();
+  const history = useHistory();
+  const emailQueryParam = query.email ? query.email : undefined;
+
+  const [data, setData] = useState<FormData>({ email: emailQueryParam });
   const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
 
-  const history = useHistory();
   const { signIn } = useAuth();
 
   const { email, password } = data;

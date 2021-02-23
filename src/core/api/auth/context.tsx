@@ -1,7 +1,7 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { appConfig } from 'core/configs';
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
-import { Log } from 'utils';
+import { errToStr, Log } from 'utils';
 
 import { authGetCurrentUser, AuthSignUpInput, authUserSignUp } from './utils';
 
@@ -38,19 +38,31 @@ export const AuthProvider: FC = ({ children }) => {
   const [user, setUser] = useState<CognitoUser | undefined>(undefined);
 
   useEffect(() => {
-    updateData();
+    loadCurUser();
   }, []);
 
-  const updateData = async () => {
-    log.info('updading data');
+  const loadCurUser = async () => {
+    log.info('loading cur user');
     try {
-      const user = await authGetCurrentUser();
+      const user = await getCurUser();
       log.info(user ? 'user authrized' : 'user not authorized');
       setUser(user);
       setLoaded(true);
     } catch (err) {
       setLoaded(true);
       log.err('loading user err=', err);
+    }
+  };
+
+  const getCurUser = async (): Promise<CognitoUser | undefined> => {
+    try {
+      return await Auth.currentAuthenticatedUser();
+    } catch (err) {
+      if (['The user is not authenticated', 'No current user'].includes(errToStr(err) || '')) {
+        return undefined;
+      } else {
+        throw err;
+      }
     }
   };
 
@@ -65,7 +77,6 @@ export const AuthProvider: FC = ({ children }) => {
 
   const signUp = async (data: AuthSignUpInput): Promise<CognitoUser> => {
     const user = await authUserSignUp(data);
-    setUser(user);
     return user;
   };
 

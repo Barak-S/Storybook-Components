@@ -8,6 +8,7 @@ import {
 } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, View } from 'components/Common';
+import { AlertDialog } from 'components/Dialogs';
 import { PasswordInput, TextInput } from 'components/Forms';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -28,6 +29,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
+  const [successVisible, setSuccessVisible] = useState<boolean>(false);
 
   const history = useHistory();
   const { signUp } = useAuth();
@@ -55,12 +57,18 @@ export const AuthSignUpScreen: FC<Props> = () => {
       setProcessing(true);
 
       await signUp({ email, firstName, lastName, password });
-
-      history.push({ pathname: routes.dashboard });
+      setProcessing(false);
+      setData({});
+      setSuccessVisible(true);
     } catch (err) {
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
+  };
+
+  const handleSuccessClose = () => {
+    setSuccessVisible(false);
+    history.push({ pathname: routes.signin });
   };
 
   const submitDissabled = !email || !firstName || !lastName || !password || !confirmPassword || !!errs;
@@ -169,6 +177,14 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <AuthSocialLoginButtons />
         </AuthFormContainer>
         <AuthCopyrights className={classes.copyright} />
+        <AlertDialog
+          visible={successVisible}
+          title="Success!"
+          onClose={handleSuccessClose}
+          actions={[{ title: 'Got it', onPress: handleSuccessClose }]}
+        >
+          {`Almost done! Please check your email and confirm your email address.`}
+        </AlertDialog>
       </AuthScreenBackground>
     </>
   );
