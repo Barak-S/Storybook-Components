@@ -79,7 +79,6 @@ export const useStyles = (theme: Theme) =>
       fontSize: 15,
 
       [theme.breakpoints.up('sm')]: {
-        position: 'absolute!important',
         justifyContent: 'flex-end',
         padding: '35px 80px',
         fontSize: 18,
