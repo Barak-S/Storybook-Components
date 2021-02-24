@@ -1,4 +1,4 @@
-import { Avatar, Grid, Hidden, Menu, MenuItem, Slide, useMediaQuery, useTheme } from '@material-ui/core';
+import { Avatar, Grid, Menu, MenuItem, Slide, useMediaQuery, useTheme } from '@material-ui/core';
 import { MobileMenuBtn } from 'components/Buttons';
 import { Image, View } from 'components/Common';
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
@@ -6,9 +6,7 @@ import { StyleProps } from 'styles';
 
 import logoImg from './assets/logo.png';
 import profileImg from './assets/profile.png';
-import FilledBtn from './components/FilledBtn';
 import NavigationBar from './components/NavigationBar';
-import TextBtn from './components/TextBtn';
 import { styles, useStyles } from './styles';
 
 interface Props extends StyleProps {
