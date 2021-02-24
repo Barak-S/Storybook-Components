@@ -1,16 +1,16 @@
-import { Icon as MaterialIcon } from '@material-ui/core';
+import { Icon } from '@material-ui/core';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
+import { LineAwesomeIconType } from './types';
+
 interface Props extends StyleProps {
-  type: IconType;
+  type: LineAwesomeIconType;
 }
 
-type IconType = 'times' | 'user' | 'lock' | 'bars';
-
 export const LineAwesomeIcon: FC<Props> = ({ style, type }) => {
-  return <MaterialIcon style={style} className={`las la-${type}`} />;
+  return <Icon style={style} className={`las la-${type}`} />;
 };
 
-export type LineAwesomeIconType = IconType;
+export { LineAwesomeIconType } from './types';
 export default LineAwesomeIcon;
