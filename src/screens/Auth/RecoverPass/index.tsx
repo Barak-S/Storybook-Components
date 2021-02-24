@@ -10,23 +10,29 @@ import { SubmitButton } from 'components/Buttons';
 
 import { routes } from 'screens/consts';
 import { styles } from './styles';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const log = Log('screens.AuthRecoverPass');
 
 type Props = StyleProps;
+
+interface LocationState {
+  email?: string;
+}
 
 interface FormData {
   email?: string;
 }
 
 export const AuthRecoverPassScreen: FC<Props> = () => {
-  const [data, setData] = useState<FormData>({});
+  const history = useHistory();
+  const location = useLocation<LocationState | undefined>();
+
+  const [data, setData] = useState<FormData>({ email: location.state?.email });
   const [reqErr, setReqErr] = useState<string | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
 
   const { forgotPassowrd } = useAuth();
-  const history = useHistory();
   const { showSnackbar } = useSnackbar();
 
   const { email } = data;
@@ -46,11 +52,13 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
     try {
       setReqErr(undefined);
       setProcessing(true);
+
       log.debug('send recover pass request with email=', email);
       await forgotPassowrd(email);
       log.debug('send recover pass request done');
-      showSnackbar('A request has been sent. Please check your email');
-      history.push({ pathname: routes.signin, search: `?email=${email}` });
+
+      showSnackbar('A request has been sent. Please check your email', 'success');
+      history.push({ pathname: routes.signin, state: { email } });
     } catch (err) {
       log.err('recover pass err=', err);
       setProcessing(false);

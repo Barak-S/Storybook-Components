@@ -7,8 +7,7 @@ import {
   AuthSocialLoginButtons,
 } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
-import { Logo, ScreenTitle, Text, TextLink, View } from 'components/Common';
-import { AlertDialog } from 'components/Dialogs';
+import { Logo, ScreenTitle, Text, TextLink, useSnackbar, View } from 'components/Common';
 import { PasswordInput, TextInput } from 'components/Forms';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -29,10 +28,10 @@ export const AuthSignUpScreen: FC<Props> = () => {
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
-  const [successVisible, setSuccessVisible] = useState<boolean>(false);
 
   const history = useHistory();
   const { signUp } = useAuth();
+  const { showSnackbar } = useSnackbar();
 
   const { email, firstName, lastName, password, confirmPassword } = data;
 
@@ -56,19 +55,16 @@ export const AuthSignUpScreen: FC<Props> = () => {
       setErrs(undefined);
       setProcessing(true);
 
+      log.debug('sedning signpu request');
       await signUp({ email, firstName, lastName, password });
-      setProcessing(false);
-      setData({});
-      setSuccessVisible(true);
+      log.debug('sedning signpu request done');
+
+      showSnackbar('Almost done! Please check your email and confirm your email address.', 'success');
+      history.push({ pathname: routes.signin, state: { email } });
     } catch (err) {
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
-  };
-
-  const handleSuccessClose = () => {
-    setSuccessVisible(false);
-    history.push({ pathname: routes.signin });
   };
 
   const submitDissabled = !email || !firstName || !lastName || !password || !confirmPassword || !!errs;
@@ -114,7 +110,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 value={email || ''}
                 label="Your Email"
                 type="email"
-                InputProps={{ inputProps: { maxLength: 35 } }}
+                InputProps={{ inputProps: { maxLength: 50 } }}
                 disabled={processing}
                 valid={!validators.getEmailErr(email)}
                 error={!!errs?.email}
@@ -177,16 +173,8 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <AuthSocialLoginButtons />
         </AuthFormContainer>
         <View className={classes.copyright}>
-            <AuthCopyrights />
+          <AuthCopyrights />
         </View>
-        <AlertDialog
-          visible={successVisible}
-          title="Success!"
-          onClose={handleSuccessClose}
-          actions={[{ title: 'Got it', onPress: handleSuccessClose }]}
-        >
-          {`Almost done! Please check your email and confirm your email address.`}
-        </AlertDialog>
       </AuthScreenBackground>
     </>
   );

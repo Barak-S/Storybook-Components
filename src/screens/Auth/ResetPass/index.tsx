@@ -73,11 +73,13 @@ export const AuthResetPass: FC<Props> = () => {
     try {
       setErrs(undefined);
       setProcessing(true);
+
       log.debug('sending forgot password request');
       await forgotPasswordSubmit(username, code, password);
       log.debug('sending forgot password request done');
-      showSnackbar('The password has been changed');
-      history.push({ pathname: routes.signin, search: `?email=${email}` });
+
+      showSnackbar('The password has been changed', 'success');
+      history.push({ pathname: routes.signin, state: { email } });
     } catch (err) {
       log.err(err);
       setProcessing(false);

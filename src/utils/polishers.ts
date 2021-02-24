@@ -15,7 +15,7 @@ const clearName = (val: string | undefined, opt?: ClearNameOpt): string | undefi
   return newVal;
 };
 
-const clearEmail = (val: string | undefined): string | undefined => setMaxSize(val, 35);
+const clearEmail = (val: string | undefined): string | undefined => setMaxSize(val, 50);
 
 const clearPassword = (val: string | undefined): string | undefined => setMaxSize(val, 100);
 

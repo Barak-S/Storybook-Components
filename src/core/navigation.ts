@@ -13,7 +13,7 @@ const parseSearchString = (val: string): Record<string, string> => {
   const data: Record<string, string> = {};
   for (const item of items) {
     const [key, val] = item.split('=');
-    data[key] = val;
+    data[key] = decodeURIComponent(val);
   }
   return data;
 };

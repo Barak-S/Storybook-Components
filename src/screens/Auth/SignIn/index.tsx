@@ -1,13 +1,13 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
-import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
+import { Logo, ScreenTitle, Text, TextLink, Title, useSnackbar, View } from 'components/Common';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { Icon } from 'components/Icons';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import { useQuery } from 'core/navigation';
-import React, { ChangeEvent, FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, isDictEmpty, Log, polishers, validators } from 'utils';
@@ -17,6 +17,11 @@ import { styles, useStyles } from './styles';
 const log = Log('screens.AuthSignIn');
 
 type Props = StyleProps;
+
+interface LocationState {
+  email?: string;
+  source?: string;
+}
 
 interface FormData {
   email?: string;
@@ -31,24 +36,40 @@ const polishData = ({ email, password }: FormData): FormData => ({
 });
 
 export const AuthSignInScreen: FC<Props> = () => {
-  const query = useQuery();
   const history = useHistory();
-  const emailQueryParam = query.email ? query.email : undefined;
+  const query = useQuery();
+  const location = useLocation<LocationState | undefined>();
+  const emailParam = query.email || location.state?.email;
+  const sourceParam = query.source || location.state?.source;
 
-  const [data, setData] = useState<FormData>({ email: emailQueryParam });
+  const [data, setData] = useState<FormData>({ email: emailParam });
   const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
 
+  const { showSnackbar } = useSnackbar();
   const { signIn } = useAuth();
-
   const { email, password } = data;
+
+  // Effects
+
+  useEffect(() => {
+    if (sourceParam === 'cognitoConfirmUser') {
+      showSnackbar('Your email has been confirmed! Please log in with your password.', 'success');
+    }
+  }, []);
+
+  // Handlers
 
   const handleTextFieldChanged = (key: keyof FormData) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setErrs(undefined);
     setData(polishData({ ...data, [key]: event.currentTarget.value }));
+  };
+
+  const handleForgotPassClick = () => {
+    history.push({ pathname: routes.recover, state: { email: data.email } });
   };
 
   const handleLogInPress = async () => {
@@ -78,6 +99,8 @@ export const AuthSignInScreen: FC<Props> = () => {
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
   };
+
+  // Render
 
   const submitDisabled = !email || !password;
   const theme = useTheme();
@@ -110,6 +133,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   valid={!validators.getEmailErr(email)}
                   error={!!errs?.email}
                   helperText={errs?.email}
+                  InputProps={{ inputProps: { maxLength: 50 } }}
                   label="Email"
                   iconStart={<Icon className="las la-user" style={{ transform: 'scale(1.5)' }} />}
                   onChange={handleTextFieldChanged('email')}
@@ -123,6 +147,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   visible={passVisible}
                   valid={!validators.getPasswordErr(password)}
                   error={!!errs?.password}
+                  InputProps={{ inputProps: { maxLength: 100 } }}
                   helperText={errs?.password}
                   iconStart={<Icon className="las la-lock" style={{ transform: 'scale(1.3)' }} />}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
@@ -136,7 +161,7 @@ export const AuthSignInScreen: FC<Props> = () => {
               </Grid>
               <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
                 <View row className={classes.forgot}>
-                  <TextLink style={styles.resetPass} href={routes.recover}>
+                  <TextLink style={styles.resetPass} onClick={handleForgotPassClick}>
                     forgot password?
                   </TextLink>
                 </View>
