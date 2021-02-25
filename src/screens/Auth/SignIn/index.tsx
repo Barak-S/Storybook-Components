@@ -4,6 +4,7 @@ import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, useSnackbar, View } from 'components/Common';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { Icon } from 'components/Icons';
+import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
@@ -46,6 +47,7 @@ export const AuthSignInScreen: FC<Props> = () => {
   const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
+  const [keepAuth, setKeepAuth] = useState<boolean>(getAmpifyStorageType() === 'local');
 
   const { showSnackbar } = useSnackbar();
   const { signIn } = useAuth();
@@ -70,6 +72,16 @@ export const AuthSignInScreen: FC<Props> = () => {
 
   const handleForgotPassClick = () => {
     history.push({ pathname: routes.recover, state: { email: data.email } });
+  };
+
+  const handleKeepAuthChange = () => {
+    const newVal = !keepAuth;
+    if (newVal) {
+      setAmpifyStorageType('local');
+    } else {
+      setAmpifyStorageType('session');
+    }
+    setKeepAuth(newVal);
   };
 
   const handleLogInPress = async () => {
@@ -157,7 +169,7 @@ export const AuthSignInScreen: FC<Props> = () => {
             </Grid>
             <Grid container justify="space-between" spacing={2}>
               <Grid item xs={12} sm={6}>
-                <CheckboxInput label="Keep me logged in" defaultChecked />
+                <CheckboxInput label="Keep me logged in" checked={keepAuth} onChange={handleKeepAuthChange} />
               </Grid>
               <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
                 <View row className={classes.forgot}>

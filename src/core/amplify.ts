@@ -1,21 +1,50 @@
 import Amplify from '@aws-amplify/core';
 import { appConfig } from 'core/configs';
+import { isString } from 'lodash';
 import { Log } from 'utils';
+import { getStorageVal, setStorageVal } from './storage';
 
 const log = Log('core.amplify');
 
-export const initAmplify = () => {
-  log.info('init');
-  // Re-use existing authentication resource
-  // https://docs.amplify.aws/lib/auth/start/q/platform/js#re-use-existing-authentication-resource
+// Re-use existing authentication resource
+// https://docs.amplify.aws/lib/auth/start/q/platform/js#re-use-existing-authentication-resource
+const getAmpifyConfig = () => ({
+  region: 'us-east-2',
+  userPoolId: 'us-east-2_VLzGdy7Rm',
+  userPoolWebClientId: '7jsoge4e7dmqk2e3uvpo94eqdv',
+  clientMetadata: {
+    type: 'web',
+    env: appConfig.env,
+    version: appConfig.version,
+  },
+});
+
+export type AmpifySessionStorageType = 'local' | 'session';
+
+const storageTypeKey = 'storageType';
+
+export const getAmpifyStorageType = (): AmpifySessionStorageType => {
+  const curStorageType = getStorageVal(storageTypeKey);
+  if (!isString(curStorageType)) {
+    return 'local';
+  }
+  return curStorageType === 'session' ? 'session' : 'local';
+};
+
+export const setAmpifyStorageType = (val: AmpifySessionStorageType) => {
+  log.info('ampify storage type changed, val=', val);
+  setStorageVal(storageTypeKey, val);
   Amplify.configure({
-    region: 'us-east-2',
-    userPoolId: 'us-east-2_VLzGdy7Rm',
-    userPoolWebClientId: '7jsoge4e7dmqk2e3uvpo94eqdv',
-    clientMetadata: {
-      type: 'web',
-      env: appConfig.env,
-      version: appConfig.version,
-    },
+    ...getAmpifyConfig(),
+    storage: val === 'local' ? localStorage : sessionStorage,
+  });
+};
+
+export const initAmplify = () => {
+  const storageType = getAmpifyStorageType();
+  log.info('init, storageType=', storageType);
+  Amplify.configure({
+    ...getAmpifyConfig(),
+    storage: storageType === 'local' ? localStorage : sessionStorage,
   });
 };
