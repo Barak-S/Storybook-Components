@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.14] - 2021-02-25
 ### Fixed
 - DO-36: Recovery screen email filed verification fixes
+- DO-36: Password reset fileds fixed
 
 ## [1.0.13] - 2021-02-24
 ### Changed

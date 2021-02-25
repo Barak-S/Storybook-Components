@@ -54,6 +54,7 @@ export const AuthResetPass: FC<Props> = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { value } = event.currentTarget;
+    setErrs(undefined);
     setData({ ...data, [key]: value });
   };
 

@@ -80,6 +80,8 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
     }
   };
 
+  const submitDissabled = processing || !email || !!errs;
+
   return (
     <>
       <ScreenTitle title="Password Recovery" />
@@ -116,7 +118,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
           </Grid>
           <Grid container justify="center" spacing={2} style={styles.submitBtn}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-              <SubmitButton processing={processing} disabled={processing || !email} onClick={handleSubmitPress}>
+              <SubmitButton processing={processing} disabled={submitDissabled} onClick={handleSubmitPress}>
                 submit
               </SubmitButton>
             </Grid>
