@@ -1,5 +1,5 @@
 import { Grid, Hidden, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { View } from 'components/Common';
+import { Splitter } from 'components/Common';
 import React, { FC } from 'react';
 import FilledBtn from '../FilledBtn';
 import TextBtn from '../TextBtn';
@@ -23,11 +23,11 @@ export const NavigationBar: FC = () => {
       <Grid className={classes.supportLinks}>
         <TextBtn href="#">{`Support`}</TextBtn>
         <Hidden mdDown>
-          <View style={styles.splitter} />
+          <Splitter />
         </Hidden>
         <TextBtn href="#">{`Contact Us`}</TextBtn>
         <Hidden mdDown>
-          <View style={styles.splitter} />
+          <Splitter />
         </Hidden>
       </Grid>
     </Grid>
@@ -44,11 +44,6 @@ const styles: Styles = {
     width: 201,
     ...mx.borderRight(1, 'solid', colors.lightBlueGrey),
     ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
-  },
-  splitter: {
-    width: 1,
-    height: 20,
-    ...mx.borderRight(1, 'solid', colors.coolGrey),
   },
 };
 

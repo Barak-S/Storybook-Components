@@ -7,4 +7,6 @@ export const routes = {
   reset: '/auth/reset',
   recover: '/auth/recover',
   dashboard: '/dashboard',
+  policy: '/policy',
+  terms: '/terms',
 };
