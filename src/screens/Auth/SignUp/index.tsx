@@ -11,7 +11,6 @@ import { Logo, ScreenTitle, Splitter, Text, TextLink, useSnackbar, View } from '
 import { PasswordInput, TextInput } from 'components/Forms';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, Log, validators } from 'utils';
@@ -29,8 +28,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
 
-  const history = useHistory();
-  const { signUp } = useAuth();
+  const { signUp, signIn } = useAuth();
   const { showSnackbar } = useSnackbar();
 
   const { email, firstName, lastName, password, confirmPassword } = data;
@@ -55,12 +53,16 @@ export const AuthSignUpScreen: FC<Props> = () => {
       setErrs(undefined);
       setProcessing(true);
 
-      log.debug('sedning signpu request');
+      log.debug('sending sign up request');
       await signUp({ email, firstName, lastName, password });
-      log.debug('sedning signpu request done');
+      log.debug('sending sign up request done');
+
+      // Automatically sign in after successful signup
+      log.debug('sending sign in request');
+      await signIn(email, password);
+      log.debug('sending sign in request done');
 
       showSnackbar('Almost done! Please check your email and confirm your email address.', 'success');
-      history.push({ pathname: routes.signin, state: { email } });
     } catch (err) {
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
