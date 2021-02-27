@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - DO-32: Signup without email confirmation allowed
 
+### Fixed
+- DO-36: Too close to the bottom on mobile version in Safari
+
 ## [1.0.16] - 2021-02-25
 ### Added
 - DO-73: "Keep me logged in" state
