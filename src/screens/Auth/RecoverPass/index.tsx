@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, useSnackbar, View } from 'components/Common';
@@ -82,11 +82,14 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
 
   const submitDissabled = processing || !email || !!errs;
 
+  const theme = useTheme();
+  const classes = useStyles(theme);
+
   return (
     <>
       <ScreenTitle title="Password Recovery" />
-      <AuthScreenBackground>
-        <Logo style={styles.logo} />
+      <AuthScreenBackground style={styles.authScreen}>
+        <Logo className={classes.logo} />
         <AuthFormContainer style={styles.container}>
           <Grid container justify="center" style={styles.form}>
             <Title type="h3" style={m(globalStyles.authTitle, styles.title)}>
@@ -134,8 +137,9 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
 
 const styles: Styles = {
   container: { maxWidth: 592 },
-  logo: {
-    marginBottom: 50,
+  authScreen: {
+    justifyContent: 'flex-start',
+    paddingTop: 50,
   },
   title: {
     marginBottom: 20,
@@ -152,5 +156,15 @@ const styles: Styles = {
   },
   submitBtn: { marginBottom: 40, marginTop: 0 },
 };
+
+const useStyles = (theme: Theme) =>
+  makeStyles({
+    logo: {
+      marginBottom: 20,
+      [theme.breakpoints.up('lg')]: {
+        marginBottom: 50,
+      },
+    },
+  })();
 
 export default AuthRecoverPassScreen;

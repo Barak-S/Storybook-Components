@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { CustomIconProps } from './types';
+import { CustomIconProps } from '../types';
 
 export const LinkedinIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
   return (

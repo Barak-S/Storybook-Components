@@ -150,5 +150,25 @@ export const muiTheme = createMuiTheme({
         marginRight: 3,
       },
     },
+    MuiTabs: {
+      root: {
+        height: '100%',
+        overflow: 'visible',
+      },
+      flexContainer: {
+        height: '100%',
+      },
+      scroller: {
+        overflow: 'visible!important',
+      },
+    },
+    MuiTab: {
+      root: {
+        textTransform: 'inherit',
+        fontSize: 'inherit',
+        fontFamily: '"Rubik", sans-serif',
+        maxWidth: 'initial',
+      },
+    },
   },
 });

@@ -1,49 +1,33 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { colors, mx, Styles } from 'styles';
 
-const dashboardHeight = 73;
-
 export const styles: Styles = {
-  container: {
-    height: dashboardHeight,
-    backgroundColor: colors.whiteTwo,
-    ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
-  },
   logoWrap: {
+    height: '100%',
+    padding: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: dashboardHeight,
-    width: dashboardHeight,
     ...mx.borderRight(1, 'solid', colors.lightBlueGrey),
-  },
-  logo: {
-    width: 50,
-    height: 50,
-  },
-  mainItem: {
-    height: dashboardHeight,
-    width: 201,
-    ...mx.borderRight(1, 'solid', colors.lightBlueGrey),
-    ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
+    boxSizing: 'border-box',
   },
   rightSection: {
-    paddingLeft: 16,
-    height: dashboardHeight,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 'inherit',
+    height: '100%',
   },
   thumbWrap: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height: dashboardHeight,
     textDecoration: 'none',
     color: 'inherit',
-  },
-  thumb: {
-    width: 55,
-    height: 55,
+    marginLeft: 16,
     marginRight: 5,
+    height: '100%',
   },
   thumbIcon: {
     fontSize: '11px',
@@ -51,27 +35,64 @@ export const styles: Styles = {
   mobileBtn: {
     transform: 'translateX(10px)',
   },
+  suppotLink: {
+    height: '100%',
+  },
 };
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
     menuWrap: {
+      height: 60,
+      backgroundColor: colors.whiteTwo,
+      ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
+      ...mx.borderTop(1, 'solid', colors.lightBlueGrey),
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      minHeight: '100vh',
       paddingRight: 10,
+      fontSize: 20,
+      [theme.breakpoints.up('md')]: {
+        height: 69,
+        fontSize: 18,
+      },
       [theme.breakpoints.up('lg')]: {
+        height: 73,
         justifyContent: 'space-between',
         paddingRight: 36,
       },
     },
-    navbarWrap: {
-      position: 'fixed',
-      left: 0,
-      top: dashboardHeight,
-      zIndex: 10,
+    logo: {
+      width: '100%',
+      maxWidth: 44,
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: 50,
+      },
+    },
+    thumb: {
+      width: 45,
+      height: 45,
+      [theme.breakpoints.up('lg')]: {
+        width: 55,
+        height: 55,
+      },
+    },
+    mainSection: {
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      fontSize: 'inherit',
+      [theme.breakpoints.up('lg')]: {},
+      '& .MuiTabs-indicator': {
+        backgroundColor: 'transparent',
+      },
+      '& .Mui-selected': {
+        backgroundColor: colors.white,
+        color: colors.marineBlue,
+      },
     },
   })();

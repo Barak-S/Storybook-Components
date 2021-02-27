@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
 import { Logo, ScreenTitle, Title, Text, View, useSnackbar } from 'components/Common';
 import { PasswordInput } from 'components/Forms';
@@ -8,7 +8,7 @@ import { globalStyles, m, StyleProps } from 'styles';
 import { errToStr, isDictEmpty, Log, validators } from 'utils';
 import { SubmitButton } from 'components/Buttons';
 
-import { styles } from './styles';
+import { styles, useStyles } from './styles';
 import { useQuery } from 'core/navigation';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
@@ -89,12 +89,14 @@ export const AuthResetPass: FC<Props> = () => {
   };
 
   const submitDissabled = !password || !confirmPassword || !!errs;
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <>
       <ScreenTitle title="Password Recovery" />
-      <AuthScreenBackground>
-        <Logo style={styles.logo} />
+      <AuthScreenBackground style={styles.authScreen}>
+        <Logo className={classes.logo} />
         <AuthFormContainer style={{ maxWidth: 592 }}>
           <Grid container direction="column" justify="center" style={{ marginBottom: 20 }}>
             <Title type="h3" style={m(globalStyles.authTitle, styles.authTitle)}>

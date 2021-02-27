@@ -3,7 +3,7 @@ import { AuthFormContainer, AuthScreenBackground, AuthSectionSplitter, AuthSocia
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, useSnackbar, View } from 'components/Common';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
-import { Icon } from 'components/Icons';
+import { LineAwesomeIcon } from 'components/Icons';
 import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import { useQuery } from 'core/navigation';
@@ -147,7 +147,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   helperText={errs?.email}
                   InputProps={{ inputProps: { maxLength: 50 } }}
                   label="Email"
-                  iconStart={<Icon className="las la-user" style={{ transform: 'scale(1.5)' }} />}
+                  iconStart={<LineAwesomeIcon type="user" />}
                   onChange={handleTextFieldChanged('email')}
                 />
               </Grid>
@@ -161,7 +161,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   error={!!errs?.password}
                   InputProps={{ inputProps: { maxLength: 100 } }}
                   helperText={errs?.password}
-                  iconStart={<Icon className="las la-lock" style={{ transform: 'scale(1.3)' }} />}
+                  iconStart={<LineAwesomeIcon type="lock" />}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
                   onChange={handleTextFieldChanged('password')}
                 />

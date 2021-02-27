@@ -2,6 +2,7 @@ import React from 'react';
 
 import Icon from '.';
 import { View } from 'components/Common';
+import LineAwesomeIcon from '../LineAwesome';
 
 export default {
   title: 'Components/Icon',
@@ -10,8 +11,8 @@ export default {
 
 export const Basic = () => (
   <View row style={{ display: 'flex', width: 300, padding: 20 }}>
-    <Icon style={{ color: 'red' }} className="las la-skull-crossbones" />
-    <Icon style={{ color: 'orange' }} className="las la-radiation-alt" />
-    <Icon style={{ color: 'green' }} className="lab la-envira" />
+    <LineAwesomeIcon style={{ color: 'red' }} type="skull-crossbones" />
+    <LineAwesomeIcon style={{ color: 'orange' }} type="radiation-alt" />
+    <LineAwesomeIcon style={{ color: 'green' }} type="envira" />
   </View>
 );

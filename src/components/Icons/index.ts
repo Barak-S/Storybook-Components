@@ -1,3 +1,3 @@
 export * from './Icon';
-export * from './SocialIcons';
+export * from './SvgIcons/SocialIcons';
 export * from './LineAwesome';

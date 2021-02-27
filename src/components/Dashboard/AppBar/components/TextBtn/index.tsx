@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import { Text } from 'components/Common';
 import React, { FC, MouseEvent } from 'react';
 import { colors, m, StyleProps, Styles } from 'styles';
 
@@ -19,39 +18,44 @@ export const DashboardAppBarTextBtn: FC<Props> = ({ style, children, active, hre
   const classes = useStyles();
 
   return (
-    <a className={classes.container} style={m([style, active && styles.active])} href={href} onClick={handleClick}>
-      <Text className={classes.text}>{children}</Text>
+    <a
+      className={classes.container}
+      style={m([styles.container, style, active && styles.active])}
+      href={href}
+      onClick={handleClick}
+    >
+      {children}
     </a>
   );
 };
 
-const useStyles = makeStyles(() => ({
+const styles: Styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     color: colors.coolBlueTwo,
-    padding: 16,
+    padding: '0 16px',
     boxSizing: 'border-box',
     textDecoration: 'none',
-    opacity: 1,
-    transition: 'all .3s ease-in-out',
-    '&:hover': {
-      opacity: 0.7,
-    },
-  },
-  text: {
+    whiteSpace: 'nowrap',
     fontSize: 'inherit',
+    transition: 'all .3s ease-in-out',
   },
-}));
-
-const styles: Styles = {
   active: {
     backgroundColor: colors.white,
     color: colors.marineBlue,
   },
 };
+
+const useStyles = makeStyles(() => ({
+  container: {
+    '&:hover': {
+      opacity: 0.7,
+    },
+  },
+}));
 
 export type DashboardAppBarTextBtnProps = Props;
 export default DashboardAppBarTextBtn;
