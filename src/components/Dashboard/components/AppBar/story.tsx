@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import DashboardAppBar, { DashboardAppBarProps } from '.';
 
@@ -11,14 +11,7 @@ export default {
 };
 
 const DashboardAppBarWrap: FC<Omit<DashboardAppBarProps, 'tabValue' | 'onTabClick'>> = props => {
-  const [value, setValue] = useState<number>(0);
-
-  const handleTabClick = (value: number) => {
-    action('onTabClick')();
-    setValue(value);
-  };
-
-  return <DashboardAppBar tabValue={value} onTabClick={handleTabClick} {...props} />;
+  return <DashboardAppBar tabValue={0} {...props} />;
 };
 
 export const Basic = () => (

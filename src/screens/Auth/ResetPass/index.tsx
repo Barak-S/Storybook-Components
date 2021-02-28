@@ -95,14 +95,14 @@ export const AuthResetPass: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Password Recovery" />
-      <AuthScreenBackground style={styles.authScreen}>
+      <AuthScreenBackground style={styles.container}>
         <Logo className={classes.logo} />
         <AuthFormContainer style={{ maxWidth: 592 }}>
           <Grid container direction="column" justify="center" style={{ marginBottom: 20 }}>
-            <Title type="h3" style={m(globalStyles.authTitle, styles.authTitle)}>
+            <Title type="h3" style={m(globalStyles.authTitle, styles.title)}>
               Reset Your Password
             </Title>
-            <Text style={m(globalStyles.authSubtitle, styles.authSubtitle)}>Enter a new password below.</Text>
+            <Text style={m(globalStyles.authSubtitle, styles.subtitle)}>Enter a new password below.</Text>
             <Grid item xs={12} style={globalStyles.inputItem}>
               <PasswordInput
                 value={password || ''}

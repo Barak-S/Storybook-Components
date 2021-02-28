@@ -3,7 +3,7 @@ import { CustomIconProps } from './types';
 
 export const SupportIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width || '54'} height={height || '53.998'} viewBox="0 0 54 53.998">
+    <svg xmlns="http://www.w3.org/2000/svg" width={width || '45'} height={height || '45'} viewBox="0 0 54 53.998">
       <g transform="translate(-41.737 -42.148)">
         <path
           d="M49.9 106.746l2.361-1.582a20.2 20.2 0 0 1-2.915-7.038L49.113 97h-4.357a22.167 22.167 0 0 1-.177-2.842 26.072 26.072 0 0 1 .315-4.035l-2.805-.456a28.953 28.953 0 0 0-.351 4.491 25.812 25.812 0 0 0 .4 4.505l.2 1.179h4.5a22.855 22.855 0 0 0 3.062 6.904z"

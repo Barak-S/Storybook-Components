@@ -1,6 +1,7 @@
 import { red } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { colors } from './colors';
+import { mx } from './mixings';
 
 const mainFont = 'Rubik, sans-serif';
 
@@ -82,7 +83,7 @@ export const muiTheme = createMuiTheme({
     MuiInputLabel: {
       formControl: {
         transform: 'translate(15px, 20px) scale(1)',
-        zIndex: 1,
+        zIndex: mx.zIndex('base'),
         textTransform: 'capitalize',
         fontSize: 16,
       },
@@ -168,6 +169,11 @@ export const muiTheme = createMuiTheme({
         fontSize: 'inherit',
         fontFamily: '"Rubik", sans-serif',
         maxWidth: 'initial',
+      },
+    },
+    MuiMenuItem: {
+      root: {
+        fontFamily: '"Rubik", sans-serif',
       },
     },
   },

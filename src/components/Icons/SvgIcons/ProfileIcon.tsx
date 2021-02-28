@@ -3,7 +3,7 @@ import { CustomIconProps } from './types';
 
 export const ProfileIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width || '55'} height={height || '54.999'} viewBox="0 0 55 54.999">
+    <svg xmlns="http://www.w3.org/2000/svg" width={width || '45'} height={height || '45'} viewBox="0 0 55 54.999">
       <path
         fill={fill || '#3972bd'}
         stroke="rgba(0,0,0,0)"

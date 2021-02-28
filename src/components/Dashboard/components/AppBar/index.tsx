@@ -1,24 +1,39 @@
-import { Avatar, Grid, Hidden, Menu, MenuItem, useTheme } from '@material-ui/core';
+import { Avatar, Grid, Hidden, Menu, MenuItem, useMediaQuery, useTheme } from '@material-ui/core';
 import { Image, Splitter } from 'components/Common';
-import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, FC, MouseEvent, useEffect, useState } from 'react';
 import { StyleProps } from 'styles';
 
-import logoImg from './assets/logo.png';
-import profileImg from './assets/profile.png';
-import DashboardTabs from './components/DashboardTabs';
+import logoImg from '../../assets/logo.png';
+import profileImg from '../../assets/profile.png';
 import TextBtn from './components/TextBtn';
 
 import { styles, useStyles } from './styles';
+import { LineAwesomeIcon } from 'components/Icons';
+import AppBarTabs from './components/Tabs';
 
 interface Props extends StyleProps {
   tabValue: number;
   onTabChange: (e: ChangeEvent<unknown>, newValue: number) => void;
   onLogoClick?: () => void;
   onLogoutClick?: () => void;
-  onTabClick: (value: number) => void;
+  onMobileMenuClick?: () => void;
 }
 
-export const DashboardAppBar: FC<Props> = ({ tabValue = 0, onTabChange, onLogoClick, onLogoutClick, onTabClick }) => {
+export const DashboardAppBar: FC<Props> = ({
+  tabValue = 0,
+  onTabChange,
+  onLogoClick,
+  onLogoutClick,
+  onMobileMenuClick,
+}) => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
+  useEffect(() => {
+    setIsMobile(matches);
+  }, [matches, setIsMobile]);
+
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | undefined>(undefined);
 
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -44,7 +59,6 @@ export const DashboardAppBar: FC<Props> = ({ tabValue = 0, onTabChange, onLogoCl
     }
   };
 
-  const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
@@ -54,7 +68,7 @@ export const DashboardAppBar: FC<Props> = ({ tabValue = 0, onTabChange, onLogoCl
           <Image className={classes.logo} source={logoImg} />
         </a>
         <Hidden smDown>
-          <DashboardTabs tabValue={tabValue} onTabChange={onTabChange} onTabClick={onTabClick} />
+          <AppBarTabs tabValue={tabValue} onTabChange={onTabChange} />
         </Hidden>
       </Grid>
       <Grid style={styles.rightSection}>
@@ -68,9 +82,9 @@ export const DashboardAppBar: FC<Props> = ({ tabValue = 0, onTabChange, onLogoCl
           </TextBtn>
           <Splitter />
         </Hidden>
-        <a style={styles.thumbWrap} href="#" onClick={handleProfileClick}>
+        <a style={styles.thumbWrap} href="#" onClick={isMobile ? onMobileMenuClick : handleProfileClick}>
           <Avatar className={classes.thumb} alt="Profile Picture" src={profileImg} />
-          <i className="las la-caret-down" style={styles.thumbIcon} />
+          <LineAwesomeIcon type="angle-down" style={styles.thumbIcon} />
         </a>
       </Grid>
       <Menu

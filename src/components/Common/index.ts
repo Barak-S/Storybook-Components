@@ -8,4 +8,3 @@ export * from './View';
 export * from './Logo';
 export * from './Snackbar';
 export * from './Splitter';
-export * from './TabPanel';

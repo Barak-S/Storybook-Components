@@ -5,11 +5,13 @@ import { StyleProps } from 'styles';
 interface Props extends StyleProps {
   value: string | number;
   index: number;
+  className?: string;
 }
 
-export const TabPanel: FC<Props> = ({ value, index, children, style }) => {
+export const TabPanel: FC<Props> = ({ value, index, children, style, className }) => {
   return (
     <div
+      className={className}
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}

@@ -3,7 +3,7 @@ import { CustomIconProps } from './types';
 
 export const FaqIcon: FC<CustomIconProps> = ({ width, height, fill }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width || '54'} height={height || '54'} viewBox="0 0 54 54">
+    <svg xmlns="http://www.w3.org/2000/svg" width={width || '45'} height={height || '45'} viewBox="0 0 54 54">
       <g transform="translate(174 -42.145)">
         <path
           d="M-147 42.145a27.031 27.031 0 0 0-27 27 27.071 27.071 0 0 0 13.689 23.5l1.4-2.472a24.224 24.224 0 0 1-12.25-21.024A24.185 24.185 0 0 1-147 44.987a24.185 24.185 0 0 1 24.158 24.158 24.19 24.19 0 0 1-22.737 24.117v-2.809h-2.842v5.692H-147a27.031 27.031 0 0 0 27-27 27.031 27.031 0 0 0-27-27z"

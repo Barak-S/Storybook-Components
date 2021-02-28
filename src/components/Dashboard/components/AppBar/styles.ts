@@ -30,7 +30,7 @@ export const styles: Styles = {
     height: '100%',
   },
   thumbIcon: {
-    fontSize: '11px',
+    fontSize: '16px',
   },
   mobileBtn: {
     transform: 'translateX(10px)',
@@ -74,6 +74,7 @@ export const useStyles = (theme: Theme) =>
     thumb: {
       width: 45,
       height: 45,
+      marginRight: 5,
       [theme.breakpoints.up('lg')]: {
         width: 55,
         height: 55,
