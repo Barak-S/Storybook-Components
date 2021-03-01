@@ -9,9 +9,7 @@ const log = Log('core.amplify');
 // Re-use existing authentication resource
 // https://docs.amplify.aws/lib/auth/start/q/platform/js#re-use-existing-authentication-resource
 const getAmpifyConfig = () => ({
-  region: 'us-east-2',
-  userPoolId: 'us-east-2_VLzGdy7Rm',
-  userPoolWebClientId: '7jsoge4e7dmqk2e3uvpo94eqdv',
+  ...appConfig.cognito,
   clientMetadata: {
     type: 'web',
     env: appConfig.env,

@@ -6,6 +6,11 @@ interface AppConfig {
   title?: string;
   company?: string;
   description?: string;
+  cognito: {
+    region: string;
+    userPoolId: string;
+    userPoolWebClientId: string;
+  };
 }
 
 type AppConfigEnv = 'loc' | 'dev' | 'qa' | 'beta' | 'prd';
@@ -20,7 +25,19 @@ const getAppConfig = (): AppConfig => ({
   title: APP_TITLE,
   company: APP_COMPANY,
   description: APP_DESCRIPTION,
+  cognito: {
+    region: getStringOrThrow(COGNITO_REGION, 'COGNITO_REGION'),
+    userPoolId: getStringOrThrow(COGNITO_USER_POOL_ID, 'COGNITO_USER_POOL_ID'),
+    userPoolWebClientId: getStringOrThrow(COGNITO_WEB_CLIENT_ID, 'COGNITO_WEB_CLIENT_ID'),
+  },
 });
+
+const getStringOrThrow = (val: string | undefined, name: string): string => {
+  if (!val) {
+    throw new Error(`${name} env variable is empty`);
+  }
+  return val;
+};
 
 const getAppConfigEnv = (val: string | undefined, def: AppConfigEnv): AppConfigEnv => {
   if (typeof val === 'undefined') {
