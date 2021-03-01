@@ -3,7 +3,7 @@ import { appConfig } from 'core/configs';
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
 import { errToStr, Log } from 'utils';
 
-import { authGetCurrentUser, AuthSignUpInput, authUserSignUp } from './utils';
+import { authGetCurrentUser, AuthSignUpInput } from './utils';
 
 const log = Log('core.api.auth.context');
 
@@ -24,9 +24,27 @@ const mockFn = () => {
 };
 
 const getClientMetadata = () => ({
+  type: 'web',
   version: appConfig.version,
   env: appConfig.env,
+  url: appConfig.url,
 });
+
+interface CognitoSignUpResponse {
+  user: CognitoUser;
+}
+
+const authUserSignUp = async ({ email, firstName, lastName, password }: AuthSignUpInput): Promise<CognitoUser> => {
+  log.info('signup with firstName=', firstName, ', lastName=', lastName, ', email=', email);
+  const attributes = { email, 'custom:firstName': firstName, 'custom:lastName': lastName };
+  const { user } = (await Auth.signUp({
+    username: email,
+    password,
+    attributes,
+    clientMetadata: getClientMetadata(),
+  })) as CognitoSignUpResponse;
+  return user;
+};
 
 export const useAuth = (): AuthContext => {
   const val = useContext(Context);

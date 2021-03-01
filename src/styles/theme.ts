@@ -83,9 +83,9 @@ export const muiTheme = createMuiTheme({
     MuiInputLabel: {
       formControl: {
         transform: 'translate(15px, 20px) scale(1)',
-        zIndex: mx.zIndex('base'),
         textTransform: 'capitalize',
         fontSize: 16,
+        ...mx.zIndex.base,
       },
       root: {
         '&.Mui-focused:not(.Mui-error)': {

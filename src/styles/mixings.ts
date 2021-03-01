@@ -18,31 +18,22 @@ const borderRight = (width: number | string, style: Style['borderStyle'], color:
   borderRight: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
 });
 
-const zIndexMap = [
-  {
-    name: 'base',
+const zIndexMap = {
+  base: {
     zIndex: 20,
   },
-  {
-    name: 'underBase',
+  underBase: {
     zIndex: 10,
   },
-  {
-    name: 'overBase',
+  overBase: {
     zIndex: 20,
   },
-  {
-    name: 'mobileTabs',
+  mobileTabs: {
     zIndex: 30,
   },
-  {
-    name: 'mobileMenu',
+  mobileMenu: {
     zIndex: 31,
   },
-];
-
-const zIndex = (searchedName: string) => {
-  return zIndexMap.find(({ name }) => searchedName === name)?.zIndex || zIndexMap[0].zIndex;
 };
 
 export const mx = {
@@ -50,5 +41,5 @@ export const mx = {
   borderLeft,
   borderRight,
   borderTop,
-  zIndex,
+  zIndex: zIndexMap,
 };

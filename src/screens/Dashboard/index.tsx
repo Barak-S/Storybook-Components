@@ -1,12 +1,11 @@
-import { View, ScreenTitle } from 'components/Common';
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
-import { Styles, StyleProps, srollToTop, m } from 'styles';
-import { useHistory } from 'react-router-dom';
-import { useAuth } from 'core/api';
-import { routes } from 'screens/consts';
-import { DashboardAppBar, DashboardEvents, TabPanel } from 'components/Dashboard';
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
-import DashboardMenu from 'components/Dashboard/components/Menu';
+import { ScreenTitle, View } from 'components/Common';
+import { DashboardAppBar, DashboardEvents, DashboardMenu, TabPanel } from 'components/Dashboard';
+import { useAuth } from 'core/api';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { routes } from 'screens/consts';
+import { m, srollToTop, StyleProps, Styles } from 'styles';
 
 type Props = StyleProps;
 

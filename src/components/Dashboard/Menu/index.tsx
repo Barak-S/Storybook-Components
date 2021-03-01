@@ -1,9 +1,10 @@
 import { Avatar, Drawer, Grid, Hidden, IconButton, List, makeStyles, MenuItem } from '@material-ui/core';
-import { LineAwesomeIcon } from 'components/Icons';
 import { Text } from 'components/Common';
+import profileImg from 'components/Dashboard/assets/profile.png';
+import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps, Styles } from 'styles';
-import profileImg from '../../assets/profile.png';
+
 import AppBarTabs, { AppBarTabsProps } from '../AppBar/components/Tabs';
 import DashboardUsernavigation from '../UserNavigation';
 

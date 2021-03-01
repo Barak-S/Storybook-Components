@@ -81,7 +81,7 @@ const useStyles = (theme: Theme) =>
       position: 'fixed',
       bottom: 0,
       left: 0,
-      zIndex: mx.zIndex('mobileTabs'),
+      ...mx.zIndex.mobileTabs,
     },
   })();
 

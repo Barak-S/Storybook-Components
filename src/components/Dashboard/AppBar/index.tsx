@@ -1,15 +1,14 @@
 import { Avatar, Grid, Hidden, Menu, MenuItem, useMediaQuery, useTheme } from '@material-ui/core';
 import { Image, Splitter } from 'components/Common';
+import logoImg from 'components/Dashboard/assets/logo.png';
+import profileImg from 'components/Dashboard/assets/profile.png';
+import { LineAwesomeIcon } from 'components/Icons';
 import React, { ChangeEvent, FC, MouseEvent, useEffect, useState } from 'react';
 import { StyleProps } from 'styles';
 
-import logoImg from '../../assets/logo.png';
-import profileImg from '../../assets/profile.png';
-import TextBtn from './components/TextBtn';
-
-import { styles, useStyles } from './styles';
-import { LineAwesomeIcon } from 'components/Icons';
 import AppBarTabs from './components/Tabs';
+import TextBtn from './components/TextBtn';
+import { styles, useStyles } from './styles';
 
 interface Props extends StyleProps {
   tabValue: number;
