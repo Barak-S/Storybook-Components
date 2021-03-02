@@ -1,6 +1,6 @@
-import { Button, Paper, useMediaQuery, useTheme } from '@material-ui/core';
+import { Button, CircularProgress, Paper, useMediaQuery, useTheme } from '@material-ui/core';
 import { AuthScreenBackground } from 'components/Auth';
-import { Text } from 'components/Common';
+import { Text, View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, MouseEvent } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
@@ -10,7 +10,7 @@ interface Props extends StyleProps {
   onSubmit?: () => void;
 }
 
-export const DashboardEmailConfirmScene: FC<Props> = ({ onSubmit }) => {
+export const DashboardEmailConfirmScene: FC<Props> = ({ processing, onSubmit }) => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -27,15 +27,21 @@ export const DashboardEmailConfirmScene: FC<Props> = ({ onSubmit }) => {
         <Text style={styles.text}>
           You will experience limited functionality until your email address is confirmed.
         </Text>
-        <Button
-          style={styles.button}
-          variant="contained"
-          color="primary"
-          endIcon={<LineAwesomeIcon type={isTablet ? 'paper-plane' : 'envelope-open-text'} />}
-          onClick={handleBtnClick}
-        >
-          Resend Email Confirmation
-        </Button>
+        {processing ? (
+          <View style={styles.processingWrap} justifyContent="center" alignItems="center">
+            <CircularProgress size={20} color="secondary" />
+          </View>
+        ) : (
+          <Button
+            style={styles.button}
+            variant="contained"
+            color="primary"
+            endIcon={<LineAwesomeIcon type={isTablet ? 'paper-plane' : 'envelope-open-text'} />}
+            onClick={handleBtnClick}
+          >
+            Resend Email Confirmation
+          </Button>
+        )}
       </AuthScreenBackground>
     </Paper>
   );
@@ -66,6 +72,10 @@ const styles: Styles = {
     letterSpacing: 1.5,
     lineHeight: 1.2,
   },
+  processingWrap: {
+    minHeight: 35,
+  },
 };
 
+export type DashboardEmailConfirmSceneProps = Props;
 export default DashboardEmailConfirmScene;
