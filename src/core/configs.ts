@@ -1,3 +1,7 @@
+import { Log } from 'utils';
+
+const log = Log('core.configs');
+
 interface AppConfig {
   version: string;
   env: AppConfigEnv;
@@ -50,3 +54,5 @@ const getAppConfigEnv = (val: string | undefined, def: AppConfigEnv): AppConfigE
 const prepareConfVal = (val: string) => val.toLocaleLowerCase().trim();
 
 export const appConfig = getAppConfig();
+
+log.debug(JSON.stringify(appConfig));
