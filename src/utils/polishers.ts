@@ -7,12 +7,8 @@ const clearName = (val: string | undefined, opt?: ClearNameOpt): string | undefi
   if (!val) {
     return val;
   }
-  let newVal = val;
-  newVal = val.replace(/[^\w\s,.'-]+/g, '');
-  if (newVal.length > maxLength) {
-    newVal = newVal.substring(0, maxLength);
-  }
-  return newVal;
+  const newVal = val.replace(/[^A-Za-z\s,.'-]+/g, '');
+  return setMaxSize(newVal, maxLength);
 };
 
 const clearEmail = (val: string | undefined): string | undefined => setMaxSize(val, 50);
