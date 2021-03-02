@@ -1,10 +1,11 @@
 import { Grid, useTheme } from '@material-ui/core';
-import { AuthFormContainer, AuthScreenBackground, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
+import { AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { LineAwesomeIcon } from 'components/Icons';
+import { BackgroundedContainer } from 'components/Layout';
 import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import { useQuery } from 'core/navigation';
@@ -122,7 +123,7 @@ export const AuthSignInScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Sign in" />
-      <AuthScreenBackground style={{ justifyContent: 'initial' }}>
+      <BackgroundedContainer style={{ justifyContent: 'initial' }}>
         <View className={classes.header} row>
           <Text style={styles.headerText}>Have an account?</Text>
           <TextLink className={classes.textLink} style={styles.loginLink} href={routes.auth.signin}>
@@ -196,7 +197,7 @@ export const AuthSignInScreen: FC<Props> = () => {
           <AuthSectionSplitter>{`Or login with`}</AuthSectionSplitter>
           <AuthSocialLoginButtons />
         </AuthFormContainer>
-      </AuthScreenBackground>
+      </BackgroundedContainer>
     </>
   );
 };

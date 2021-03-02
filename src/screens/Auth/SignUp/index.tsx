@@ -1,15 +1,10 @@
 import { Grid, useTheme } from '@material-ui/core';
-import {
-  AuthCopyrights,
-  AuthFormContainer,
-  AuthScreenBackground,
-  AuthSectionSplitter,
-  AuthSocialLoginButtons,
-} from 'components/Auth';
+import { AuthCopyrights, AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput, TextInput } from 'components/Forms';
+import { BackgroundedContainer } from 'components/Layout';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { routes } from 'screens/consts';
@@ -77,7 +72,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Sign up" />
-      <AuthScreenBackground style={styles.container}>
+      <BackgroundedContainer style={styles.container}>
         <View row className={classes.logo}>
           <Logo />
         </View>
@@ -188,7 +183,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
             <TextLink href={routes.policy}>Privacy Policy</TextLink>
           </View>
         </Grid>
-      </AuthScreenBackground>
+      </BackgroundedContainer>
     </>
   );
 };

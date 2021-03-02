@@ -1,47 +1,28 @@
-import { Avatar, Drawer, Grid, Hidden, IconButton, List, makeStyles, MenuItem } from '@material-ui/core';
+import { Avatar, Drawer, Grid, Hidden, IconButton, makeStyles } from '@material-ui/core';
 import { Text } from 'components/Common';
 import profileImg from 'assets/profilePlaceholder.png';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps, Styles } from 'styles';
 
-import AppBarTabs, { AppBarTabsProps } from '../AppBar/components/Tabs';
+import AppBarMenu, { AppBarMenuProps } from '../AppBar/components/Menu';
 import DashboardUserNav from '../UserNav';
 
 interface Props extends StyleProps {
   open: boolean;
-  tabValue: AppBarTabsProps['tabValue'];
-  onTabChange: AppBarTabsProps['onTabChange'];
   onClose: () => void;
   onLogoutClick: () => void;
+  onMenuBtnClick: AppBarMenuProps['onMenuBtnClick'];
 }
 
-export const DashboardMobileMenu: FC<Props> = ({ open, tabValue, onTabChange, onClose, onLogoutClick }) => {
-  const handleTabChange = (e: React.ChangeEvent<unknown>, newValue: number) => {
-    onTabChange(e, newValue);
-    onClose();
-  };
-
-  const handleProfileClick = () => {
-    onClose();
-  };
-
-  const handleNotesClick = () => {
-    onClose();
-  };
-
-  const handleLogoutClick = () => {
-    onClose();
-    onLogoutClick();
-  };
-
+export const DashboardMobileMenu: FC<Props> = ({ open, onClose, onLogoutClick, onMenuBtnClick }) => {
   const classes = useStyles();
 
   return (
     <Hidden mdUp>
       <Drawer anchor={'right'} open={open} onClose={onClose} className={classes.container}>
-        <List component="nav" aria-label="secondary mailbox folders" style={styles.navigation}>
-          <MenuItem button style={styles.avatarWrap}>
+        <Grid style={styles.navigation}>
+          <Grid style={styles.avatarWrap}>
             <Grid container direction="row" alignItems="center">
               <Avatar alt="Profile Picture" src={profileImg} />
               <Text>{'John Doe'}</Text>
@@ -49,21 +30,9 @@ export const DashboardMobileMenu: FC<Props> = ({ open, tabValue, onTabChange, on
             <IconButton onClick={onClose} component="button">
               <LineAwesomeIcon type="times" />
             </IconButton>
-          </MenuItem>
-          <AppBarTabs tabValue={tabValue} onTabChange={handleTabChange} />
-          <MenuItem onClick={handleProfileClick}>
-            <LineAwesomeIcon type="user" />
-            {'Profile'}
-          </MenuItem>
-          <MenuItem onClick={handleNotesClick}>
-            <LineAwesomeIcon type="sticky-note" />
-            {'Notes'}
-          </MenuItem>
-          <MenuItem onClick={handleLogoutClick}>
-            <LineAwesomeIcon type="sign-out-alt" />
-            {'Logout'}
-          </MenuItem>
-        </List>
+          </Grid>
+          <AppBarMenu onClick={onClose} onLogoutClick={onLogoutClick} onMenuBtnClick={onMenuBtnClick} />
+        </Grid>
         <DashboardUserNav hiddenBtns={['add']} />
       </Drawer>
     </Hidden>
@@ -75,11 +44,15 @@ const styles: Styles = {
     padding: 0,
   },
   avatarWrap: {
-    padding: '0 16px',
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: '0 16px',
     fontWeight: 'normal',
     color: colors.blackTwo,
     fontSize: 18,
+    height: 60,
+    ...mx.borderBottom(1, 'solid', colors.silver),
   },
 };
 
@@ -91,6 +64,7 @@ const useStyles = makeStyles({
     '& .MuiPaper-root': {
       left: 60,
       background: colors.paleGrey,
+      justifyContent: 'space-between',
     },
     '& .MuiAvatar-root': {
       marginRight: 15,

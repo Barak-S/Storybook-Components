@@ -13,6 +13,8 @@ export const routes = {
     events: '/dashboard/events',
     analytics: '/dashboard/analytics',
     users: '/dashboard/users',
+    profile: '/dashboard/profile',
+    notes: '/dashboard/notes',
   },
   policy: '/policy',
   terms: '/terms',

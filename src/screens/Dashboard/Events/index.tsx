@@ -43,13 +43,13 @@ export const DashboardEventsScreen: FC<Props> = () => {
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={1}>
-            Archived
+            {'Archived'}
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={2}>
-            Explore
+            {'Explore'}
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={3}>
-            Liked
+            {'Liked'}
           </DashboardTabPanel>
         </Grid>
         <Hidden mdUp>
@@ -62,6 +62,8 @@ export const DashboardEventsScreen: FC<Props> = () => {
 
 const styles: Styles = {
   container: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
     fontSize: 16,
     textTransform: 'uppercase',

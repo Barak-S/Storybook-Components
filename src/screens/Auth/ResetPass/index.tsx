@@ -1,9 +1,10 @@
 import { Grid, useTheme } from '@material-ui/core';
-import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
+import { AuthFormContainer } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput } from 'components/Forms';
+import { BackgroundedContainer } from 'components/Layout';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -96,7 +97,7 @@ export const AuthResetPass: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Password Recovery" />
-      <AuthScreenBackground style={styles.container}>
+      <BackgroundedContainer style={styles.container}>
         <Logo className={classes.logo} />
         <AuthFormContainer style={{ maxWidth: 592 }}>
           <Grid container direction="column" justify="center" style={{ marginBottom: 20 }}>
@@ -160,7 +161,7 @@ export const AuthResetPass: FC<Props> = () => {
             </Grid>
           </Grid>
         </AuthFormContainer>
-      </AuthScreenBackground>
+      </BackgroundedContainer>
     </>
   );
 };

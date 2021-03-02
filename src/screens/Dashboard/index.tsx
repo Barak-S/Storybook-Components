@@ -1,8 +1,9 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle, View } from 'components/Common';
-import { DashboardAppBar, DashboardMobileMenu, DashboardTabPanel } from 'components/Dashboard';
+import { DashboardAppBar, DashboardMobileMenu } from 'components/Dashboard';
+import { AppBarButtons } from 'components/Dashboard/AppBar/components/Menu';
 import { useAuth } from 'core/api';
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { m, srollToTop, StyleProps, Styles } from 'styles';
@@ -19,7 +20,6 @@ export const DashboardScreens: FC<Props> = () => {
   }, []);
 
   const [mobileMenuVisible, setMobileMenuVisible] = useState<boolean>(false);
-  const [tabPanelValue, setTabPanelValue] = useState<number>(0);
 
   const history = useHistory();
   const { signOut } = useAuth();
@@ -29,13 +29,12 @@ export const DashboardScreens: FC<Props> = () => {
     history.push({ pathname: routes.auth.signin });
   };
 
-  const handleTabPanelChange = (e: ChangeEvent<unknown>, newValue: number) => {
-    e.preventDefault();
-    setTabPanelValue(newValue);
-  };
-
   const handleToggleMobileMenu = () => {
     setMobileMenuVisible(mobileMenuVisible => !mobileMenuVisible);
+  };
+
+  const handleAppBarMenuBtnClick = (name: AppBarButtons) => {
+    history.push({ pathname: routes.dashboard[name] });
   };
 
   const theme = useTheme();
@@ -48,41 +47,31 @@ export const DashboardScreens: FC<Props> = () => {
         {mobileMenuVisible && (
           <DashboardMobileMenu
             open={mobileMenuVisible}
-            tabValue={tabPanelValue}
-            onTabChange={handleTabPanelChange}
             onClose={handleToggleMobileMenu}
             onLogoutClick={handleLogoutClick}
+            onMenuBtnClick={handleAppBarMenuBtnClick}
           />
         )}
         <Grid container style={m(styles.dashboardWrap, { position: mobileMenuVisible ? 'absolute' : 'initial' })}>
           <DashboardAppBar
-            tabValue={tabPanelValue}
-            onTabChange={handleTabPanelChange}
             onLogoClick={() => history.push({ pathname: routes.dashboard.index })}
             onLogoutClick={handleLogoutClick}
             onMobileMenuClick={handleToggleMobileMenu}
+            onMenuBtnClick={handleAppBarMenuBtnClick}
           />
           <View className={classes.dashboardBody} column={true} justifyContent="center" alignItems="center">
-            <DashboardTabPanel style={styles.tabPanel} value={tabPanelValue} index={0}>
-              <Switch>
-                <Route path={routes.dashboard.events}>
-                  <DashboardEventsScreen />
-                </Route>
-                <Route path={routes.dashboard.analytics}>
-                  <DashboardAnalyticsScreen />
-                </Route>
-                <Route path={routes.dashboard.users}>
-                  <DashboardUserManagementScreen />
-                </Route>
-                <Redirect to={routes.dashboard.events} />
-              </Switch>
-            </DashboardTabPanel>
-            <DashboardTabPanel value={tabPanelValue} index={1}>
-              {'Item Two'}
-            </DashboardTabPanel>
-            <DashboardTabPanel value={tabPanelValue} index={2}>
-              {'Item Three'}
-            </DashboardTabPanel>
+            <Switch>
+              <Route path={routes.dashboard.events}>
+                <DashboardEventsScreen />
+              </Route>
+              <Route path={routes.dashboard.analytics}>
+                <DashboardAnalyticsScreen />
+              </Route>
+              <Route path={routes.dashboard.users}>
+                <DashboardUserManagementScreen />
+              </Route>
+              <Redirect to={routes.dashboard.events} />
+            </Switch>
           </View>
         </Grid>
       </Grid>

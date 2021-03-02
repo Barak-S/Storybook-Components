@@ -3,28 +3,21 @@ import logoImg from 'assets/logoSquare.png';
 import profileImg from 'assets/profilePlaceholder.png';
 import { Image, Splitter } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useState } from 'react';
 import { StyleProps } from 'styles';
 
-import AppBarTabs from './components/Tabs';
+import AppBarMenu, { AppBarMenuProps } from './components/Menu';
 import TextBtn from './components/TextBtn';
 import { styles, useStyles } from './styles';
 
 interface Props extends StyleProps {
-  tabValue: number;
-  onTabChange: (e: ChangeEvent<unknown>, newValue: number) => void;
   onLogoClick?: () => void;
   onLogoutClick?: () => void;
   onMobileMenuClick?: () => void;
+  onMenuBtnClick: AppBarMenuProps['onMenuBtnClick'];
 }
 
-export const DashboardAppBar: FC<Props> = ({
-  tabValue = 0,
-  onTabChange,
-  onLogoClick,
-  onLogoutClick,
-  onMobileMenuClick,
-}) => {
+export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobileMenuClick, onMenuBtnClick }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -62,17 +55,17 @@ export const DashboardAppBar: FC<Props> = ({
           <Image className={classes.logo} source={logoImg} />
         </a>
         <Hidden smDown>
-          <AppBarTabs tabValue={tabValue} onTabChange={onTabChange} />
+          <AppBarMenu onMenuBtnClick={onMenuBtnClick} />
         </Hidden>
       </Grid>
       <Grid style={styles.rightSection}>
         <Hidden smDown>
           <TextBtn style={styles.suppotLink} href="#">
-            Support
+            {'Support'}
           </TextBtn>
           <Splitter />
           <TextBtn style={styles.suppotLink} href="#">
-            Contact Us
+            {'Contact Us'}
           </TextBtn>
           <Splitter />
         </Hidden>

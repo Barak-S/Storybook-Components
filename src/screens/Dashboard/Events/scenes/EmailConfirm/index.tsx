@@ -1,7 +1,7 @@
 import { Button, CircularProgress, Paper, useMediaQuery, useTheme } from '@material-ui/core';
-import { AuthScreenBackground } from 'components/Auth';
 import { Text, View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
+import { BackgroundedContainer } from 'components/Layout';
 import React, { FC, MouseEvent } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
@@ -23,7 +23,7 @@ export const DashboardEmailConfirmScene: FC<Props> = ({ processing, onSubmit }) 
 
   return (
     <Paper style={styles.container} elevation={3}>
-      <AuthScreenBackground style={styles.bg}>
+      <BackgroundedContainer style={styles.bg}>
         <Text style={styles.text}>
           You will experience limited functionality until your email address is confirmed.
         </Text>
@@ -42,7 +42,7 @@ export const DashboardEmailConfirmScene: FC<Props> = ({ processing, onSubmit }) 
             Resend Email Confirmation
           </Button>
         )}
-      </AuthScreenBackground>
+      </BackgroundedContainer>
     </Paper>
   );
 };

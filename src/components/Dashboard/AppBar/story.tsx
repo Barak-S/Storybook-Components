@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
-import React, { FC } from 'react';
+import React from 'react';
 
-import DashboardAppBar, { DashboardAppBarProps } from '.';
+import DashboardAppBar from '.';
 
 export default {
   title: 'components/Dashboard/AppBar',
@@ -10,14 +10,11 @@ export default {
   decorators: [withKnobs],
 };
 
-const DashboardAppBarWrap: FC<Omit<DashboardAppBarProps, 'tabValue' | 'onTabClick'>> = props => {
-  return <DashboardAppBar tabValue={0} {...props} />;
-};
-
 export const Basic = () => (
-  <DashboardAppBarWrap
-    onTabChange={action('onTabChange')}
+  <DashboardAppBar
     onLogoClick={action('onLogoClick')}
     onLogoutClick={action('onLogoutClick')}
+    onMobileMenuClick={action('onMobileMenuClick')}
+    onMenuBtnClick={action('onMenuBtnClick')}
   />
 );

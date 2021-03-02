@@ -1,31 +1,33 @@
-import { makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import { DashboardTabs, DashboardTabsProps } from 'components/Dashboard';
-import React, { FC, useEffect, useState } from 'react';
-import { colors, mx } from 'styles';
+import { makeStyles, Tab, Tabs, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import React, { FC, ChangeEvent } from 'react';
+import { colors, mc, mx, StyleProps } from 'styles';
 
-type Props = Omit<DashboardTabsProps, 'tabsLabels' | 'className'>;
+interface Props extends StyleProps {
+  tabValue: number;
+  className?: string;
+  onTabChange: (e: ChangeEvent<unknown>, newValue: number) => void;
+}
 
-export const EventsTabs: FC<Props> = props => {
-  const mobileTabLabels = ['upcoming', 'explore', 'liked'];
-  const [tabsLabels, setTabsLabels] = useState<Array<string>>(mobileTabLabels);
+export const EventsTabs: FC<Props> = ({ tabValue = 0, className, onTabChange }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const updatedTabLabels = tabsLabels.slice();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  useEffect(() => {
-    if (matches && updatedTabLabels.length === mobileTabLabels.length) {
-      updatedTabLabels.splice(1, 0, 'archived');
-    }
+  const handleTabClick = (index: number) => {
+    return {
+      id: `full-width-tab-${index}`,
+      'aria-controls': `full-width-tabpanel-${index}`,
+    };
+  };
 
-    if (!matches && updatedTabLabels.length === mobileTabLabels.length + 1) {
-      updatedTabLabels.splice(1, 1);
-    }
-
-    setTabsLabels(updatedTabLabels);
-  }, [matches, setTabsLabels]);
-
-  return <DashboardTabs {...props} className={classes.container} tabsLabels={tabsLabels} />;
+  return (
+    <Tabs className={mc(classes.container, className)} value={tabValue} onChange={onTabChange}>
+      <Tab label={'upcoming'} {...handleTabClick(0)} />
+      {!isMobile && <Tab label={'archived'} {...handleTabClick(1)} disabled={true} />}
+      <Tab label={'explore'} {...handleTabClick(2)} disabled={true} />
+      <Tab label={'liked'} {...handleTabClick(3)} disabled={true} />
+    </Tabs>
+  );
 };
 
 const useStyles = (theme: Theme) =>

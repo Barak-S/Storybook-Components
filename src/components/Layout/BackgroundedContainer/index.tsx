@@ -5,7 +5,7 @@ import { StyleProps, Styles } from 'styles';
 
 type Props = StyleProps;
 
-export const AuthScreenBackground: FC<Props> = ({ style, children }) => {
+export const BackgroundedContainer: FC<Props> = ({ style, children }) => {
   return <View style={[styles.container, style]}>{children}</View>;
 };
 
@@ -21,4 +21,4 @@ export const styles: Styles = {
   },
 };
 
-export default AuthScreenBackground;
+export default BackgroundedContainer;

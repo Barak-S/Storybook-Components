@@ -78,8 +78,6 @@ export const DashboardUserNav: FC<Props> = ({ disabledBtns, hiddenBtns, onBtnCli
 export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      position: 'absolute',
-      bottom: 26,
       justifyContent: 'center',
       [theme.breakpoints.up('md')]: {
         position: 'initial',
