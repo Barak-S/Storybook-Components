@@ -2,25 +2,24 @@ import { Button, Paper, useMediaQuery, useTheme } from '@material-ui/core';
 import { AuthScreenBackground } from 'components/Auth';
 import { Text } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, useEffect, useState, MouseEvent } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
-type Props = StyleProps;
+interface Props extends StyleProps {
+  processing?: boolean;
+  onSubmit?: () => void;
+}
 
-export const DashBoardEmailConfirmationMessage: FC<Props> = () => {
-  const [isTablet, setIsTablet] = useState<boolean>(false);
+export const DashboardEmailConfirmScene: FC<Props> = ({ onSubmit }) => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
-  useEffect(() => {
-    setIsTablet(matches);
-  }, [matches, setIsTablet]);
-
-  const handleResendButtonClick = (event: MouseEvent) => {
+  const handleBtnClick = (event: MouseEvent) => {
     event.preventDefault();
+    if (onSubmit) {
+      onSubmit();
+    }
   };
-
-  const iconType = isTablet ? 'paper-plane' : 'envelope-open-text';
 
   return (
     <Paper style={styles.container} elevation={3}>
@@ -32,8 +31,8 @@ export const DashBoardEmailConfirmationMessage: FC<Props> = () => {
           style={styles.button}
           variant="contained"
           color="primary"
-          endIcon={<LineAwesomeIcon type={iconType} />}
-          onClick={handleResendButtonClick}
+          endIcon={<LineAwesomeIcon type={isTablet ? 'paper-plane' : 'envelope-open-text'} />}
+          onClick={handleBtnClick}
         >
           Resend Email Confirmation
         </Button>
@@ -69,4 +68,4 @@ const styles: Styles = {
   },
 };
 
-export default DashBoardEmailConfirmationMessage;
+export default DashboardEmailConfirmScene;

@@ -1,8 +1,11 @@
 import { Button } from '@material-ui/core';
-import { FacebookIcon, GoogleIcon, LinkedinIcon } from 'components/Icons';
+import { Image } from 'components/Common';
 import React, { FC, MouseEvent, ReactNode } from 'react';
 import { colors, StyleProps } from 'styles';
 
+import facebookIcon from './assets/facebookIcon.svg';
+import googleIcon from './assets/googleIcon.svg';
+import linkedInIcon from './assets/linkedInIcon.svg';
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {
@@ -22,11 +25,11 @@ interface IconConfig {
 const getSocialButtonData = (type: NetworkType): IconConfig => {
   switch (type) {
     case 'facebook':
-      return { title: 'facebook', icon: <FacebookIcon />, bgColor: colors.dodgerBlue };
+      return { title: 'facebook', icon: <Image source={facebookIcon} />, bgColor: colors.dodgerBlue };
     case 'google':
-      return { title: 'google', icon: <GoogleIcon />, bgColor: colors.paleRed };
+      return { title: 'google', icon: <Image source={googleIcon} />, bgColor: colors.paleRed };
     case 'linkedin':
-      return { title: 'linkedin', icon: <LinkedinIcon />, bgColor: colors.midBlue };
+      return { title: 'linkedin', icon: <Image source={linkedInIcon} />, bgColor: colors.midBlue };
   }
 };
 

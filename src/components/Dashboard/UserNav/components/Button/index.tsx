@@ -9,7 +9,7 @@ interface Props extends StyleProps {
   onClick: (e: MouseEvent) => void;
 }
 
-export const DashboardButton: FC<Props> = ({ icon, style, className, disabled, onClick, children }) => {
+export const DashboardUserNavButton: FC<Props> = ({ icon, style, className, disabled, onClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -79,4 +79,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardButton;
+export default DashboardUserNavButton;

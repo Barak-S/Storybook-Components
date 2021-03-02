@@ -7,7 +7,8 @@ import {
   AuthSocialLoginButtons,
 } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
-import { Logo, ScreenTitle, Splitter, Text, TextLink, useSnackbar, View } from 'components/Common';
+import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Common';
+import { useSnackbar } from 'components/Feedback';
 import { PasswordInput, TextInput } from 'components/Forms';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -84,7 +85,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <Text style={styles.title}>{`Let’s Get Started`}</Text>
           <Text style={styles.subtitle}>
             {`Already Registered? `}
-            <TextLink href={routes.signin}>{`Sign In`}</TextLink>
+            <TextLink href={routes.auth.signin}>{`Sign In`}</TextLink>
           </Text>
           <AuthFormContainer>
             <Grid container justify="space-between" spacing={2} style={{ marginBottom: 15 }}>

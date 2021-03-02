@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import { Screens } from 'screens';
 import { muiTheme } from 'styles';
 import { AuthProvider } from 'core/api';
-import { SnackbarProvider } from 'components/Common';
+import { SnackbarProvider } from 'components/Feedback';
 
 initAmplify();
 

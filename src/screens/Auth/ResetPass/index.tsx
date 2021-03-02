@@ -1,17 +1,18 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
-import { Logo, ScreenTitle, Title, Text, View, useSnackbar } from 'components/Common';
-import { PasswordInput } from 'components/Forms';
-import React, { ChangeEvent, FC, useState } from 'react';
-import { isCognitoErrResponse, useAuth } from 'core/api';
-import { globalStyles, m, StyleProps } from 'styles';
-import { errToStr, isDictEmpty, Log, validators } from 'utils';
 import { SubmitButton } from 'components/Buttons';
-
-import { styles, useStyles } from './styles';
+import { Logo, ScreenTitle, Text, Title, View } from 'components/Common';
+import { useSnackbar } from 'components/Feedback';
+import { PasswordInput } from 'components/Forms';
+import { isCognitoErrResponse, useAuth } from 'core/api';
 import { useQuery } from 'core/navigation';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
+import { globalStyles, m, StyleProps } from 'styles';
+import { errToStr, isDictEmpty, Log, validators } from 'utils';
+
+import { styles, useStyles } from './styles';
 
 const log = Log('screens.AuthResetPass');
 
@@ -80,7 +81,7 @@ export const AuthResetPass: FC<Props> = () => {
       log.debug('sending forgot password request done');
 
       showSnackbar('The password has been changed', 'success');
-      history.push({ pathname: routes.signin, state: { email } });
+      history.push({ pathname: routes.auth.signin, state: { email } });
     } catch (err) {
       log.err(err);
       setProcessing(false);

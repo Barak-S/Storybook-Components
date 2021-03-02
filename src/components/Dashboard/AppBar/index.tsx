@@ -1,9 +1,9 @@
 import { Avatar, Grid, Hidden, Menu, MenuItem, useMediaQuery, useTheme } from '@material-ui/core';
+import logoImg from 'assets/logoSquare.png';
+import profileImg from 'assets/profilePlaceholder.png';
 import { Image, Splitter } from 'components/Common';
-import logoImg from 'components/Dashboard/assets/logo.png';
-import profileImg from 'components/Dashboard/assets/profile.png';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { ChangeEvent, FC, MouseEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
 import { StyleProps } from 'styles';
 
 import AppBarTabs from './components/Tabs';
@@ -25,13 +25,8 @@ export const DashboardAppBar: FC<Props> = ({
   onLogoutClick,
   onMobileMenuClick,
 }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
-
-  useEffect(() => {
-    setIsMobile(matches);
-  }, [matches, setIsMobile]);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | undefined>(undefined);
 

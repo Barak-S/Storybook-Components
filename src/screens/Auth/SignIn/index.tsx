@@ -1,7 +1,8 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
-import { Logo, ScreenTitle, Text, TextLink, Title, useSnackbar, View } from 'components/Common';
+import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
+import { useSnackbar } from 'components/Feedback';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { LineAwesomeIcon } from 'components/Icons';
 import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
@@ -71,7 +72,7 @@ export const AuthSignInScreen: FC<Props> = () => {
   };
 
   const handleForgotPassClick = () => {
-    history.push({ pathname: routes.recover, state: { email: data.email } });
+    history.push({ pathname: routes.auth.recover, state: { email: data.email } });
   };
 
   const handleKeepAuthChange = () => {
@@ -104,7 +105,7 @@ export const AuthSignInScreen: FC<Props> = () => {
       await signIn(email, password);
       log.debug('sign in done');
 
-      history.push({ pathname: routes.dashboard });
+      history.push({ pathname: routes.dashboard.index });
     } catch (err) {
       log.err('sign in err=', err);
       setProcessing(false);
@@ -124,10 +125,10 @@ export const AuthSignInScreen: FC<Props> = () => {
       <AuthScreenBackground style={{ justifyContent: 'initial' }}>
         <View className={classes.header} row>
           <Text style={styles.headerText}>Have an account?</Text>
-          <TextLink className={classes.textLink} style={styles.loginLink} href={routes.signin}>
+          <TextLink className={classes.textLink} style={styles.loginLink} href={routes.auth.signin}>
             log in
           </TextLink>
-          <TextLink style={styles.signupLink} href={routes.signup}>
+          <TextLink style={styles.signupLink} href={routes.auth.signup}>
             Sign up
           </TextLink>
         </View>

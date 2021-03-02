@@ -1,59 +1,43 @@
+import { Text } from 'components/Common';
 import { useAuth } from 'core/api';
+import { appConfig } from 'core/configs';
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { Styles, mx } from 'styles';
 
-import AuthSignInScreen from './Auth/SignIn';
-import AuthSignUpScreen from './Auth/SignUp';
-import AuthRecoverPassScreen from './Auth/RecoverPass';
-import AuthResetPass from './Auth/ResetPass';
+import AuthScreens from './Auth';
 import { routes } from './consts';
-import DashboardScreen from './Dashboard';
+import DashboardScreens from './Dashboard';
 
-const ProtectedRoute: FC<{ path: string; exact?: boolean }> = ({ path, exact, children }) => {
-  const { user: authUser } = useAuth();
-  const authorized = !!authUser;
-  return (
-    <Route
-      path={path}
-      exact={exact}
-      render={({ location }) =>
-        authorized ? children : <Redirect to={{ pathname: routes.signin, state: { from: location } }} />
-      }
-    />
+export const Screens: FC = () => {
+  const { loaded, user } = useAuth();
+  return !loaded ? null : (
+    <>
+      <Router>
+        {!user ? (
+          <AuthScreens />
+        ) : (
+          <Switch>
+            <Route path={routes.dashboard.index}>
+              <DashboardScreens />
+            </Route>
+            <Redirect to={routes.dashboard.index} />
+          </Switch>
+        )}
+      </Router>
+      {appConfig.env !== 'prd' && (
+        <Text style={styles.envLabel} block={true}>{`v${appConfig.version} (${appConfig.env})`}</Text>
+      )}
+    </>
   );
 };
 
-export const Screens: FC = () => {
-  const { loaded: authLoaded, user: authUser } = useAuth();
-
-  if (!authLoaded) return null;
-
-  return !authLoaded ? null : (
-    <Router>
-      {!authUser ? (
-        <Switch>
-          <Route path={routes.signup}>
-            <AuthSignUpScreen />
-          </Route>
-          <Route path={routes.signin}>
-            <AuthSignInScreen />
-          </Route>
-          <Route path={routes.recover}>
-            <AuthRecoverPassScreen />
-          </Route>
-          <Route path={routes.reset}>
-            <AuthResetPass />
-          </Route>
-          <Redirect to={routes.signin} />
-        </Switch>
-      ) : (
-        <Switch>
-          <ProtectedRoute path={routes.dashboard}>
-            <DashboardScreen />
-          </ProtectedRoute>
-          <Redirect to={routes.dashboard} />
-        </Switch>
-      )}
-    </Router>
-  );
+const styles: Styles = {
+  envLabel: {
+    position: 'fixed',
+    right: 8,
+    bottom: 8,
+    ...mx.font(10, 'inherit', 500),
+    zIndex: 100,
+  },
 };

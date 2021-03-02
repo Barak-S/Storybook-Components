@@ -1,15 +1,19 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle, View } from 'components/Common';
-import { DashboardAppBar, DashboardEvents, DashboardMenu, TabPanel } from 'components/Dashboard';
+import { DashboardAppBar, DashboardMobileMenu, DashboardTabPanel } from 'components/Dashboard';
 import { useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { m, srollToTop, StyleProps, Styles } from 'styles';
 
+import DashboardAnalyticsScreen from './Analytics';
+import DashboardEventsScreen from './Events';
+import DashboardUserManagementScreen from './UserManagement';
+
 type Props = StyleProps;
 
-export const DashboardScreen: FC<Props> = () => {
+export const DashboardScreens: FC<Props> = () => {
   useEffect(() => {
     srollToTop();
   }, []);
@@ -22,7 +26,7 @@ export const DashboardScreen: FC<Props> = () => {
 
   const handleLogoutClick = () => {
     signOut();
-    history.push({ pathname: routes.signin });
+    history.push({ pathname: routes.auth.signin });
   };
 
   const handleTabPanelChange = (e: ChangeEvent<unknown>, newValue: number) => {
@@ -39,10 +43,10 @@ export const DashboardScreen: FC<Props> = () => {
 
   return (
     <>
+      <ScreenTitle title="Dashboard" />
       <Grid container style={styles.container}>
-        <ScreenTitle title="Dashboard" />
         {mobileMenuVisible && (
-          <DashboardMenu
+          <DashboardMobileMenu
             open={mobileMenuVisible}
             tabValue={tabPanelValue}
             onTabChange={handleTabPanelChange}
@@ -54,20 +58,31 @@ export const DashboardScreen: FC<Props> = () => {
           <DashboardAppBar
             tabValue={tabPanelValue}
             onTabChange={handleTabPanelChange}
-            onLogoClick={() => history.push({ pathname: routes.dashboard })}
+            onLogoClick={() => history.push({ pathname: routes.dashboard.index })}
             onLogoutClick={handleLogoutClick}
             onMobileMenuClick={handleToggleMobileMenu}
           />
           <View className={classes.dashboardBody} column={true} justifyContent="center" alignItems="center">
-            <TabPanel style={styles.tabPanel} value={tabPanelValue} index={0}>
-              <DashboardEvents />
-            </TabPanel>
-            <TabPanel value={tabPanelValue} index={1}>
+            <DashboardTabPanel style={styles.tabPanel} value={tabPanelValue} index={0}>
+              <Switch>
+                <Route path={routes.dashboard.events}>
+                  <DashboardEventsScreen />
+                </Route>
+                <Route path={routes.dashboard.analytics}>
+                  <DashboardAnalyticsScreen />
+                </Route>
+                <Route path={routes.dashboard.users}>
+                  <DashboardUserManagementScreen />
+                </Route>
+                <Redirect to={routes.dashboard.events} />
+              </Switch>
+            </DashboardTabPanel>
+            <DashboardTabPanel value={tabPanelValue} index={1}>
               {'Item Two'}
-            </TabPanel>
-            <TabPanel value={tabPanelValue} index={2}>
+            </DashboardTabPanel>
+            <DashboardTabPanel value={tabPanelValue} index={2}>
               {'Item Three'}
-            </TabPanel>
+            </DashboardTabPanel>
           </View>
         </Grid>
       </Grid>
@@ -102,5 +117,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardScreenProps = Props;
-export default DashboardScreen;
+export type DashboardScreensProps = Props;
+export default DashboardScreens;

@@ -1,14 +1,12 @@
 import { Avatar, Drawer, Grid, Hidden, IconButton, List, makeStyles, MenuItem } from '@material-ui/core';
 import { Text } from 'components/Common';
-import profileImg from 'components/Dashboard/assets/profile.png';
+import profileImg from 'assets/profilePlaceholder.png';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps, Styles } from 'styles';
 
 import AppBarTabs, { AppBarTabsProps } from '../AppBar/components/Tabs';
-import DashboardUsernavigation from '../UserNavigation';
-
-const userName = 'John Doe';
+import DashboardUserNav from '../UserNav';
 
 interface Props extends StyleProps {
   open: boolean;
@@ -18,7 +16,7 @@ interface Props extends StyleProps {
   onLogoutClick: () => void;
 }
 
-export const DashboardMenu: FC<Props> = ({ open, tabValue, onTabChange, onClose, onLogoutClick }) => {
+export const DashboardMobileMenu: FC<Props> = ({ open, tabValue, onTabChange, onClose, onLogoutClick }) => {
   const handleTabChange = (e: React.ChangeEvent<unknown>, newValue: number) => {
     onTabChange(e, newValue);
     onClose();
@@ -46,7 +44,7 @@ export const DashboardMenu: FC<Props> = ({ open, tabValue, onTabChange, onClose,
           <MenuItem button style={styles.avatarWrap}>
             <Grid container direction="row" alignItems="center">
               <Avatar alt="Profile Picture" src={profileImg} />
-              <Text>{userName}</Text>
+              <Text>{'John Doe'}</Text>
             </Grid>
             <IconButton onClick={onClose} component="button">
               <LineAwesomeIcon type="times" />
@@ -66,7 +64,7 @@ export const DashboardMenu: FC<Props> = ({ open, tabValue, onTabChange, onClose,
             {'Logout'}
           </MenuItem>
         </List>
-        <DashboardUsernavigation />
+        <DashboardUserNav hiddenBtns={['add']} />
       </Drawer>
     </Hidden>
   );
@@ -115,4 +113,4 @@ const useStyles = makeStyles({
   },
 });
 
-export default DashboardMenu;
+export default DashboardMobileMenu;

@@ -1,9 +1,8 @@
-import { IconButton } from '@material-ui/core';
+import { Icon, IconButton } from '@material-ui/core';
+import { TextInputProps } from 'components/Forms/TextInput';
 import React, { FC, MouseEvent } from 'react';
 
 import { TextInput } from '..';
-import { TextInputProps } from 'components/Forms/TextInput';
-import { Icon } from 'components/Icons';
 
 interface CustomProps {
   visible: boolean;
@@ -41,7 +40,9 @@ export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...pro
           edge="end"
           disabled={isInputDisabled || !value}
         >
-          <Icon className={iconClassName} />
+          <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Icon style={{ fontSize: 'inherit' }} className={iconClassName} />
+          </span>
         </IconButton>
       }
     />

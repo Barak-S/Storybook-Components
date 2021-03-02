@@ -18,6 +18,16 @@ const borderRight = (width: number | string, style: Style['borderStyle'], color:
   borderRight: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
 });
 
+const font = (
+  size: Style['fontSize'] | number,
+  color: Style['color'] = 'inherit',
+  weight: Style['fontWeight'] = 'normal',
+): Style => ({
+  fontSize: typeof size === 'number' ? `${size}px` : size,
+  color,
+  fontWeight: weight,
+});
+
 const zIndexMap = {
   base: {
     zIndex: 20,
@@ -41,5 +51,6 @@ export const mx = {
   borderLeft,
   borderRight,
   borderTop,
+  font,
   zIndex: zIndexMap,
 };

@@ -1,7 +1,8 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthScreenBackground } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
-import { Logo, ScreenTitle, Text, TextLink, Title, useSnackbar, View } from 'components/Common';
+import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
+import { useSnackbar } from 'components/Feedback';
 import { TextInput } from 'components/Forms';
 import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -72,7 +73,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
       log.debug('send recover pass request done');
 
       showSnackbar('A request has been sent. Please check your email', 'success');
-      history.push({ pathname: routes.signin, state: { email } });
+      history.push({ pathname: routes.auth.signin, state: { email } });
     } catch (err) {
       log.err('recover pass err=', err);
       setProcessing(false);
@@ -126,7 +127,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
               </SubmitButton>
             </Grid>
           </Grid>
-          <TextLink style={styles.linkBack} href={routes.signin}>
+          <TextLink style={styles.linkBack} href={routes.auth.signin}>
             back to log in
           </TextLink>
         </AuthFormContainer>

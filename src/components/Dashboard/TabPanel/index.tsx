@@ -3,12 +3,12 @@ import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  value: string | number;
+  value: number;
   index: number;
   className?: string;
 }
 
-export const TabPanel: FC<Props> = ({ value, index, children, style, className }) => {
+export const DashboardTabPanel: FC<Props> = ({ value, index, children, style, className }) => {
   return (
     <div
       className={className}
@@ -23,4 +23,4 @@ export const TabPanel: FC<Props> = ({ value, index, children, style, className }
   );
 };
 
-export default TabPanel;
+export default DashboardTabPanel;

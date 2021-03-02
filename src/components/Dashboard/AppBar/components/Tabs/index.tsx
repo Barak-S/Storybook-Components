@@ -20,14 +20,12 @@ export const AppBarTabs: FC<Props> = props => {
   }, [matches, setIsMobile]);
 
   const tabsLabels = ['Events', 'Analytics', 'User Management'];
-  const icons: Array<LineAwesomeIconType> | undefined = isMobile
-    ? ['calendar-check', 'chart-line', 'id-card']
-    : undefined;
+  const icons: LineAwesomeIconType[] | undefined = isMobile ? ['calendar-check', 'chart-line', 'id-card'] : undefined;
 
   return <DashboardTabs tabsLabels={tabsLabels} className={classes.container} icons={icons} {...props} />;
 };
 
-export const useStyles = (theme: Theme) =>
+const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       [theme.breakpoints.down('sm')]: {

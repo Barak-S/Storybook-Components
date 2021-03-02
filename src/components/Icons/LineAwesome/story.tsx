@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Icon from '.';
 import { View } from 'components/Common';
-import LineAwesomeIcon from '../LineAwesome';
+import LineAwesomeIcon from '.';
 
 export default {
-  title: 'Components/Icon',
-  component: Icon,
+  title: 'Components/Icons/LineAwesomeIcon',
+  component: LineAwesomeIcon,
 };
 
 export const Basic = () => (

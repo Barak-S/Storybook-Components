@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { mc, Style } from 'styles';
-import logoImg from 'assets/logo.png';
+import logoImg from 'assets/logoWithTitle.png';
 import { Image } from 'components/Common';
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
 
