@@ -7,7 +7,7 @@ const clearName = (val: string | undefined, opt?: ClearNameOpt): string | undefi
   if (!val) {
     return val;
   }
-  const newVal = val.replace(/[^A-Za-z\s,.'-]+/g, '');
+  const newVal = val.replace(/[^A-Za-z\s,.'‘-]+/g, '');
   return setMaxSize(newVal, maxLength);
 };
 
