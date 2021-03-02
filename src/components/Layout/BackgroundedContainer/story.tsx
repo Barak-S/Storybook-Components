@@ -1,10 +1,10 @@
 import React from 'react';
 
-import AuthScreenBackground from '.';
+import BackgroundedContainer from '.';
 
 export default {
-  title: 'Components/Auth/ScreenBackground',
-  component: AuthScreenBackground,
+  title: 'Components/Layout/BackgroundedContainer',
+  component: BackgroundedContainer,
 };
 
-export const Basic = () => <AuthScreenBackground>{'%children%'}</AuthScreenBackground>;
+export const Basic = () => <BackgroundedContainer>{'%children%'}</BackgroundedContainer>;
