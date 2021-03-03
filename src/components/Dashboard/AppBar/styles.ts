@@ -19,22 +19,6 @@ export const styles: Styles = {
     fontSize: 'inherit',
     height: '100%',
   },
-  thumbWrap: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    textDecoration: 'none',
-    color: 'inherit',
-    marginLeft: 16,
-    marginRight: 5,
-    height: '100%',
-  },
-  thumbIcon: {
-    fontSize: '16px',
-  },
-  mobileBtn: {
-    transform: 'translateX(10px)',
-  },
   suppotLink: {
     height: '100%',
   },
@@ -69,15 +53,6 @@ export const useStyles = (theme: Theme) =>
       maxWidth: 44,
       [theme.breakpoints.up('lg')]: {
         maxWidth: 50,
-      },
-    },
-    thumb: {
-      width: 45,
-      height: 45,
-      marginRight: 5,
-      [theme.breakpoints.up('lg')]: {
-        width: 55,
-        height: 55,
       },
     },
     mainSection: {

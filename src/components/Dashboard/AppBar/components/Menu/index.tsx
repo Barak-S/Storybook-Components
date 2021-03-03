@@ -1,4 +1,4 @@
-import { Hidden, List, makeStyles, MenuItem, Theme, useTheme } from '@material-ui/core';
+import { List, makeStyles, MenuItem, Theme, useTheme } from '@material-ui/core';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps } from 'styles';
@@ -7,52 +7,69 @@ interface Props extends StyleProps {
   onMenuBtnClick: (name: AppBarButtons) => void;
   onClick?: () => void;
   onLogoutClick?: () => void;
+  hiddenBtns?: AppBarButtons[];
+  logout?: boolean;
+  icons?: boolean;
 }
 
 export type AppBarButtons = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
 
-export const AppBarMenu: FC<Props> = ({ onClick, onLogoutClick, onMenuBtnClick }) => {
+export const AppBarMenu: FC<Props> = ({
+  hiddenBtns = [],
+  logout = true,
+  icons = true,
+  onClick,
+  onLogoutClick,
+  onMenuBtnClick,
+}) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
+  const isEventsHidden = !!hiddenBtns.find(btnName => btnName === 'events');
+  const isAnalyticsHidden = !!hiddenBtns.find(btnName => btnName === 'analytics');
+  const isUsersHidden = !!hiddenBtns.find(btnName => btnName === 'users');
+  const isProfileHidden = !!hiddenBtns.find(btnName => btnName === 'profile');
+  const isNotesHidden = !!hiddenBtns.find(btnName => btnName === 'notes');
+  const isLogoutHidden = !logout;
+
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
-      <MenuItem component="button" onClick={() => onMenuBtnClick('events')}>
-        <Hidden mdUp>
-          <LineAwesomeIcon type={'calendar-check'} />
-        </Hidden>
-        {'Events'}
-      </MenuItem>
-      <MenuItem component="button" onClick={() => onMenuBtnClick('analytics')}>
-        <Hidden mdUp>
-          <LineAwesomeIcon type={'chart-line'} />
-        </Hidden>
-        {'Analytics'}
-      </MenuItem>
-      <MenuItem component="button" onClick={() => onMenuBtnClick('users')}>
-        <Hidden mdUp>
-          <LineAwesomeIcon type={'id-card'} />
-        </Hidden>
-        {'User Management'}
-      </MenuItem>
-      <Hidden mdUp>
+      {!isEventsHidden && (
+        <MenuItem component="button" onClick={() => onMenuBtnClick('events')}>
+          {icons && <LineAwesomeIcon type={'calendar-check'} />}
+          {'Events'}
+        </MenuItem>
+      )}
+      {!isAnalyticsHidden && (
+        <MenuItem component="button" onClick={() => onMenuBtnClick('analytics')}>
+          {icons && <LineAwesomeIcon type={'chart-line'} />}
+          {'Analytics'}
+        </MenuItem>
+      )}
+      {!isUsersHidden && (
+        <MenuItem component="button" onClick={() => onMenuBtnClick('users')}>
+          {icons && <LineAwesomeIcon type={'id-card'} />}
+          {'User Management'}
+        </MenuItem>
+      )}
+      {!isProfileHidden && (
         <MenuItem component="button" onClick={() => onMenuBtnClick('profile')}>
-          <LineAwesomeIcon type="user" />
+          {icons && <LineAwesomeIcon type="user" />}
           {'Profile'}
         </MenuItem>
-      </Hidden>
-      <Hidden mdUp>
+      )}
+      {!isNotesHidden && (
         <MenuItem component="button" onClick={() => onMenuBtnClick('notes')}>
-          <LineAwesomeIcon type="sticky-note" />
+          {icons && <LineAwesomeIcon type="sticky-note" />}
           {'Notes'}
         </MenuItem>
-      </Hidden>
-      <Hidden mdUp>
+      )}
+      {!isLogoutHidden && (
         <MenuItem component="button" onClick={onLogoutClick}>
           <LineAwesomeIcon type="sign-out-alt" />
           {'Logout'}
         </MenuItem>
-      </Hidden>
+      )}
     </List>
   );
 };

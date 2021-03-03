@@ -1,10 +1,10 @@
-import { Avatar, Grid, Hidden, Menu, MenuItem, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Hidden, useTheme } from '@material-ui/core';
 import logoImg from 'assets/logoSquare.png';
-import profileImg from 'assets/profilePlaceholder.png';
+
 import { Image, Splitter } from 'components/Common';
-import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { StyleProps } from 'styles';
+import DashboardDropdownMenu from '../DropdownMenu';
 
 import AppBarMenu, { AppBarMenuProps } from './components/Menu';
 import TextBtn from './components/TextBtn';
@@ -18,11 +18,6 @@ interface Props extends StyleProps {
 }
 
 export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobileMenuClick, onMenuBtnClick }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | undefined>(undefined);
-
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (onLogoClick) {
@@ -30,22 +25,13 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
     }
   };
 
-  const handleProfileClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(undefined);
-  };
-
   const handleLogoutClick = () => {
-    handleMenuClose();
     if (onLogoutClick) {
       onLogoutClick();
     }
   };
 
+  const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
@@ -55,7 +41,7 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
           <Image className={classes.logo} source={logoImg} />
         </a>
         <Hidden smDown>
-          <AppBarMenu onMenuBtnClick={onMenuBtnClick} />
+          <AppBarMenu onMenuBtnClick={onMenuBtnClick} hiddenBtns={['notes', 'profile']} logout={false} icons={false} />
         </Hidden>
       </Grid>
       <Grid style={styles.rightSection}>
@@ -69,22 +55,12 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
           </TextBtn>
           <Splitter />
         </Hidden>
-        <a style={styles.thumbWrap} href="#" onClick={isMobile ? onMobileMenuClick : handleProfileClick}>
-          <Avatar className={classes.thumb} alt="Profile Picture" src={profileImg} />
-          <LineAwesomeIcon type="angle-down" style={styles.thumbIcon} />
-        </a>
+        <DashboardDropdownMenu
+          onLogoutClick={handleLogoutClick}
+          onMobileMenuClick={onMobileMenuClick}
+          onMenuBtnClick={onMenuBtnClick}
+        />
       </Grid>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={!!anchorEl}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-      </Menu>
     </Grid>
   );
 };
