@@ -7,9 +7,10 @@ interface Props extends StyleProps {
   disabled?: boolean;
   type?: 'plus' | 'done';
   processing?: boolean;
+  onClick?: () => void;
 }
 
-export const SubmitButton: FC<Props> = ({ style, disabled, type, processing, children }) => {
+export const SubmitButton: FC<Props> = ({ style, disabled, type, processing, children, onClick }) => {
   return (
     <Button
       style={m(styles.container, style)}
@@ -18,6 +19,7 @@ export const SubmitButton: FC<Props> = ({ style, disabled, type, processing, chi
       disabled={disabled}
       startIcon={type === 'done' && <LineAwesomeIcon type="check-circle" />}
       endIcon={type === 'plus' && <LineAwesomeIcon type="plus-circle" />}
+      onClick={onClick}
     >
       {processing ? <CircularProgress color="secondary" size={20} /> : children}
     </Button>
