@@ -1,7 +1,6 @@
-import React from 'react';
-import { action } from '@storybook/addon-actions';
+import React, { FC } from 'react';
 
-import SubmitButton from '.';
+import SubmitButton, { SubmitButtonProps } from '.';
 import { View } from 'components/Common';
 
 export default {
@@ -9,22 +8,21 @@ export default {
   component: SubmitButton,
 };
 
-const processing = true;
-
-export const Basic = () => (
+export const Basic: FC<Partial<SubmitButtonProps>> = props => (
   <View column={true} style={{ width: '740px', margin: '0 auto' }}>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton onClick={action('onClick')}>Log In</SubmitButton>
+      <SubmitButton {...props}>Log In</SubmitButton>
     </View>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton disabled={processing} onClick={action('onClick')}>
+      <SubmitButton disabled={true}>Log In</SubmitButton>
+    </View>
+    <View row style={{ width: '200px', margin: '0 auto 30px' }}>
+      <SubmitButton processing={true} disabled={true}>
         Log In
       </SubmitButton>
     </View>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton processing={processing} disabled={processing} onClick={action('onClick')}>
-        Log In
-      </SubmitButton>
+      <SubmitButton type="plus">Log In</SubmitButton>
     </View>
   </View>
 );

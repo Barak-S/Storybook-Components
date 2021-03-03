@@ -1,28 +1,23 @@
 import { Button, CircularProgress } from '@material-ui/core';
-import { Styles, Style } from 'styles';
+import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
+import { m, StyleProps, Styles } from 'styles';
 
-interface Props {
+interface Props extends StyleProps {
   disabled?: boolean;
-  style?: Style;
-  className?: string;
+  type?: 'plus' | 'done';
   processing?: boolean;
-  onClick: () => void;
 }
 
-export const SubmitButton: FC<Props> = ({ className, disabled, style, processing, children, onClick }) => {
-  const handlePressSubmit = () => {
-    onClick();
-  };
-
+export const SubmitButton: FC<Props> = ({ style, disabled, type, processing, children }) => {
   return (
     <Button
-      className={className}
-      style={{ ...styles.button, ...style }}
+      style={m(styles.container, style)}
       variant="contained"
       color="primary"
       disabled={disabled}
-      onClick={handlePressSubmit}
+      startIcon={type === 'done' && <LineAwesomeIcon type="check-circle" />}
+      endIcon={type === 'plus' && <LineAwesomeIcon type="plus-circle" />}
     >
       {processing ? <CircularProgress color="secondary" size={20} /> : children}
     </Button>
@@ -30,10 +25,11 @@ export const SubmitButton: FC<Props> = ({ className, disabled, style, processing
 };
 
 const styles: Styles = {
-  button: {
+  container: {
     height: 52,
     width: '100%',
   },
 };
 
+export type SubmitButtonProps = Props;
 export default SubmitButton;
