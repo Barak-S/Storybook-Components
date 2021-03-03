@@ -1,5 +1,5 @@
 import { Grid, useTheme } from '@material-ui/core';
-import { AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
+import { AuthFormContainer } from 'components/Auth';
 import { SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
@@ -194,8 +194,8 @@ export const AuthSignInScreen: FC<Props> = () => {
               </SubmitButton>
             </Grid>
           </Grid>
-          <AuthSectionSplitter>{`Or login with`}</AuthSectionSplitter>
-          <AuthSocialLoginButtons />
+          {/* <AuthSectionSplitter>{`Or login with`}</AuthSectionSplitter> */}
+          {/* <AuthSocialLoginButtons /> */}
         </AuthFormContainer>
       </BackgroundedContainer>
     </>
