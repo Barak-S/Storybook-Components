@@ -1562,7 +1562,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
+"@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
   integrity sha512-fU2VtSVlHiF27empSbxi1O2JFdNWZO+2NFHfwO0pxgTep6Xa3uGb+3pVKfLww2l/IBGLNEZl5Xf/++A4wAYDYQ==
@@ -1583,7 +1583,7 @@
     "@emotion/weak-memoize" "^0.2.5"
     stylis "^4.0.3"
 
-"@emotion/core@^10.0.9", "@emotion/core@^10.1.1":
+"@emotion/core@^10.1.1":
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.1.1.tgz#c956c1365f2f2481960064bcb8c4732e5fb612c3"
   integrity sha512-ZMLG6qpXR8x031NXD8HJqugy/AZSkAuMxxqB46pmAR7ze47MhNJ56cdoX243QPZdGctrdfo+s08yZTiwaUcRKA==
@@ -1595,7 +1595,7 @@
     "@emotion/sheet" "0.9.4"
     "@emotion/utils" "0.11.3"
 
-"@emotion/css@^10.0.27", "@emotion/css@^10.0.9":
+"@emotion/css@^10.0.27":
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/@emotion/css/-/css-10.0.27.tgz#3a7458198fbbebb53b01b2b87f64e5e21241e14c"
   integrity sha512-6wZjsvYeBhyZQYNrGoR5yPMYbMBNEnanDrqmsqS1mzDm1cOTu12shvl2j4QHNS36UaTE0USIJawCH9C8oW34Zw==
@@ -2151,7 +2151,7 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-actions@6.1.20", "@storybook/addon-actions@^6.1.20":
+"@storybook/addon-actions@6.1.20":
   version "6.1.20"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-6.1.20.tgz#a7c5f8d079d309f89b38ac8fb89b0838e63afc43"
   integrity sha512-94KH/+Y+Do9k9XgVGup2XgRnzaz/6fSR41nKW4x8oUbnmke8FeZEAurBzjsK+0EGZhVilEpVvabZXc7t9tRZyg==
@@ -2267,49 +2267,6 @@
     "@storybook/api" "6.1.20"
     "@storybook/node-logger" "6.1.20"
     core-js "^3.0.1"
-    regenerator-runtime "^0.13.7"
-    ts-dedent "^2.0.0"
-
-"@storybook/addon-knobs@6.1.20":
-  version "6.1.20"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-6.1.20.tgz#50e2a6e277fc44df9d50a04dad51f574e4f76f60"
-  integrity sha512-4G39Od9oRGUgiMqd8ukkNj5TmD54ZPUiw7u53J0gxIJFhgeInhzIE7w754LfaeBaaQ62OIqtc43r5BAKS0uPgQ==
-  dependencies:
-    "@storybook/addons" "6.1.20"
-    "@storybook/api" "6.1.20"
-    "@storybook/channels" "6.1.20"
-    "@storybook/client-api" "6.1.20"
-    "@storybook/components" "6.1.20"
-    "@storybook/core-events" "6.1.20"
-    "@storybook/theming" "6.1.20"
-    copy-to-clipboard "^3.0.8"
-    core-js "^3.0.1"
-    escape-html "^1.0.3"
-    fast-deep-equal "^3.1.1"
-    global "^4.3.2"
-    lodash "^4.17.15"
-    prop-types "^15.7.2"
-    qs "^6.6.0"
-    react-color "^2.17.0"
-    react-lifecycles-compat "^3.0.4"
-    react-select "^3.0.8"
-    regenerator-runtime "^0.13.7"
-
-"@storybook/addon-links@^6.1.20":
-  version "6.1.20"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-6.1.20.tgz#0b76345f13aafcc71c3cb89d4441d18b07887d74"
-  integrity sha512-yNqfeI/vuQfodCmAlnZ+efeNZK6Z+beMWH/ricBbxc0BLXcDOiqOoDAgTst/fS68P0hM9FQQ0hF69uWnNxFplQ==
-  dependencies:
-    "@storybook/addons" "6.1.20"
-    "@storybook/client-logger" "6.1.20"
-    "@storybook/core-events" "6.1.20"
-    "@storybook/csf" "0.0.1"
-    "@storybook/router" "6.1.20"
-    "@types/qs" "^6.9.0"
-    core-js "^3.0.1"
-    global "^4.3.2"
-    prop-types "^15.7.2"
-    qs "^6.6.0"
     regenerator-runtime "^0.13.7"
     ts-dedent "^2.0.0"
 
@@ -6355,7 +6312,7 @@ escalade@^3.0.2, escalade@^3.1.1:
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
-escape-html@^1.0.3, escape-html@~1.0.3:
+escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
@@ -11322,20 +11279,6 @@ react-select@4.1.0:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.0.0"
     "@emotion/react" "^11.1.1"
-    memoize-one "^5.0.0"
-    prop-types "^15.6.0"
-    react-input-autosize "^3.0.0"
-    react-transition-group "^4.3.0"
-
-react-select@^3.0.8:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-3.2.0.tgz#de9284700196f5f9b5277c5d850a9ce85f5c72fe"
-  integrity sha512-B/q3TnCZXEKItO0fFN/I0tWOX3WJvi/X2wtdffmwSQVRwg5BpValScTO1vdic9AxlUgmeSzib2hAZAwIUQUZGQ==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    "@emotion/cache" "^10.0.9"
-    "@emotion/core" "^10.0.9"
-    "@emotion/css" "^10.0.9"
     memoize-one "^5.0.0"
     prop-types "^15.6.0"
     react-input-autosize "^3.0.0"

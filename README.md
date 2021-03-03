@@ -297,7 +297,6 @@ Additional rules:
 
 - Each story code should be placed at the `story.tsx` file next to the `index.tsx` file of the component.
 - Use actions for the component's events (e.g. `onClick={action('onClick')}`).
-- Use knobs at the component's configuration props (`type`, `colors`, etc.).
 - Title of the component should be the same as it's path (e.g. `Components/Buttons/MobileMenuBtn`).
 
 ## UI
