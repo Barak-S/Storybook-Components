@@ -1,7 +1,9 @@
 import { Grid, Hidden, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
-import { DashboardTabPanel, DashboardUserNav } from 'components/Dashboard';
+import { DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { routes } from 'screens/consts';
 import { colors, mx, StyleProps, Styles } from 'styles';
 import { Log } from 'utils';
 
@@ -15,12 +17,28 @@ type Props = StyleProps;
 export const DashboardEventsScreen: FC<Props> = () => {
   const [tab, setTab] = useState<number>(0);
 
+  const history = useHistory();
+
   const isEmailConfirmed = false;
 
   // Handlers
 
   const handleResendEmailPress = () => {
     log.debug('hanlde resend email press');
+  };
+
+  const handleUseNavBtnClick = (btn: DashboardUserNavBtnType) => {
+    log.debug('hanlde user nav btn click, btn=', btn);
+    switch (btn) {
+      case 'contact':
+        return history.push({ pathname: routes.dashboard.contact });
+      case 'faq':
+        return history.push({ pathname: routes.dashboard.faq });
+      case 'profile':
+        return history.push({ pathname: routes.dashboard.profile });
+      case 'support':
+        return history.push({ pathname: routes.dashboard.support });
+    }
   };
 
   // Render
@@ -39,7 +57,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={0}>
             {!isEmailConfirmed && <DashboardEmailConfirmScene onSubmit={handleResendEmailPress} />}
             <Hidden smDown>
-              <DashboardUserNav disabledBtns={['add']} />
+              <DashboardUserNav disabledBtns={['add']} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={1}>

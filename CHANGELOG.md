@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.0.23] - 2021-03-03
+### Added
+- DO-82: Dashboard - Events - Resend Email Confirmation bottom user navigation implemented
+
 ### Changed
 - DO-117: Remove Social logins until they work
 

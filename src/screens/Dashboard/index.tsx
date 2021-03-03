@@ -9,7 +9,11 @@ import { routes } from 'screens/consts';
 import { m, srollToTop, StyleProps, Styles } from 'styles';
 
 import DashboardAnalyticsScreen from './Analytics';
+import DashboardContactScreen from './Contact';
 import DashboardEventsScreen from './Events';
+import DashboardFaqScreen from './Faq';
+import DashboardProfileScreen from './Profile';
+import DashboardSupportScreen from './Support';
 import DashboardUserManagementScreen from './UserManagement';
 
 type Props = StyleProps;
@@ -69,6 +73,18 @@ export const DashboardScreens: FC<Props> = () => {
               </Route>
               <Route path={routes.dashboard.users}>
                 <DashboardUserManagementScreen />
+              </Route>
+              <Route path={routes.dashboard.contact}>
+                <DashboardContactScreen />
+              </Route>
+              <Route path={routes.dashboard.faq}>
+                <DashboardFaqScreen />
+              </Route>
+              <Route path={routes.dashboard.profile}>
+                <DashboardProfileScreen />
+              </Route>
+              <Route path={routes.dashboard.support}>
+                <DashboardSupportScreen />
               </Route>
               <Redirect to={routes.dashboard.events} />
             </Switch>

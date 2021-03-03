@@ -11,18 +11,18 @@ import supportIcon from './assets/supportIcon.svg';
 import DashboardButton from './components/Button';
 
 interface Props extends StyleProps {
-  disabledBtns?: ButtonType[];
-  hiddenBtns?: ButtonType[];
-  onBtnClick?: (type: ButtonType) => void;
+  disabledBtns?: BtnType[];
+  hiddenBtns?: BtnType[];
+  onBtnClick?: (type: BtnType) => void;
 }
 
-type ButtonType = 'add' | 'profile' | 'faq' | 'support' | 'contact';
+type BtnType = 'add' | 'profile' | 'faq' | 'support' | 'contact';
 
 export const DashboardUserNav: FC<Props> = ({ disabledBtns, hiddenBtns, onBtnClick }) => {
-  const isDisabled = (btn: ButtonType) => disabledBtns && disabledBtns.includes(btn);
-  const isHidden = (btn: ButtonType) => hiddenBtns && hiddenBtns.includes(btn);
+  const isDisabled = (btn: BtnType) => disabledBtns && disabledBtns.includes(btn);
+  const isHidden = (btn: BtnType) => hiddenBtns && hiddenBtns.includes(btn);
 
-  const handleClick = (btn: ButtonType) => (e: MouseEvent) => {
+  const handleClick = (btn: BtnType) => (e: MouseEvent) => {
     e.preventDefault();
     if (onBtnClick) {
       onBtnClick(btn);
@@ -87,4 +87,5 @@ export const useStyles = (theme: Theme) =>
     },
   })();
 
+export type DashboardUserNavBtnType = BtnType;
 export default DashboardUserNav;
