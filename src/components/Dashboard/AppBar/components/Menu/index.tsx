@@ -1,6 +1,6 @@
 import { List, makeStyles, MenuItem, Theme, useTheme } from '@material-ui/core';
-import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC } from 'react';
+import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
+import React, { FC, useState } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
@@ -14,6 +14,12 @@ interface Props extends StyleProps {
 
 export type AppBarButtons = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
 
+interface BtnData {
+  name: AppBarButtons;
+  icon: LineAwesomeIconType;
+  label: string;
+}
+
 export const AppBarMenu: FC<Props> = ({
   hiddenBtns = [],
   logout = true,
@@ -22,52 +28,68 @@ export const AppBarMenu: FC<Props> = ({
   onLogoutClick,
   onMenuBtnClick,
 }) => {
+  const [active, setactive] = useState<AppBarButtons>('events');
+
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const isEventsHidden = !!hiddenBtns.find(btnName => btnName === 'events');
-  const isAnalyticsHidden = !!hiddenBtns.find(btnName => btnName === 'analytics');
-  const isUsersHidden = !!hiddenBtns.find(btnName => btnName === 'users');
-  const isProfileHidden = !!hiddenBtns.find(btnName => btnName === 'profile');
-  const isNotesHidden = !!hiddenBtns.find(btnName => btnName === 'notes');
-  const isLogoutHidden = !logout;
+  const buttonsData: BtnData[] = [
+    {
+      name: 'events',
+      icon: 'calendar-check',
+      label: 'events',
+    },
+    {
+      name: 'analytics',
+      icon: 'chart-line',
+      label: 'analytics',
+    },
+    {
+      name: 'users',
+      icon: 'id-card',
+      label: 'user management',
+    },
+    {
+      name: 'profile',
+      icon: 'user',
+      label: 'profile',
+    },
+    {
+      name: 'notes',
+      icon: 'user',
+      label: 'notes',
+    },
+  ];
+
+  const renderMenuItems = buttonsData.map(({ name, icon, label }, index) => {
+    const isHidden = !!hiddenBtns.find(hiddenBtnName => name === hiddenBtnName);
+
+    if (isHidden) {
+      return null;
+    }
+
+    const handleMenuButtonClick = () => {
+      onMenuBtnClick(name);
+      setactive(name);
+    };
+
+    const isSelected = name === active;
+
+    return (
+      <MenuItem key={index} component="button" selected={isSelected} onClick={handleMenuButtonClick}>
+        {icons && <LineAwesomeIcon type={icon} />}
+        {label}
+      </MenuItem>
+    );
+  });
 
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
-      {!isEventsHidden && (
-        <MenuItem component="button" onClick={() => onMenuBtnClick('events')}>
-          {icons && <LineAwesomeIcon type={'calendar-check'} />}
-          {'Events'}
-        </MenuItem>
-      )}
-      {!isAnalyticsHidden && (
-        <MenuItem component="button" onClick={() => onMenuBtnClick('analytics')}>
-          {icons && <LineAwesomeIcon type={'chart-line'} />}
-          {'Analytics'}
-        </MenuItem>
-      )}
-      {!isUsersHidden && (
-        <MenuItem component="button" onClick={() => onMenuBtnClick('users')}>
-          {icons && <LineAwesomeIcon type={'id-card'} />}
-          {'User Management'}
-        </MenuItem>
-      )}
-      {!isProfileHidden && (
-        <MenuItem component="button" onClick={() => onMenuBtnClick('profile')}>
-          {icons && <LineAwesomeIcon type="user" />}
-          {'Profile'}
-        </MenuItem>
-      )}
-      {!isNotesHidden && (
-        <MenuItem component="button" onClick={() => onMenuBtnClick('notes')}>
-          {icons && <LineAwesomeIcon type="sticky-note" />}
-          {'Notes'}
-        </MenuItem>
-      )}
-      {!isLogoutHidden && (
+      {renderMenuItems}
+      {logout && (
         <MenuItem component="button" onClick={onLogoutClick}>
           <LineAwesomeIcon type="sign-out-alt" />
-          {'Logout'}
+          {'logout'}
         </MenuItem>
       )}
     </List>
@@ -84,6 +106,7 @@ const useStyles = (theme: Theme) =>
         flexDirection: 'row',
       },
       '& .MuiButtonBase-root': {
+        textTransform: 'capitalize',
         '&.Mui-selected, &:hover': {
           backgroundColor: colors.white,
           color: colors.marineBlue,
