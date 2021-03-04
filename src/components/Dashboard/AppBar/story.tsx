@@ -1,18 +1,19 @@
 import { action } from '@storybook/addon-actions';
-import React from 'react';
+import React, { FC } from 'react';
 
-import DashboardAppBar from '.';
+import DashboardAppBar, { DashboardAppBarProps } from '.';
 
 export default {
   title: 'components/Dashboard/AppBar',
   component: DashboardAppBar,
 };
 
-export const Basic = () => (
+export const Basic: FC<Partial<DashboardAppBarProps>> = props => (
   <DashboardAppBar
     onLogoClick={action('onLogoClick')}
     onLogoutClick={action('onLogoutClick')}
     onMobileMenuClick={action('onMobileMenuClick')}
     onMenuBtnClick={action('onMenuBtnClick')}
+    {...props}
   />
 );

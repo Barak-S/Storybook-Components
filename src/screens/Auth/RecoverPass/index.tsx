@@ -73,7 +73,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
       await forgotPassowrd(email);
       log.debug('send recover pass request done');
 
-      showSnackbar('A request has been sent. Please check your email', 'success');
+      showSnackbar('The request has been sent. Please check your email', 'success');
       history.push({ pathname: routes.auth.signin, state: { email } });
     } catch (err) {
       log.err('recover pass err=', err);

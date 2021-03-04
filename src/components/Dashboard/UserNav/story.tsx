@@ -1,11 +1,18 @@
 import { action } from '@storybook/addon-actions';
-import React from 'react';
+import React, { FC } from 'react';
 
-import DashboardUseNav from '.';
+import DashboardUseNav, { DashboardUserNavProps } from '.';
 
 export default {
   title: 'components/Dashboard/UserNav',
   component: DashboardUseNav,
+  argTypes: {
+    btnsBackgroundColor: {
+      control: 'color',
+    },
+  },
 };
 
-export const Basic = () => <DashboardUseNav onBtnClick={action('onBtnClick')} />;
+export const Basic: FC<Partial<DashboardUserNavProps>> = props => (
+  <DashboardUseNav onBtnClick={action('onBtnClick')} {...props} />
+);

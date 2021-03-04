@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.24] - 2021-03-04
+### Added
+- DO-72: Email Confirmation functionality added
+- DO-82: Resend email confirmation functionality added
+
+### Fixed
+- DO-36: Reset password message fixed
+- DO-82: Botton user navigation buttons colors fixed
+
 ## [1.0.23] - 2021-03-03
 ### Added
 - DO-82: Dashboard - Events - Resend Email Confirmation bottom user navigation implemented

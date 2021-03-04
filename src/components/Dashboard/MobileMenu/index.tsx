@@ -33,7 +33,7 @@ export const DashboardMobileMenu: FC<Props> = ({ open, onClose, onLogoutClick, o
           </Grid>
           <AppBarMenu onClick={onClose} onLogoutClick={onLogoutClick} onMenuBtnClick={onMenuBtnClick} />
         </Grid>
-        <DashboardUserNav hiddenBtns={['add']} />
+        <DashboardUserNav hiddenBtns={['add']} btnsBackgroundColor={colors.white} />
       </Drawer>
     </Hidden>
   );

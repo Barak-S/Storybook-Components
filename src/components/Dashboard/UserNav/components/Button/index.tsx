@@ -52,7 +52,7 @@ const useStyles = (theme: Theme) =>
       fontSize: 'inherit',
     },
     button: {
-      background: colors.white,
+      background: 'transparent',
       color: colors.marineBlue,
       width: '100%',
       height: '100%',

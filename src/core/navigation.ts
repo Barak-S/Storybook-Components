@@ -2,10 +2,10 @@ import { useLocation } from 'react-router-dom';
 
 export const useQuery = (): Record<string, string> => {
   const { search } = useLocation();
-  return parseSearchString(search);
+  return parseUrlSearchStr(search);
 };
 
-const parseSearchString = (val: string): Record<string, string> => {
+export const parseUrlSearchStr = (val: string): Record<string, string> => {
   if (!val || val.length === 1) {
     return {};
   }

@@ -85,8 +85,12 @@ export const AuthResetPass: FC<Props> = () => {
       history.push({ pathname: routes.auth.signin, state: { email } });
     } catch (err) {
       log.err(err);
+      let errStr: string = (isCognitoErrResponse(err) ? err.message : errToStr(err)) || '';
+      if (errStr.indexOf('Invalid code provided') >= 0) {
+        errStr = 'Looks like you are trying to use the same reset password URL twice. Please request a new URL';
+      }
       setProcessing(false);
-      setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
+      setErrs({ request: errStr });
     }
   };
 

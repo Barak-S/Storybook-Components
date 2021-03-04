@@ -1,21 +1,19 @@
 import './index.css';
 
 import { ThemeProvider } from '@material-ui/core/styles';
-import { initAmplify } from 'core/amplify';
+import { SnackbarProvider } from 'components/Feedback';
+import { AuthProvider } from 'core/api';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Screens } from 'screens';
 import { muiTheme } from 'styles';
-import { AuthProvider } from 'core/api';
-import { SnackbarProvider } from 'components/Feedback';
 
-initAmplify();
+import App from './app';
 
 ReactDOM.render(
   <ThemeProvider theme={muiTheme}>
     <AuthProvider>
       <SnackbarProvider>
-        <Screens />
+        <App />
       </SnackbarProvider>
     </AuthProvider>
   </ThemeProvider>,
