@@ -4,36 +4,36 @@ import React, { FC, useState } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  onMenuBtnClick: (name: AppBarButtons) => void;
+  onMenuBtnClick: (name: AppBarBtn) => void;
   onClick?: () => void;
   onLogoutClick?: () => void;
-  hiddenBtns?: AppBarButtons[];
-  logout?: boolean;
-  icons?: boolean;
+  hiddenBtns?: AppBarBtn[];
+  logoutVisible?: boolean;
+  iconsVisibile?: boolean;
 }
 
-export type AppBarButtons = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
+export type AppBarBtn = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
 
 interface BtnData {
-  name: AppBarButtons;
+  name: AppBarBtn;
   icon: LineAwesomeIconType;
   label: string;
 }
 
 export const AppBarMenu: FC<Props> = ({
   hiddenBtns = [],
-  logout = true,
-  icons = true,
+  logoutVisible = true,
+  iconsVisibile = true,
   onClick,
   onLogoutClick,
   onMenuBtnClick,
 }) => {
-  const [active, setactive] = useState<AppBarButtons>('events');
+  const [active, setactive] = useState<AppBarBtn>('events');
 
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const buttonsData: BtnData[] = [
+  const buttons: BtnData[] = [
     {
       name: 'events',
       icon: 'calendar-check',
@@ -56,28 +56,25 @@ export const AppBarMenu: FC<Props> = ({
     },
     {
       name: 'notes',
-      icon: 'user',
+      icon: 'sticky-note',
       label: 'notes',
     },
   ];
 
-  const renderMenuItems = buttonsData.map(({ name, icon, label }, index) => {
+  const handleMenuButtonClick = (name: AppBarBtn) => () => {
+    onMenuBtnClick(name);
+    setactive(name);
+  };
+
+  const renderMenuItems = buttons.map(({ name, icon, label }, index) => {
     const isHidden = !!hiddenBtns.find(hiddenBtnName => name === hiddenBtnName);
 
     if (isHidden) {
       return null;
     }
-
-    const handleMenuButtonClick = () => {
-      onMenuBtnClick(name);
-      setactive(name);
-    };
-
-    const isSelected = name === active;
-
     return (
-      <MenuItem key={index} component="button" selected={isSelected} onClick={handleMenuButtonClick}>
-        {icons && <LineAwesomeIcon type={icon} />}
+      <MenuItem key={index} component="button" selected={name === active} onClick={handleMenuButtonClick(name)}>
+        {iconsVisibile && <LineAwesomeIcon type={icon} />}
         {label}
       </MenuItem>
     );
@@ -86,7 +83,7 @@ export const AppBarMenu: FC<Props> = ({
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
       {renderMenuItems}
-      {logout && (
+      {logoutVisible && (
         <MenuItem component="button" onClick={onLogoutClick}>
           <LineAwesomeIcon type="sign-out-alt" />
           {'logout'}

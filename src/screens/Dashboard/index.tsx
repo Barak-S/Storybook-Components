@@ -1,7 +1,6 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle, View } from 'components/Common';
-import { DashboardAppBar, DashboardMobileMenu } from 'components/Dashboard';
-import { AppBarButtons } from 'components/Dashboard/AppBar/components/Menu';
+import { DashboardAppBar, DashboardMobileMenu, AppBarBtn } from 'components/Dashboard';
 import { useAuth } from 'core/api';
 import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
@@ -37,7 +36,7 @@ export const DashboardScreens: FC<Props> = () => {
     setMobileMenuVisible(mobileMenuVisible => !mobileMenuVisible);
   };
 
-  const handleAppBarMenuBtnClick = (name: AppBarButtons) => {
+  const handleAppBarMenuBtnClick = (name: AppBarBtn) => {
     history.push({ pathname: routes.dashboard[name] });
   };
 

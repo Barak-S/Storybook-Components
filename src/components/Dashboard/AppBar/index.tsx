@@ -41,7 +41,12 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
           <Image className={classes.logo} source={logoImg} />
         </a>
         <Hidden smDown>
-          <AppBarMenu onMenuBtnClick={onMenuBtnClick} hiddenBtns={['notes', 'profile']} logout={false} icons={false} />
+          <AppBarMenu
+            onMenuBtnClick={onMenuBtnClick}
+            hiddenBtns={['notes', 'profile']}
+            logoutVisible={false}
+            iconsVisibile={false}
+          />
         </Hidden>
       </Grid>
       <Grid style={styles.rightSection}>
@@ -65,5 +70,6 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
   );
 };
 
+export * from './components/Menu';
 export type DashboardAppBarProps = Props;
 export default DashboardAppBar;
