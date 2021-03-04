@@ -1,17 +1,24 @@
-import { makeStyles, Tab, Tabs, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import React, { FC, ChangeEvent } from 'react';
+import { makeStyles, Tab, Tabs, Theme, useTheme } from '@material-ui/core';
+import React, { ChangeEvent, FC } from 'react';
 import { colors, mc, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  tabValue: number;
   className?: string;
+  tabs: DasbhoardTab[];
+  tab?: number;
   onTabChange: (e: ChangeEvent<unknown>, newValue: number) => void;
 }
 
-export const EventsTabs: FC<Props> = ({ tabValue = 0, className, onTabChange }) => {
+export interface DasbhoardTab {
+  label: string;
+  index: number;
+  disabled?: boolean;
+  visible?: boolean;
+}
+
+export const DashboardTabs: FC<Props> = ({ style, tab = 0, tabs, className, onTabChange }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleTabClick = (index: number) => {
     return {
@@ -21,11 +28,10 @@ export const EventsTabs: FC<Props> = ({ tabValue = 0, className, onTabChange }) 
   };
 
   return (
-    <Tabs className={mc(classes.container, className)} value={tabValue} onChange={onTabChange}>
-      <Tab label={'upcoming'} {...handleTabClick(0)} />
-      {!isMobile && <Tab label={'archived'} {...handleTabClick(1)} disabled={true} />}
-      <Tab label={'explore'} {...handleTabClick(2)} disabled={true} />
-      <Tab label={'liked'} {...handleTabClick(3)} disabled={true} />
+    <Tabs style={style} className={mc(classes.container, className)} value={tab} onChange={onTabChange}>
+      {tabs.map(({ label, index, disabled = false, visible = true }) =>
+        visible ? <Tab key={index} label={label} disabled={disabled} {...handleTabClick(index)} /> : null,
+      )}
     </Tabs>
   );
 };
@@ -65,4 +71,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default EventsTabs;
+export default DashboardTabs;

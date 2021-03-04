@@ -1,6 +1,12 @@
-import { Grid, Hidden, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Grid, Hidden, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
-import { DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
+import {
+  DasbhoardTab,
+  DashboardTabPanel,
+  DashboardTabs,
+  DashboardUserNav,
+  DashboardUserNavBtnType,
+} from 'components/Dashboard';
 import { useSnackbar } from 'components/Feedback';
 import { useAuth } from 'core/api';
 import React, { FC, useState } from 'react';
@@ -9,7 +15,6 @@ import { routes } from 'screens/consts';
 import { colors, mx, StyleProps, Styles } from 'styles';
 import { Log } from 'utils';
 
-import EventsTabs from './components/Tabs';
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 
 const log = Log('screens.DashboardEvents');
@@ -59,9 +64,33 @@ export const DashboardEventsScreen: FC<Props> = () => {
   // Render
 
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const classes = useStyles(theme);
 
-  const eventTabs = <EventsTabs tabValue={tab} onTabChange={(_e, val) => setTab(val)} />;
+  const tabs: DasbhoardTab[] = [
+    {
+      index: 0,
+      label: 'Upcoming',
+    },
+    {
+      index: 1,
+      label: 'Archived',
+      disabled: !userConfirmed,
+      visible: !isMobile,
+    },
+    {
+      index: 2,
+      label: 'Explore',
+      disabled: !userConfirmed,
+    },
+    {
+      index: 3,
+      label: 'Liked',
+      disabled: !userConfirmed,
+    },
+  ];
+
+  const eventTabs = <DashboardTabs tabs={tabs} tab={tab} onTabChange={(_e, val) => setTab(val)} />;
 
   return (
     <>
@@ -74,7 +103,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
               <DashboardEmailConfirmScene processing={sendEmailProcessing} onSubmit={handleResendEmailPress} />
             )}
             <Hidden smDown>
-              <DashboardUserNav disabledBtns={['add']} onBtnClick={handleUseNavBtnClick} />
+              <DashboardUserNav disabledBtns={!userConfirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={1}>
