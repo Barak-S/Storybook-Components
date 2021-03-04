@@ -4,18 +4,18 @@ import React, { FC, useState } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  onMenuBtnClick: (name: AppBarBtn) => void;
+  onMenuBtnClick: (name: DashboardAppBarBtn) => void;
   onClick?: () => void;
   onLogoutClick?: () => void;
-  hiddenBtns?: AppBarBtn[];
+  hiddenBtns?: DashboardAppBarBtn[];
   logoutVisible?: boolean;
   iconsVisibile?: boolean;
 }
 
-export type AppBarBtn = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
+export type DashboardAppBarBtn = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
 
 interface BtnData {
-  name: AppBarBtn;
+  name: DashboardAppBarBtn;
   icon: LineAwesomeIconType;
   label: string;
 }
@@ -28,7 +28,7 @@ export const AppBarMenu: FC<Props> = ({
   onLogoutClick,
   onMenuBtnClick,
 }) => {
-  const [active, setactive] = useState<AppBarBtn>('events');
+  const [active, setactive] = useState<DashboardAppBarBtn>('events');
 
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -61,28 +61,23 @@ export const AppBarMenu: FC<Props> = ({
     },
   ];
 
-  const handleMenuButtonClick = (name: AppBarBtn) => () => {
+  const handleMenuButtonClick = (name: DashboardAppBarBtn) => () => {
     onMenuBtnClick(name);
     setactive(name);
   };
 
-  const renderMenuItems = buttons.map(({ name, icon, label }, index) => {
-    const isHidden = !!hiddenBtns.find(hiddenBtnName => name === hiddenBtnName);
-
-    if (isHidden) {
-      return null;
-    }
-    return (
-      <MenuItem key={index} component="button" selected={name === active} onClick={handleMenuButtonClick(name)}>
-        {iconsVisibile && <LineAwesomeIcon type={icon} />}
-        {label}
-      </MenuItem>
-    );
-  });
+  const isBtnHidden = (name: DashboardAppBarBtn) => Boolean(hiddenBtns && hiddenBtns.find(itm => itm === name));
 
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
-      {renderMenuItems}
+      {buttons.map(({ name, icon, label }, index) =>
+        !isBtnHidden(name) ? (
+          <MenuItem key={index} component="button" selected={name === active} onClick={handleMenuButtonClick(name)}>
+            {iconsVisibile && <LineAwesomeIcon type={icon} />}
+            {label}
+          </MenuItem>
+        ) : null,
+      )}
       {logoutVisible && (
         <MenuItem component="button" onClick={onLogoutClick}>
           <LineAwesomeIcon type="sign-out-alt" />
