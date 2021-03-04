@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.26] - 2021-03-04
 ### Fixed
 - DO-82: User dropdown menu icon fixed
+- DO-72: Error message for the twice used email confirmation URL changed
 
 ## [1.0.25] - 2021-03-04
 ### Fixed

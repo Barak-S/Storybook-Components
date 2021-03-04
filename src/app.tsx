@@ -46,7 +46,11 @@ export const App: FC = () => {
     log.info('processing incoming cognitoConfirmEmail action, params=', params);
     const { err, name = 'email' } = params;
     if (err) {
-      showSnackbar(`Confirming ${name} error: ${err}`, 'error');
+      if (err.indexOf('Invalid code provided') >= 0) {
+        showSnackbar('Looks like you are trying to use the same URL twice. Please request a new URL', 'error');
+      } else {
+        showSnackbar(`Confirming ${name} error: ${err}`, 'error');
+      }
     } else {
       showSnackbar(`${capitalizeFirstLetter(name)} has been confirmed!`, 'success');
     }

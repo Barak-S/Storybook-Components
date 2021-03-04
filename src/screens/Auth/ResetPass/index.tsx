@@ -87,7 +87,7 @@ export const AuthResetPass: FC<Props> = () => {
       log.err(err);
       let errStr: string = (isCognitoErrResponse(err) ? err.message : errToStr(err)) || '';
       if (errStr.indexOf('Invalid code provided') >= 0) {
-        errStr = 'Looks like you are trying to use the same reset password URL twice. Please request a new URL';
+        errStr = 'Looks like you are trying to use the same URL twice. Please request a new URL';
       }
       setProcessing(false);
       setErrs({ request: errStr });
