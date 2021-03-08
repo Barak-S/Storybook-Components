@@ -5,6 +5,7 @@ export const styles: Styles = {
   container: {
     justifyContent: 'flex-start',
     paddingTop: 50,
+    minHeight: '100vh',
   },
   title: {
     marginBottom: 10,

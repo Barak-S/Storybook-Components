@@ -1,9 +1,9 @@
-import { Avatar, Grid, makeStyles, Menu, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
+import { Avatar, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { FC, useState, MouseEvent } from 'react';
 import profileImg from 'assets/profilePlaceholder.png';
 import { colors, StyleProps, Styles } from 'styles';
 import AppBarMenu, { AppBarMenuProps } from '../AppBar/components/Menu';
+import { Dropdown } from 'components/Common';
 
 interface Props extends StyleProps {
   onLogoutClick?: () => void;
@@ -26,36 +26,34 @@ export const DashboardDropdownMenu: FC<Props> = ({ onLogoutClick, onMenuBtnClick
   };
 
   const classes = useStyles(theme);
-  const iconType: LineAwesomeIconType = !!anchorEl ? 'angle-up' : 'angle-down';
 
   return (
-    <Grid>
+    <Grid style={styles.container}>
       <a style={styles.thumbWrap} href="#" onClick={isMobile ? onMobileMenuClick : handleProfileClick}>
         <Avatar className={classes.thumb} alt="Profile Picture" src={profileImg} />
-        <LineAwesomeIcon type={iconType} style={styles.thumbIcon} />
       </a>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      <Dropdown
+        anchor={anchorEl}
         open={!!anchorEl}
         onClose={handleMenuClose}
-        className={classes.container}
+        onToggle={handleProfileClick}
+        className={classes.dropdown}
       >
-        <Grid onClick={handleMenuClose}>
-          <AppBarMenu
-            onMenuBtnClick={onMenuBtnClick}
-            onLogoutClick={onLogoutClick}
-            hiddenBtns={['events', 'analytics', 'users']}
-          />
-        </Grid>
-      </Menu>
+        <AppBarMenu
+          onMenuBtnClick={onMenuBtnClick}
+          onLogoutClick={onLogoutClick}
+          hiddenBtns={['events', 'analytics', 'users']}
+        />
+      </Dropdown>
     </Grid>
   );
 };
 
 const styles: Styles = {
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   thumbWrap: {
     display: 'flex',
     flexDirection: 'row',
@@ -76,20 +74,18 @@ const styles: Styles = {
 
 const useStyles = (theme: Theme) =>
   makeStyles({
-    container: {
+    thumb: {
+      width: 45,
+      height: 45,
+      marginRight: 5,
+      [theme.breakpoints.up('lg')]: {
+        width: 55,
+        height: 55,
+      },
+    },
+    dropdown: {
       '& .MuiPaper-rounded': {
-        borderRadius: 8,
-        top: '72px!important',
-        position: 'realtive',
-        overflow: 'visible',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: -20,
-          right: 10,
-          border: '10px solid transparent',
-          borderBottomColor: colors.white,
-        },
+        transform: 'translate(10px, 50px)!important',
       },
       '& .MuiList-root': {
         flexDirection: 'column',
@@ -105,15 +101,6 @@ const useStyles = (theme: Theme) =>
           color: colors.coolBlue,
           marginRight: 10,
         },
-      },
-    },
-    thumb: {
-      width: 45,
-      height: 45,
-      marginRight: 5,
-      [theme.breakpoints.up('lg')]: {
-        width: 55,
-        height: 55,
       },
     },
   })();

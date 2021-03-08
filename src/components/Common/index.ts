@@ -7,3 +7,4 @@ export * from './Title';
 export * from './View';
 export * from './Logo';
 export * from './Splitter';
+export * from './Dropdown';

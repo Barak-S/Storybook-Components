@@ -20,6 +20,9 @@ export const muiTheme = createMuiTheme({
       default: colors.background,
     },
   },
+  typography: {
+    fontFamily: '"Rubik", sans-serif',
+  },
   overrides: {
     MuiButton: {
       root: {
@@ -167,13 +170,17 @@ export const muiTheme = createMuiTheme({
       root: {
         textTransform: 'inherit',
         fontSize: 'inherit',
-        fontFamily: '"Rubik", sans-serif',
         maxWidth: 'initial',
       },
     },
-    MuiMenuItem: {
+    MuiStepIcon: {
       root: {
-        fontFamily: '"Rubik", sans-serif',
+        display: 'none',
+      },
+    },
+    MuiStepLabel: {
+      root: {
+        position: 'relative',
       },
     },
   },

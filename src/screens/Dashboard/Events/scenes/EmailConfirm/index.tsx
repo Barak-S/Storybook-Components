@@ -1,7 +1,7 @@
-import { Button, CircularProgress, Paper, useMediaQuery, useTheme } from '@material-ui/core';
+import { Button, CircularProgress, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Text, View } from 'components/Common';
+import { DashboardSceneContainer } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
-import { BackgroundedContainer } from 'components/Layout';
 import React, { FC, MouseEvent } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
@@ -21,11 +21,13 @@ export const DashboardEmailConfirmScene: FC<Props> = ({ processing, onSubmit }) 
     }
   };
 
+  const classes = useStyles(theme);
+
   return (
-    <Paper style={styles.container} elevation={3}>
-      <BackgroundedContainer style={styles.bg}>
+    <DashboardSceneContainer style={styles.container}>
+      <Grid className={classes.inner}>
         <Text style={styles.text}>
-          You will experience limited functionality until your email address is confirmed.
+          {'You will experience limited functionality until your email address is confirmed.'}
         </Text>
         {processing ? (
           <View style={styles.processingWrap} justifyContent="center" alignItems="center">
@@ -39,23 +41,17 @@ export const DashboardEmailConfirmScene: FC<Props> = ({ processing, onSubmit }) 
             endIcon={<LineAwesomeIcon type={isTablet ? 'paper-plane' : 'envelope-open-text'} />}
             onClick={handleBtnClick}
           >
-            Resend Email Confirmation
+            {'Resend Email Confirmation'}
           </Button>
         )}
-      </BackgroundedContainer>
-    </Paper>
+      </Grid>
+    </DashboardSceneContainer>
   );
 };
 
 const styles: Styles = {
   container: {
-    borderRadius: 15,
-    overflow: 'hidden',
     marginBottom: 27,
-  },
-  bg: {
-    minHeight: 310,
-    padding: '0 55px',
   },
   text: {
     marginBottom: 40,
@@ -71,11 +67,28 @@ const styles: Styles = {
     fontSize: 15,
     letterSpacing: 1.5,
     lineHeight: 1.2,
+    maxWidth: 320,
   },
   processingWrap: {
     minHeight: 35,
   },
 };
+
+const useStyles = (theme: Theme) =>
+  makeStyles({
+    inner: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      minHeight: 310,
+      padding: '25px 30px 76px',
+      [theme.breakpoints.up('sm')]: {
+        padding: '25px 55px 76px',
+      },
+    },
+  })();
 
 export type DashboardEmailConfirmSceneProps = Props;
 export default DashboardEmailConfirmScene;

@@ -13,7 +13,6 @@ export const styles: Styles = {
   container: {
     display: 'flex',
     width: '100%',
-    minHeight: '100vh',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundImage: `url("${backgroundImg}")`,

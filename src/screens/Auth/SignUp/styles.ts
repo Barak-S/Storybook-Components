@@ -5,6 +5,7 @@ export const styles: Styles = {
   container: {
     paddingTop: 58,
     justifyContent: 'space-between',
+    minHeight: '100vh',
   },
   title: {
     textAlign: 'center',

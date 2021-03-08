@@ -16,6 +16,7 @@ import { colors, mx, StyleProps, Styles } from 'styles';
 import { Log } from 'utils';
 
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
+import FirstEventSetup from './scenes/FirstEventSetup';
 
 const log = Log('screens.DashboardEvents');
 
@@ -91,6 +92,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
   ];
 
   const eventTabs = <DashboardTabs tabs={tabs} tab={tab} onTabChange={(_e, val) => setTab(val)} />;
+  const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
 
   return (
     <>
@@ -99,9 +101,20 @@ export const DashboardEventsScreen: FC<Props> = () => {
         <Hidden smDown>{eventTabs}</Hidden>
         <Grid>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={0}>
-            {!userConfirmed && (
+            {!userConfirmed ? (
               <DashboardEmailConfirmScene processing={sendEmailProcessing} onSubmit={handleResendEmailPress} />
+            ) : (
+              <FirstEventSetup steps={steps} curStepIndex={0} actionBtnTitle={'add your first event'} />
             )}
+            {/* <DashboardEventItem
+                status="waiting"
+                date={new Date()}
+                regStartDate={new Date()}
+                title="Celebrate the Best in Video Games & Esports"
+                url="eventplaceholder.com/event-name"
+                regUrl="digital-oasis.io/event-name/event-registration/form"
+                image=""
+            /> */}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!userConfirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>

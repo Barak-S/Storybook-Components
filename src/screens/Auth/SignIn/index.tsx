@@ -123,7 +123,7 @@ export const AuthSignInScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Sign in" />
-      <BackgroundedContainer style={{ justifyContent: 'initial' }}>
+      <BackgroundedContainer style={{ justifyContent: 'initial', minHeight: '100vh' }}>
         <View className={classes.header} row>
           <Text style={styles.headerText}>Have an account?</Text>
           <TextLink className={classes.textLink} style={styles.loginLink} href={routes.auth.signin}>

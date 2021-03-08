@@ -116,6 +116,9 @@ const useStyles = (theme: Theme) =>
       top: 0,
       left: 0,
       [theme.breakpoints.up('md')]: {
+        padding: '40px 45px',
+      },
+      [theme.breakpoints.up('lg')]: {
         padding: '70px 80px',
       },
     },
