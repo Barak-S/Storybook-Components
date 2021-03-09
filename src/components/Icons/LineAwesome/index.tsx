@@ -1,6 +1,6 @@
 import { Icon } from '@material-ui/core';
 import React, { FC } from 'react';
-import { m, StyleProps } from 'styles';
+import { ms, StyleProps } from 'styles';
 
 import { LineAwesomeIconType } from './types';
 
@@ -11,7 +11,7 @@ interface Props extends StyleProps {
 }
 
 export const LineAwesomeIcon: FC<Props> = ({ style, type, color, size }) => {
-  const containerStyle = m(!!color && { color }, !!size && { fontSize: `${size}px` }, style);
+  const containerStyle = ms(!!color && { color }, !!size && { fontSize: `${size}px` }, style);
   return <Icon style={containerStyle} className={`las la-${type}`} />;
 };
 

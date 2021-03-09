@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { Text } from 'components/Common';
 import React, { FC, MouseEvent } from 'react';
-import { colors, m, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   href?: string;
@@ -19,7 +19,7 @@ export const DashboardAppBarFilledBtn: FC<Props> = ({ style, children, active, h
   const classes = useStyles();
 
   return (
-    <a className={classes.container} style={m([style, active && styles.active])} href={href} onClick={handleClick}>
+    <a className={classes.container} style={ms([style, active && styles.active])} href={href} onClick={handleClick}>
       <Text className={classes.text}>{children}</Text>
     </a>
   );

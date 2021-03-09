@@ -10,7 +10,7 @@ import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import { globalStyles, m, StyleProps } from 'styles';
+import { globalStyles, ms, StyleProps } from 'styles';
 import { errToStr, isDictEmpty, Log, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
@@ -105,10 +105,10 @@ export const AuthResetPass: FC<Props> = () => {
         <Logo className={classes.logo} />
         <AuthFormContainer style={{ maxWidth: 592 }}>
           <Grid container direction="column" justify="center" style={{ marginBottom: 20 }}>
-            <Title type="h3" style={m(globalStyles.authTitle, styles.title)}>
+            <Title type="h3" style={ms(globalStyles.authTitle, styles.title)}>
               Reset Your Password
             </Title>
-            <Text style={m(globalStyles.authSubtitle, styles.subtitle)}>Enter a new password below.</Text>
+            <Text style={ms(globalStyles.authSubtitle, styles.subtitle)}>Enter a new password below.</Text>
             <Grid item xs={12} style={globalStyles.inputItem}>
               <PasswordInput
                 value={password || ''}
@@ -123,7 +123,7 @@ export const AuthResetPass: FC<Props> = () => {
                 onChangeVisibleClick={() => setPassVisible(val => !val)}
               />
             </Grid>
-            <Grid item style={m(globalStyles.inputItem, styles.passHint)}>
+            <Grid item style={ms(globalStyles.inputItem, styles.passHint)}>
               <Text style={globalStyles.passHint}>
                 {`Password length must be minimum 8 characters,
                                     should be alphanumeric with 1 special character.`}

@@ -1,7 +1,7 @@
 import { Button, CircularProgress, makeStyles } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC } from 'react';
-import { colors, m, mc, StyleProps, Styles } from 'styles';
+import { colors, ms, mc, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -28,7 +28,7 @@ export const SubmitButton: FC<Props> = ({
   return (
     <Button
       className={mc(className, theme === 'red' && classes.redThemeContainer)}
-      style={m(styles.container, style)}
+      style={ms(styles.container, style)}
       variant="contained"
       color="primary"
       disabled={disabled}

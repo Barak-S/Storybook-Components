@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { colors, Styles, m, mx, StyleProps } from 'styles';
+import { colors, Styles, ms, mx, StyleProps } from 'styles';
 import { View } from '..';
 
 type Props = StyleProps;
 
 export const Splitter: FC<Props> = ({ style }) => {
-  return <View style={m(styles.splitter, style)} />;
+  return <View style={ms(styles.splitter, style)} />;
 };
 
 const styles: Styles = {

@@ -1,6 +1,6 @@
 import { Text } from 'components/Common';
 import React, { FC } from 'react';
-import { colors, m, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -8,7 +8,7 @@ interface Props extends StyleProps {
 
 export const AuthCopyrights: FC<Props> = ({ style, className }) => {
   return (
-    <Text className={className} style={m(styles.copyright, style)}>
+    <Text className={className} style={ms(styles.copyright, style)}>
       {`Copyright © ${new Date().getFullYear()} All rights reserved.`}
     </Text>
   );

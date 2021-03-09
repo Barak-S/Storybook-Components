@@ -1,7 +1,7 @@
 import { Paper } from '@material-ui/core';
 import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
-import { m, Style, StyleProps, Styles } from 'styles';
+import { ms, Style, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -10,7 +10,7 @@ interface Props extends StyleProps {
 
 export const DashboardSceneContainer: FC<Props> = ({ className, style, children }) => {
   return (
-    <Paper style={m(styles.container, style)} className={className} elevation={3}>
+    <Paper style={ms(styles.container, style)} className={className} elevation={3}>
       <BackgroundedContainer>{children}</BackgroundedContainer>
     </Paper>
   );

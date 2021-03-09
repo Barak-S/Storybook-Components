@@ -5,7 +5,7 @@ import { Text, Title } from 'components/Common';
 import { EventStatus } from 'components/Events/types';
 import { CopyInput } from 'components/Forms';
 import React, { FC } from 'react';
-import { colors, m, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   status: EventStatus;
@@ -114,7 +114,7 @@ export const DashboardEventItemRegistration: FC<Props> = ({
               </Title>
               <Text className={classes.text}>
                 {isActive ? (
-                  <span style={m(styles.boldText, styles.counter)}>{subscrUsersCount}</span>
+                  <span style={ms(styles.boldText, styles.counter)}>{subscrUsersCount}</span>
                 ) : (
                   <>
                     {!isWaiting && regStartDate ? (
@@ -137,7 +137,7 @@ export const DashboardEventItemRegistration: FC<Props> = ({
               </Title>
               <Text className={classes.text}>
                 {isActive ? (
-                  <span style={m(styles.boldText, styles.counter)}>{activeUsersCount}</span>
+                  <span style={ms(styles.boldText, styles.counter)}>{activeUsersCount}</span>
                 ) : (
                   'Will display when event is live.'
                 )}

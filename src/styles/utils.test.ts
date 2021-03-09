@@ -1,15 +1,15 @@
-import { m, mc, px } from './utils';
+import { ms, mc, px } from './utils';
 
-describe('m()', () => {
+describe('ms()', () => {
   test('should merge styles', () => {
     // Empty
-    expect(m()).toEqual({});
+    expect(ms()).toEqual({});
     // Merge two objects
-    expect(m({ color: 'red' }, { fontSize: 10 })).toEqual({ color: 'red', fontSize: 10 });
+    expect(ms({ color: 'red' }, { fontSize: 10 })).toEqual({ color: 'red', fontSize: 10 });
     // Merge array
-    expect(m([{ color: 'red' }, { fontSize: 10 }])).toEqual({ color: 'red', fontSize: 10 });
+    expect(ms([{ color: 'red' }, { fontSize: 10 }])).toEqual({ color: 'red', fontSize: 10 });
     // Merge boolean
-    expect(m({ color: 'red' }, { fontSize: 10 } && false)).toEqual({ color: 'red' });
+    expect(ms({ color: 'red' }, { fontSize: 10 } && false)).toEqual({ color: 'red' });
   });
 });
 

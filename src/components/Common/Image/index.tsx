@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { m, StyleProps, Styles } from 'styles';
+import { ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   source?: string;
@@ -7,7 +7,7 @@ interface Props extends StyleProps {
 }
 
 export const Image: FC<Props> = ({ style, source, className }) => {
-  return <img className={className} style={m(styles.container, style)} src={source} />;
+  return <img className={className} style={ms(styles.container, style)} src={source} />;
 };
 
 const styles: Styles = {

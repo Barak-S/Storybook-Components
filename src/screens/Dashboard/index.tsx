@@ -5,7 +5,7 @@ import { useAuth } from 'core/api';
 import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import { m, srollToTop, StyleProps, Styles } from 'styles';
+import { ms, srollToTop, StyleProps, Styles } from 'styles';
 
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
@@ -55,7 +55,7 @@ export const DashboardScreens: FC<Props> = () => {
             onMenuBtnClick={handleAppBarMenuBtnClick}
           />
         )}
-        <Grid container style={m(styles.dashboardWrap, { position: mobileMenuVisible ? 'absolute' : 'initial' })}>
+        <Grid container style={ms(styles.dashboardWrap, { position: mobileMenuVisible ? 'absolute' : 'initial' })}>
           <DashboardAppBar
             onLogoClick={() => history.push({ pathname: routes.dashboard.index })}
             onLogoutClick={handleLogoutClick}

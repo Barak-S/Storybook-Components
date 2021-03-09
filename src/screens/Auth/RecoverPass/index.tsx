@@ -9,7 +9,7 @@ import { isCognitoErrResponse, useAuth } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import { globalStyles, m, StyleProps, Styles } from 'styles';
+import { globalStyles, ms, StyleProps, Styles } from 'styles';
 import { errToStr, Log, polishers, validators } from 'utils';
 
 const log = Log('screens.AuthRecoverPass');
@@ -94,10 +94,10 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
         <Logo className={classes.logo} />
         <AuthFormContainer style={styles.container}>
           <Grid container justify="center" style={styles.form}>
-            <Title type="h3" style={m(globalStyles.authTitle, styles.title)}>
+            <Title type="h3" style={ms(globalStyles.authTitle, styles.title)}>
               recover your password
             </Title>
-            <Text style={m(globalStyles.authSubtitle, styles.subtitle)}>
+            <Text style={ms(globalStyles.authSubtitle, styles.subtitle)}>
               Enter your email and we will send you instructions to generate a new password.
             </Text>
             <Grid item xs={12}>

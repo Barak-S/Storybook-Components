@@ -3,7 +3,8 @@ import { Title } from 'components/Common';
 import { DashboardSceneContainer, DashboardStepper } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
-import { StyleProps, Styles, colors, mx, m } from 'styles';
+import { colors, ms, mx, StyleProps, Styles } from 'styles';
+
 import StepperMobileLabel from './components/MobileLabel';
 
 interface Props extends StyleProps {
@@ -28,7 +29,7 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <DashboardSceneContainer style={m(styles.container, style)}>
+    <DashboardSceneContainer style={ms(styles.container, style)}>
       <Grid className={classes.inner}>
         <Grid className={classes.topLine}>
           <Title className={classes.title} type="h4">

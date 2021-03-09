@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react';
-import { colors, m, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   href?: string;
@@ -17,7 +17,7 @@ export const TextLink: FC<Props> = ({ style, href = '#', target, className, chil
   };
 
   return (
-    <a className={className} style={m([styles.container, style])} href={href} target={target} onClick={handleClick}>
+    <a className={className} style={ms([styles.container, style])} href={href} target={target} onClick={handleClick}>
       {children}
     </a>
   );
