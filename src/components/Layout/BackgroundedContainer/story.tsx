@@ -1,10 +1,11 @@
 import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-import BackgroundedContainer from '.';
+import BackgroundedContainer, { BackgroundedContainerProps as Props } from '.';
 
-export default {
-  title: 'Components/Layout/BackgroundedContainer',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Layout/BackgroundedContainer',
   component: BackgroundedContainer,
-};
+}))();
 
-export const Basic = () => <BackgroundedContainer>{'%children%'}</BackgroundedContainer>;
+export const Basic: StoryFC<Props> = props => <BackgroundedContainer {...props}>{'%children%'}</BackgroundedContainer>;

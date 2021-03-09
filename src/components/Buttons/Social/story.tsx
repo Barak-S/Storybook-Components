@@ -1,26 +1,30 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import SocialButton from '.';
+import SocialButton, { SocialButtonProps as Props } from '.';
 import { View } from 'components/Common';
+import { StoryConf, StoryFC } from 'styles';
 
-export default {
-  title: 'Components/Buttons/SocialButton',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Buttons/SocialButton',
   component: SocialButton,
-};
+  args: {
+    onClick: action('onClick'),
+  },
+}))();
 
-export const Basic = () => (
+export const Basic: StoryFC<Props> = props => (
   <View column={true} style={{ width: 200 }}>
-    <SocialButton style={{ marginBottom: 10 }} type="facebook" onClick={action('onClick')} />
-    <SocialButton style={{ marginBottom: 10 }} type="google" onClick={action('onClick')} />
-    <SocialButton type="linkedin" onClick={action('onClick')} />
+    <SocialButton style={{ marginBottom: 10 }} type="facebook" {...props} />
+    <SocialButton style={{ marginBottom: 10 }} type="google" {...props} />
+    <SocialButton type="linkedin" {...props} />
   </View>
 );
 
-export const Disabled = () => (
+export const Disabled: StoryFC<Props> = props => (
   <View column={true} style={{ width: 200 }}>
-    <SocialButton style={{ marginBottom: 10 }} type="facebook" disabled={true} onClick={action('onClick')} />
-    <SocialButton style={{ marginBottom: 10 }} disabled={true} type="google" onClick={action('onClick')} />
-    <SocialButton disabled={true} type="linkedin" onClick={action('onClick')} />
+    <SocialButton style={{ marginBottom: 10 }} type="facebook" disabled={true} {...props} />
+    <SocialButton style={{ marginBottom: 10 }} disabled={true} type="google" {...props} />
+    <SocialButton disabled={true} type="linkedin" {...props} />
   </View>
 );

@@ -1,9 +1,10 @@
 import { action } from '@storybook/addon-actions';
-import React, { FC } from 'react';
+import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-import DashboardUseNav, { DashboardUserNavProps } from '.';
+import DashboardUseNav, { DashboardUserNavProps as Props } from '.';
 
-export default {
+export default ((): StoryConf<Props> => ({
   title: 'components/Dashboard/UserNav',
   component: DashboardUseNav,
   argTypes: {
@@ -11,8 +12,6 @@ export default {
       control: 'color',
     },
   },
-};
+}))();
 
-export const Basic: FC<Partial<DashboardUserNavProps>> = props => (
-  <DashboardUseNav onBtnClick={action('onBtnClick')} {...props} />
-);
+export const Basic: StoryFC<Props> = props => <DashboardUseNav onBtnClick={action('onBtnClick')} {...props} />;

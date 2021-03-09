@@ -1,10 +1,11 @@
 import { View } from 'components/Common';
-import React, { FC } from 'react';
+import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-import LineAwesomeIcon, { LineAwesomeIconProps } from '.';
+import LineAwesomeIcon, { LineAwesomeIconProps as Props } from '.';
 
-export default {
-  title: 'Components/Icons/LineAwesomeIcon',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Icons/LineAwesome',
   component: LineAwesomeIcon,
   argTypes: {
     color: {
@@ -19,9 +20,9 @@ export default {
       step: 1,
     },
   },
-};
+}))();
 
-export const Basic: FC<Partial<LineAwesomeIconProps>> = props => (
+export const Basic: StoryFC<Props> = props => (
   <View row style={{ display: 'flex', width: 300, padding: 20 }}>
     <LineAwesomeIcon type="skull-crossbones" {...props} />
     <LineAwesomeIcon type="radiation-alt" {...props} />

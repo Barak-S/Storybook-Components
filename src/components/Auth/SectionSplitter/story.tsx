@@ -1,15 +1,11 @@
 import React from 'react';
 import { StoryConf, StoryFC } from 'styles';
 
-import AuthSectionSplitter, { AuthSectionSplitterProps } from '.';
+import AuthSectionSplitter, { AuthSectionSplitterProps as Props } from '.';
 
-const conf: StoryConf<AuthSectionSplitterProps> = {
-  title: 'Components/Auth/SectionSplitter',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Auth/SectionSplitter',
   component: AuthSectionSplitter,
-};
+}))();
 
-export const Basic: StoryFC<AuthSectionSplitterProps> = props => (
-  <AuthSectionSplitter {...props}>{'Text'}</AuthSectionSplitter>
-);
-
-export default conf;
+export const Basic: StoryFC<Props> = props => <AuthSectionSplitter {...props}>{'Text'}</AuthSectionSplitter>;

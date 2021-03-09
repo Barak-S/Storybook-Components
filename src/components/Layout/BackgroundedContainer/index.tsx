@@ -20,4 +20,5 @@ export const styles: Styles = {
   },
 };
 
+export type BackgroundedContainerProps = Props;
 export default BackgroundedContainer;

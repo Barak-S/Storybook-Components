@@ -91,4 +91,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
+export type DashboardEventItemMainActionsBtnProps = Props;
 export default DashboardEventItemMainActionsBtn;

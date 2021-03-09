@@ -59,4 +59,5 @@ export const SocialButton: FC<Props> = ({ style, type, disabled, onClick }) => {
 };
 
 export type SocialButtonNetworkType = NetworkType;
+export type SocialButtonProps = Props;
 export default SocialButton;

@@ -1,27 +1,27 @@
 import { action } from '@storybook/addon-actions';
-import React, { FC, useState } from 'react';
-import { StoryConf } from 'styles';
+import React, { useState } from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-import DashboardFirstEventSetupView, { DashboardFirstEventSetupViewProps } from './view';
+import DashboardFirstEventSetupView, { DashboardFirstEventSetupViewProps as Props } from './view';
 
 const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
 
-const conf: StoryConf<DashboardFirstEventSetupViewProps> = {
+export default ((): StoryConf<Props> => ({
   title: 'screens/Dashboard/Events/scenes/FirstEventSetup',
   component: DashboardFirstEventSetupView,
   args: { steps },
-};
+}))();
 
-export const Basic: FC<Partial<DashboardFirstEventSetupViewProps>> = props => (
+export const Basic: StoryFC<Props> = props => (
   <DashboardFirstEventSetupView
+    {...props}
     steps={steps}
     onActionBtnClick={action('onActionBtnClick')}
     onIconBtnClick={action('onIconBtnClick')}
-    {...props}
   />
 );
 
-export const Demo: FC<Partial<DashboardFirstEventSetupViewProps>> = props => {
+export const Demo: StoryFC<Props> = props => {
   const [step, setStep] = useState<number>(0);
   const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
   const actionButtonTitle = [
@@ -39,14 +39,12 @@ export const Demo: FC<Partial<DashboardFirstEventSetupViewProps>> = props => {
 
   return (
     <DashboardFirstEventSetupView
+      {...props}
       steps={steps}
       curStepIndex={step}
       actionBtnTitle={actionButtonTitle[step]}
       onActionBtnClick={handleActionButtonClick}
       onIconBtnClick={action('onIconBtnClick')}
-      {...props}
     />
   );
 };
-
-export default conf;

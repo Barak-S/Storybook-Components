@@ -24,4 +24,5 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export type CheckboxInputProps = Props;
 export default CheckboxInput;

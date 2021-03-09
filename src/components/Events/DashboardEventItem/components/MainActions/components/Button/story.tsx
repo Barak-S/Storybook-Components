@@ -1,15 +1,16 @@
-import React, { FC } from 'react';
 import { action } from '@storybook/addon-actions';
-
-import DashboardEventItemMainActionsBtn from '.';
 import { View } from 'components/Common';
+import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-export default {
-  title: 'Components/Buttons/AnimatedEventButton',
+import DashboardEventItemMainActionsBtn, { DashboardEventItemMainActionsBtnProps as Props } from '.';
+
+export default ((): StoryConf<Props> => ({
+  title: 'components/Events/DashboardEventItem/components/MainActions/components/Button',
   component: DashboardEventItemMainActionsBtn,
-};
+}))();
 
-export const Basic: FC = props => (
+export const Basic: StoryFC<Props> = props => (
   <View
     row
     style={{

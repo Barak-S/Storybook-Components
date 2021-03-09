@@ -1,14 +1,15 @@
 import { action } from '@storybook/addon-actions';
-import React, { FC } from 'react';
+import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-import DashboardAppBar, { DashboardAppBarProps } from '.';
+import DashboardAppBar, { DashboardAppBarProps as Props } from '.';
 
-export default {
+export default ((): StoryConf<Props> => ({
   title: 'components/Dashboard/AppBar',
   component: DashboardAppBar,
-};
+}))();
 
-export const Basic: FC<Partial<DashboardAppBarProps>> = props => (
+export const Basic: StoryFC<Props> = props => (
   <DashboardAppBar
     onLogoClick={action('onLogoClick')}
     onLogoutClick={action('onLogoutClick')}

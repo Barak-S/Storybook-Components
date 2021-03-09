@@ -6,7 +6,9 @@ import React, { FC, MouseEvent } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
+  /** Show or hide processing circle */
   processing?: boolean;
+  /** User clicks the button aciton */
   onSubmit?: () => void;
 }
 

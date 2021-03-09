@@ -1,18 +1,17 @@
 import React, { useState, FC } from 'react';
 import { action } from '@storybook/addon-actions';
 
-import PasswordInput, { PasswordInputProps } from '.';
+import PasswordInput, { PasswordInputProps as Props } from '.';
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
+import { StoryConf, StoryFC } from 'styles';
 
-export default {
-  title: 'Components/Forms/PasswordInput',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Forms/PasswordInput',
   component: PasswordInput,
-};
+}))();
 
-const PasswordInputWrap: FC<
-  Omit<PasswordInputProps, 'value' | 'onChange' | 'onChangeVisibleClick' | 'visible'>
-> = props => {
+const PasswordInputWrap: FC<Omit<Props, 'value' | 'onChange' | 'onChangeVisibleClick' | 'visible'>> = props => {
   const [value, setValue] = useState<string>('12345678');
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -32,21 +31,21 @@ const PasswordInputWrap: FC<
   );
 };
 
-export const Basic = () => (
+export const Basic: StoryFC<Props> = props => (
   <View column={true} style={{ width: 300, padding: 20 }}>
-    <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" />
-    <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} />
+    <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" {...props} />
+    <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} {...props} />
   </View>
 );
 
-export const Valid = () => (
+export const Valid: StoryFC<Props> = props => (
   <View column={true} style={{ width: 300, padding: 20 }}>
-    <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" valid={true} />
-    <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} valid={true} />
+    <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" valid={true} {...props} />
+    <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} valid={true} {...props} />
   </View>
 );
 
-export const Error = () => (
+export const Error: StoryFC<Props> = props => (
   <View column={true} style={{ width: 300, padding: 20 }}>
     <PasswordInputWrap
       style={{ marginBottom: 30 }}
@@ -55,6 +54,7 @@ export const Error = () => (
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
       }
+      {...props}
     />
     <PasswordInputWrap
       label="Password"
@@ -63,6 +63,7 @@ export const Error = () => (
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
       }
+      {...props}
     />
   </View>
 );

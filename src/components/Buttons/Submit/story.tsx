@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
-
-import SubmitButton, { SubmitButtonProps } from '.';
 import { View } from 'components/Common';
+import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-export default {
-  title: 'Components/Buttons/SubmitButton',
+import SubmitButton, { SubmitButtonProps as Props } from '.';
+
+export default ((): StoryConf<Props> => ({
+  title: 'components/Buttons/SubmitButton',
   component: SubmitButton,
-};
+}))();
 
-export const Basic: FC<Partial<SubmitButtonProps>> = props => (
+export const Basic: StoryFC<Props> = props => (
   <View column={true} style={{ width: '740px', margin: '0 auto' }}>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
       <SubmitButton {...props}>Log In</SubmitButton>

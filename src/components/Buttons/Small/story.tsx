@@ -5,7 +5,7 @@ import SmallButton from '.';
 import { colors } from 'styles';
 
 export default {
-  title: 'Components/Buttons/Small',
+  title: 'components/Buttons/Small',
   component: SmallButton,
 };
 

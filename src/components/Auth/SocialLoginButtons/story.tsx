@@ -1,21 +1,19 @@
-import React from 'react';
 import { action } from '@storybook/addon-actions';
-
-import AuthSocialLoginButtons, { AuthSocialLoginButtonsProps } from '.';
 import { View } from 'components/Common';
+import React from 'react';
 import { StoryConf, StoryFC } from 'styles';
 
-const conf: StoryConf<AuthSocialLoginButtonsProps> = {
-  title: 'Components/Auth/SocialLoginButtons',
-  component: AuthSocialLoginButtons,
-};
+import AuthSocialLoginButtons, { AuthSocialLoginButtonsProps as Props } from '.';
 
-export const Basic: StoryFC<AuthSocialLoginButtonsProps> = props => {
+export default ((): StoryConf<Props> => ({
+  title: 'components/Auth/SocialLoginButtons',
+  component: AuthSocialLoginButtons,
+}))();
+
+export const Basic: StoryFC<Props> = props => {
   return (
     <View style={{ width: 650 }}>
       <AuthSocialLoginButtons onBtnClick={action('onBtnClick')} {...props} />
     </View>
   );
 };
-
-export default conf;

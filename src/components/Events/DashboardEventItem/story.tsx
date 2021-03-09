@@ -3,10 +3,10 @@ import { View } from 'components/Common';
 import React, { FC } from 'react';
 import { StoryConf } from 'styles';
 
-import DashboardEventItem, { DashboardEventItemProps } from '.';
+import DashboardEventItem, { DashboardEventItemProps as Props } from '.';
 
-export default ((): StoryConf<DashboardEventItemProps> => ({
-  title: 'Components/Events/DashboardEventItem',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Events/DashboardEventItem',
   component: DashboardEventItem,
   args: {
     status: 'event-setup',
@@ -31,13 +31,23 @@ export default ((): StoryConf<DashboardEventItemProps> => ({
     date: {
       control: 'date',
     },
+    regUrl: { table: { category: 'Registration' } },
     regStartDate: {
       control: 'date',
+      table: {
+        category: 'Registration',
+      },
+    },
+    onRegContinueClick: { table: { category: 'Registration' } },
+  },
+  parameters: {
+    docs: {
+      description: {},
     },
   },
 }))();
 
-export const Basic: FC<DashboardEventItemProps> = props => (
+export const Basic: FC<Props> = props => (
   <View column={true} style={{ width: '100%', padding: 20 }}>
     <DashboardEventItem {...props} />
   </View>

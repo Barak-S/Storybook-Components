@@ -1,15 +1,11 @@
 import React from 'react';
 import { StoryConf, StoryFC } from 'styles';
 
-import AuthFormContainer, { AuthFormContainerProps } from '.';
+import AuthFormContainer, { AuthFormContainerProps as Props } from '.';
 
-const conf: StoryConf<AuthFormContainerProps> = {
-  title: 'Components/Auth/FormContainer',
+export default ((): StoryConf<Props> => ({
+  title: 'components/Auth/FormContainer',
   component: AuthFormContainer,
-};
+}))();
 
-export const Basic: StoryFC<AuthFormContainerProps> = props => (
-  <AuthFormContainer {...props}>{'%children%'}</AuthFormContainer>
-);
-
-export default conf;
+export const Basic: StoryFC<Props> = props => <AuthFormContainer {...props}>{'%children%'}</AuthFormContainer>;
