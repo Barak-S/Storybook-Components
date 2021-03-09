@@ -1,13 +1,11 @@
 import { action } from '@storybook/addon-actions';
 import React, { FC } from 'react';
 
-import DashboardEmailConfirmScene, { DashboardEmailConfirmSceneProps } from '.';
+import DashboardEmailConfirmView from './view';
 
 export default {
   title: 'screens/Dashboard/Events/scenes/EmailConfirm',
-  component: DashboardEmailConfirmScene,
+  component: DashboardEmailConfirmView,
 };
 
-export const Basic: FC<DashboardEmailConfirmSceneProps> = args => (
-  <DashboardEmailConfirmScene onSubmit={action('onSubmit')} {...args} />
-);
+export const Basic: FC = props => <DashboardEmailConfirmView onSubmit={action('onSubmit')} {...props} />;

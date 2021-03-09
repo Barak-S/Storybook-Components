@@ -1,94 +1,38 @@
-import { Button, CircularProgress, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import { Text, View } from 'components/Common';
-import { DashboardSceneContainer } from 'components/Dashboard';
-import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, MouseEvent } from 'react';
-import { colors, StyleProps, Styles } from 'styles';
+import { useSnackbar } from 'components/Feedback';
+import { useAuth } from 'core/api';
+import React, { FC, useState } from 'react';
+import { StyleProps } from 'styles';
+import { Log } from 'utils';
 
-interface Props extends StyleProps {
-  processing?: boolean;
-  onSubmit?: () => void;
-}
+import DashboardEmailConfirmView from './view';
 
-export const DashboardEmailConfirmScene: FC<Props> = ({ processing, onSubmit }) => {
-  const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+const log = Log('screens.DashboardEvents.scenes.EmailConfirm');
 
-  const handleBtnClick = (event: MouseEvent) => {
-    event.preventDefault();
-    if (onSubmit) {
-      onSubmit();
+type Props = StyleProps;
+
+export const DashboardEmailConfirmScene: FC<Props> = ({ style }) => {
+  const [processing, setProcessing] = useState<boolean>(false);
+  const { resendEmailConfirmation } = useAuth();
+  const { showSnackbar } = useSnackbar();
+
+  const handleResendEmailPress = async () => {
+    log.debug('hanlde resend email press');
+    try {
+      setProcessing(true);
+      log.info('resending email confirmation');
+      await resendEmailConfirmation();
+      log.info('resending email confirmation done');
+      setProcessing(false);
+      showSnackbar('Confirmation is sent. Please check your email.', 'success');
+    } catch (err) {
+      log.err(err);
+      setProcessing(false);
+      showSnackbar(`Sending confirmation error`, 'error');
     }
   };
 
-  const classes = useStyles(theme);
-
-  return (
-    <DashboardSceneContainer style={styles.container}>
-      <Grid className={classes.inner}>
-        <Text style={styles.text}>
-          {'You will experience limited functionality until your email address is confirmed.'}
-        </Text>
-        {processing ? (
-          <View style={styles.processingWrap} justifyContent="center" alignItems="center">
-            <CircularProgress size={20} color="secondary" />
-          </View>
-        ) : (
-          <Button
-            style={styles.button}
-            variant="contained"
-            color="primary"
-            endIcon={<LineAwesomeIcon type={isTablet ? 'paper-plane' : 'envelope-open-text'} />}
-            onClick={handleBtnClick}
-          >
-            {'Resend Email Confirmation'}
-          </Button>
-        )}
-      </Grid>
-    </DashboardSceneContainer>
-  );
+  return <DashboardEmailConfirmView style={style} processing={processing} onSubmit={handleResendEmailPress} />;
 };
-
-const styles: Styles = {
-  container: {
-    marginBottom: 27,
-  },
-  text: {
-    marginBottom: 40,
-    textTransform: 'none',
-    fontSize: 20,
-    color: colors.brownishGrey,
-    textAlign: 'center',
-  },
-  button: {
-    minHeight: 35,
-    padding: '7px 15px',
-    borderRadius: 6,
-    fontSize: 15,
-    letterSpacing: 1.5,
-    lineHeight: 1.2,
-    maxWidth: 320,
-  },
-  processingWrap: {
-    minHeight: 35,
-  },
-};
-
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    inner: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      minHeight: 310,
-      padding: '25px 30px 76px',
-      [theme.breakpoints.up('sm')]: {
-        padding: '25px 55px 76px',
-      },
-    },
-  })();
 
 export type DashboardEmailConfirmSceneProps = Props;
 export default DashboardEmailConfirmScene;

@@ -7,7 +7,6 @@ import {
   DashboardUserNav,
   DashboardUserNavBtnType,
 } from 'components/Dashboard';
-import { useSnackbar } from 'components/Feedback';
 import { useAuth } from 'core/api';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -24,29 +23,11 @@ type Props = StyleProps;
 
 export const DashboardEventsScreen: FC<Props> = () => {
   const [tab, setTab] = useState<number>(0);
-  const [sendEmailProcessing, setSendEmailProcessing] = useState<boolean>(false);
 
   const history = useHistory();
-  const { userConfirmed, resendEmailConfirmation } = useAuth();
-  const { showSnackbar } = useSnackbar();
+  const { userConfirmed } = useAuth();
 
   // Handlers
-
-  const handleResendEmailPress = async () => {
-    log.debug('hanlde resend email press');
-    try {
-      setSendEmailProcessing(true);
-      log.info('resending email confirmation');
-      await resendEmailConfirmation();
-      log.info('resending email confirmation done');
-      setSendEmailProcessing(false);
-      showSnackbar('Confirmation is sent. Please check your email.', 'success');
-    } catch (err) {
-      log.err(err);
-      setSendEmailProcessing(false);
-      showSnackbar(`Sending confirmation error`, 'error');
-    }
-  };
 
   const handleUseNavBtnClick = (btn: DashboardUserNavBtnType) => {
     log.debug('hanlde user nav btn click, btn=', btn);
@@ -92,7 +73,6 @@ export const DashboardEventsScreen: FC<Props> = () => {
   ];
 
   const eventTabs = <DashboardTabs tabs={tabs} tab={tab} onTabChange={(_e, val) => setTab(val)} />;
-  const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
 
   return (
     <>
@@ -101,20 +81,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
         <Hidden smDown>{eventTabs}</Hidden>
         <Grid>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={0}>
-            {!userConfirmed ? (
-              <DashboardEmailConfirmScene processing={sendEmailProcessing} onSubmit={handleResendEmailPress} />
-            ) : (
-              <FirstEventSetup steps={steps} curStepIndex={0} actionBtnTitle={'add your first event'} />
-            )}
-            {/* <DashboardEventItem
-                status="waiting"
-                date={new Date()}
-                regStartDate={new Date()}
-                title="Celebrate the Best in Video Games & Esports"
-                url="eventplaceholder.com/event-name"
-                regUrl="digital-oasis.io/event-name/event-registration/form"
-                image=""
-            /> */}
+            {!userConfirmed ? <DashboardEmailConfirmScene /> : <FirstEventSetup />}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!userConfirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
