@@ -1,10 +1,13 @@
 import React from 'react';
+import { StoryConf, StoryFC } from 'styles';
 
-import AuthCopyrights from '.';
+import AuthCopyrights, { AuthCopyrightsProps } from '.';
 
-export default {
+const conf: StoryConf<AuthCopyrightsProps> = {
   title: 'Components/Auth/Copyrights',
   component: AuthCopyrights,
 };
 
-export const Basic = () => <AuthCopyrights />;
+export const Basic: StoryFC<AuthCopyrightsProps> = props => <AuthCopyrights {...props} />;
+
+export default conf;

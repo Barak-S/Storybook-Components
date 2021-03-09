@@ -1,13 +1,14 @@
 import { Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { EventStatus } from 'components/Events/types';
 import React, { FC } from 'react';
 import { colors, StyleProps } from 'styles';
-import { DashboardEventDate } from '../DashboardEventDate';
-import { DashboardEventTitle, DashboardEventUrl } from '..';
-import { DashboardEventImage } from '../DashboardEventImage';
-import { DashboardEventAnimatedButtons } from '../DashboardEventAnimatedButtons';
-import DashboardEventRegistration from '../DashboardEventRegistration';
 
-export type EventStatus = 'event-setup' | 'registration-setup' | 'waiting' | 'active';
+import ItemDate from './components/Date';
+import ItemImage from './components/Image';
+import ItemMainActions from './components/MainActions';
+import ItemRegistration from './components/Registration';
+import ItemTitle from './components/Title';
+import ItemUrl from './components/Url';
 
 interface Props extends StyleProps {
   date: Date;
@@ -75,15 +76,15 @@ export const DashboardEventItem: FC<Props> = ({
         <>
           <Grid container>
             <Grid item xs={12} style={{ marginBottom: 10 }}>
-              <DashboardEventDate date={date} className={classes.date} />
+              <ItemDate date={date} className={classes.date} />
             </Grid>
           </Grid>
           <Grid container className={classes.row} spacing={2}>
             <Grid item xs={12} md={6} lg={6}>
-              <DashboardEventTitle>{title}</DashboardEventTitle>
+              <ItemTitle>{title}</ItemTitle>
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
-              <DashboardEventUrl
+              <ItemUrl
                 url={url}
                 onClick={onCopyToClipboardClick}
                 onEditClick={onEditClick}
@@ -99,20 +100,15 @@ export const DashboardEventItem: FC<Props> = ({
         <Grid className={classes.firstColumn} item xs={12} md={4} lg={4}>
           {isTablet && !isMobile && (
             <Grid>
-              <DashboardEventDate date={date} className={classes.date} />
-              <DashboardEventTitle>{title}</DashboardEventTitle>
+              <ItemDate date={date} className={classes.date} />
+              <ItemTitle>{title}</ItemTitle>
             </Grid>
           )}
-          <DashboardEventImage
-            source={image}
-            status={status}
-            onEditClick={onEditClick}
-            onCopyClick={handleImageOnCopyClick}
-          />
+          <ItemImage source={image} status={status} onEditClick={onEditClick} onCopyClick={handleImageOnCopyClick} />
         </Grid>
         <Grid item xs={12} md={4} lg={3} className={classes.middleColumn}>
           {isTablet && !isMobile && (
-            <DashboardEventUrl
+            <ItemUrl
               url={url}
               onClick={onCopyToClipboardClick}
               onEditClick={onEditClick}
@@ -121,7 +117,7 @@ export const DashboardEventItem: FC<Props> = ({
               onRemoveClick={onRemoveClick}
             />
           )}
-          <DashboardEventAnimatedButtons
+          <ItemMainActions
             onEditClick={onEditClick}
             onInviteTeamMembersClick={onInviteTeamMembersClick}
             onAddPresenterClick={onAddPresenterClick}
@@ -129,7 +125,7 @@ export const DashboardEventItem: FC<Props> = ({
           />
         </Grid>
         <Grid item xs={12} md={4} lg={5}>
-          <DashboardEventRegistration
+          <ItemRegistration
             status={status}
             regStartDate={regStartDate}
             regUrl={regUrl}
@@ -188,4 +184,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
+export type DashboardEventItemProps = Props;
 export default DashboardEventItem;

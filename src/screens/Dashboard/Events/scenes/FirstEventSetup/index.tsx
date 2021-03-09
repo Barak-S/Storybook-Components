@@ -3,21 +3,22 @@ import { Title } from 'components/Common';
 import { DashboardSceneContainer, DashboardStepper } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
-import { StyleProps, Styles, colors, mx } from 'styles';
+import { StyleProps, Styles, colors, mx, m } from 'styles';
 import StepperMobileLabel from './components/MobileLabel';
 
 interface Props extends StyleProps {
   steps: string[];
-  curStepIndex: number;
-  actionBtnTitle: string;
+  curStepIndex?: number;
+  actionBtnTitle?: string;
   onActionBtnClick?: () => void;
   onIconBtnClick?: () => void;
 }
 
-export const FirstEventSetup: FC<Props> = ({
+export const DashboardFirstEventSetup: FC<Props> = ({
+  style,
   steps,
-  curStepIndex,
-  actionBtnTitle,
+  curStepIndex = 0,
+  actionBtnTitle = 'Add your first event',
   onActionBtnClick,
   onIconBtnClick,
 }) => {
@@ -27,7 +28,7 @@ export const FirstEventSetup: FC<Props> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <DashboardSceneContainer style={styles.container}>
+    <DashboardSceneContainer style={m(styles.container, style)}>
       <Grid className={classes.inner}>
         <Grid className={classes.topLine}>
           <Title className={classes.title} type="h4">
@@ -121,5 +122,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type FirstEventSetupProps = Props;
-export default FirstEventSetup;
+export type DashboardFirstEventSetupProps = Props;
+export default DashboardFirstEventSetup;

@@ -35,4 +35,5 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export type AuthSectionSplitterProps = Props;
 export default AuthSectionSplitter;

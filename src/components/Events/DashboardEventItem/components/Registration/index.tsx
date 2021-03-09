@@ -1,11 +1,11 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { SmallButton } from 'components/Buttons';
-import { Title, Text } from 'components/Common';
+import { Text, Title } from 'components/Common';
+import { EventStatus } from 'components/Events/types';
 import { CopyInput } from 'components/Forms';
 import React, { FC } from 'react';
-import { StyleProps, colors, Styles, m } from 'styles';
-import { EventStatus } from '..';
+import { colors, m, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   status: EventStatus;
@@ -18,7 +18,7 @@ interface Props extends StyleProps {
   onCopyToClipboardClick?: (url: string) => void;
 }
 
-export const DashboardEventRegistration: FC<Props> = ({
+export const DashboardEventItemRegistration: FC<Props> = ({
   status,
   regStartDate,
   regUrl = '',
@@ -49,6 +49,12 @@ export const DashboardEventRegistration: FC<Props> = ({
   const handleContinueClick = () => {
     if (onRegContinueClick) {
       onRegContinueClick();
+    }
+  };
+
+  const handleCopyToClipboardClick = () => {
+    if (onCopyToClipboardClick) {
+      onCopyToClipboardClick(regUrl);
     }
   };
 
@@ -88,7 +94,7 @@ export const DashboardEventRegistration: FC<Props> = ({
           </>
         ) : (
           <Grid container className={classes.regContinue}>
-            <CopyInput className={classes.input} url={regUrl} onCopyClick={onCopyToClipboardClick} />
+            <CopyInput className={classes.input} url={regUrl} onCopyClick={handleCopyToClipboardClick} />
             <SmallButton
               iconType="chevron-circle-right"
               className={classes.continueButton}
@@ -255,4 +261,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardEventRegistration;
+export default DashboardEventItemRegistration;

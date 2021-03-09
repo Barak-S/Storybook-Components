@@ -4,11 +4,11 @@ import React, { FC, MouseEvent } from 'react';
 import { StyleProps, colors, mx } from 'styles';
 
 interface Props extends StyleProps {
-  iconType: LineAwesomeIconType;
+  icon: LineAwesomeIconType;
   onClick?: (e: MouseEvent) => void;
 }
 
-export const AnimatedButton: FC<Props> = ({ iconType, onClick, children }) => {
+export const DashboardEventItemMainActionsBtn: FC<Props> = ({ icon, onClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -16,7 +16,7 @@ export const AnimatedButton: FC<Props> = ({ iconType, onClick, children }) => {
     <Button
       onClick={onClick}
       className={classes.container}
-      startIcon={<LineAwesomeIcon type={iconType} />}
+      startIcon={<LineAwesomeIcon type={icon} />}
       endIcon={<LineAwesomeIcon type={'angle-right'} size={25} style={{ color: colors.coolBlue }} />}
     >
       {children}
@@ -91,4 +91,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default AnimatedButton;
+export default DashboardEventItemMainActionsBtn;

@@ -7,9 +7,8 @@ interface Props extends StyleProps {
   curStepIndex: number;
 }
 
-export const StepperMobileLabel: FC<Props> = ({ steps, curStepIndex }) => {
+export const DashbaordStepperMobileLabel: FC<Props> = ({ steps, curStepIndex }) => {
   const classes = useStyles();
-
   return <Grid className={classes.container}>{steps[curStepIndex]}</Grid>;
 };
 
@@ -23,4 +22,4 @@ const useStyles = makeStyles({
   },
 });
 
-export default StepperMobileLabel;
+export default DashbaordStepperMobileLabel;

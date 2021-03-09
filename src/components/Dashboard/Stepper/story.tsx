@@ -1,21 +1,25 @@
-import React from 'react';
-
-import DashboardStepper from '.';
 import { View } from 'components/Common';
+import React, { FC } from 'react';
+import { StoryConf } from 'styles';
 
-export default {
-  title: 'Components/Dashboard/DashboardStepper',
+import DashboardStepper, { DashboardStepperProps } from '.';
+
+const steps = ['first step', 'second step', 'third step'];
+
+const conf: StoryConf<DashboardStepperProps> = {
+  title: 'Components/Dashboard/Stepper',
   component: DashboardStepper,
+  args: {
+    steps,
+  },
 };
 
-export const Basic = () => {
-  const steps = ['first step', 'second step', 'third step'];
+export const Basic: FC<Partial<DashboardStepperProps>> = props => (
+  <View column={true} style={{ width: '100%', maxWidth: 1000, padding: 20 }}>
+    <DashboardStepper steps={steps} activeStep={0} style={{ marginBottom: 30 }} {...props} />
+    <DashboardStepper steps={steps} activeStep={1} style={{ marginBottom: 30 }} {...props} />
+    <DashboardStepper steps={steps} activeStep={2} {...props} />
+  </View>
+);
 
-  return (
-    <View column={true} style={{ width: '100%', maxWidth: 1000, padding: 20 }}>
-      <DashboardStepper steps={steps} activeStep={0} style={{ marginBottom: 30 }} />
-      <DashboardStepper steps={steps} activeStep={1} style={{ marginBottom: 30 }} />
-      <DashboardStepper steps={steps} activeStep={2} />
-    </View>
-  );
-};
+export default conf;

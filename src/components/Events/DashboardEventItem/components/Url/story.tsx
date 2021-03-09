@@ -5,7 +5,7 @@ import DashboardEventUrl from '.';
 import { View } from 'components/Common';
 
 export default {
-  title: 'Components/Events/DashboardEventUrl',
+  title: 'components/Events/DashboardEventItem/components/Url',
   component: DashboardEventUrl,
 };
 

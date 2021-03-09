@@ -1,9 +1,8 @@
 import { Text } from 'components/Common';
 import React, { FC } from 'react';
-import { colors, Styles, m, Style } from 'styles';
+import { colors, m, StyleProps, Styles } from 'styles';
 
-interface Props {
-  style?: Style;
+interface Props extends StyleProps {
   className?: string;
 }
 
@@ -22,4 +21,5 @@ const styles: Styles = {
   },
 };
 
+export type AuthCopyrightsProps = Props;
 export default AuthCopyrights;

@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { action } from '@storybook/addon-actions';
 
-import AnimatedEventButton from '.';
+import DashboardEventItemMainActionsBtn from '.';
 import { View } from 'components/Common';
 
 export default {
   title: 'Components/Buttons/AnimatedEventButton',
-  component: AnimatedEventButton,
+  component: DashboardEventItemMainActionsBtn,
 };
 
-export const Basic: FC = () => (
+export const Basic: FC = props => (
   <View
     row
     style={{
@@ -19,8 +19,8 @@ export const Basic: FC = () => (
       padding: 50,
     }}
   >
-    <AnimatedEventButton onClick={action('onClick')} iconType="envelope">
+    <DashboardEventItemMainActionsBtn onClick={action('onClick')} icon="envelope" {...props}>
       {'Invite Team Members'}
-    </AnimatedEventButton>
+    </DashboardEventItemMainActionsBtn>
   </View>
 );

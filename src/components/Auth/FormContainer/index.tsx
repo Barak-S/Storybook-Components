@@ -33,4 +33,5 @@ export const useStyles = (theme: Theme) =>
     },
   })();
 
+export type AuthFormContainerProps = Props;
 export default AuthFormContainer;

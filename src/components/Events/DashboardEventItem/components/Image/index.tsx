@@ -1,10 +1,10 @@
 import { Grid, Link, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { SmallButton } from 'components/Buttons';
+import { Image } from 'components/Common';
+import { EventStatus } from 'components/Events/types';
+import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
 import { colors, mx, StyleProps } from 'styles';
-import { EventStatus } from '..';
-import { Image } from 'components/Common';
-import { LineAwesomeIcon } from 'components/Icons';
-import { SmallButton } from 'components/Buttons';
 
 interface Props extends StyleProps {
   source: string;
@@ -13,7 +13,7 @@ interface Props extends StyleProps {
   onCopyClick?: () => void;
 }
 
-export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, onCopyClick }) => {
+export const DashboardEventItemImage: FC<Props> = ({ source, status, onEditClick, onCopyClick }) => {
   const [hover, setHover] = useState<boolean>(false);
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -90,4 +90,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardEventImage;
+export default DashboardEventItemImage;

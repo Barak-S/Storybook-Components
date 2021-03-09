@@ -1,8 +1,9 @@
 import { makeStyles, Step, StepLabel, Stepper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
 import { colors, mc, StyleProps } from 'styles';
-import { StepperConnector } from './components/Connector';
+
 import StepperIcon from './components/Icon';
+import { StepperConnector } from './styles';
 
 interface Props extends StyleProps {
   steps: string[];
@@ -109,4 +110,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
+export type DashboardStepperProps = Props;
 export default DashboardStepper;

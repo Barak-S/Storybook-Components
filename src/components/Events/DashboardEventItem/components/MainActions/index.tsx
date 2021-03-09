@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
-import { AnimatedButton } from 'components/Buttons';
+import AnimatedButton from './components/Button';
 
 interface Props extends StyleProps {
   onInviteTeamMembersClick?: () => void;
@@ -17,16 +17,16 @@ export const DashboardEventAnimatedButtons: FC<Props> = ({
 }) => {
   return (
     <>
-      <AnimatedButton iconType={'edit'} onClick={onEditClick}>
+      <AnimatedButton icon={'edit'} onClick={onEditClick}>
         {'Edit Content & Branding'}
       </AnimatedButton>
-      <AnimatedButton iconType={'envelope'} onClick={onInviteTeamMembersClick}>
+      <AnimatedButton icon={'envelope'} onClick={onInviteTeamMembersClick}>
         {'Invite Team Members'}
       </AnimatedButton>
-      <AnimatedButton iconType={'plus-square'} onClick={onAddPresenterClick}>
+      <AnimatedButton icon={'plus-square'} onClick={onAddPresenterClick}>
         {'Add Presenter'}
       </AnimatedButton>
-      <AnimatedButton iconType={'cog'} onClick={onEditSessionsClick}>
+      <AnimatedButton icon={'cog'} onClick={onEditSessionsClick}>
         {'Add/Edit Sessions'}
       </AnimatedButton>
     </>

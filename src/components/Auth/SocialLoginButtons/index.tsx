@@ -32,4 +32,5 @@ const styles: Styles = {
   },
 };
 
+export type AuthSocialLoginButtonsProps = Props;
 export default AuthSocialLoginButtons;

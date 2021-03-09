@@ -3,7 +3,8 @@ import { Splitter } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, StyleProps } from 'styles';
-import { DashboardEventMenu } from '../DashboardEventMenu';
+
+import DashboardEventItemMenu from './components/Menu';
 
 interface Props extends StyleProps {
   url: string;
@@ -14,7 +15,7 @@ interface Props extends StyleProps {
   onRemoveClick?: () => void;
 }
 
-export const DashboardEventUrl: FC<Props> = ({
+export const DashboardEventItemUrl: FC<Props> = ({
   url,
   onClick,
   onEditClick,
@@ -32,7 +33,7 @@ export const DashboardEventUrl: FC<Props> = ({
         <LineAwesomeIcon type="external-link-alt" />
       </Link>
       <Splitter style={{ height: 33 }} />
-      <DashboardEventMenu
+      <DashboardEventItemMenu
         onEditClick={onEditClick}
         onCloneClick={onCloneClick}
         onArchiveClick={onArchiveClick}
@@ -83,5 +84,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardEventUrlProps = Props;
-export default DashboardEventUrl;
+export type DashboardEventItemUrlProps = Props;
+export default DashboardEventItemUrl;
