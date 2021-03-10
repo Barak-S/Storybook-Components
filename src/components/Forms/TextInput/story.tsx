@@ -1,11 +1,11 @@
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
-import { StoryConf, StoryFC } from 'styles';
+import { StoryMeta, Story } from 'styles';
 
 import TextInput, { TextInputProps as Props } from '.';
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'components/Forms/TextInput',
   component: TextInput,
 }))();
@@ -15,21 +15,21 @@ const TextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
   return <TextInput value={value} onChange={e => setValue(e.currentTarget.value)} {...props} />;
 };
 
-export const Basic: StoryFC<Props> = props => (
+export const Basic: Story<Props> = props => (
   <View column={true} style={{ width: 300, padding: 20 }}>
     <TextInputWrap style={{ marginBottom: 30 }} label="input label" {...props} />
     <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} {...props} />
   </View>
 );
 
-export const Valid: StoryFC<Props> = props => (
+export const Valid: Story<Props> = props => (
   <View column={true} style={{ width: 300, padding: 20 }}>
     <TextInputWrap style={{ marginBottom: 30 }} label="input label" valid={true} {...props} />
     <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} valid={true} {...props} />
   </View>
 );
 
-export const Error: StoryFC<Props> = props => (
+export const Error: Story<Props> = props => (
   <View column={true} style={{ width: 300, padding: 20 }}>
     <TextInputWrap
       style={{ marginBottom: 30 }}

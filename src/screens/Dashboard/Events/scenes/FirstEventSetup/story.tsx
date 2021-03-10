@@ -1,18 +1,18 @@
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { StoryConf, StoryFC } from 'styles';
+import { StoryMeta, Story } from 'styles';
 
 import DashboardFirstEventSetupView, { DashboardFirstEventSetupViewProps as Props } from './view';
 
 const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'screens/Dashboard/Events/scenes/FirstEventSetup',
   component: DashboardFirstEventSetupView,
   args: { steps },
 }))();
 
-export const Basic: StoryFC<Props> = props => (
+export const Basic: Story<Props> = props => (
   <DashboardFirstEventSetupView
     {...props}
     steps={steps}
@@ -21,7 +21,7 @@ export const Basic: StoryFC<Props> = props => (
   />
 );
 
-export const Demo: StoryFC<Props> = props => {
+export const Demo: Story<Props> = props => {
   const [step, setStep] = useState<number>(0);
   const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
   const actionButtonTitle = [

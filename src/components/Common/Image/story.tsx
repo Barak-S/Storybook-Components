@@ -1,13 +1,13 @@
 import React from 'react';
-import { StoryConf, StoryFC } from 'styles';
+import { StoryMeta, Story } from 'styles';
 
 import Image, { ImageProps as Props } from '.';
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'components/Common/Image',
   component: Image,
 }))();
 
-export const Basic: StoryFC<Props> = props => (
+export const Basic: Story<Props> = props => (
   <Image style={{ width: 300, height: 200 }} source={'https://picsum.photos/id/237/300/200'} {...props} />
 );

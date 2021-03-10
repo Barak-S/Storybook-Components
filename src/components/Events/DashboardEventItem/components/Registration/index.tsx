@@ -6,10 +6,11 @@ import { EventStatus } from 'components/Events/types';
 import { CopyInput } from 'components/Forms';
 import React, { FC } from 'react';
 import { colors, ms, StyleProps, Styles } from 'styles';
+import { valToDate } from 'utils';
 
 interface Props extends StyleProps {
   status: EventStatus;
-  regStartDate?: Date;
+  regStartDate?: Date | string | number;
   regUrl?: string;
   subscrUsersCount?: number;
   activeUsersCount?: number;
@@ -120,7 +121,7 @@ export const DashboardEventItemRegistration: FC<Props> = ({
                     {!isWaiting && regStartDate ? (
                       <>
                         {'Registration is set to begin on '}
-                        <span style={styles.boldText}>{getFormatedRegStartDate(regStartDate)}</span>
+                        <span style={styles.boldText}>{getFormatedRegStartDate(valToDate(regStartDate))}</span>
                       </>
                     ) : (
                       'Registration will start soon'

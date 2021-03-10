@@ -1,38 +1,24 @@
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 import { Text } from 'components/Common';
+import { dateToMonthName, valToDate } from 'utils';
 
 interface Props extends StyleProps {
-  date: Date;
+  date: Date | string | number;
   className?: string;
 }
 
 export const DashboardEventItemDate: FC<Props> = ({ date, className, style }) => {
   const transformDate = (date: Date): string => {
-    const monthsMap = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
     const day = date.getDate();
     const year = date.getFullYear();
-    const month = monthsMap[date.getMonth()];
-
+    const month = dateToMonthName(date);
     return `${month} ${day} • ${year}`;
   };
 
   return (
     <Text className={className} style={style}>
-      {transformDate(date)}
+      {transformDate(valToDate(date))}
     </Text>
   );
 };

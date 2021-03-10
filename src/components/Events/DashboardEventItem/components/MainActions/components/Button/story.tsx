@@ -1,16 +1,20 @@
 import { action } from '@storybook/addon-actions';
 import { View } from 'components/Common';
 import React from 'react';
-import { StoryConf, StoryFC } from 'styles';
+import { Story, StoryMeta } from 'styles';
 
 import DashboardEventItemMainActionsBtn, { DashboardEventItemMainActionsBtnProps as Props } from '.';
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'components/Events/DashboardEventItem/components/MainActions/components/Button',
   component: DashboardEventItemMainActionsBtn,
+  args: {
+    onClick: action('onClick'),
+  },
+  parameters: {},
 }))();
 
-export const Basic: StoryFC<Props> = props => (
+export const Basic: Story<Props> = props => (
   <View
     row
     style={{
@@ -20,7 +24,7 @@ export const Basic: StoryFC<Props> = props => (
       padding: 50,
     }}
   >
-    <DashboardEventItemMainActionsBtn onClick={action('onClick')} icon="envelope" {...props}>
+    <DashboardEventItemMainActionsBtn {...props} icon="envelope">
       {'Invite Team Members'}
     </DashboardEventItemMainActionsBtn>
   </View>

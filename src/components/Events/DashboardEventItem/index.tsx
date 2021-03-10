@@ -11,16 +11,27 @@ import ItemTitle from './components/Title';
 import ItemUrl from './components/Url';
 
 interface Props extends StyleProps {
-  date: Date;
+  /** Start date of the event */
+  date: Date | string | number;
+  /** Event title */
   title: string;
+  /** Event URL */
   url: string;
+  /** Link to the image */
   image: string;
+  /** Event status */
   status: EventStatus;
-  regStartDate?: Date;
+  /** Start of the registration */
+  regStartDate?: Date | string | number;
+  /** Registration URL */
   regUrl?: string;
+  /** Subscribed users count */
   subscrUsersCount?: number;
+  /** Active users count */
   activeUsersCount?: number;
+  /** "Setup registration" button click action at the "Event registartion" */
   onSetupRegistrationClick?: () => void;
+  /** "Continue" button click action at the "Registartion" block */
   onRegContinueClick?: () => void;
   onEditClick?: () => void;
   onInviteTeamMembersClick?: () => void;
@@ -32,6 +43,13 @@ interface Props extends StyleProps {
   onCopyToClipboardClick?: (url: string) => void;
 }
 
+/**
+ * This component for displayin event item at the dashboard
+ *
+ * - [Descktop](https://zpl.io/VkQ3KJq)
+ * - [Tablet](https://zpl.io/VkQx06G)
+ * - [Mobile](https://zpl.io/ad6j0NK)
+ */
 export const DashboardEventItem: FC<Props> = ({
   date,
   title,

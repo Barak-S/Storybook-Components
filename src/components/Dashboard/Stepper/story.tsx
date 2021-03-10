@@ -1,12 +1,12 @@
 import { View } from 'components/Common';
 import React, { FC } from 'react';
-import { StoryConf } from 'styles';
+import { StoryMeta } from 'styles';
 
 import DashboardStepper, { DashboardStepperProps as Props } from '.';
 
 const steps = ['first step', 'second step', 'third step'];
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'components/Dashboard/Stepper',
   component: DashboardStepper,
   args: {

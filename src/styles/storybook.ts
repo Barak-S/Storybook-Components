@@ -1,27 +1,27 @@
 import { FC } from 'react';
+import { Story } from '@storybook/react';
 
-export type StoryFC<P> = FC<Partial<P>>;
-
-export interface StoryConf<P> {
+export interface StoryMeta<P> {
   title?: string;
-  component: FC<P>;
+  component?: FC<P>;
+  subcomponents?: Record<string, FC>;
   args?: Partial<P>;
-  argTypes?: StoryConfArgTypes<P>;
-  parameters?: StoryConfParameters;
+  argTypes?: StoryMetaArgTypes<P>;
+  parameters?: StoryMetaParameters;
 }
 
-type StoryConfArgTypes<P> = {
-  [key in keyof P]?: StoryConfArgType;
+type StoryMetaArgTypes<P> = {
+  [key in keyof P]?: StoryMetaArgType;
 };
 
-interface StoryConfArgType {
+interface StoryMetaArgType {
   /** The name of the property */
   name?: string;
-  type?: StoryConfArgTypeDescr;
+  type?: StoryMetaArgTypeDescr;
   defaultValue?: unknown;
   /** A Markdown description for the property */
   description?: string;
-  table?: StoryConfArgTable;
+  table?: StoryMetaArgTable;
   control?: StoryControlType;
   min?: number;
   max?: number;
@@ -30,7 +30,7 @@ interface StoryConfArgType {
   separator?: string;
 }
 
-interface StoryConfArgTypeDescr {
+interface StoryMetaArgTypeDescr {
   name?: string;
   /** The stories to be show, ordered by supplied name */
   required?: boolean;
@@ -53,7 +53,7 @@ type StoryControlType =
   | 'date'
   | false;
 
-interface StoryConfArgTable {
+interface StoryMetaArgTable {
   disable?: boolean;
   category?: string;
   subcategory?: string;
@@ -71,7 +71,7 @@ interface StoryConfArgTable {
   };
 }
 
-interface StoryConfParameters {
+interface StoryMetaParameters {
   docs?: {
     inlineStories?: boolean;
     /** Description block */
@@ -92,4 +92,8 @@ interface StoryConfParameters {
       code?: string;
     };
   };
+  /** Add component subtitle */
+  componentSubtitle?: string;
 }
+
+export { Story };

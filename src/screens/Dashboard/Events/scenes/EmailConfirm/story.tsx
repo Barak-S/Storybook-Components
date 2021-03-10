@@ -1,10 +1,10 @@
 import { action } from '@storybook/addon-actions';
 import React from 'react';
-import { StoryConf, StoryFC } from 'styles';
+import { StoryMeta, Story } from 'styles';
 
 import DashboardEmailConfirmView, { DashboardEmailConfirmViewProps as Props } from './view';
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'screens/Dashboard/Events/scenes/EmailConfirm',
   component: DashboardEmailConfirmView,
   args: {
@@ -12,4 +12,4 @@ export default ((): StoryConf<Props> => ({
   },
 }))();
 
-export const Basic: StoryFC<Props> = props => <DashboardEmailConfirmView {...props} />;
+export const Basic: Story<Props> = props => <DashboardEmailConfirmView {...props} />;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { StoryConf, StoryFC } from 'styles';
+import { StoryMeta, Story } from 'styles';
 
 import AuthSectionSplitter, { AuthSectionSplitterProps as Props } from '.';
 
-export default ((): StoryConf<Props> => ({
+export default ((): StoryMeta<Props> => ({
   title: 'components/Auth/SectionSplitter',
   component: AuthSectionSplitter,
 }))();
 
-export const Basic: StoryFC<Props> = props => <AuthSectionSplitter {...props}>{'Text'}</AuthSectionSplitter>;
+export const Basic: Story<Props> = props => <AuthSectionSplitter {...props}>{'Text'}</AuthSectionSplitter>;
