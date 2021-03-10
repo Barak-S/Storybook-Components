@@ -15,7 +15,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  rules:  {
+  rules: {
     'react/prop-types': 'off',
     // Interface name must not be prefixed with "I"
     '@typescript-eslint/interface-name-prefix': 'off',
@@ -27,9 +27,9 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     'no-extra-boolean-cast': 'off',
-    'max-len': ['warn', { code: 120, tabWidth: 2, ignoreStrings: true }],
+    'max-len': ['warn', { code: 130, tabWidth: 2, ignoreStrings: true }],
     'no-console': 'error',
     'no-import-assign': 'error',
-    'quotes': ['error', 'single', { allowTemplateLiterals: true }],
-  }
+    quotes: ['error', 'single', { allowTemplateLiterals: true }],
+  },
 };
