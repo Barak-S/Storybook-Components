@@ -1,11 +1,12 @@
 import { Grid, useTheme } from '@material-ui/core';
-import { AuthCopyrights, AuthFormContainer } from 'components/Auth';
-import { SubmitButton } from 'components/Buttons';
+import { AuthCopyrights, AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
+import { SocialButtonNetworkType, SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput, TextInput } from 'components/Forms';
 import { BackgroundedContainer } from 'components/Layout';
-import { isCognitoErrResponse, useAuth } from 'core/api';
+import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
+import appConfig from 'core/configs';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
@@ -29,9 +30,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
 
   const { email, firstName, lastName, password, confirmPassword } = data;
 
-  const handleTextFieldChanged = (key: keyof FormData) => (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setErrs(undefined);
     setData(polishFormData({ ...data, [key]: event.currentTarget.value }));
   };
@@ -62,6 +61,16 @@ export const AuthSignUpScreen: FC<Props> = () => {
     } catch (err) {
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
+    }
+  };
+
+  const handleSocilaLoginBtnClick = (btn: SocialButtonNetworkType) => {
+    log.debug('handle social login btn click, btn=', btn);
+    if (btn === 'google') {
+      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
+    }
+    if (btn === 'facebook') {
+      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
     }
   };
 
@@ -160,18 +169,18 @@ export const AuthSignUpScreen: FC<Props> = () => {
               </Grid>
               <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
                 <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
-                  <SubmitButton
-                    processing={processing}
-                    disabled={processing || submitDissabled}
-                    onClick={handleSubmitPress}
-                  >
+                  <SubmitButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
                     Sign Up
                   </SubmitButton>
                 </Grid>
               </Grid>
             </Grid>
-            {/* <AuthSectionSplitter>{`Or sign up with`}</AuthSectionSplitter> */}
-            {/* <AuthSocialLoginButtons /> */}
+            {appConfig.features.socialSignIn && (
+              <>
+                <AuthSectionSplitter>{`Or sign up with`}</AuthSectionSplitter>
+                <AuthSocialLoginButtons onBtnClick={handleSocilaLoginBtnClick} />
+              </>
+            )}
           </AuthFormContainer>
         </View>
 

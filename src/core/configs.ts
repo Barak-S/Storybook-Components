@@ -16,6 +16,7 @@ interface AppConfig {
     userPoolWebClientId: string;
     domain: string;
   };
+  features: AppConfigFeatures;
 }
 
 type AppConfigEnv = 'loc' | 'dev' | 'qa' | 'beta' | 'prd';
@@ -36,6 +37,7 @@ const getAppConfig = (): AppConfig => ({
     userPoolWebClientId: getStringOrThrow(COGNITO_WEB_CLIENT_ID, 'COGNITO_WEB_CLIENT_ID'),
     domain: getStringOrThrow(COGNITO_DOMAIN, 'COGNITO_DOMAIN'),
   },
+  features: getFeatures(),
 });
 
 const getStringOrThrow = (val: string | undefined, name: string): string => {
@@ -55,6 +57,20 @@ const getAppConfigEnv = (val: string | undefined, def: AppConfigEnv): AppConfigE
 
 const prepareConfVal = (val: string) => val.toLocaleLowerCase().trim();
 
+// Features
+
+interface AppConfigFeatures {
+  socialSignIn: boolean;
+}
+
+const getFeatures = (): AppConfigFeatures => ({
+  socialSignIn: false,
+});
+
+// Export
+
 export const appConfig = getAppConfig();
 
 log.debug(JSON.stringify(appConfig));
+
+export default appConfig;

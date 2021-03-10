@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.29] - 2021-03-10
+### Added
+- DO-77: Login with Google funcitonality added, but additional work required. Turned off with a feature flag
+- DO-86: Event item view added to the Storybook
+
 ## [1.0.28] - 2021-03-09
 ### Added
 - DO-83: Dashboard - Upcoming - Add First Event (stepper added)

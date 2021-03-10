@@ -1,13 +1,14 @@
 import { Grid, useTheme } from '@material-ui/core';
-import { AuthFormContainer } from 'components/Auth';
-import { SubmitButton } from 'components/Buttons';
+import { AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
+import { SocialButtonNetworkType, SubmitButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { LineAwesomeIcon } from 'components/Icons';
 import { BackgroundedContainer } from 'components/Layout';
 import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
-import { isCognitoErrResponse, useAuth } from 'core/api';
+import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
+import appConfig from 'core/configs';
 import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -65,9 +66,7 @@ export const AuthSignInScreen: FC<Props> = () => {
 
   // Handlers
 
-  const handleTextFieldChanged = (key: keyof FormData) => (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setErrs(undefined);
     setData(polishData({ ...data, [key]: event.currentTarget.value }));
   };
@@ -111,6 +110,16 @@ export const AuthSignInScreen: FC<Props> = () => {
       log.err('sign in err=', err);
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
+    }
+  };
+
+  const handleSocilaLoginBtnClick = (btn: SocialButtonNetworkType) => {
+    log.debug('handle social login btn click, btn=', btn);
+    if (btn === 'google') {
+      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
+    }
+    if (btn === 'facebook') {
+      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
     }
   };
 
@@ -194,8 +203,12 @@ export const AuthSignInScreen: FC<Props> = () => {
               </SubmitButton>
             </Grid>
           </Grid>
-          {/* <AuthSectionSplitter>{`Or login with`}</AuthSectionSplitter> */}
-          {/* <AuthSocialLoginButtons /> */}
+          {appConfig.features.socialSignIn && (
+            <>
+              <AuthSectionSplitter>{`Or login with`}</AuthSectionSplitter>
+              <AuthSocialLoginButtons onBtnClick={handleSocilaLoginBtnClick} />
+            </>
+          )}
         </AuthFormContainer>
       </BackgroundedContainer>
     </>

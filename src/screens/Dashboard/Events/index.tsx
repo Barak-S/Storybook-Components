@@ -1,13 +1,7 @@
 import { Grid, Hidden, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
-import {
-  DasbhoardTab,
-  DashboardTabPanel,
-  DashboardTabs,
-  DashboardUserNav,
-  DashboardUserNavBtnType,
-} from 'components/Dashboard';
-import { useAuth } from 'core/api';
+import { DasbhoardTab, DashboardTabPanel, DashboardTabs, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
+import { useAuth } from 'core/auth';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';

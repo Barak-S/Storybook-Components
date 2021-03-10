@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 import { StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
+  /** Click on some of the button */
   onBtnClick?: (type: SocialButtonNetworkType) => void;
 }
 
@@ -13,14 +14,14 @@ export const AuthSocialLoginButtons: FC<Props> = ({ style, onBtnClick }) => {
     <View style={[styles.container, style]} row alignItems="center" justifyContent="center">
       <Grid container justify="center" spacing={3}>
         <Grid item xs={12} sm={4}>
-          <SocialButton style={styles.item} type="facebook" onClick={onBtnClick} />
-        </Grid>
-        <Grid item xs={12} sm={4}>
           <SocialButton style={styles.item} type="google" onClick={onBtnClick} />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        {/* <Grid item xs={12} sm={4}>
+          <SocialButton style={styles.item} type="facebook" onClick={onBtnClick} />
+        </Grid> */}
+        {/* <Grid item xs={12} sm={4}>
           <SocialButton style={styles.item} type="linkedin" onClick={onBtnClick} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </View>
   );

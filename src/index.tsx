@@ -2,7 +2,7 @@ import './index.css';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'components/Feedback';
-import { AuthProvider } from 'core/api';
+import { AuthProvider } from 'core/auth';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { muiTheme } from 'styles';

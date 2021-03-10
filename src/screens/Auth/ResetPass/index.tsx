@@ -5,7 +5,7 @@ import { Logo, ScreenTitle, Text, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput } from 'components/Forms';
 import { BackgroundedContainer } from 'components/Layout';
-import { isCognitoErrResponse, useAuth } from 'core/api';
+import { isCognitoErrResponse, useAuth } from 'core/auth';
 import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -52,9 +52,7 @@ export const AuthResetPass: FC<Props> = () => {
   const { forgotPasswordSubmit } = useAuth();
   const { showSnackbar } = useSnackbar();
 
-  const handleTextFieldChanged = (key: keyof FormData) => (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
     setErrs(undefined);
     setData({ ...data, [key]: value });
@@ -145,21 +143,13 @@ export const AuthResetPass: FC<Props> = () => {
             </Grid>
           </Grid>
           <Grid container justify="center" spacing={2}>
-            <View
-              style={errs?.request ? globalStyles.authErrWrap : undefined}
-              justifyContent="center"
-              alignItems="center"
-            >
+            <View style={errs?.request ? globalStyles.authErrWrap : undefined} justifyContent="center" alignItems="center">
               {!!errs?.request && <Text style={globalStyles.authErr}>{errs.request}</Text>}
             </View>
           </Grid>
           <Grid container justify="center" spacing={2}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-              <SubmitButton
-                processing={processing}
-                disabled={processing || submitDissabled}
-                onClick={handleSubmitPress}
-              >
+              <SubmitButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
                 submit
               </SubmitButton>
             </Grid>

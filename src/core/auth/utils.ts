@@ -1,7 +1,7 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { appConfig } from 'core/configs';
 import { isString } from 'lodash';
-import { errToStr, isUnknowDict, Log } from 'utils';
+import { errToStr, isUnknowDict, Log, objToQs } from 'utils';
 import { CognitoUserSession } from 'amazon-cognito-identity-js';
 
 const log = Log('core.api.auth.context');
@@ -28,12 +28,7 @@ interface CognitoSignUpResponse {
   user: CognitoUser;
 }
 
-export const cogntitoUserSignUp = async ({
-  email,
-  firstName,
-  lastName,
-  password,
-}: CognitoSignUpInput): Promise<CognitoUser> => {
+export const cogntitoUserSignUp = async ({ email, firstName, lastName, password }: CognitoSignUpInput): Promise<CognitoUser> => {
   log.info('signup with firstName=', firstName, ', lastName=', lastName, ', email=', email);
   const attributes = { email, 'custom:firstName': firstName, 'custom:lastName': lastName };
   const { user } = (await Auth.signUp({
@@ -117,3 +112,17 @@ interface CognitoErrResponse {
 
 export const isCognitoErrResponse = (val: unknown): val is CognitoErrResponse =>
   isUnknowDict(val) && isString(val.code) && isString(val.message) && isString(val.name);
+
+// Social
+
+export const getGoogleAuthUrl = () => {
+  const qs = objToQs({
+    identity_provider: 'Google',
+    redirect_uri: appConfig.url,
+    response_type: 'CODE',
+    client_id: appConfig.cognito.userPoolWebClientId,
+    scope: 'email openid phone profile',
+    // scope: 'aws.cognito.signin.user.admin',
+  });
+  return `${appConfig.cognito.domain}/oauth2/authorize?${qs}`;
+};

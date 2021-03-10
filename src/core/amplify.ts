@@ -15,6 +15,13 @@ const getAmpifyConfig = () => ({
     env: appConfig.env,
     version: appConfig.version,
   },
+  oauth: {
+    domain: appConfig.cognito.domain,
+    scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+    redirectSignIn: appConfig.url,
+    redirectSignOut: appConfig.url,
+    responseType: 'code',
+  },
 });
 
 export type AmpifySessionStorageType = 'local' | 'session';

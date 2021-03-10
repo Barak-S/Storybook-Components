@@ -9,6 +9,7 @@ import linkedInIcon from './assets/linkedInIcon.svg';
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {
+  href?: string;
   type: NetworkType;
   disabled?: boolean;
   onClick?: (type: NetworkType) => void;
@@ -19,36 +20,37 @@ type NetworkType = 'facebook' | 'google' | 'linkedin';
 interface IconConfig {
   title: string;
   icon: ReactNode;
-  bgColor: string;
+  color: string;
 }
 
-const getSocialButtonData = (type: NetworkType): IconConfig => {
+const typeToConfig = (type: NetworkType): IconConfig => {
   switch (type) {
     case 'facebook':
-      return { title: 'facebook', icon: <Image source={facebookIcon} />, bgColor: colors.dodgerBlue };
+      return { title: 'facebook', icon: <Image source={facebookIcon} />, color: colors.dodgerBlue };
     case 'google':
-      return { title: 'google', icon: <Image source={googleIcon} />, bgColor: colors.paleRed };
+      return { title: 'google', icon: <Image source={googleIcon} />, color: colors.paleRed };
     case 'linkedin':
-      return { title: 'linkedin', icon: <Image source={linkedInIcon} />, bgColor: colors.midBlue };
+      return { title: 'linkedin', icon: <Image source={linkedInIcon} />, color: colors.midBlue };
   }
 };
 
-export const SocialButton: FC<Props> = ({ style, type, disabled, onClick }) => {
+export const SocialButton: FC<Props> = ({ style, type, href, disabled, onClick }) => {
   const handleClickButton = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    if (onClick) {
+    if (!href && onClick) {
+      event.preventDefault();
       onClick(type);
     }
   };
 
-  const { icon, title, bgColor } = getSocialButtonData(type);
-  const classes = useStyles(bgColor);
+  const { icon, title, color } = typeToConfig(type);
+  const classes = useStyles(color);
 
   return (
     <Button
       className={classes.container}
       style={style}
       disabled={disabled}
+      href={href}
       startIcon={icon}
       variant="contained"
       onClick={handleClickButton}

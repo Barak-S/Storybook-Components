@@ -1,6 +1,7 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
+import { appConfig } from 'core/configs';
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
-import { Log } from 'utils';
+import { Log, objToQs } from 'utils';
 
 import {
   getCognitoCurUser,
@@ -117,6 +118,9 @@ export const AuthProvider: FC = ({ children }) => {
       .then(curUser => {
         if (curUser) {
           curUser.signOut();
+          if (appConfig.features.socialSignIn) {
+            navigateToSignOutUrl();
+          }
         } else {
           log.err('trying to sign out user when user not authorized');
         }
@@ -126,6 +130,15 @@ export const AuthProvider: FC = ({ children }) => {
         log.err('user sign out err=', err);
         setUser(undefined);
       });
+  };
+
+  const navigateToSignOutUrl = () => {
+    location.replace(
+      `https://${appConfig.cognito.domain}/logout?${objToQs({
+        client_id: appConfig.cognito.userPoolWebClientId,
+        logout_uri: appConfig.url,
+      })}`,
+    );
   };
 
   return (

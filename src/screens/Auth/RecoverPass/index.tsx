@@ -5,7 +5,7 @@ import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Commo
 import { useSnackbar } from 'components/Feedback';
 import { TextInput } from 'components/Forms';
 import { BackgroundedContainer } from 'components/Layout';
-import { isCognitoErrResponse, useAuth } from 'core/api';
+import { isCognitoErrResponse, useAuth } from 'core/auth';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
@@ -48,9 +48,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
 
   const { email } = data;
 
-  const handleTextFieldChanged = (key: keyof FormData) => (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
     setErrs(undefined);
     setData(polishFormData({ ...data, [key]: value }));
@@ -113,11 +111,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
             </Grid>
           </Grid>
           <Grid container justify="center" spacing={2}>
-            <View
-              style={errs?.request ? globalStyles.authErrWrap : undefined}
-              justifyContent="center"
-              alignItems="center"
-            >
+            <View style={errs?.request ? globalStyles.authErrWrap : undefined} justifyContent="center" alignItems="center">
               {!!errs?.request && <Text style={globalStyles.authErr}>{errs.request}</Text>}
             </View>
           </Grid>

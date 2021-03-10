@@ -7,7 +7,7 @@ import React, { FC, useEffect } from 'react';
 import { Screens } from 'screens';
 import { mx, Styles } from 'styles';
 import { Log, capitalizeFirstLetter } from 'utils';
-import { useAuth } from 'core/api';
+import { useAuth } from 'core/auth';
 
 const log = Log('app');
 
@@ -61,9 +61,7 @@ export const App: FC = () => {
   return (
     <>
       {authLoaded && <Screens logined={!!authUser} />}
-      {appConfig.env !== 'prd' && (
-        <Text style={styles.envLabel} block={true}>{`v${appConfig.version} (${appConfig.env})`}</Text>
-      )}
+      {appConfig.env !== 'prd' && <Text style={styles.envLabel} block={true}>{`v${appConfig.version} (${appConfig.env})`}</Text>}
     </>
   );
 };
