@@ -117,6 +117,7 @@ module.exports = (env = {}) => {
         COGNITO_USER_POOL_ID: JSON.stringify(process.env.COGNITO_USER_POOL_ID || ''),
         COGNITO_WEB_CLIENT_ID: JSON.stringify(process.env.COGNITO_WEB_CLIENT_ID || ''),
         COGNITO_REGION: JSON.stringify(process.env.COGNITO_REGION || ''),
+        COGNITO_DOMAIN: JSON.stringify(process.env.COGNITO_DOMAIN || ''),
       }),
     ],
     devServer: {

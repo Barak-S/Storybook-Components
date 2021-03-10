@@ -34,3 +34,4 @@ declare const APP_URL: string | undefined;
 declare const COGNITO_USER_POOL_ID: string | undefined;
 declare const COGNITO_WEB_CLIENT_ID: string | undefined;
 declare const COGNITO_REGION: string | undefined;
+declare const COGNITO_DOMAIN: string | undefined;
