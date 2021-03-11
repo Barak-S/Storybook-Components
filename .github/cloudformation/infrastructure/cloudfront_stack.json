@@ -1,0 +1,72 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Resources" : {
+    "QAWebDistribution" : {
+      "Type" : "AWS::CloudFront::Distribution",
+      "Properties" : {
+        "DistributionConfig" : {
+          "Origins" : [ {
+            "DomainName" : { "Fn::Sub": "do-webapp-${Environment}.s3.amazonaws.com" },
+            "Id" : { "Fn::Sub": "S3-do-webapp-${Environment}" },
+            "S3OriginConfig" : {
+              "OriginAccessIdentity" : { "Fn::Join": ["", ["origin-access-identity/cloudfront/", { "Ref": "CloudFrontOriginAccessIdentity" }]] }
+            }
+          }],
+          "Enabled" : "true",
+          "Comment" : { "Fn::Sub": "${Environment} Website" },
+          "CustomErrorResponses": [ {
+            "ErrorCode" : 403,
+            "ResponseCode" : 200,
+            "ResponsePagePath" : "/index.html"
+            },
+            {
+              "ErrorCode" : 404,
+              "ResponseCode" : 200,
+              "ResponsePagePath" : "/index.html"
+            }
+          ],
+          "DefaultRootObject" : "index.html",
+          "Aliases" : [ { "Fn::Sub": "app-${Environment}.meetiris.xyz" } ],
+          "DefaultCacheBehavior" : {
+            "AllowedMethods" : [ "DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT" ],
+            "TargetOriginId" : { "Fn::Sub": "S3-do-webapp-${Environment}" },
+            "ForwardedValues" : {
+              "QueryString" : "false",
+              "Cookies" : { "Forward" : "none" }
+            },
+            "ViewerProtocolPolicy" : "allow-all"
+          },
+          "PriceClass" : "PriceClass_200",
+          "Restrictions" : {
+            "GeoRestriction" : {
+              "RestrictionType" : "whitelist",
+              "Locations" : [ "US", "UA" ]
+            }
+          },
+          "ViewerCertificate" : {
+            "AcmCertificateArn" : "arn:aws:acm:us-east-1:227394202343:certificate/53fb1815-5b09-4ce3-89d2-64856e9e590a",
+            "MinimumProtocolVersion" : "TLSv1.2_2019",
+            "SslSupportMethod" : "sni-only"
+          }
+        }
+      },
+        "DependsOn": [
+          "CloudFrontOriginAccessIdentity"
+        ]
+    },
+    "CloudFrontOriginAccessIdentity": {
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": { "Fn::Sub": "${Environment} Web OAI" }
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "Environment": {
+      "Description": "Environment (Dev, QA, Demo, Prod)",
+      "Type": "String"
+    }
+  }
+}
