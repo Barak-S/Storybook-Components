@@ -28,8 +28,8 @@ export const FolderTabs: FC<Props> = ({ values, style }) => {
 
   const getA11yProps = (index: number) => {
     return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+      id: `folder-tab-${index}`,
+      'aria-controls': `folder-tabpanel-${index}`,
     };
   };
 
@@ -43,7 +43,6 @@ export const FolderTabs: FC<Props> = ({ values, style }) => {
             TabIndicatorProps={{ style: { background: colors.white } }}
             className={classes.tabs}
             value={value}
-            aria-label="simple tabs example"
             onChange={handleChange}
           >
             {values.map(el => (

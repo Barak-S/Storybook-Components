@@ -124,4 +124,5 @@ module.exports = {
     // React Hooks
     'react-hooks/exhaustive-deps': 'off',
   },
+  overrides: [{ files: ['story.tsx'], rules: { 'react/jsx-props-no-spreading': 'off' } }],
 };
