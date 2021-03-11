@@ -48,17 +48,22 @@ yarn test
 
 ## Guidelines
 
+- [TypeScript Style Guide](https://basarat.gitbook.io/typescript/styleguide)
+- [React/JSX Style Guide](https://github.com/airbnb/javascript/tree/master/react)
+- [CSS-in-JavaScript Style Guide](https://github.com/airbnb/javascript/tree/master/css-in-javascript)
+- [React components naming convention](https://medium.com/@wittydeveloper/react-components-naming-convention-%EF%B8%8F-b50303551505)
+
 ### Branches
 
-- All ready to use code placed at `master` branch.
-- Use `feat/%ticet%` branch for the implementation of the feature (e.g. `feat/DO-32`).
-- Make a pull request to the master branch after finishing the feature.
+Use `feat/%ticet%` branch for the implementation of the feature (e.g. `feat/DO-32`).
 
-### Language
+### TypeScript
 
+- [Style Guide](https://basarat.gitbook.io/typescript/styleguide)
 - [Do not use `null` if it is not required by some library](https://basarat.gitbook.io/typescript/recap/null-undefined).
 - Do not use `any`. Use `unknown` and type guards.
-- Do not use `enums`. Pefer to use `type IconType = 'times' | 'social';` instead. This will allows to omit unneded imports of types.
+- Do not use `enums`. Prefer to use `type IconType = 'times' | 'social';` instead. This will allows to omit extra import of types.
+- Do not use `function`. Prefer to use `const name () => {...}` instead.
 
 ### Procject structure
 
@@ -67,10 +72,29 @@ yarn test
 - `src/components/Common` - Basic wide-used components.
 - `src/components/Buttons` - Different basic buttons.
 - `src/components/Dialogs` - Basic dialogs and components.
+- `src/components/Feedback` - Users feedback specific components.
 - `src/components/Forms` - Inputs, special fields, form-related components.
 - `src/components/Auth|Dashboard|...` - Components related to the special part of the app.
 - `src/styles` - Everything that is related to the app style: theme, colors, utils, types.
 - `src/utils` - Basic utils for working with strings, dates, numbers, types. The utils here should not have dependencies from API or internal storage.
+
+### Component names
+
+We are using the following [React components naming convention](https://medium.com/@wittydeveloper/react-components-naming-convention-%EF%B8%8F-b50303551505).
+
+Component's name structure:
+
+```
+[Domain]|[Page/Context]|ComponentName|[Type]
+```
+
+Examples:
+
+![Component name examples](docs/images/component-name-example.png)
+
+Read more at the [original post](https://medium.com/@wittydeveloper/react-components-naming-convention-%EF%B8%8F-b50303551505).
+
+### Components import
 
 Each root folder is available globally and should be imported by absolute path.
 
@@ -86,9 +110,10 @@ import { SubmitButton } from 'components/Buttons';
 import { SubmitButton } from '../../components/Buttons';
 ```
 
-### Files orgnaization
 
-Each component should be placed in a separate folder. The source code should be placed at `index.tsx` file.
+### Files & folders structure
+
+**One component per file.** Each component should be placed in a separate folder. The source code should be placed at `index.tsx` file.
 
 ✅ Correct:
 
@@ -186,14 +211,14 @@ This will allows to import components like:
 import { AuthCopyrights } from 'components/Auth';
 ```
 
-### Component structure
+### Component template
 
-The basic component structure are:
+The basic component template:
 
 ```tsx
 import { Text } from 'components/Common';
 import React, { FC } from 'react';
-import { colors, Styles, m, Style } from 'styles';
+import { colors, Styles, ms, Style } from 'styles';
 
 // Name props of the component as Props
 // Do not export it if you don't need it externaly
@@ -208,16 +233,16 @@ interface Props {
 // import { AuthCopyrights } from 'components/Auht';
 export const AuthCopyrights: FC<Props> = ({ style }) => {
   return (
-    // Function m() will merge style objects together
+    // Function ms() will merge style objects together
     // The last one style has the biggest priority
     // The defenition like m(styles.container, active && styles.active, style) is also valid
-    <Text style={m(styles.container, style)}>
+    <Text style={ms(styles.container, style)}>
       {`Copyright © ${new Date().getFullYear()} All rights reserved.`}
     </Text>
   );
 };
 
-// Place styles at the bottom of the component
+// Place styles and themes at the bottom of the component
 // Use this definition of styles for main cases
 // Use makeStyle in case if you will required some hard customisation
 const styles: Styles = {
@@ -229,13 +254,17 @@ const styles: Styles = {
 
 // Export default component at the bottom
 // Export props like this if you will need to:
-// export type AuthCopyrightsProps = Props;
+export type AuthCopyrightsProps = Props;
 export default AuthCopyrights;
 ```
 
 - Use `onClick` definition for the external event handlers, but `handleClick` for the internal.
 
 ### Styles
+
+Main rules: [Airbnb CSS-in-JavaScript Style Guide]
+
+We are following the ["Airbnb CSS-in-JavaScript Style Guide"](https://github.com/airbnb/javascript/tree/master/css-in-javascript). Please take a look at it for the main CSS-in-JS style guides.
 
 We are using two types of style definition. Main time we are using simplified JSS:
 
@@ -295,11 +324,6 @@ Additional rules:
 
 ### Storybook
 
-- Each story code should be placed at the `story.tsx` file next to the `index.tsx` file of the component.
+- Each story code should be placed at the `story.tsx` file next to the `index.tsx` of the component.
 - Use actions for the component's events (e.g. `onClick={action('onClick')}`).
-- Title of the component should be the same as it's path (e.g. `Components/Buttons/MobileMenuBtn`).
-
-## UI
-
-This project uses [Material UI](https://material-ui.com/) lib as the basic for the UI.
-
+- Title of the component should be the same as it's path (e.g. `components/Buttons/MobileMenuBtn`).
