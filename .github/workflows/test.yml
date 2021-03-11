@@ -4,9 +4,9 @@ on:
     paths:
       - src/**
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - run: yarn install
-      - run: yarn test:coverage
+      - run: yarn test
