@@ -1,26 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '*.svg' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.png' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.jpg' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.json' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.md' {
-  const content: any;
+  const content: string;
   export default content;
 }
 

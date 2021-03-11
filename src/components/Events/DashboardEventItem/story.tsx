@@ -54,7 +54,7 @@ export default ((): StoryMeta<Props> => ({
 }))();
 
 export const Basic: Story<Props> = props => (
-  <View column={true} style={{ width: '100%', padding: 20 }}>
+  <View column style={{ width: '100%', padding: 20 }}>
     <DashboardEventItem {...props} />
   </View>
 );

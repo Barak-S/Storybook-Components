@@ -25,7 +25,11 @@ export const errToStr = (err: unknown): string | undefined => {
   if (isNumber(err)) {
     return `${err}`;
   }
+  // Rule disabled cos this is an edge case
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   if (isUnknowDict(err) && isFunction(err.toString)) {
+    // Rule disabled cos this is an edge case
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return err.toString();
   }
   /* istanbul ignore next */

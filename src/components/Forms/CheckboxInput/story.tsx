@@ -10,7 +10,7 @@ export default ((): StoryMeta<Props> => ({
 }))();
 
 export const Basic: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
+  <View column style={{ width: 300, padding: 20 }}>
     <CheckboxInput label="Checkbox" {...props} />
     <CheckboxInput label="Password" defaultChecked {...props} />
     <CheckboxInput label="Password" disabled {...props} />

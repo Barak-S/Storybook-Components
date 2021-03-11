@@ -13,14 +13,16 @@ export const getStorageVal = <T = unknown>(key: string): T | undefined => {
   if (!isString(valStr)) {
     return undefined;
   }
-  let val;
+  let val: unknown;
   try {
     val = JSON.parse(valStr);
-  } catch (e) {
-    log.err(e);
+  } catch (err: unknown) {
+    log.err(err);
     return undefined;
   }
-  return (val as unknown) as T;
+  // TODO: Add type guard
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  return val as T;
 };
 
 export const setStorageVal = <T = unknown>(key: string, val: T) => {

@@ -65,8 +65,10 @@ const logDataItemToStr = (data: unknown): string => {
   }
   try {
     return JSON.stringify(data);
-  } catch (err) {
-    if (typeof data === 'object' && data && data.toString) {
+  } catch (err: unknown) {
+    if (typeof data === 'object' && data) {
+      // Rule disabled cost this is the edge case
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       return data.toString();
     }
     return '';
@@ -171,14 +173,14 @@ export const Log = (m: string) => {
     if (!enabled) {
       return;
     }
-    console.time(`${logPrefixData(LogLevel.Time, m)} ${marker}`);
+    console.time(`${logPrefixData(LogLevel.Time, m).join(' ')} ${marker}`);
   };
 
   const end = (marker: string) => {
     if (!enabled) {
       return;
     }
-    console.timeEnd(`${logPrefixData(LogLevel.Time, m)} ${marker}`);
+    console.timeEnd(`${logPrefixData(LogLevel.Time, m).join(' ')} ${marker}`);
   };
 
   return { trace, debug, info, warn, err, start, end };

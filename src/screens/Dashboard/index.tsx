@@ -62,7 +62,7 @@ export const DashboardScreens: FC<Props> = () => {
             onMobileMenuClick={handleToggleMobileMenu}
             onMenuBtnClick={handleAppBarMenuBtnClick}
           />
-          <View className={classes.dashboardBody} column={true} justifyContent="center" alignItems="center">
+          <View className={classes.dashboardBody} column justifyContent="center" alignItems="center">
             <Switch>
               <Route path={routes.dashboard.events}>
                 <DashboardEventsScreen />

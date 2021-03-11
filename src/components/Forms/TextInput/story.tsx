@@ -16,25 +16,25 @@ const TextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
 };
 
 export const Basic: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
+  <View column style={{ width: 300, padding: 20 }}>
     <TextInputWrap style={{ marginBottom: 30 }} label="input label" {...props} />
     <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} {...props} />
   </View>
 );
 
 export const Valid: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
-    <TextInputWrap style={{ marginBottom: 30 }} label="input label" valid={true} {...props} />
-    <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} valid={true} {...props} />
+  <View column style={{ width: 300, padding: 20 }}>
+    <TextInputWrap style={{ marginBottom: 30 }} label="input label" valid {...props} />
+    <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} valid {...props} />
   </View>
 );
 
 export const Error: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
+  <View column style={{ width: 300, padding: 20 }}>
     <TextInputWrap
       style={{ marginBottom: 30 }}
       label="input label"
-      error={true}
+      error
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
       }
@@ -42,7 +42,7 @@ export const Error: Story<Props> = props => (
     />
     <TextInputWrap
       label="Input label"
-      error={true}
+      error
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
       }

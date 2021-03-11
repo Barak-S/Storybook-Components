@@ -3,23 +3,23 @@ import { isString } from 'lodash';
 import { Style } from './types';
 
 const border = (width: number | string, style: Style['borderStyle'], color: string): Style => ({
-  border: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
+  border: `${isString(width) ? width : `${width}px`} ${String(style)} ${color}`,
 });
 
 const borderBottom = (width: number | string, style: Style['borderStyle'], color: string): Style => ({
-  borderBottom: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
+  borderBottom: `${isString(width) ? width : `${width}px`} ${String(style)} ${color}`,
 });
 
 const borderTop = (width: number | string, style: Style['borderStyle'], color: string): Style => ({
-  borderTop: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
+  borderTop: `${isString(width) ? width : `${width}px`} ${String(style)} ${color}`,
 });
 
 const borderLeft = (width: number | string, style: Style['borderStyle'], color: string): Style => ({
-  borderLeft: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
+  borderLeft: `${isString(width) ? width : `${width}px`} ${String(style)} ${color}`,
 });
 
 const borderRight = (width: number | string, style: Style['borderStyle'], color: string): Style => ({
-  borderRight: `${isString(width) ? width : `${width}px`} ${style} ${color}`,
+  borderRight: `${isString(width) ? width : `${width}px`} ${String(style)} ${color}`,
 });
 
 const font = (

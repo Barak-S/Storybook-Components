@@ -7,7 +7,7 @@ import { MergeStyleVals, Style } from './types';
  * @param {MergeStyleVals} arr - styles
  */
 export const ms = (...arr: MergeStyleVals[]): Style => {
-  if (!arr || !arr.length) {
+  if (!arr.length) {
     return {};
   }
   let style: Style = {};
@@ -30,8 +30,7 @@ type ClassNameItem = string | undefined | null | boolean;
 type ClassNameArr = ClassNameItem[];
 
 /** Merge class names */
-export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string =>
-  compact(flattenDeep(arr)).filter(isString).join(' ');
+export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string => compact(flattenDeep(arr)).filter(isString).join(' ');
 
 /** Scroll to top */
 export const srollToTop = () => window.scrollTo(0, 0);

@@ -53,7 +53,7 @@ export const AuthProvider: FC = ({ children }) => {
   const [userConfirmed, setUserConfirmed] = useState<boolean>(false);
 
   useEffect(() => {
-    loadCurUser();
+    loadCurUser().catch(err => log.err(err));
   }, []);
 
   const loadCurUser = async () => {
@@ -67,7 +67,7 @@ export const AuthProvider: FC = ({ children }) => {
       }
       setUser(curUser);
       setLoaded(true);
-    } catch (err) {
+    } catch (err: unknown) {
       setLoaded(true);
       log.err('loading user err=', err);
     }
@@ -76,7 +76,9 @@ export const AuthProvider: FC = ({ children }) => {
   // Sign in
 
   const signIn = async (email: string, password: string): Promise<CognitoUser> => {
-    const user = await Auth.signIn(email, password);
+    // ESLint rule dissabled cos of wrong return parameter from the @aws-amplify lib
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    const user = await (Auth.signIn(email, password) as Promise<CognitoUser>);
     // Sending email verification after sign in
     const isEmailConfirmed = await isCognitoUserEmailComfirmed(user);
     if (!isEmailConfirmed) {

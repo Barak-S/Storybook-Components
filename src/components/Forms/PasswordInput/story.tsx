@@ -32,25 +32,25 @@ const PasswordInputWrap: FC<Omit<Props, 'value' | 'onChange' | 'onChangeVisibleC
 };
 
 export const Basic: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
+  <View column style={{ width: 300, padding: 20 }}>
     <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" {...props} />
     <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} {...props} />
   </View>
 );
 
 export const Valid: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
-    <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" valid={true} {...props} />
-    <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} valid={true} {...props} />
+  <View column style={{ width: 300, padding: 20 }}>
+    <PasswordInputWrap style={{ marginBottom: 30 }} label="Password" valid {...props} />
+    <PasswordInputWrap label="Password" iconStart={<LineAwesomeIcon type="lock" />} valid {...props} />
   </View>
 );
 
 export const Error: Story<Props> = props => (
-  <View column={true} style={{ width: 300, padding: 20 }}>
+  <View column style={{ width: 300, padding: 20 }}>
     <PasswordInputWrap
       style={{ marginBottom: 30 }}
       label="Password"
-      error={true}
+      error
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
       }
@@ -59,7 +59,7 @@ export const Error: Story<Props> = props => (
     <PasswordInputWrap
       label="Password"
       iconStart={<LineAwesomeIcon type="lock" />}
-      error={true}
+      error
       helperText={
         'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
       }

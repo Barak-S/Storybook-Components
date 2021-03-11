@@ -81,7 +81,7 @@ export const AuthResetPass: FC<Props> = () => {
 
       showSnackbar('The password has been changed', 'success');
       history.push({ pathname: routes.auth.signin, state: { email } });
-    } catch (err) {
+    } catch (err: unknown) {
       log.err(err);
       let errStr: string = (isCognitoErrResponse(err) ? err.message : errToStr(err)) || '';
       if (errStr.indexOf('Invalid code provided') >= 0) {

@@ -58,19 +58,23 @@ export const AuthSignUpScreen: FC<Props> = () => {
       log.debug('sending sign in request done');
 
       showSnackbar('Almost done! Please check your email and confirm your email address.', 'success');
-    } catch (err) {
+    } catch (err: unknown) {
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
   };
 
-  const handleSocilaLoginBtnClick = (btn: SocialButtonNetworkType) => {
+  const handleSocilaLoginBtnClick = async (btn: SocialButtonNetworkType) => {
     log.debug('handle social login btn click, btn=', btn);
-    if (btn === 'google') {
-      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
-    }
-    if (btn === 'facebook') {
-      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
+    try {
+      if (btn === 'google') {
+        await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
+      }
+      if (btn === 'facebook') {
+        await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
+      }
+    } catch (err: unknown) {
+      log.err(err);
     }
   };
 

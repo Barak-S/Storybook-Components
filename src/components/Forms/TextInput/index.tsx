@@ -11,7 +11,7 @@ interface CustomProps {
 
 type Props = TextFieldProps & CustomProps;
 
-export const TextInput: FC<Props> = ({ iconStart, iconEnd, valid, ...props }) => {
+export const TextInput: FC<Props> = ({ iconStart, iconEnd, valid, InputProps, ...props }) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
   const endIconProps = <InputAdornment position="end">{iconEnd}</InputAdornment>;
   const isStartIcon = !!iconStart;
@@ -21,12 +21,12 @@ export const TextInput: FC<Props> = ({ iconStart, iconEnd, valid, ...props }) =>
   return (
     <TextField
       className={classes.root}
-      fullWidth={true}
+      fullWidth
       {...props}
       InputProps={{
         startAdornment: iconStart ? startIconProps : undefined,
         endAdornment: iconEnd ? endIconProps : undefined,
-        ...(props.InputProps ? props.InputProps : {}),
+        ...(InputProps ? InputProps : {}),
       }}
     />
   );

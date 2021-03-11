@@ -106,20 +106,24 @@ export const AuthSignInScreen: FC<Props> = () => {
       log.debug('sign in done');
 
       history.push({ pathname: routes.dashboard.index });
-    } catch (err) {
+    } catch (err: unknown) {
       log.err('sign in err=', err);
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });
     }
   };
 
-  const handleSocilaLoginBtnClick = (btn: SocialButtonNetworkType) => {
+  const handleSocilaLoginBtnClick = async (btn: SocialButtonNetworkType) => {
     log.debug('handle social login btn click, btn=', btn);
-    if (btn === 'google') {
-      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
-    }
-    if (btn === 'facebook') {
-      Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
+    try {
+      if (btn === 'google') {
+        await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
+      }
+      if (btn === 'facebook') {
+        await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook });
+      }
+    } catch (err: unknown) {
+      log.err(err);
     }
   };
 

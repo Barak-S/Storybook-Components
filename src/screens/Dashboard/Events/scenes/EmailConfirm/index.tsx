@@ -24,7 +24,7 @@ export const DashboardEmailConfirmScene: FC<Props> = ({ style }) => {
       log.info('resending email confirmation done');
       setProcessing(false);
       showSnackbar('Confirmation is sent. Please check your email.', 'success');
-    } catch (err) {
+    } catch (err: unknown) {
       log.err(err);
       setProcessing(false);
       showSnackbar(`Sending confirmation error`, 'error');

@@ -4,5 +4,5 @@
  */
 export const objToQs = (obj: Record<string, string | number | boolean>): string =>
   Object.keys(obj)
-    .map(key => `${key}=${obj[key]}`)
+    .map(key => `${key}=${String(obj[key])}`)
     .join('&');

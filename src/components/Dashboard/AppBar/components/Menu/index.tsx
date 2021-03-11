@@ -21,7 +21,7 @@ interface BtnData {
 }
 
 export const AppBarMenu: FC<Props> = ({
-  hiddenBtns = [],
+  hiddenBtns,
   logoutVisible = true,
   iconsVisibile = true,
   onClick,

@@ -31,6 +31,8 @@ interface CognitoSignUpResponse {
 export const cogntitoUserSignUp = async ({ email, firstName, lastName, password }: CognitoSignUpInput): Promise<CognitoUser> => {
   log.info('signup with firstName=', firstName, ', lastName=', lastName, ', email=', email);
   const attributes = { email, 'custom:firstName': firstName, 'custom:lastName': lastName };
+  // ESLint rule dissabled cos of wrong return parameter from the @aws-amplify lib
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const { user } = (await Auth.signUp({
     username: email,
     password,
@@ -44,8 +46,10 @@ export const cogntitoUserSignUp = async ({ email, firstName, lastName, password 
 
 export const getCognitoCurUser = async (): Promise<CognitoUser | undefined> => {
   try {
-    return await Auth.currentAuthenticatedUser();
-  } catch (err) {
+    // ESLint rule dissabled cos of wrong return parameter from the @aws-amplify lib
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return await (Auth.currentAuthenticatedUser() as Promise<CognitoUser>);
+  } catch (err: unknown) {
     if (errToStr(err) === 'The user is not authenticated') {
       return undefined;
     } else {

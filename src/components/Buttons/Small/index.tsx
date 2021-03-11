@@ -15,7 +15,7 @@ export const SmallButton: FC<Props> = ({ iconType, onClick, className, style, ch
   return (
     <Button style={style} className={mc(classes.container, className)} onClick={onClick}>
       {children}
-      {iconType && <LineAwesomeIcon type={iconType} size={16} />}
+      <LineAwesomeIcon type={iconType} size={16} />
     </Button>
   );
 };

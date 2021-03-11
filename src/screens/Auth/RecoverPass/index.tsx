@@ -73,7 +73,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
 
       showSnackbar('The request has been sent. Please check your email', 'success');
       history.push({ pathname: routes.auth.signin, state: { email } });
-    } catch (err) {
+    } catch (err: unknown) {
       log.err('recover pass err=', err);
       setProcessing(false);
       setErrs({ request: isCognitoErrResponse(err) ? err.message : errToStr(err) });

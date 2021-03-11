@@ -9,6 +9,7 @@ describe('ms()', () => {
     // Merge array
     expect(ms([{ color: 'red' }, { fontSize: 10 }])).toEqual({ color: 'red', fontSize: 10 });
     // Merge boolean
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     expect(ms({ color: 'red' }, { fontSize: 10 } && false)).toEqual({ color: 'red' });
   });
 });

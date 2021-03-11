@@ -20,7 +20,7 @@ export default ((): StoryMeta<Props> => ({
 }))();
 
 export const Basic: Story<Props> = props => (
-  <View column={true} style={{ width: 200 }}>
+  <View column style={{ width: 200 }}>
     <SocialButton {...props} style={{ marginBottom: 10 }} type="facebook" />
     <SocialButton {...props} style={{ marginBottom: 10 }} type="google" />
     <SocialButton {...props} type="linkedin" />
@@ -28,10 +28,10 @@ export const Basic: Story<Props> = props => (
 );
 
 export const Disabled: Story<Props> = props => (
-  <View column={true} style={{ width: 200 }}>
-    <SocialButton {...props} style={{ marginBottom: 10 }} type="facebook" disabled={true} />
-    <SocialButton {...props} style={{ marginBottom: 10 }} disabled={true} type="google" />
-    <SocialButton {...props} disabled={true} type="linkedin" />
+  <View column style={{ width: 200 }}>
+    <SocialButton {...props} style={{ marginBottom: 10 }} type="facebook" disabled />
+    <SocialButton {...props} style={{ marginBottom: 10 }} disabled type="google" />
+    <SocialButton {...props} disabled type="linkedin" />
   </View>
 );
 

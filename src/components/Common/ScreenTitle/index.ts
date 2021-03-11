@@ -6,7 +6,8 @@ interface Props {
 
 export const ScreenTitle: FC<Props> = ({ title }) => {
   useEffect(() => {
-    document.title = title ? `${title} | ${APP_COMPANY}` : `${APP_TITLE} | ${APP_COMPANY}`;
+    const company = APP_COMPANY || 'Company';
+    document.title = title ? `${title} | ${company}` : `${APP_TITLE || 'Title'} | ${company}`;
   });
   return null;
 };

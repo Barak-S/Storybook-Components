@@ -19,7 +19,7 @@ export const DashboardStepper: FC<Props> = ({ steps, activeStep, style }) => {
     const isCompleted = index < activeStep;
     const isActive = index === activeStep;
     const isActiveLabel = isActive || isCompleted;
-    const iconLabel = !isMobile || (isMobile && isActive) ? index + 1 : undefined;
+    const iconLabel = !isMobile || isActive ? index + 1 : undefined;
 
     return (
       <Step className={classes.step} key={label} style={{ zIndex: 10 - index }}>
