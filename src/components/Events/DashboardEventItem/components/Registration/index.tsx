@@ -83,11 +83,7 @@ export const DashboardEventItemRegistration: FC<Props> = ({
                 <Skeleton className={classes.skeleton} />
               </Grid>
               <Grid item xs={5}>
-                <SmallButton
-                  iconType="chevron-circle-right"
-                  className={classes.setupButton}
-                  onClick={handleSetupRegClick}
-                >
+                <SmallButton iconType="chevron-circle-right" className={classes.setupButton} onClick={handleSetupRegClick}>
                   {'setup registration'}
                 </SmallButton>
               </Grid>
@@ -96,11 +92,7 @@ export const DashboardEventItemRegistration: FC<Props> = ({
         ) : (
           <Grid container className={classes.regContinue}>
             <CopyInput className={classes.input} url={regUrl} onCopyClick={handleCopyToClipboardClick} />
-            <SmallButton
-              iconType="chevron-circle-right"
-              className={classes.continueButton}
-              onClick={handleContinueClick}
-            >
+            <SmallButton iconType="chevron-circle-right" className={classes.continueButton} onClick={handleContinueClick}>
               {'continue'}
             </SmallButton>
           </Grid>
@@ -116,17 +108,13 @@ export const DashboardEventItemRegistration: FC<Props> = ({
               <Text className={classes.text}>
                 {isActive ? (
                   <span style={ms(styles.boldText, styles.counter)}>{subscrUsersCount}</span>
-                ) : (
+                ) : !isWaiting && regStartDate ? (
                   <>
-                    {!isWaiting && regStartDate ? (
-                      <>
-                        {'Registration is set to begin on '}
-                        <span style={styles.boldText}>{getFormatedRegStartDate(valToDate(regStartDate))}</span>
-                      </>
-                    ) : (
-                      'Registration will start soon'
-                    )}
+                    {'Registration is set to begin on '}
+                    <span style={styles.boldText}>{getFormatedRegStartDate(valToDate(regStartDate))}</span>
                   </>
+                ) : (
+                  'Registration will start soon'
                 )}
               </Text>
             </Grid>

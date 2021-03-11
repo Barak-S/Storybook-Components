@@ -174,7 +174,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
               <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
                 <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
                   <SubmitButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
-                    Sign Up
+                    {'Sign Up'}
                   </SubmitButton>
                 </Grid>
               </Grid>
@@ -191,9 +191,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
         <Grid className={classes.copyright}>
           <AuthCopyrights />
           <View row justifyContent="center">
-            <TextLink href={routes.terms}>Terms of Service</TextLink>
+            <TextLink href={routes.terms}>{'Terms of Service'}</TextLink>
             <Splitter style={styles.splitter} />
-            <TextLink href={routes.policy}>Privacy Policy</TextLink>
+            <TextLink href={routes.policy}>{'Privacy Policy'}</TextLink>
           </View>
         </Grid>
       </BackgroundedContainer>

@@ -17,16 +17,16 @@ export const DashboardEventAnimatedButtons: FC<Props> = ({
 }) => {
   return (
     <>
-      <AnimatedButton icon={'edit'} onClick={onEditClick}>
+      <AnimatedButton icon="edit" onClick={onEditClick}>
         {'Edit Content & Branding'}
       </AnimatedButton>
-      <AnimatedButton icon={'envelope'} onClick={onInviteTeamMembersClick}>
+      <AnimatedButton icon="envelope" onClick={onInviteTeamMembersClick}>
         {'Invite Team Members'}
       </AnimatedButton>
-      <AnimatedButton icon={'plus-square'} onClick={onAddPresenterClick}>
+      <AnimatedButton icon="plus-square" onClick={onAddPresenterClick}>
         {'Add Presenter'}
       </AnimatedButton>
-      <AnimatedButton icon={'cog'} onClick={onEditSessionsClick}>
+      <AnimatedButton icon="cog" onClick={onEditSessionsClick}>
         {'Add/Edit Sessions'}
       </AnimatedButton>
     </>

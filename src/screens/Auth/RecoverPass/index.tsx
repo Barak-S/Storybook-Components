@@ -93,10 +93,10 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
         <AuthFormContainer style={styles.container}>
           <Grid container justify="center" style={styles.form}>
             <Title type="h3" style={ms(globalStyles.authTitle, styles.title)}>
-              recover your password
+              {'recover your password'}
             </Title>
             <Text style={ms(globalStyles.authSubtitle, styles.subtitle)}>
-              Enter your email and we will send you instructions to generate a new password.
+              {'Enter your email and we will send you instructions to generate a new password.'}
             </Text>
             <Grid item xs={12}>
               <TextInput
@@ -118,12 +118,12 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
           <Grid container justify="center" spacing={2} style={styles.submitBtn}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
               <SubmitButton processing={processing} disabled={submitDissabled} onClick={handleSubmitPress}>
-                submit
+                {'submit'}
               </SubmitButton>
             </Grid>
           </Grid>
           <TextLink style={styles.linkBack} href={routes.auth.signin}>
-            back to log in
+            {'back to log in'}
           </TextLink>
         </AuthFormContainer>
       </BackgroundedContainer>

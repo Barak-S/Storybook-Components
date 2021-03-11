@@ -78,8 +78,8 @@ export const DashboardEventItemMenu: FC<Props> = ({ onEditClick, onCloneClick, o
         className={classes.dropdown}
       >
         <List className={classes.menuList} component="nav" onClick={handleMenuClose}>
-          {menuListItems.map(({ name, icon }, index) => (
-            <MenuItem key={index} component="button" onClick={() => handleMenuBtnClick(name)}>
+          {menuListItems.map(({ name, icon }) => (
+            <MenuItem key={name} component="button" onClick={() => handleMenuBtnClick(name)}>
               <LineAwesomeIcon type={icon} />
               {name}
             </MenuItem>

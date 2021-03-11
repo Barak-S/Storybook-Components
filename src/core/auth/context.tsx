@@ -1,6 +1,6 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { appConfig } from 'core/configs';
-import React, { createContext, FC, useContext, useEffect, useState } from 'react';
+import React, { createContext, FC, useContext, useEffect, useMemo, useState } from 'react';
 import { Log, objToQs } from 'utils';
 
 import {
@@ -143,21 +143,20 @@ export const AuthProvider: FC = ({ children }) => {
     );
   };
 
-  return (
-    <Context.Provider
-      value={{
-        loaded,
-        userConfirmed,
-        user,
-        signIn,
-        signUp,
-        signOut,
-        forgotPassowrd,
-        forgotPasswordSubmit,
-        resendEmailConfirmation,
-      }}
-    >
-      {children}
-    </Context.Provider>
+  const value = useMemo(
+    () => ({
+      loaded,
+      userConfirmed,
+      user,
+      signIn,
+      signUp,
+      signOut,
+      forgotPassowrd,
+      forgotPasswordSubmit,
+      resendEmailConfirmation,
+    }),
+    [],
   );
+
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 };

@@ -12,18 +12,18 @@ export default ((): StoryMeta<Props> => ({
 export const Basic: Story<Props> = props => (
   <View column style={{ width: '740px', margin: '0 auto' }}>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton {...props}>Log In</SubmitButton>
+      <SubmitButton {...props}>{'Log In'}</SubmitButton>
     </View>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton disabled>Log In</SubmitButton>
+      <SubmitButton disabled>{'Log In'}</SubmitButton>
     </View>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
       <SubmitButton processing disabled>
-        Log In
+        {'Log In'}
       </SubmitButton>
     </View>
     <View row style={{ width: '200px', margin: '0 auto 30px' }}>
-      <SubmitButton type="plus">Log In</SubmitButton>
+      <SubmitButton type="plus">{'Log In'}</SubmitButton>
     </View>
   </View>
 );

@@ -17,7 +17,7 @@ export const DashboardEventItemMainActionsBtn: FC<Props> = ({ icon, onClick, chi
       onClick={onClick}
       className={classes.container}
       startIcon={<LineAwesomeIcon type={icon} />}
-      endIcon={<LineAwesomeIcon type={'angle-right'} size={25} style={{ color: colors.coolBlue }} />}
+      endIcon={<LineAwesomeIcon type="angle-right" size={25} style={{ color: colors.coolBlue }} />}
     >
       {children}
     </Button>

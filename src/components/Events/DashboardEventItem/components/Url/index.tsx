@@ -15,20 +15,13 @@ interface Props extends StyleProps {
   onRemoveClick?: () => void;
 }
 
-export const DashboardEventItemUrl: FC<Props> = ({
-  url,
-  onClick,
-  onEditClick,
-  onCloneClick,
-  onArchiveClick,
-  onRemoveClick,
-}) => {
+export const DashboardEventItemUrl: FC<Props> = ({ url, onClick, onEditClick, onCloneClick, onArchiveClick, onRemoveClick }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
     <Grid className={classes.container}>
-      <Link component={'span'} onClick={() => !!onClick && onClick(url)} className={classes.link}>
+      <Link component="span" onClick={() => !!onClick && onClick(url)} className={classes.link}>
         {url}
         <LineAwesomeIcon type="external-link-alt" />
       </Link>

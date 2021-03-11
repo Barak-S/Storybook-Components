@@ -51,18 +51,14 @@ export const Error: Story<Props> = props => (
       style={{ marginBottom: 30 }}
       label="Password"
       error
-      helperText={
-        'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
-      }
+      helperText="Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character."
       {...props}
     />
     <PasswordInputWrap
       label="Password"
       iconStart={<LineAwesomeIcon type="lock" />}
       error
-      helperText={
-        'Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'
-      }
+      helperText="Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character."
       {...props}
     />
   </View>

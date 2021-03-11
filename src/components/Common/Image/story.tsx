@@ -9,5 +9,5 @@ export default ((): StoryMeta<Props> => ({
 }))();
 
 export const Basic: Story<Props> = props => (
-  <Image style={{ width: 300, height: 200 }} source={'https://picsum.photos/id/237/300/200'} {...props} />
+  <Image style={{ width: 300, height: 200 }} source="https://picsum.photos/id/237/300/200" {...props} />
 );

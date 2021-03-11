@@ -42,8 +42,8 @@ export const AlertDialog: FC<Props> = ({ style, title, visible = false, actions,
       <DialogContent dividers>{children}</DialogContent>
       {!!actions && actions.length && (
         <DialogActions>
-          {actions.map(({ title, autoFocus, color, onPress }, key) => (
-            <Button key={key} autoFocus={autoFocus} onClick={onPress} color={color}>
+          {actions.map(({ title, autoFocus, color, onPress }) => (
+            <Button key={title} autoFocus={autoFocus} onClick={onPress} color={color}>
               {title}
             </Button>
           ))}

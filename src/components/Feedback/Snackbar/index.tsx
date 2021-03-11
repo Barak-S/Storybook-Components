@@ -1,6 +1,6 @@
-import React, { createContext, FC, useContext, useState } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import React, { createContext, FC, useContext, useMemo, useState } from 'react';
 
 interface SnackbarContext {
   showSnackbar: (msg: string, type?: SnackbarMsgType) => void;
@@ -34,8 +34,10 @@ export const SnackbarProvider: FC = ({ children }) => {
     setVisible(false);
   };
 
+  const value = useMemo(() => ({ showSnackbar }), []);
+
   return (
-    <Context.Provider value={{ showSnackbar }}>
+    <Context.Provider value={value}>
       {children}
       <Snackbar open={visible} autoHideDuration={6000} onClose={handleClose}>
         <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity={curType}>

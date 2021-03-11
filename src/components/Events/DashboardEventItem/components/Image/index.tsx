@@ -29,7 +29,7 @@ export const DashboardEventItemImage: FC<Props> = ({ source, status, onEditClick
               {'review & update'}
             </SmallButton>
           ) : (
-            <Link component={'span'} className={classes.copyBtn} onClick={onCopyClick}>
+            <Link component="span" className={classes.copyBtn} onClick={onCopyClick}>
               <LineAwesomeIcon type="external-link-alt" size={64} />
             </Link>
           )}

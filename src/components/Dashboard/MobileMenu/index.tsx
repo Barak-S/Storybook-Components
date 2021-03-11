@@ -20,7 +20,7 @@ export const DashboardMobileMenu: FC<Props> = ({ open, onClose, onLogoutClick, o
 
   return (
     <Hidden mdUp>
-      <Drawer anchor={'right'} open={open} onClose={onClose} className={classes.container}>
+      <Drawer anchor="right" open={open} onClose={onClose} className={classes.container}>
         <Grid style={styles.navigation}>
           <Grid style={styles.avatarWrap}>
             <Grid container direction="row" alignItems="center">

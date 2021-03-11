@@ -138,20 +138,20 @@ export const AuthSignInScreen: FC<Props> = () => {
       <ScreenTitle title="Sign in" />
       <BackgroundedContainer style={{ justifyContent: 'initial', minHeight: '100vh' }}>
         <View className={classes.header} row>
-          <Text style={styles.headerText}>Have an account?</Text>
+          <Text style={styles.headerText}>{'Have an account?'}</Text>
           <TextLink className={classes.textLink} style={styles.loginLink} href={routes.auth.signin}>
-            log in
+            {'log in'}
           </TextLink>
           <TextLink style={styles.signupLink} href={routes.auth.signup}>
-            Sign up
+            {'Sign up'}
           </TextLink>
         </View>
         <Logo />
         <AuthFormContainer>
           <View className={classes.fields}>
             <Grid container justify="center" spacing={2}>
-              <Title type={'h3'} style={styles.formTitle}>
-                log in
+              <Title type="h3" style={styles.formTitle}>
+                {'log in'}
               </Title>
               <Grid item xs={12} style={globalStyles.inputItem}>
                 <TextInput
@@ -189,7 +189,7 @@ export const AuthSignInScreen: FC<Props> = () => {
               <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
                 <View row className={classes.forgot}>
                   <TextLink style={styles.resetPass} onClick={handleForgotPassClick}>
-                    forgot password?
+                    {'forgot password?'}
                   </TextLink>
                 </View>
               </Grid>
@@ -203,7 +203,7 @@ export const AuthSignInScreen: FC<Props> = () => {
           <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
             <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
               <SubmitButton processing={processing} disabled={processing || submitDisabled} onClick={handleLogInPress}>
-                Log in
+                {'Log in'}
               </SubmitButton>
             </Grid>
           </Grid>

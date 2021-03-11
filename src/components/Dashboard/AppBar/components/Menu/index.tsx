@@ -70,9 +70,9 @@ export const AppBarMenu: FC<Props> = ({
 
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
-      {buttons.map(({ name, icon, label }, index) =>
+      {buttons.map(({ name, icon, label }) =>
         !isBtnHidden(name) ? (
-          <MenuItem key={index} component="button" selected={name === active} onClick={handleMenuButtonClick(name)}>
+          <MenuItem key={name} component="button" selected={name === active} onClick={handleMenuButtonClick(name)}>
             {iconsVisibile && <LineAwesomeIcon type={icon} />}
             {label}
           </MenuItem>

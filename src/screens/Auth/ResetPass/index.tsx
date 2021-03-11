@@ -104,9 +104,9 @@ export const AuthResetPass: FC<Props> = () => {
         <AuthFormContainer style={{ maxWidth: 592 }}>
           <Grid container direction="column" justify="center" style={{ marginBottom: 20 }}>
             <Title type="h3" style={ms(globalStyles.authTitle, styles.title)}>
-              Reset Your Password
+              {'Reset Your Password'}
             </Title>
-            <Text style={ms(globalStyles.authSubtitle, styles.subtitle)}>Enter a new password below.</Text>
+            <Text style={ms(globalStyles.authSubtitle, styles.subtitle)}>{'Enter a new password below.'}</Text>
             <Grid item xs={12} style={globalStyles.inputItem}>
               <PasswordInput
                 value={password || ''}
@@ -150,7 +150,7 @@ export const AuthResetPass: FC<Props> = () => {
           <Grid container justify="center" spacing={2}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
               <SubmitButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
-                submit
+                {'submit'}
               </SubmitButton>
             </Grid>
           </Grid>
