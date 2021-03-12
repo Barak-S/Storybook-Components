@@ -67,10 +67,10 @@ export const AuthProvider: FC = ({ children }) => {
         setUserConfirmed(isEmailConfirmed);
       }
       setUser(curUser);
-      setLoaded(true);
     } catch (err: unknown) {
-      setLoaded(true);
       log.err('loading user err=', err);
+    } finally {
+      setLoaded(true);
     }
   };
 
@@ -156,7 +156,7 @@ export const AuthProvider: FC = ({ children }) => {
       forgotPasswordSubmit,
       resendEmailConfirmation,
     }),
-    [],
+    [loaded, user, userConfirmed],
   );
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
