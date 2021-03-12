@@ -2,7 +2,6 @@ import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { appConfig } from 'core/configs';
 import { Log } from 'core/log';
 import React, { createContext, FC, useContext, useEffect, useMemo, useState } from 'react';
-import { objToQs } from 'utils';
 
 import {
   CognitoSignUpInput,
@@ -122,7 +121,7 @@ export const AuthProvider: FC = ({ children }) => {
         if (curUser) {
           curUser.signOut();
           if (appConfig.features.socialSignIn) {
-            navigateToSignOutUrl();
+            // navigateToSignOutUrl();
           }
         } else {
           log.err('trying to sign out user when user not authorized');
@@ -135,14 +134,14 @@ export const AuthProvider: FC = ({ children }) => {
       });
   };
 
-  const navigateToSignOutUrl = () => {
-    location.replace(
-      `https://${appConfig.cognito.domain}/logout?${objToQs({
-        client_id: appConfig.cognito.userPoolWebClientId,
-        logout_uri: appConfig.url,
-      })}`,
-    );
-  };
+  // const navigateToSignOutUrl = () => {
+  //   location.replace(
+  //     `https://${appConfig.cognito.domain}/logout?${objToQs({
+  //       client_id: appConfig.cognito.userPoolWebClientId,
+  //       logout_uri: appConfig.url,
+  //     })}`,
+  //   );
+  // };
 
   const value = useMemo(
     () => ({

@@ -64,7 +64,7 @@ interface AppConfigFeatures {
 }
 
 const getFeatures = (): AppConfigFeatures => ({
-  socialSignIn: false,
+  socialSignIn: true,
 });
 
 // Export

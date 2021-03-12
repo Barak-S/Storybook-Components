@@ -3,23 +3,25 @@ import { StyleProps } from 'styles';
 
 import DashboardFirstEventSetupView from './view';
 
-type Props = StyleProps;
+interface Props extends StyleProps {
+  onFinish?: () => void;
+}
 
-export const DashboardFirstEventSetup: FC<Props> = ({ style }) => {
+export const DashboardFirstEventSetup: FC<Props> = ({ style, onFinish }) => {
   const [curStepIndex, setCurStepIndex] = useState<number>(0);
   const steps = ['Profile information', 'Invite team members', 'Select event theme', 'Setup event'];
   const actionBtnTitle = curStepIndex === 0 ? 'Add your first event' : 'Continue Event Setup';
 
   const handleActionBtnClick = () => {
-    if (curStepIndex >= 3) {
-      return;
+    if (curStepIndex >= 3 && onFinish) {
+      return onFinish();
     }
     setCurStepIndex(curStepIndex + 1);
   };
 
   const handleonIconBtnClick = () => {
-    if (curStepIndex >= 3) {
-      return;
+    if (curStepIndex >= 3 && onFinish) {
+      return onFinish();
     }
     setCurStepIndex(curStepIndex + 1);
   };

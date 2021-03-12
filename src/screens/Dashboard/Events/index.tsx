@@ -9,6 +9,7 @@ import { colors, mx, StyleProps, Styles } from 'styles';
 
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';
+import DashboardEventsListScene from './scenes/List';
 
 const log = Log('screens.DashboardEvents');
 
@@ -16,6 +17,7 @@ type Props = StyleProps;
 
 export const DashboardEventsScreen: FC<Props> = () => {
   const [tab, setTab] = useState<number>(0);
+  const [listVisible, setListVisible] = useState<boolean>(false);
 
   const history = useHistory();
   const { userConfirmed } = useAuth();
@@ -74,7 +76,12 @@ export const DashboardEventsScreen: FC<Props> = () => {
         <Hidden smDown>{eventTabs}</Hidden>
         <Grid>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={0}>
-            {!userConfirmed ? <DashboardEmailConfirmScene /> : <FirstEventSetup />}
+            {!userConfirmed ? (
+              <DashboardEmailConfirmScene />
+            ) : !listVisible ? (
+              <FirstEventSetup onFinish={() => setListVisible(true)} />
+            ) : null}
+            {listVisible && <DashboardEventsListScene />}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!userConfirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
@@ -90,7 +97,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
           </DashboardTabPanel>
         </Grid>
         <Hidden mdUp>
-          <Grid className={classes.mobileTabs}>{eventTabs}</Grid>
+          <Grid style={styles.mobileTabs}>{eventTabs}</Grid>
         </Hidden>
       </Grid>
     </>
@@ -106,6 +113,13 @@ const styles: Styles = {
     textTransform: 'uppercase',
     color: colors.brownGrey,
   },
+  mobileTabs: {
+    width: '100%',
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    ...mx.zIndex.mobileTabs,
+  },
 };
 
 const useStyles = (theme: Theme) =>
@@ -115,13 +129,6 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.up('md')]: {
         padding: '35px 0',
       },
-    },
-    mobileTabs: {
-      width: '100%',
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      ...mx.zIndex.mobileTabs,
     },
   })();
 
