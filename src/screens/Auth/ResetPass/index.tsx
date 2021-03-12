@@ -5,13 +5,14 @@ import { Logo, ScreenTitle, Text, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput } from 'components/Forms';
 import { BackgroundedContainer } from 'components/Layout';
+import { Log } from 'core';
 import { isCognitoErrResponse, useAuth } from 'core/auth';
 import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, ms, StyleProps } from 'styles';
-import { errToStr, isDictEmpty, Log, validators } from 'utils';
+import { errToStr, isDictEmpty, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
 

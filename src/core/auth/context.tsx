@@ -1,12 +1,13 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { appConfig } from 'core/configs';
+import { Log } from 'core/log';
 import React, { createContext, FC, useContext, useEffect, useMemo, useState } from 'react';
-import { Log, objToQs } from 'utils';
+import { objToQs } from 'utils';
 
 import {
-  getCognitoCurUser,
   CognitoSignUpInput,
   cogntitoUserSignUp,
+  getCognitoCurUser,
   getCognitoMetadata,
   isCognitoUserEmailComfirmed,
   verifyCognitoEmail,

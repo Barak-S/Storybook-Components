@@ -1,8 +1,9 @@
 import Auth, { CognitoUser } from '@aws-amplify/auth';
-import { appConfig } from 'core/configs';
-import { isString } from 'lodash';
-import { errToStr, isUnknowDict, Log, objToQs } from 'utils';
 import { CognitoUserSession } from 'amazon-cognito-identity-js';
+import { appConfig } from 'core/configs';
+import { Log } from 'core/log';
+import { isString } from 'lodash';
+import { errToStr, isUnknowDict, objToQs } from 'utils';
 
 const log = Log('core.api.auth.context');
 

@@ -1,8 +1,7 @@
 import { useSnackbar } from 'components/Feedback';
-import { useAuth } from 'core/auth';
+import { Log, useAuth } from 'core';
 import React, { FC, useState } from 'react';
 import { StyleProps } from 'styles';
-import { Log } from 'utils';
 
 import DashboardEmailConfirmView from './view';
 

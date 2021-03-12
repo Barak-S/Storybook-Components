@@ -1,13 +1,13 @@
-import { useSnackbar } from 'components/Feedback';
 import { Text } from 'components/Common';
+import { useSnackbar } from 'components/Feedback';
+import { Log, useAuth } from 'core';
 import { initAmplify } from 'core/amplify';
 import { appConfig } from 'core/configs';
 import { parseUrlSearchStr } from 'core/navigation';
 import React, { FC, useEffect } from 'react';
 import { Screens } from 'screens';
 import { mx, Styles } from 'styles';
-import { Log, capitalizeFirstLetter } from 'utils';
-import { useAuth } from 'core/auth';
+import { capitalizeFirstLetter } from 'utils';
 
 const log = Log('app');
 

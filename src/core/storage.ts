@@ -1,5 +1,6 @@
-import { Log } from 'utils';
 import { isString } from 'lodash';
+
+import { Log } from './log';
 
 const log = Log('core.storage');
 

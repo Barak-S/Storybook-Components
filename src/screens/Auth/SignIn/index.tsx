@@ -6,15 +6,15 @@ import { useSnackbar } from 'components/Feedback';
 import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
 import { LineAwesomeIcon } from 'components/Icons';
 import { BackgroundedContainer } from 'components/Layout';
+import { appConfig, Log } from 'core';
 import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
 import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
-import appConfig from 'core/configs';
 import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
-import { errToStr, isDictEmpty, Log, polishers, validators } from 'utils';
+import { errToStr, isDictEmpty, polishers, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
 

@@ -5,12 +5,12 @@ import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Co
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput, TextInput } from 'components/Forms';
 import { BackgroundedContainer } from 'components/Layout';
+import { appConfig, Log } from 'core';
 import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
-import appConfig from 'core/configs';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
-import { errToStr, Log, validators } from 'utils';
+import { errToStr, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
 import { FormData, FormErrs, getFormErrs, polishFormData } from './utils';

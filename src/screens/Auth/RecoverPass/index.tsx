@@ -5,12 +5,13 @@ import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Commo
 import { useSnackbar } from 'components/Feedback';
 import { TextInput } from 'components/Forms';
 import { BackgroundedContainer } from 'components/Layout';
+import { Log } from 'core';
 import { isCognitoErrResponse, useAuth } from 'core/auth';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, ms, StyleProps, Styles } from 'styles';
-import { errToStr, Log, polishers, validators } from 'utils';
+import { errToStr, polishers, validators } from 'utils';
 
 const log = Log('screens.AuthRecoverPass');
 

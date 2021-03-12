@@ -1,4 +1,4 @@
-import { Log } from 'utils';
+import { Log } from './log';
 
 const log = Log('core.configs');
 

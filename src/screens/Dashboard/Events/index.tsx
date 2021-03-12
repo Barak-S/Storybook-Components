@@ -1,12 +1,11 @@
 import { Grid, Hidden, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
 import { DasbhoardTab, DashboardTabPanel, DashboardTabs, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
-import { useAuth } from 'core/auth';
+import { Log, useAuth } from 'core';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { colors, mx, StyleProps, Styles } from 'styles';
-import { Log } from 'utils';
 
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';

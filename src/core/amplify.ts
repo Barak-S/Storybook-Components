@@ -1,7 +1,8 @@
 import Amplify from '@aws-amplify/core';
-import { appConfig } from 'core/configs';
 import { isString } from 'lodash';
-import { Log } from 'utils';
+
+import { appConfig } from './configs';
+import { Log } from './log';
 import { getStorageVal, setStorageVal } from './storage';
 
 const log = Log('core.amplify');
