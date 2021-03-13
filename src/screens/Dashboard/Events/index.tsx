@@ -51,7 +51,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
     },
     {
       index: 1,
-      label: 'Archived',
+      label: 'Archive',
       disabled: !userConfirmed,
       visible: !isMobile,
     },
@@ -87,7 +87,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={1}>
-            {'Archived'}
+            {'Archive'}
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={2}>
             {'Explore'}

@@ -27,6 +27,7 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
   const classes = useStyles(theme);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const iconType = curStepIndex === 0 ? 'plus-circle' : 'sign-in-alt';
 
   return (
     <DashboardSceneContainer style={ms(styles.container, style)}>
@@ -44,10 +45,10 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
           {isMobile && <StepperMobileLabel steps={steps} curStepIndex={curStepIndex} />}
         </Grid>
         <Button
-          style={styles.actionButton}
+          className={classes.actionButton}
           variant="contained"
           color="primary"
-          endIcon={curStepIndex === 0 && <LineAwesomeIcon type="plus-circle" />}
+          endIcon={<LineAwesomeIcon type={iconType} />}
           onClick={onActionBtnClick}
         >
           {actionBtnTitle}
@@ -64,18 +65,6 @@ const styles: Styles = {
   iconButton: {
     color: colors.coolBlueTwo,
     ...mx.square(40),
-  },
-  actionButton: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    maxWidth: 300,
-    minHeight: 52,
-    color: colors.white,
-    fontSize: 15,
-    letterSpacing: 2.25,
-    padding: '5px 15px',
   },
   actionButtonLabel: {
     width: '100%',
@@ -112,6 +101,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     title: {
+      fontWeight: 500,
       color: colors.coolBlueTwo,
       fontSize: 18,
       textTransform: 'uppercase',
@@ -119,6 +109,21 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.up('lg')]: {
         maxWidth: 125,
         marginBottom: 0,
+      },
+    },
+    actionButton: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      maxWidth: 300,
+      minHeight: 52,
+      color: colors.white,
+      fontSize: 15,
+      letterSpacing: 2.25,
+      padding: '5px 15px',
+      '& .MuiIcon-root': {
+        transform: 'translateY(-1px)',
       },
     },
   })();

@@ -1,6 +1,6 @@
-import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Grid, Hidden, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
-import { SmallButton } from 'components/Buttons';
+import { ContainedButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { EventStatus } from 'components/Events/types';
 import { CopyInput } from 'components/Forms';
@@ -77,24 +77,36 @@ export const DashboardEventItemRegistration: FC<Props> = ({
                 <Skeleton className={classes.skeleton} />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={7}>
-                <Skeleton className={classes.skeleton} />
-                <Skeleton className={classes.skeleton} />
-              </Grid>
-              <Grid item xs={5}>
-                <SmallButton iconType="chevron-circle-right" className={classes.setupButton} onClick={handleSetupRegClick}>
+            <Grid container spacing={2} style={{ flexWrap: 'nowrap' }}>
+              <Hidden mdDown>
+                <Grid item className={classes.bottomSkeleton}>
+                  <Skeleton className={classes.skeleton} />
+                  <Skeleton className={classes.skeleton} />
+                </Grid>
+              </Hidden>
+              <Grid item className={classes.setupBtnHolder}>
+                <ContainedButton
+                  theme="red"
+                  icon="chevron-circle-right"
+                  className={classes.setupButton}
+                  onClick={handleSetupRegClick}
+                >
                   {'setup registration'}
-                </SmallButton>
+                </ContainedButton>
               </Grid>
             </Grid>
           </>
         ) : (
           <Grid container className={classes.regContinue}>
             <CopyInput className={classes.input} url={regUrl} onCopyClick={handleCopyToClipboardClick} />
-            <SmallButton iconType="chevron-circle-right" className={classes.continueButton} onClick={handleContinueClick}>
+            <ContainedButton
+              theme="red"
+              icon="chevron-circle-right"
+              className={classes.continueButton}
+              onClick={handleContinueClick}
+            >
               {'continue'}
-            </SmallButton>
+            </ContainedButton>
           </Grid>
         )}
       </Grid>
@@ -114,7 +126,7 @@ export const DashboardEventItemRegistration: FC<Props> = ({
                     <span style={styles.boldText}>{getFormatedRegStartDate(valToDate(regStartDate))}</span>
                   </>
                 ) : (
-                  'Registration will start soon'
+                  'Registration not currently open'
                 )}
               </Text>
             </Grid>
@@ -155,6 +167,7 @@ const useStyles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
+      height: '100%',
     },
     registrationBlock: {
       background: colors.white,
@@ -213,10 +226,10 @@ const useStyles = (theme: Theme) =>
     userBlock: {
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       alignItems: 'center',
       width: '100%',
-      height: 70,
+      minHeight: 65,
       background: colors.white,
       padding: '11px 20px',
       borderRadius: 12,
@@ -247,6 +260,19 @@ const useStyles = (theme: Theme) =>
     },
     input: {
       marginBottom: 18,
+    },
+    bottomSkeleton: {
+      width: '100%',
+    },
+    setupBtnHolder: {
+      width: '100%',
+      flexShrink: 0,
+      [theme.breakpoints.up('md')]: {
+        maxWidth: '100%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: 254,
+      },
     },
   })();
 

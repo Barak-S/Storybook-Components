@@ -1,4 +1,3 @@
 /* istanbul ignore file */
 export * from './Social';
-export * from './Submit';
-export * from './Small';
+export * from './Contained';

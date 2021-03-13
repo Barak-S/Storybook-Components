@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { AuthFormContainer } from 'components/Auth';
-import { SubmitButton } from 'components/Buttons';
+import { ContainedButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { TextInput } from 'components/Forms';
@@ -118,9 +118,9 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
           </Grid>
           <Grid container justify="center" spacing={2} style={styles.submitBtn}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-              <SubmitButton processing={processing} disabled={submitDissabled} onClick={handleSubmitPress}>
+              <ContainedButton processing={processing} disabled={submitDissabled} onClick={handleSubmitPress}>
                 {'submit'}
-              </SubmitButton>
+              </ContainedButton>
             </Grid>
           </Grid>
           <TextLink style={styles.linkBack} href={routes.auth.signin}>

@@ -33,17 +33,17 @@ export const DashboardDropdownMenu: FC<Props> = ({ onLogoutClick, onMenuBtnClick
         <Avatar className={classes.thumb} alt="Profile Picture" src={profileImg} />
       </a>
       <Dropdown
+        icon={isMobile ? 'ellipsis-v' : undefined}
         anchor={anchorEl}
         open={!!anchorEl}
         onClose={handleMenuClose}
         onToggle={handleProfileClick}
-        className={classes.dropdown}
+        classes={{
+          menu: classes.dropdown,
+          icon: classes.dropdownIcon,
+        }}
       >
-        <AppBarMenu
-          onMenuBtnClick={onMenuBtnClick}
-          onLogoutClick={onLogoutClick}
-          hiddenBtns={['events', 'analytics', 'users']}
-        />
+        <AppBarMenu onMenuBtnClick={onMenuBtnClick} onLogoutClick={onLogoutClick} hiddenBtns={['events', 'analytics', 'users']} />
       </Dropdown>
     </Grid>
   );
@@ -101,6 +101,16 @@ const useStyles = (theme: Theme) =>
           color: colors.coolBlue,
           marginRight: 10,
         },
+      },
+    },
+    dropdownIcon: {
+      fontSize: 24,
+      color: colors.brownishGrey,
+      transform: 'translateX(-5px)',
+      [theme.breakpoints.up('md')]: {
+        color: colors.marineBlue,
+        fontSize: 16,
+        transform: 'initial',
       },
     },
   })();

@@ -1,5 +1,5 @@
 import { Grid, Link, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { SmallButton } from 'components/Buttons';
+import { ContainedButton } from 'components/Buttons';
 import { Image } from 'components/Common';
 import { EventStatus } from 'components/Events/types';
 import { LineAwesomeIcon } from 'components/Icons';
@@ -22,17 +22,18 @@ export const DashboardEventItemImage: FC<Props> = ({ source, status, onEditClick
   return (
     <div className={classes.container} onMouseOver={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       {source && <Image source={source} className={classes.image} />}
-      {hover && (
+      {isEventSetup && (
         <Grid className={classes.overlay}>
-          {isEventSetup ? (
-            <SmallButton className={classes.editBtn} iconType="chevron-circle-right" onClick={onEditClick}>
-              {'review & update'}
-            </SmallButton>
-          ) : (
-            <Link component="span" className={classes.copyBtn} onClick={onCopyClick}>
-              <LineAwesomeIcon type="external-link-alt" size={64} />
-            </Link>
-          )}
+          <ContainedButton theme="red" className={classes.editBtn} icon="chevron-circle-right" onClick={onEditClick}>
+            {'review & update'}
+          </ContainedButton>
+        </Grid>
+      )}
+      {!isEventSetup && hover && (
+        <Grid className={classes.overlay}>
+          <Link component="span" className={classes.copyBtn} onClick={onCopyClick}>
+            <LineAwesomeIcon type="external-link-alt" size={64} />
+          </Link>
         </Grid>
       )}
     </div>
@@ -67,7 +68,7 @@ const useStyles = (theme: Theme) =>
       ...mx.overlay(),
       width: '100%',
       height: '100%',
-      objectFit: 'contain',
+      objectFit: 'cover',
     },
     overlay: {
       ...mx.overlay(),
@@ -87,6 +88,7 @@ const useStyles = (theme: Theme) =>
     },
     editBtn: {
       background: colors.rustyRed,
+      maxWidth: 240,
     },
   })();
 

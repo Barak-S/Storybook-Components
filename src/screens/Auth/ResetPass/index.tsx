@@ -1,6 +1,6 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer } from 'components/Auth';
-import { SubmitButton } from 'components/Buttons';
+import { ContainedButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput } from 'components/Forms';
@@ -150,9 +150,9 @@ export const AuthResetPass: FC<Props> = () => {
           </Grid>
           <Grid container justify="center" spacing={2}>
             <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-              <SubmitButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
+              <ContainedButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
                 {'submit'}
-              </SubmitButton>
+              </ContainedButton>
             </Grid>
           </Grid>
         </AuthFormContainer>

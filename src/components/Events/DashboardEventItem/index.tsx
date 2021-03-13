@@ -8,7 +8,7 @@ import ItemImage from './components/Image';
 import ItemMainActions from './components/MainActions';
 import ItemRegistration from './components/Registration';
 import ItemTitle from './components/Title';
-import ItemUrl from './components/Url';
+import ItemEventHeader from './components/EventHeader';
 
 interface Props extends StyleProps {
   /** Start date of the event */
@@ -97,12 +97,12 @@ export const DashboardEventItem: FC<Props> = ({
               <ItemDate date={date} className={classes.date} />
             </Grid>
           </Grid>
-          <Grid container className={classes.row} spacing={2}>
+          <Grid container className={classes.row}>
             <Grid item xs={12} md={6} lg={6}>
               <ItemTitle>{title}</ItemTitle>
             </Grid>
-            <Grid item xs={12} md={6} lg={6}>
-              <ItemUrl
+            <Grid item xs={12} md={6} lg={6} className={classes.eventHeaderWrap}>
+              <ItemEventHeader
                 url={url}
                 onClick={onCopyToClipboardClick}
                 onEditClick={onEditClick}
@@ -114,7 +114,7 @@ export const DashboardEventItem: FC<Props> = ({
           </Grid>
         </>
       )}
-      <Grid container spacing={3}>
+      <Grid container spacing={isTablet ? 2 : 3}>
         <Grid className={classes.firstColumn} item xs={12} md={4} lg={4}>
           {isTablet && !isMobile && (
             <Grid>
@@ -126,7 +126,7 @@ export const DashboardEventItem: FC<Props> = ({
         </Grid>
         <Grid item xs={12} md={4} lg={3} className={classes.middleColumn}>
           {isTablet && !isMobile && (
-            <ItemUrl
+            <ItemEventHeader
               url={url}
               onClick={onCopyToClipboardClick}
               onEditClick={onEditClick}
@@ -166,6 +166,9 @@ const useStyles = (theme: Theme) =>
       backgroundColor: colors.paleGrey,
       marginBottom: 29,
       padding: 20,
+      [theme.breakpoints.up('md')]: {
+        padding: '45px 52px 52px',
+      },
       [theme.breakpoints.up('lg')]: {
         padding: '25px 52px 52px',
       },
@@ -198,6 +201,16 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.up('lg')]: {
         fontSize: 20,
         marginBottom: 0,
+      },
+    },
+    eventHeaderWrap: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      [theme.breakpoints.up('md')]: {
+        fontSize: 20,
+        marginBottom: 0,
+        justifyContent: 'flex-end',
       },
     },
   })();

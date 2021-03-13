@@ -19,7 +19,7 @@ export const DashboardEventItemMainActionsBtn: FC<Props> = ({ icon, onClick, chi
       startIcon={<LineAwesomeIcon type={icon} />}
       endIcon={<LineAwesomeIcon type="angle-right" size={25} style={{ color: colors.coolBlue }} />}
     >
-      {children}
+      <span className={classes.label}>{children}</span>
     </Button>
   );
 };
@@ -65,9 +65,17 @@ const useStyles = (theme: Theme) =>
         maxWidth: 52,
         height: 52,
         transition: 'all .5s ease',
+        flexShrink: 0,
+        marginRight: 14,
         [theme.breakpoints.up('lg')]: {
           maxWidth: 64,
           ...mx.square(64),
+        },
+        '& .MuiIcon-root': {
+          fontSize: 24,
+          [theme.breakpoints.up('lg')]: {
+            fontSize: 32,
+          },
         },
       },
       '& .MuiButton-endIcon': {
@@ -88,6 +96,10 @@ const useStyles = (theme: Theme) =>
           transform: 'translateX(10px)',
         },
       },
+    },
+    label: {
+      width: '100%',
+      textAlign: 'left',
     },
   })();
 

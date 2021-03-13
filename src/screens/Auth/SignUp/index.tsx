@@ -1,6 +1,6 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthCopyrights, AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
-import { SocialButtonNetworkType, SubmitButton } from 'components/Buttons';
+import { SocialButtonNetworkType, ContainedButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { PasswordInput, TextInput } from 'components/Forms';
@@ -173,9 +173,9 @@ export const AuthSignUpScreen: FC<Props> = () => {
               </Grid>
               <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
                 <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
-                  <SubmitButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
+                  <ContainedButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
                     {'Sign Up'}
-                  </SubmitButton>
+                  </ContainedButton>
                 </Grid>
               </Grid>
             </Grid>

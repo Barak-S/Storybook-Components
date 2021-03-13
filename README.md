@@ -101,13 +101,13 @@ Each root folder is available globally and should be imported by absolute path.
 ✅ Correct:
 
 ```typescript
-import { SubmitButton } from 'components/Buttons';
+import { ContainedButton } from 'components/Buttons';
 ```
 
 ❌ Incorrect:
 
 ```typescript
-import { SubmitButton } from '../../components/Buttons';
+import { ContainedButton } from '../../components/Buttons';
 ```
 
 
@@ -131,7 +131,7 @@ src
 src
   components
     Buttson
-      SubmitButton.tsx
+      ContainedButton.tsx
 ```
 
 Place assets in the `./assets` folder next to the component's file.

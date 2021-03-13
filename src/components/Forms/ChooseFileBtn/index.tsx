@@ -1,4 +1,4 @@
-import { SubmitButton } from 'components/Buttons/Submit';
+import { ContainedButton } from 'components/Buttons/Contained';
 import { View } from 'components/Common';
 import React, { DragEvent, FC } from 'react';
 import { ms, Style, Styles } from 'styles';
@@ -28,7 +28,7 @@ export const ChooseFileBtn: FC<Props> = ({ onFileSelect, style }) => {
 
   return (
     <View style={ms(styles.container, style)}>
-      <SubmitButton style={styles.btn}>{'CHOOSE FILE'}</SubmitButton>
+      <ContainedButton style={styles.btn}>{'CHOOSE FILE'}</ContainedButton>
       <input
         onChange={() => handleChange}
         onDrop={handleClick}

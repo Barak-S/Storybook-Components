@@ -52,6 +52,9 @@ const useStyles = (theme: Theme) =>
           fontSize: 19,
         },
       },
+      '& .MuiInputBase-root.Mui-focused .MuiInputBase-input': {
+        border: 'none',
+      },
     },
     button: {
       position: 'absolute',
@@ -63,6 +66,8 @@ const useStyles = (theme: Theme) =>
       background: colors.veryLightPinkThree,
       color: colors.blackTwo,
       padding: '0 10px',
+      borderRadius: 0,
+      fontWeight: 'normal',
       ...mx.centeredContent(),
       [theme.breakpoints.up('lg')]: {
         padding: '0 24px',

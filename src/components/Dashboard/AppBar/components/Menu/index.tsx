@@ -1,4 +1,4 @@
-import { List, makeStyles, MenuItem, Theme, useTheme } from '@material-ui/core';
+import { List, makeStyles, MenuItem, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC, useState } from 'react';
 import { colors, mx, StyleProps } from 'styles';
@@ -32,6 +32,7 @@ export const AppBarMenu: FC<Props> = ({
 
   const theme = useTheme();
   const classes = useStyles(theme);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const buttons: BtnData[] = [
     {
@@ -70,14 +71,16 @@ export const AppBarMenu: FC<Props> = ({
 
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
-      {buttons.map(({ name, icon, label }) =>
-        !isBtnHidden(name) ? (
-          <MenuItem key={name} component="button" selected={name === active} onClick={handleMenuButtonClick(name)}>
+      {buttons.map(({ name, icon, label }) => {
+        const isSelected = name === active;
+
+        return (isMobile && isSelected) || (!isMobile && !isBtnHidden(name)) ? (
+          <MenuItem key={name} component="button" selected={isSelected} onClick={handleMenuButtonClick(name)}>
             {iconsVisibile && <LineAwesomeIcon type={icon} />}
             {label}
           </MenuItem>
-        ) : null,
-      )}
+        ) : null;
+      })}
       {logoutVisible && (
         <MenuItem component="button" onClick={onLogoutClick}>
           <LineAwesomeIcon type="sign-out-alt" />
@@ -100,8 +103,17 @@ const useStyles = (theme: Theme) =>
       '& .MuiButtonBase-root': {
         textTransform: 'capitalize',
         '&.Mui-selected, &:hover': {
-          backgroundColor: colors.white,
           color: colors.marineBlue,
+          background: 'none',
+          height: '100%',
+          fontWeight: 500,
+          fontSize: 20,
+          pointerEvents: 'none',
+          [theme.breakpoints.up('md')]: {
+            pointerEvents: 'initial',
+            backgroundColor: colors.white,
+            fontSize: 18,
+          },
         },
         [theme.breakpoints.up('md')]: {
           padding: '0 40px',

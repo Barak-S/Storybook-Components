@@ -40,14 +40,12 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
         <a style={styles.logoWrap} href="#" onClick={handleLogoClick}>
           <Image className={classes.logo} source={logoImg} />
         </a>
-        <Hidden smDown>
-          <AppBarMenu
-            onMenuBtnClick={onMenuBtnClick}
-            hiddenBtns={['notes', 'profile']}
-            logoutVisible={false}
-            iconsVisibile={false}
-          />
-        </Hidden>
+        <AppBarMenu
+          onMenuBtnClick={onMenuBtnClick}
+          hiddenBtns={['notes', 'profile']}
+          logoutVisible={false}
+          iconsVisibile={false}
+        />
       </Grid>
       <Grid style={styles.rightSection}>
         <Hidden smDown>

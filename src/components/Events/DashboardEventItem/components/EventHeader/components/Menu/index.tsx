@@ -1,4 +1,4 @@
-import { Grid, makeStyles, List, MenuItem } from '@material-ui/core';
+import { Grid, makeStyles, List, MenuItem, useTheme, Theme } from '@material-ui/core';
 import { Dropdown } from 'components/Common';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC, useState, MouseEvent } from 'react';
@@ -66,7 +66,8 @@ export const DashboardEventItemMenu: FC<Props> = ({ onEditClick, onCloneClick, o
     }
   };
 
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <Grid style={styles.container}>
@@ -75,7 +76,10 @@ export const DashboardEventItemMenu: FC<Props> = ({ onEditClick, onCloneClick, o
         open={!!anchorEl}
         onToggle={handleMenuToggle}
         onClose={handleMenuClose}
-        className={classes.dropdown}
+        classes={{
+          menu: classes.dropdown,
+          icon: classes.dropdownIcon,
+        }}
       >
         <List className={classes.menuList} component="nav" onClick={handleMenuClose}>
           {menuListItems.map(({ name, icon }) => (
@@ -93,43 +97,51 @@ export const DashboardEventItemMenu: FC<Props> = ({ onEditClick, onCloneClick, o
 const styles: Styles = {
   container: {
     marginLeft: 10,
-    transform: 'translateY(4px)',
+    transform: 'translateY(2px)',
   },
 };
 
-const useStyles = makeStyles({
-  menuList: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: 0,
-    '& .MuiButtonBase-root': {
-      textTransform: 'capitalize',
-      '&:hover': {
-        backgroundColor: colors.white,
-        color: colors.marineBlue,
-      },
-    },
-  },
-  dropdown: {
-    '& .MuiMenu-paper': {
-      transform: 'translate(10px, 65%)!important',
-    },
-    '& .MuiList-root': {
+const useStyles = (theme: Theme) =>
+  makeStyles({
+    menuList: {
+      display: 'flex',
       flexDirection: 'column',
-      overflow: 'hidden',
-
+      padding: 0,
       '& .MuiButtonBase-root': {
-        padding: '8px 16px',
-        color: colors.marineBlue,
-        fontWeight: 400,
-        fontSize: 16,
-      },
-      '& .MuiIcon-root': {
-        color: colors.coolBlue,
-        marginRight: 10,
+        textTransform: 'capitalize',
+        '&:hover': {
+          backgroundColor: colors.white,
+          color: colors.marineBlue,
+        },
       },
     },
-  },
-});
+    dropdown: {
+      '& .MuiMenu-paper': {
+        transform: 'translate(10px, 65%)!important',
+      },
+      '& .MuiList-root': {
+        flexDirection: 'column',
+        overflow: 'hidden',
+
+        '& .MuiButtonBase-root': {
+          padding: '7px 16px',
+          color: colors.marineBlue,
+          fontWeight: 400,
+          fontSize: 16,
+          minHeight: 'auto',
+        },
+        '& .MuiIcon-root': {
+          color: colors.coolBlue,
+          marginRight: 10,
+        },
+      },
+    },
+    dropdownIcon: {
+      fontSize: 16,
+      [theme.breakpoints.up('md')]: {
+        fontSize: 24,
+      },
+    },
+  })();
 
 export default DashboardEventItemMenu;

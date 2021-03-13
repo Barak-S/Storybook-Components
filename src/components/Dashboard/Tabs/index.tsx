@@ -40,13 +40,14 @@ const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       '& .MuiTabs-indicator': {
-        display: 'none',
+        top: 0,
+        height: 5,
+        borderRadius: 50,
+        background: colors.windowsBlue,
         [theme.breakpoints.up('md')]: {
           display: 'block',
-          height: 5,
-          borderRadius: 50,
+          bottom: 0,
           transform: 'translateY(1px)',
-          background: colors.windowsBlue,
         },
       },
       '& .MuiTab-root': {
