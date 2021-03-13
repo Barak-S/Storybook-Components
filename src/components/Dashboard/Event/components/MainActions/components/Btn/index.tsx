@@ -8,7 +8,7 @@ interface Props extends StyleProps {
   onClick?: (e: MouseEvent) => void;
 }
 
-export const DashboardEventItemMainActionsBtn: FC<Props> = ({ icon, onClick, children }) => {
+export const DashboardEventMainActionsBtn: FC<Props> = ({ icon, onClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -103,5 +103,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardEventItemMainActionsBtnProps = Props;
-export default DashboardEventItemMainActionsBtn;
+export type DashboardEventMainActionsBtnProps = Props;
+export default DashboardEventMainActionsBtn;

@@ -1,11 +1,10 @@
 import { Grid, IconButton, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import { Title, Text } from 'components/Common';
+import { Text, Title } from 'components/Common';
+import { DashbaordStepperMobileLabel, DashboardStepper } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
 import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
-import StepperMobileLabel from 'screens/Dashboard/Events/scenes/FirstEventSetup/components/MobileLabel';
-import { mx, StyleProps, colors } from 'styles';
-import { DashboardStepper } from '..';
+import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   title: string;
@@ -22,7 +21,7 @@ export interface OnboardingStep {
   required?: boolean;
 }
 
-export const DashboardOnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, children }) => {
+export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
@@ -45,7 +44,7 @@ export const DashboardOnboardingContainer: FC<Props> = ({ title, steps, curStepI
                 </Title>
                 <Grid style={{ width: '100%' }}>
                   <DashboardStepper steps={stepperSteps} activeStep={curStepIndex} />
-                  {isMobile && <StepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
+                  {isMobile && <DashbaordStepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
                 </Grid>
               </Grid>
             </Grid>
@@ -188,5 +187,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardOnboardingContainerProps = Props;
-export default DashboardOnboardingContainer;
+export type OnboardingContainerProps = Props;
+export default OnboardingContainer;

@@ -13,7 +13,7 @@ interface Props extends StyleProps {
   onCopyClick?: () => void;
 }
 
-export const DashboardEventItemImage: FC<Props> = ({ source, status, onEditClick, onCopyClick }) => {
+export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, onCopyClick }) => {
   const [hover, setHover] = useState<boolean>(false);
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -92,4 +92,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardEventItemImage;
+export default DashboardEventImage;

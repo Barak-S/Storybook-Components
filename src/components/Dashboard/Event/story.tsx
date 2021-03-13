@@ -1,14 +1,13 @@
 import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
-import { View } from 'components/Common';
 import React from 'react';
 import { StoryMeta } from 'styles';
 
-import DashboardEventItem, { DashboardEventItemProps as Props } from '.';
+import DashboardEvent, { DashboardEventProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Events/DashboardEventItem',
-  component: DashboardEventItem,
+  title: 'components/Dashboard/Event',
+  component: DashboardEvent,
   args: {
     status: 'event-setup',
     title: 'Celebrate the Best in Video Games & Esports',
@@ -53,8 +52,12 @@ export default ((): StoryMeta<Props> => ({
   parameters: {},
 }))();
 
-export const Basic: Story<Props> = props => (
-  <View column style={{ width: '100%', padding: 20 }}>
-    <DashboardEventItem {...props} />
-  </View>
-);
+export const Basic: Story<Props> = props => <DashboardEvent {...props} />;
+
+export const EventSetupState: Story<Props> = props => <DashboardEvent {...props} status="event-setup" />;
+
+export const RegistrationSetupState: Story<Props> = props => <DashboardEvent {...props} status="registration-setup" />;
+
+export const WaitingState: Story<Props> = props => <DashboardEvent {...props} status="waiting" />;
+
+export const ActiveState: Story<Props> = props => <DashboardEvent {...props} status="active" />;

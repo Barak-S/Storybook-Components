@@ -37,7 +37,7 @@ const menuListItems: MenuListItemData[] = [
   },
 ];
 
-export const DashboardEventItemMenu: FC<Props> = ({ onEditClick, onCloneClick, onArchiveClick, onRemoveClick }) => {
+export const DashboardEventMenu: FC<Props> = ({ onEditClick, onCloneClick, onArchiveClick, onRemoveClick }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | undefined>(undefined);
 
   const handleMenuClose = () => {
@@ -144,4 +144,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardEventItemMenu;
+export default DashboardEventMenu;

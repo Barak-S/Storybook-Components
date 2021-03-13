@@ -19,7 +19,7 @@ interface Props extends StyleProps {
   onCopyToClipboardClick?: (url: string) => void;
 }
 
-export const DashboardEventItemRegistration: FC<Props> = ({
+export const DashboardEventRegistration: FC<Props> = ({
   status,
   regStartDate,
   regUrl = '',
@@ -276,4 +276,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardEventItemRegistration;
+export default DashboardEventRegistration;

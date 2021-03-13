@@ -1,10 +1,11 @@
 /* istanbul ignore file */
 export * from './AppBar';
-export * from './TabPanel';
-export * from './MobileMenu';
-export * from './UserNav';
-export * from './Tabs';
 export * from './DropdownMenu';
-export * from './Stepper';
+export * from './Event';
+export * from './MobileMenu';
 export * from './SceneContainer';
-export * from './OnboardingContainer';
+export * from './Stepper';
+export * from './TabPanel';
+export * from './Tabs';
+export * from './UserNav';
+export * from './StepperMobileLabel';

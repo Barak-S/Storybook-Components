@@ -3,16 +3,16 @@ import { View } from 'components/Common';
 import React from 'react';
 import { StoryMeta, Story } from 'styles';
 
-import DashboardItemEventHeader, { DashboardItemEventHeaderProps as Props } from '.';
+import DashboardEventHeader, { DashboardEventHeaderProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Events/DashboardEventItem/components/Url',
-  component: DashboardItemEventHeader,
+  title: 'components/Dashboard/Event/components/EventHeader',
+  component: DashboardEventHeader,
 }))();
 
 export const Basic: Story<Props> = props => (
   <View column style={{ width: '100%', padding: 20 }}>
-    <DashboardItemEventHeader
+    <DashboardEventHeader
       {...props}
       url="eventplaceholder.com/event-name"
       onClick={action('onClick')}

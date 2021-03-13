@@ -15,14 +15,7 @@ interface Props extends StyleProps {
   onRemoveClick?: () => void;
 }
 
-export const DashboardItemEventHeader: FC<Props> = ({
-  url,
-  onClick,
-  onEditClick,
-  onCloneClick,
-  onArchiveClick,
-  onRemoveClick,
-}) => {
+export const DashboardEventHeader: FC<Props> = ({ url, onClick, onEditClick, onCloneClick, onArchiveClick, onRemoveClick }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -99,5 +92,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardItemEventHeaderProps = Props;
-export default DashboardItemEventHeader;
+export type DashboardEventHeaderProps = Props;
+export default DashboardEventHeader;

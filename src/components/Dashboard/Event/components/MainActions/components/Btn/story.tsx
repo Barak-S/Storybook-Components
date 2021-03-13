@@ -3,11 +3,11 @@ import { View } from 'components/Common';
 import React from 'react';
 import { Story, StoryMeta } from 'styles';
 
-import DashboardEventItemMainActionsBtn, { DashboardEventItemMainActionsBtnProps as Props } from '.';
+import DashboardEventMainActionsBtn, { DashboardEventMainActionsBtnProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Events/DashboardEventItem/components/MainActions/components/Button',
-  component: DashboardEventItemMainActionsBtn,
+  title: 'components/Dashboard/Event/components/MainActions/components/Btn',
+  component: DashboardEventMainActionsBtn,
   args: {
     onClick: action('onClick'),
   },
@@ -24,8 +24,8 @@ export const Basic: Story<Props> = props => (
       padding: 50,
     }}
   >
-    <DashboardEventItemMainActionsBtn {...props} icon="envelope">
+    <DashboardEventMainActionsBtn {...props} icon="envelope">
       {'Invite Team Members'}
-    </DashboardEventItemMainActionsBtn>
+    </DashboardEventMainActionsBtn>
   </View>
 );

@@ -2,11 +2,11 @@ import { action } from '@storybook/addon-actions';
 import React from 'react';
 import { StoryMeta, Story } from 'styles';
 
-import DashboardOnboardingContainer, { DashboardOnboardingContainerProps as Props } from '.';
+import OnboardingContainer, { OnboardingContainerProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Dashboard/OnboardingContainer',
-  component: DashboardOnboardingContainer,
+  title: 'components/Onboarding/Container',
+  component: OnboardingContainer,
   args: {
     title: 'create your event',
     curStepIndex: 0,
@@ -48,4 +48,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <DashboardOnboardingContainer {...props} />;
+export const Basic: Story<Props> = props => <OnboardingContainer {...props} />;

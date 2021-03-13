@@ -1,11 +1,9 @@
 import { Button, Grid, IconButton, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Title } from 'components/Common';
-import { DashboardSceneContainer, DashboardStepper } from 'components/Dashboard';
+import { DashbaordStepperMobileLabel, DashboardSceneContainer, DashboardStepper } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, ms, mx, StyleProps, Styles } from 'styles';
-
-import StepperMobileLabel from './components/MobileLabel';
 
 interface Props extends StyleProps {
   steps: string[];
@@ -42,7 +40,7 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
               <LineAwesomeIcon type="angle-right" size={34} />
             </IconButton>
           )}
-          {isMobile && <StepperMobileLabel steps={steps} curStepIndex={curStepIndex} />}
+          {isMobile && <DashbaordStepperMobileLabel steps={steps} curStepIndex={curStepIndex} />}
         </Grid>
         <Button
           className={classes.actionButton}

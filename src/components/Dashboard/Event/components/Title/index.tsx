@@ -5,7 +5,7 @@ import { Title } from 'components/Common';
 
 type Props = StyleProps;
 
-export const DashboardEventItemTitle: FC<Props> = ({ children }) => {
+export const DashboardEventTitle: FC<Props> = ({ children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -34,4 +34,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default DashboardEventItemTitle;
+export default DashboardEventTitle;

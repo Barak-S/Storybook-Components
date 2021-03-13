@@ -8,7 +8,7 @@ interface Props extends StyleProps {
   className?: string;
 }
 
-export const DashboardEventItemDate: FC<Props> = ({ date, className, style }) => {
+export const DashboardEventDate: FC<Props> = ({ date, className, style }) => {
   const transformDate = (date: Date): string => {
     const day = date.getDate();
     const year = date.getFullYear();
@@ -23,4 +23,4 @@ export const DashboardEventItemDate: FC<Props> = ({ date, className, style }) =>
   );
 };
 
-export default DashboardEventItemDate;
+export default DashboardEventDate;

@@ -1,4 +1,5 @@
-import { DashboardEventItem, EventStatus } from 'components/Events';
+import { DashboardEvent } from 'components/Dashboard';
+import { EventStatus } from 'components/Events';
 import React, { FC, useState } from 'react';
 import { StyleProps } from 'styles';
 
@@ -7,7 +8,7 @@ type Props = StyleProps;
 export const DashboardEventsListScene: FC<Props> = ({ style }) => {
   const [status, setStatus] = useState<EventStatus>('event-setup');
   return (
-    <DashboardEventItem
+    <DashboardEvent
       style={style}
       status={status}
       title="Celebrate the Best in Video Games & Esports"
