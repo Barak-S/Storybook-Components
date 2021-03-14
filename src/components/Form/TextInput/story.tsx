@@ -3,42 +3,42 @@ import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
 import { StoryMeta, Story } from 'styles';
 
-import TextInput, { TextInputProps as Props } from '.';
+import FormTextInput, { FormTextInputProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Forms/TextInput',
-  component: TextInput,
+  title: 'components/Form/TextInput',
+  component: FormTextInput,
 }))();
 
-const TextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
+const FormTextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
   const [value, setValue] = useState<string>('Value');
-  return <TextInput value={value} onChange={e => setValue(e.currentTarget.value)} {...props} />;
+  return <FormTextInput value={value} onChange={e => setValue(e.currentTarget.value)} {...props} />;
 };
 
 export const Basic: Story<Props> = props => (
   <View column style={{ width: 300, padding: 20 }}>
-    <TextInputWrap style={{ marginBottom: 30 }} label="input label" {...props} />
-    <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} {...props} />
+    <FormTextInputWrap style={{ marginBottom: 30 }} label="input label" {...props} />
+    <FormTextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} {...props} />
   </View>
 );
 
 export const Valid: Story<Props> = props => (
   <View column style={{ width: 300, padding: 20 }}>
-    <TextInputWrap style={{ marginBottom: 30 }} label="input label" valid {...props} />
-    <TextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} valid {...props} />
+    <FormTextInputWrap style={{ marginBottom: 30 }} label="input label" valid {...props} />
+    <FormTextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} valid {...props} />
   </View>
 );
 
 export const Error: Story<Props> = props => (
   <View column style={{ width: 300, padding: 20 }}>
-    <TextInputWrap
+    <FormTextInputWrap
       style={{ marginBottom: 30 }}
       label="input label"
       error
       helperText="Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character."
       {...props}
     />
-    <TextInputWrap
+    <FormTextInputWrap
       label="Input label"
       error
       helperText="Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character."

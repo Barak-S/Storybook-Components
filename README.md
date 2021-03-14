@@ -73,7 +73,7 @@ Use `feat/%ticet%` branch for the implementation of the feature (e.g. `feat/DO-3
 - `src/components/Buttons` - Different basic buttons.
 - `src/components/Dialogs` - Basic dialogs and components.
 - `src/components/Feedback` - Users feedback specific components.
-- `src/components/Forms` - Inputs, special fields, form-related components.
+- `src/components/Form` - Inputs, special fields, form-related components.
 - `src/components/Auth|Dashboard|...` - Components related to the special part of the app.
 - `src/styles` - Everything that is related to the app style: theme, colors, utils, types.
 - `src/utils` - Basic utils for working with strings, dates, numbers, types. The utils here should not have dependencies from API or internal storage.

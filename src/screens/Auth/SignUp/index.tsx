@@ -1,9 +1,9 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthCopyrights, AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
-import { SocialButtonNetworkType, ContainedButton } from 'components/Buttons';
+import { ContainedButton, SocialButtonNetworkType } from 'components/Buttons';
 import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
-import { PasswordInput, TextInput } from 'components/Forms';
+import { FormPasswordInput, FormTextInput } from 'components/Form';
 import { BackgroundedContainer } from 'components/Layout';
 import { appConfig, Log } from 'core';
 import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
@@ -98,7 +98,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <AuthFormContainer>
             <Grid container justify="space-between" spacing={2} style={{ marginBottom: 15 }}>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <TextInput
+                <FormTextInput
                   value={firstName || ''}
                   label="First Name"
                   InputProps={{ inputProps: { maxLength: 35 } }}
@@ -109,7 +109,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <TextInput
+                <FormTextInput
                   value={lastName || ''}
                   label="Last Name"
                   InputProps={{ inputProps: { maxLength: 35 } }}
@@ -120,7 +120,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 />
               </Grid>
               <Grid item xs={12} style={globalStyles.inputItem}>
-                <TextInput
+                <FormTextInput
                   value={email || ''}
                   label="Your Email"
                   type="email"
@@ -133,7 +133,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <PasswordInput
+                <FormPasswordInput
                   value={password || ''}
                   label="Password"
                   disabled={processing}
@@ -153,7 +153,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 </Text>
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <PasswordInput
+                <FormPasswordInput
                   value={confirmPassword || ''}
                   label="Confirm Password"
                   disabled={processing}

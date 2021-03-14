@@ -9,7 +9,7 @@ interface Props extends CheckboxProps {
   label?: string;
 }
 
-export const CheckboxInput: FC<Props> = props => {
+export const FormCheckboxInput: FC<Props> = props => {
   const { label } = props;
   const classes = useStyles();
   return <FormControlLabel className={classes.container} control={<Checkbox {...props} />} label={label} />;
@@ -24,5 +24,5 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export type CheckboxInputProps = Props;
-export default CheckboxInput;
+export type FormCheckboxInputProps = Props;
+export default FormCheckboxInput;

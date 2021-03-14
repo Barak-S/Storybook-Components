@@ -1,9 +1,9 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
-import { SocialButtonNetworkType, ContainedButton } from 'components/Buttons';
+import { ContainedButton, SocialButtonNetworkType } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
-import { CheckboxInput, PasswordInput, TextInput } from 'components/Forms';
+import { FormCheckboxInput, FormPasswordInput, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
 import { BackgroundedContainer } from 'components/Layout';
 import { appConfig, Log } from 'core';
@@ -154,7 +154,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                 {'log in'}
               </Title>
               <Grid item xs={12} style={globalStyles.inputItem}>
-                <TextInput
+                <FormTextInput
                   value={email || ''}
                   type="email"
                   valid={!validators.getEmailErr(email)}
@@ -167,7 +167,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                 />
               </Grid>
               <Grid item xs={12} style={globalStyles.inputItem}>
-                <PasswordInput
+                <FormPasswordInput
                   value={password || ''}
                   label="Password"
                   disabled={processing}
@@ -184,7 +184,7 @@ export const AuthSignInScreen: FC<Props> = () => {
             </Grid>
             <Grid container justify="space-between" spacing={2}>
               <Grid item xs={12} sm={6}>
-                <CheckboxInput label="Keep me logged in" checked={keepAuth} onChange={handleKeepAuthChange} />
+                <FormCheckboxInput label="Keep me logged in" checked={keepAuth} onChange={handleKeepAuthChange} />
               </Grid>
               <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
                 <View row className={classes.forgot}>

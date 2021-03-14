@@ -1,18 +1,16 @@
 import { Icon, IconButton } from '@material-ui/core';
-import { TextInputProps } from 'components/Forms/TextInput';
+import FormTextInput, { FormTextInputProps } from 'components/Form/TextInput';
 import React, { FC, MouseEvent } from 'react';
-
-import { TextInput } from '..';
 
 interface CustomProps {
   visible: boolean;
-  variant?: TextInputProps['variant'];
+  variant?: FormTextInputProps['variant'];
   onChangeVisibleClick?: () => void;
 }
 
-type Props = TextInputProps & CustomProps;
+type Props = FormTextInputProps & CustomProps;
 
-export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...props }) => {
+export const FormPasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...props }) => {
   const { value, disabled: isInputDisabled } = props;
 
   const handleClickShowPassword = (): void => {
@@ -28,7 +26,7 @@ export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...pro
   const iconClassName = visible ? 'lar la-eye-slash' : 'lar la-eye';
 
   return (
-    <TextInput
+    <FormTextInput
       {...props}
       type={visible ? 'text' : 'password'}
       iconEnd={
@@ -49,5 +47,5 @@ export const PasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ...pro
   );
 };
 
-export type PasswordInputProps = Props;
-export default PasswordInput;
+export type FormPasswordInputProps = Props;
+export default FormPasswordInput;

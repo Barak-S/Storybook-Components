@@ -1,26 +1,28 @@
-import { ContainedButton } from 'components/Buttons/Contained';
+import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
-import React, { DragEvent, FC } from 'react';
-import { ms, Style, Styles } from 'styles';
+import React, { ChangeEventHandler, DragEvent, FC } from 'react';
+import { ms, StyleProps, Styles } from 'styles';
+import { dataOrUndef } from 'utils';
 
-interface Props {
-  style?: Style;
+interface Props extends StyleProps {
+  title?: string;
+  accept?: string;
   onFileSelect: (result?: string | ArrayBuffer) => void;
 }
 
-export const ChooseFileBtn: FC<Props> = ({ onFileSelect, style }) => {
+export const FormSelectFileButton: FC<Props> = ({ style, title = 'CHOOSE FILE', accept = 'image/*', onFileSelect }) => {
   const handleClick = (e: DragEvent<HTMLInputElement>) => {
     e.preventDefault();
     return false;
   };
 
-  const handleChange = (importFile: { target: { files: FileList } }) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = () => (importFile: { target: { files: FileList } }) => {
     const file = importFile.target.files[0];
     const reg = new RegExp('/image.*/');
     if (reg.exec(file.type)) {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
-        onFileSelect(reader.result ? reader.result : undefined);
+        onFileSelect(dataOrUndef(reader.result));
       });
       reader.readAsDataURL(file);
     }
@@ -28,18 +30,19 @@ export const ChooseFileBtn: FC<Props> = ({ onFileSelect, style }) => {
 
   return (
     <View style={ms(styles.container, style)}>
-      <ContainedButton style={styles.btn}>{'CHOOSE FILE'}</ContainedButton>
+      <ContainedButton style={styles.btn}>{title}</ContainedButton>
       <input
-        onChange={() => handleChange}
         onDrop={handleClick}
         style={styles.input}
-        accept="image/*"
+        accept={accept}
         id="icon-button-file"
         type="file"
+        onChange={handleChange}
       />
     </View>
   );
 };
+
 const styles: Styles = {
   container: {
     position: 'relative',
@@ -63,4 +66,5 @@ const styles: Styles = {
   },
 };
 
-export default ChooseFileBtn;
+export type FormSelectFileButtonProps = Props;
+export default FormSelectFileButton;

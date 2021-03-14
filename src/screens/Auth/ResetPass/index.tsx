@@ -3,7 +3,7 @@ import { AuthFormContainer } from 'components/Auth';
 import { ContainedButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
-import { PasswordInput } from 'components/Forms';
+import { FormPasswordInput } from 'components/Form';
 import { BackgroundedContainer } from 'components/Layout';
 import { Log } from 'core';
 import { isCognitoErrResponse, useAuth } from 'core/auth';
@@ -109,7 +109,7 @@ export const AuthResetPass: FC<Props> = () => {
             </Title>
             <Text style={ms(globalStyles.authSubtitle, styles.subtitle)}>{'Enter a new password below.'}</Text>
             <Grid item xs={12} style={globalStyles.inputItem}>
-              <PasswordInput
+              <FormPasswordInput
                 value={password || ''}
                 label="Password"
                 disabled={processing}
@@ -129,7 +129,7 @@ export const AuthResetPass: FC<Props> = () => {
               </Text>
             </Grid>
             <Grid item xs={12} style={globalStyles.inputItem}>
-              <PasswordInput
+              <FormPasswordInput
                 value={confirmPassword || ''}
                 label="Confirm Password"
                 disabled={processing}

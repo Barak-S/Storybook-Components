@@ -9,7 +9,7 @@ interface CustomProps extends StyleProps {
 
 type Props = TextFieldProps & CustomProps;
 
-export const CopyInput: FC<Props> = ({ url, onCopyClick, className, value, ...props }) => {
+export const FormCopyTextInput: FC<Props> = ({ url, onCopyClick, className, value, ...props }) => {
   const handleCopyClick = () => {
     if (onCopyClick) {
       onCopyClick(String(value));
@@ -78,4 +78,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default CopyInput;
+export default FormCopyTextInput;

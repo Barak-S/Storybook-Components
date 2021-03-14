@@ -3,7 +3,7 @@ import { AuthFormContainer } from 'components/Auth';
 import { ContainedButton } from 'components/Buttons';
 import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
-import { TextInput } from 'components/Forms';
+import { FormTextInput } from 'components/Form';
 import { BackgroundedContainer } from 'components/Layout';
 import { Log } from 'core';
 import { isCognitoErrResponse, useAuth } from 'core/auth';
@@ -100,7 +100,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
               {'Enter your email and we will send you instructions to generate a new password.'}
             </Text>
             <Grid item xs={12}>
-              <TextInput
+              <FormTextInput
                 value={email || ''}
                 type="email"
                 valid={!validators.getEmailErr(email)}

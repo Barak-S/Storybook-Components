@@ -3,7 +3,7 @@ import { Skeleton } from '@material-ui/lab';
 import { ContainedButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { EventStatus } from 'components/Events/types';
-import { CopyInput } from 'components/Forms';
+import { FormCopyTextInput } from 'components/Form';
 import React, { FC } from 'react';
 import { colors, ms, StyleProps, Styles } from 'styles';
 import { valToDate } from 'utils';
@@ -98,7 +98,7 @@ export const DashboardEventRegistration: FC<Props> = ({
           </>
         ) : (
           <Grid container className={classes.regContinue}>
-            <CopyInput className={classes.input} url={regUrl} onCopyClick={handleCopyToClipboardClick} />
+            <FormCopyTextInput className={classes.input} url={regUrl} onCopyClick={handleCopyToClipboardClick} />
             <ContainedButton
               theme="red"
               icon="chevron-circle-right"
