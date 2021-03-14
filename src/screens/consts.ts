@@ -18,6 +18,13 @@ export const routes = {
     profile: '/dashboard/profile',
     support: '/dashboard/support',
     users: '/dashboard/users',
+    onboarding: {
+      index: '/dashboard/onboarding',
+      profile: '/dashboard/onboarding/profile',
+      team: '/dashboard/onboarding/team',
+      theme: '/dashboard/onboarding/theme',
+      event: '/dashboard/onboarding/event',
+    },
   },
   policy: '/policy',
   terms: '/terms',
