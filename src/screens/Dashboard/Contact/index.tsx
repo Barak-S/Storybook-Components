@@ -1,4 +1,5 @@
 import { ScreenTitle } from 'components/Common';
+import { DashboardScreenContainer } from 'components/Dashboard';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
@@ -8,7 +9,7 @@ export const DashboardContactScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Contact Us" />
-      {`Contact Us`}
+      <DashboardScreenContainer>{`Contact Us`}</DashboardScreenContainer>
     </>
   );
 };

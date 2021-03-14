@@ -1,6 +1,13 @@
 import { Grid, Hidden, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
-import { DasbhoardTab, DashboardTabPanel, DashboardTabs, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
+import {
+  DasbhoardTab,
+  DashboardScreenContainer,
+  DashboardTabPanel,
+  DashboardTabs,
+  DashboardUserNav,
+  DashboardUserNavBtnType,
+} from 'components/Dashboard';
 import { Log, useAuth } from 'core';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -72,7 +79,7 @@ export const DashboardEventsScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle />
-      <Grid style={styles.container}>
+      <DashboardScreenContainer style={styles.container}>
         <Hidden smDown>{eventTabs}</Hidden>
         <Grid>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={0}>
@@ -99,16 +106,13 @@ export const DashboardEventsScreen: FC<Props> = () => {
         <Hidden mdUp>
           <Grid style={styles.mobileTabs}>{eventTabs}</Grid>
         </Hidden>
-      </Grid>
+      </DashboardScreenContainer>
     </>
   );
 };
 
 const styles: Styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
     fontSize: 16,
     textTransform: 'uppercase',
     color: colors.brownGrey,

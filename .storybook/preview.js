@@ -10,7 +10,7 @@ export const parameters = {
   viewport: {
     viewports: {
       mobileSM: {
-        name: 'Mobile SM (320 x 568)',
+        name: 'Small Mobile (320 x 568)',
         styles: {
           width: '320px',
           height: '568px',
@@ -18,7 +18,7 @@ export const parameters = {
         type: 'mobile',
       },
       mobileMD: {
-        name: 'Mobile MD (375 x 812)',
+        name: 'Medium Mobile (375 x 812)',
         styles: {
           width: '375px',
           height: '812px',
@@ -26,7 +26,7 @@ export const parameters = {
         type: 'mobile',
       },
       mobileLG: {
-        name: 'Mobile LG (599 x 896)',
+        name: 'Large Mobile (599 x 896)',
         styles: {
           width: '599px',
           height: '896px',
@@ -34,7 +34,7 @@ export const parameters = {
         type: 'mobile',
       },
       tabletSM: {
-        name: 'Tablet SM (600 x 834)',
+        name: 'Small Tablet (600 x 834)',
         styles: {
           height: '600px',
           width: '834px',
@@ -42,7 +42,7 @@ export const parameters = {
         type: 'tablet',
       },
       tabletMD: {
-        name: 'Tablet MD (1194 x 834)',
+        name: 'Medium Tablet (1194 x 834)',
         styles: {
           height: '1194px',
           width: '834px',
@@ -50,7 +50,7 @@ export const parameters = {
         type: 'tablet',
       },
       tabletLG: {
-        name: 'Tablet LG (1279 x 720)',
+        name: 'Large Tablet (1279 x 720)',
         styles: {
           height: '1279px',
           width: '720px',
@@ -58,7 +58,7 @@ export const parameters = {
         type: 'tablet',
       },
       desktopSM: {
-        name: 'Desktop SM (1280 x 720)',
+        name: 'Small Desktop (1280 x 720)',
         styles: {
           height: '1280px',
           width: '720px',
@@ -66,7 +66,7 @@ export const parameters = {
         type: 'desktop',
       },
       desktopMD: {
-        name: 'Desktop MD (1366 x 768)',
+        name: 'Medium Desktop (1366 x 768)',
         styles: {
           height: '1366px',
           width: '768px',
@@ -74,7 +74,7 @@ export const parameters = {
         type: 'desktop',
       },
       desktopLG: {
-        name: 'Desktop LG (1920 x 1080)',
+        name: 'Large Desktop (1920 x 1080)',
         styles: {
           height: '1920px',
           width: '1080px',

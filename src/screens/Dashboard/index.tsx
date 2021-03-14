@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { ScreenTitle, View } from 'components/Common';
 import { DashboardAppBar, DashboardMobileMenu, DashboardAppBarBtn } from 'components/Dashboard';
 import { useAuth } from 'core/auth';
@@ -11,6 +11,7 @@ import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
 import DashboardEventsScreen from './Events';
 import DashboardFaqScreen from './Faq';
+import OnboardingScreens from './Onboarding';
 import DashboardProfileScreen from './Profile';
 import DashboardSupportScreen from './Support';
 import DashboardUserManagementScreen from './UserManagement';
@@ -40,9 +41,6 @@ export const DashboardScreens: FC<Props> = () => {
     history.push({ pathname: routes.dashboard[name] });
   };
 
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
   return (
     <>
       <ScreenTitle title="Dashboard" />
@@ -62,7 +60,7 @@ export const DashboardScreens: FC<Props> = () => {
             onMobileMenuClick={handleToggleMobileMenu}
             onMenuBtnClick={handleAppBarMenuBtnClick}
           />
-          <View className={classes.dashboardBody} column justifyContent="center" alignItems="center">
+          <View style={styles.dashboardBody} column justifyContent="center" alignItems="center">
             <Switch>
               <Route path={routes.dashboard.events}>
                 <DashboardEventsScreen />
@@ -85,6 +83,7 @@ export const DashboardScreens: FC<Props> = () => {
               <Route path={routes.dashboard.support}>
                 <DashboardSupportScreen />
               </Route>
+              <OnboardingScreens />
               <Redirect to={routes.dashboard.events} />
             </Switch>
           </View>
@@ -96,33 +95,26 @@ export const DashboardScreens: FC<Props> = () => {
 
 const styles: Styles = {
   container: {
-    display: 'block',
+    display: 'flex',
     flex: '1 0 auto',
   },
   dashboardWrap: {
     top: 0,
     left: 0,
+    flexDirection: 'column',
+    flex: '1 0 auto',
   },
   tabPanel: {
     width: '100%',
   },
+  dashboardBody: {
+    width: '100%',
+    padding: 0,
+    top: 0,
+    left: 0,
+    flex: '1 0 auto',
+  },
 };
-
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    dashboardBody: {
-      width: '100%',
-      padding: 0,
-      top: 0,
-      left: 0,
-      [theme.breakpoints.up('md')]: {
-        padding: '40px 45px',
-      },
-      [theme.breakpoints.up('lg')]: {
-        padding: '70px 80px',
-      },
-    },
-  })();
 
 export type DashboardScreensProps = Props;
 export default DashboardScreens;

@@ -1,4 +1,5 @@
 import { action } from '@storybook/addon-actions';
+import { BackgroundedContainer } from 'components/Layout';
 import React from 'react';
 import { StoryMeta, Story } from 'styles';
 
@@ -46,6 +47,15 @@ export default ((): StoryMeta<Props> => ({
       },
     ],
   },
+  parameters: {
+    layout: 'fullscreen',
+  },
 }))();
 
-export const Basic: Story<Props> = props => <OnboardingContainer {...props} />;
+export const Basic: Story<Props> = props => {
+  return (
+    <BackgroundedContainer style={{ minHeight: '100vh', justifyContent: 'flex-start' }}>
+      <OnboardingContainer {...props} />
+    </BackgroundedContainer>
+  );
+};

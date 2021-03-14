@@ -1,15 +1,24 @@
 import backgroundImg from './assets/background.png';
 import { View } from 'components/Common';
 import React, { FC } from 'react';
-import { StyleProps, Styles } from 'styles';
+import { mc, StyleProps } from 'styles';
+import { makeStyles } from '@material-ui/core';
 
-type Props = StyleProps;
+interface Props extends StyleProps {
+  className?: string;
+}
 
-export const BackgroundedContainer: FC<Props> = ({ style, children }) => {
-  return <View style={[styles.container, style]}>{children}</View>;
+export const BackgroundedContainer: FC<Props> = ({ className, style, children }) => {
+  const classes = useStyles();
+
+  return (
+    <View className={mc(classes.container, className)} style={style}>
+      {children}
+    </View>
+  );
 };
 
-export const styles: Styles = {
+export const useStyles = makeStyles({
   container: {
     display: 'flex',
     width: '100%',
@@ -18,7 +27,7 @@ export const styles: Styles = {
     backgroundImage: `url("${backgroundImg}")`,
     backgroundSize: 'cover',
   },
-};
+});
 
 export type BackgroundedContainerProps = Props;
 export default BackgroundedContainer;

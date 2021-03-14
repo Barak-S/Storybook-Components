@@ -96,6 +96,10 @@ const useStyles = (theme: Theme) =>
           color: colors.marineBlue,
           fontWeight: 400,
           fontSize: 16,
+          '&:hover, &.Mui-selected': {
+            fontWeight: 'normal',
+            fontSize: 16,
+          },
         },
         '& .MuiIcon-root': {
           color: colors.coolBlue,

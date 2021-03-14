@@ -1,8 +1,7 @@
-import { Grid, IconButton, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { RoundedIconButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { DashbaordStepperMobileLabel, DashboardStepper } from 'components/Dashboard';
-import { LineAwesomeIcon } from 'components/Icons';
-import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
@@ -35,41 +34,35 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
   return (
     <Grid className={classes.container}>
       <Paper elevation={3} className={classes.paper}>
-        <BackgroundedContainer>
-          <Grid container>
-            <Grid item xs={12}>
-              <Grid className={classes.header}>
-                <Title type="h3" className={classes.headerTitle}>
-                  {title}
-                </Title>
-                <Grid style={{ width: '100%' }}>
-                  <DashboardStepper steps={stepperSteps} activeStep={curStepIndex} />
-                  {isMobile && <DashbaordStepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
-                </Grid>
+        <Grid container>
+          <Grid item xs={12}>
+            <Grid className={classes.header}>
+              <Title type="h3" className={classes.headerTitle}>
+                {title}
+              </Title>
+              <Grid style={{ width: '100%' }}>
+                <DashboardStepper steps={stepperSteps} activeStep={curStepIndex} />
+                {isMobile && <DashbaordStepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
               </Grid>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Grid className={classes.aside}>
-                {isDesktop && <Text className={classes.stepIndex}>{stepIndex}</Text>}
-                <Title type="h4" className={classes.stepTitle}>
-                  {!isDesktop && `${stepIndex} `}
-                  {curStepTitle}
-                </Title>
-                <Text className={classes.stepDescription}>{curStepDescription}</Text>
-                {required && <Text className={classes.stepRequired}>{'required*'}</Text>}
-              </Grid>
-            </Grid>
-            <Grid item xs={12} md={9}>
-              <Grid className={classes.body}>{children}</Grid>
             </Grid>
           </Grid>
-        </BackgroundedContainer>
+          <Grid item xs={12} md={3}>
+            <Grid className={classes.aside}>
+              {isDesktop && <Text className={classes.stepIndex}>{stepIndex}</Text>}
+              <Title type="h4" className={classes.stepTitle}>
+                {!isDesktop && `${stepIndex} `}
+                {curStepTitle}
+              </Title>
+              <Text className={classes.stepDescription}>{curStepDescription}</Text>
+              {required && <Text className={classes.stepRequired}>{'required*'}</Text>}
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={9}>
+            <Grid className={classes.body}>{children}</Grid>
+          </Grid>
+        </Grid>
       </Paper>
-      {isDesktop && (
-        <IconButton className={classes.close} onClick={onCloseClick}>
-          <LineAwesomeIcon type="times" size={24} />
-        </IconButton>
-      )}
+      {isDesktop && <RoundedIconButton icon="times" onClick={onCloseClick} className={classes.close} />}
     </Grid>
   );
 };
@@ -84,8 +77,10 @@ const useStyles = (theme: Theme) =>
       margin: '0 auto',
     },
     paper: {
+      background: 'transparent',
       width: '100%',
       [theme.breakpoints.up('md')]: {
+        background: colors.white,
         borderRadius: 30,
         overflow: 'hidden',
       },
@@ -96,7 +91,6 @@ const useStyles = (theme: Theme) =>
       alignItems: 'flex-start',
       padding: '25px 30px 0',
       [theme.breakpoints.up('md')]: {
-        background: colors.white,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
@@ -119,7 +113,6 @@ const useStyles = (theme: Theme) =>
       padding: 30,
       height: '100%',
       [theme.breakpoints.up('md')]: {
-        background: colors.white,
         ...mx.borderTop(1, 'solid', colors.silver),
         ...mx.borderRight(1, 'solid', colors.silver),
       },
@@ -168,9 +161,9 @@ const useStyles = (theme: Theme) =>
       textTransform: 'capitalize',
     },
     body: {
-      background: colors.white,
       height: '100%',
       padding: 30,
+      background: colors.white,
       [theme.breakpoints.up('md')]: {
         ...mx.borderTop(1, 'solid', colors.silver),
       },
@@ -179,10 +172,6 @@ const useStyles = (theme: Theme) =>
       },
     },
     close: {
-      ...mx.square(45),
-      background: colors.paleGrey,
-      borderRadius: '50%',
-      boxShadow: `0 0 20px ${colors.withAlpha(colors.black, 0.3)}`,
       marginLeft: 20,
     },
   })();
