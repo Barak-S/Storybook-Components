@@ -14,7 +14,7 @@ export const parameters = {
   viewport: {
     viewports: {
       mobileSM: {
-        name: 'Small mobile (320 x 568)',
+        name: 'Mobile (320 x 568)',
         styles: {
           width: '320px',
           height: '568px',
@@ -22,7 +22,7 @@ export const parameters = {
         type: 'mobile',
       },
       mobileMD: {
-        name: 'Small mobile (375 x 812)',
+        name: 'Mobile (375 x 812)',
         styles: {
           width: '375px',
           height: '812px',
@@ -30,7 +30,7 @@ export const parameters = {
         type: 'mobile',
       },
       mobileLG: {
-        name: 'Large mobile (599 x 896)',
+        name: 'Mobile (599 x 896)',
         styles: {
           width: '599px',
           height: '896px',
