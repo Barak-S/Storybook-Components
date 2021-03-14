@@ -49,7 +49,9 @@ export default ((): StoryMeta<Props> => ({
     onCopyToClipboardClick: { table: { category: 'Actions' } },
     style: { table: { category: 'Style' } },
   },
-  parameters: {},
+  parameters: {
+    layout: 'fullscreen',
+  },
 }))();
 
 export const Basic: Story<Props> = props => <DashboardEvent {...props} />;

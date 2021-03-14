@@ -94,6 +94,8 @@ interface StoryMetaParameters {
   };
   /** Add component subtitle */
   componentSubtitle?: string;
+  /** Component indents and position at the canvas */
+  layout?: 'centered' | 'fullscreen' | 'padded';
 }
 
 export { Story };
