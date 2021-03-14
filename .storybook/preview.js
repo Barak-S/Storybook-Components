@@ -1,12 +1,8 @@
+import { ThemeProvider } from '@material-ui/core/styles';
+import { addDecorator } from '@storybook/react';
 import React from 'react';
 
-import { addDecorator } from '@storybook/react';
-import { ThemeProvider } from '@material-ui/core/styles';
-
 import { muiTheme } from '../src/styles';
-
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
-console.log(JSON.stringify(MINIMAL_VIEWPORTS));
 
 // Parametres
 
@@ -14,7 +10,7 @@ export const parameters = {
   viewport: {
     viewports: {
       mobileSM: {
-        name: 'Mobile (320 x 568)',
+        name: 'Mobile SM (320 x 568)',
         styles: {
           width: '320px',
           height: '568px',
@@ -22,7 +18,7 @@ export const parameters = {
         type: 'mobile',
       },
       mobileMD: {
-        name: 'Mobile (375 x 812)',
+        name: 'Mobile MD (375 x 812)',
         styles: {
           width: '375px',
           height: '812px',
@@ -30,7 +26,7 @@ export const parameters = {
         type: 'mobile',
       },
       mobileLG: {
-        name: 'Mobile (599 x 896)',
+        name: 'Mobile LG (599 x 896)',
         styles: {
           width: '599px',
           height: '896px',
@@ -38,7 +34,7 @@ export const parameters = {
         type: 'mobile',
       },
       tabletSM: {
-        name: 'Tablet (600 x 834)',
+        name: 'Tablet SM (600 x 834)',
         styles: {
           height: '600px',
           width: '834px',
@@ -46,7 +42,7 @@ export const parameters = {
         type: 'tablet',
       },
       tabletMD: {
-        name: 'Tablet (1194 x 834)',
+        name: 'Tablet MD (1194 x 834)',
         styles: {
           height: '1194px',
           width: '834px',
@@ -54,7 +50,7 @@ export const parameters = {
         type: 'tablet',
       },
       tabletLG: {
-        name: 'Tablet (1279 x 720)',
+        name: 'Tablet LG (1279 x 720)',
         styles: {
           height: '1279px',
           width: '720px',
@@ -62,7 +58,7 @@ export const parameters = {
         type: 'tablet',
       },
       desktopSM: {
-        name: 'Desktop (1280 x 720)',
+        name: 'Desktop SM (1280 x 720)',
         styles: {
           height: '1280px',
           width: '720px',
@@ -70,7 +66,7 @@ export const parameters = {
         type: 'desktop',
       },
       desktopMD: {
-        name: 'Desktop (1366 x 768)',
+        name: 'Desktop MD (1366 x 768)',
         styles: {
           height: '1366px',
           width: '768px',
@@ -78,7 +74,7 @@ export const parameters = {
         type: 'desktop',
       },
       desktopLG: {
-        name: 'Desktop (1920 x 1080)',
+        name: 'Desktop LG (1920 x 1080)',
         styles: {
           height: '1920px',
           width: '1080px',
