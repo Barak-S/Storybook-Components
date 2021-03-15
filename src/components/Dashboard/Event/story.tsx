@@ -1,7 +1,6 @@
-import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, StoryMeta } from 'styles';
 
 import DashboardEvent, { DashboardEventProps as Props } from '.';
 
@@ -16,16 +15,6 @@ export default ((): StoryMeta<Props> => ({
     image: 'https://picsum.photos/id/1036/300/200',
     date: new Date(),
     regStartDate: new Date(),
-    onSetupRegistrationClick: action('onSetupRegistrationClick'),
-    onRegContinueClick: action('onRegContinueClick'),
-    onInviteTeamMembersClick: action('onInviteTeamMembersClick'),
-    onAddPresenterClick: action('onAddPresenterClick'),
-    onEditSessionsClick: action('onEditSessionsClick'),
-    onEditClick: action('onEditClick'),
-    onCloneClick: action('onCloneClick'),
-    onArchiveClick: action('onArchiveClick'),
-    onRemoveClick: action('onRemoveClick'),
-    onCopyToClipboardClick: action('onCopyToClipboardClick'),
   },
   argTypes: {
     status: { table: { category: 'Info' } },
@@ -51,6 +40,7 @@ export default ((): StoryMeta<Props> => ({
   },
   parameters: {
     layout: 'fullscreen',
+    ...sbAutoDetectActionProps,
   },
 }))();
 

@@ -8,6 +8,12 @@ import FormTextInput, { FormTextInputProps as Props } from '.';
 export default ((): StoryMeta<Props> => ({
   title: 'components/Form/TextInput',
   component: FormTextInput,
+  args: {
+    label: 'Input label',
+  },
+  parameters: {
+    layout: 'centered',
+  },
 }))();
 
 const FormTextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
@@ -17,31 +23,27 @@ const FormTextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
 
 export const Basic: Story<Props> = props => (
   <View column style={{ width: 300, padding: 20 }}>
-    <FormTextInputWrap style={{ marginBottom: 30 }} label="input label" {...props} />
-    <FormTextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} {...props} />
+    <FormTextInputWrap {...props} />
+    <FormTextInputWrap {...props} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="user" />} />
   </View>
 );
 
 export const Valid: Story<Props> = props => (
   <View column style={{ width: 300, padding: 20 }}>
-    <FormTextInputWrap style={{ marginBottom: 30 }} label="input label" valid {...props} />
-    <FormTextInputWrap label="Input label" iconStart={<LineAwesomeIcon type="user" />} valid {...props} />
+    <FormTextInputWrap {...props} valid />
+    <FormTextInputWrap {...props} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="user" />} valid />
   </View>
 );
 
+const helperText = `Some textfield error`;
+
 export const Error: Story<Props> = props => (
-  <View column style={{ width: 300, padding: 20 }}>
+  <View column style={{ width: 300 }}>
+    <FormTextInputWrap error helperText={helperText} {...props} />
     <FormTextInputWrap
-      style={{ marginBottom: 30 }}
-      label="input label"
+      style={{ marginTop: 30 }}
       error
-      helperText="Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character."
-      {...props}
-    />
-    <FormTextInputWrap
-      label="Input label"
-      error
-      helperText="Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character."
+      helperText={helperText}
       iconStart={<LineAwesomeIcon type="user" />}
       {...props}
     />

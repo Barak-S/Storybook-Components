@@ -1,6 +1,4 @@
-import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
-import { View } from 'components/Common';
 import React from 'react';
 import { StoryMeta } from 'styles';
 
@@ -11,27 +9,21 @@ export default ((): StoryMeta<Props> => ({
   component: RoundedIconButton,
   args: {
     icon: 'times',
-    onClick: action('onClick'),
+  },
+  argTypes: {
+    onClick: { action: 'onClick' },
   },
   parameters: {
-    layout: 'fullscreen',
+    layout: 'centered',
   },
 }))();
 
-export const Basic: Story<Props> = props => (
-  <View column style={{ width: 200 }}>
-    <RoundedIconButton {...props} />
-  </View>
-);
+export const Basic: Story<Props> = props => <RoundedIconButton {...props} />;
 
-export const Disabled: Story<Props> = props => (
-  <View column style={{ width: 200 }}>
-    <RoundedIconButton {...props} disabled />
-  </View>
-);
+export const Disabled: Story<Props> = props => <RoundedIconButton {...props} disabled />;
 
 Disabled.parameters = {
   docs: {
-    storyDescription: 'Unactive buttons',
+    storyDescription: 'Unactive state',
   },
 };

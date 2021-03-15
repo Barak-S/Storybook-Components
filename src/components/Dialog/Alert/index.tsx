@@ -6,20 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
-import DialogTitle from 'components/Dialogs/ClosableTitle';
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
+import ClosableTitle from '../ClosableTitle';
 
 interface Props extends StyleProps {
   title?: string;
@@ -35,10 +22,23 @@ interface AlertDialogAction {
   onPress?: () => void;
 }
 
+const DialogContent = withStyles(theme => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
 export const AlertDialog: FC<Props> = ({ style, title, visible = false, actions, children, onClose }) => {
   return (
     <Dialog style={style} onClose={onClose} open={visible}>
-      {!!title && <DialogTitle onClose={onClose}>{title}</DialogTitle>}
+      {!!title && <ClosableTitle onClose={onClose}>{title}</ClosableTitle>}
       <DialogContent dividers>{children}</DialogContent>
       {!!actions && actions.length && (
         <DialogActions>

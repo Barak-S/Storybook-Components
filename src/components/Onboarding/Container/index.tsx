@@ -14,18 +14,23 @@ interface Props extends StyleProps {
 
 export interface OnboardingStep {
   index: number;
-  title: string;
-  shortTitle: string;
+  title: OnboardinStepTitle;
   description: string;
   required?: boolean;
 }
+
+type OnboardinStepTitle = string | { short: string; long: string };
+
+const getShortTitle = (val: OnboardinStepTitle): string => (typeof val === 'string' ? val : val.short);
+
+const getLongTitle = (val: OnboardinStepTitle): string => (typeof val === 'string' ? val : val.long);
 
 export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const stepperSteps = steps.map(({ shortTitle }) => shortTitle);
+  const stepperSteps = steps.map(val => getShortTitle(val.title));
 
   const { title: curStepTitle, description: curStepDescription, required } = steps[curStepIndex];
 
@@ -51,7 +56,7 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
               {isDesktop && <Text className={classes.stepIndex}>{stepIndex}</Text>}
               <Title type="h4" className={classes.stepTitle}>
                 {!isDesktop && `${stepIndex} `}
-                {curStepTitle}
+                {getLongTitle(curStepTitle)}
               </Title>
               <Text className={classes.stepDescription}>{curStepDescription}</Text>
               {required && <Text className={classes.stepRequired}>{'required*'}</Text>}

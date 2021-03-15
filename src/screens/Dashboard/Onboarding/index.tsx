@@ -1,9 +1,11 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { BackgroundedContainer } from 'components/Layout';
+import { OnboardingStep } from 'components/Onboarding';
 import React, { FC, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { srollToTop, StyleProps } from 'styles';
+
 import OnboardingEventScreen from './Event';
 import OnboardingProfileScreen from './Profile';
 import OnboardingTeamScreen from './Team';
@@ -11,35 +13,43 @@ import OnboardingThemeScreen from './Theme';
 
 type Props = StyleProps;
 
-const steps = [
+const steps: OnboardingStep[] = [
   {
     index: 0,
-    title: 'event profile information',
-    shortTitle: 'profile information',
+    title: {
+      long: 'Event profile information',
+      short: 'Profile information',
+    },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
   },
   {
     index: 1,
-    title: 'Invite Team Members',
-    shortTitle: 'Team Members',
+    title: {
+      long: 'Invite Team Members',
+      short: 'Team Members',
+    },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: false,
   },
   {
     index: 2,
-    title: 'Select Event Theme',
-    shortTitle: 'Event Theme',
+    title: {
+      long: 'Select Event Theme',
+      short: 'Event Theme',
+    },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
   },
   {
     index: 3,
-    title: 'Setup Event',
-    shortTitle: 'Setup Event',
+    title: {
+      long: 'Setup Event',
+      short: 'Setup Event',
+    },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: false,

@@ -10,7 +10,7 @@ interface Props extends WithStyles<typeof styles>, StyleProps {
   onClose?: () => void;
 }
 
-const DialogTitle: FC<Props> = ({ children, style, classes, onClose }) => {
+const DialogClosableTitle: FC<Props> = ({ children, style, classes, onClose }) => {
   return (
     <MuiDialogTitle style={style} disableTypography className={classes.root}>
       <Typography variant="h6">{children}</Typography>
@@ -37,4 +37,4 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default withStyles(styles)(DialogTitle);
+export default withStyles(styles)(DialogClosableTitle);

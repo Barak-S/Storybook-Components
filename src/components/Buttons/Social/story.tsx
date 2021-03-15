@@ -1,37 +1,37 @@
-import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import { View } from 'components/Common';
 import React from 'react';
-import { StoryMeta } from 'styles';
+import { StoryMeta, Styles } from 'styles';
 
 import SocialButton, { SocialButtonProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
   title: 'components/Buttons/SocialButton',
   component: SocialButton,
-  args: {
-    onClick: action('onClick'),
-  },
   argTypes: {
     type: {
       control: false,
     },
+    onClick: { action: 'onClick' },
+  },
+  parameters: {
+    layout: 'centered',
   },
 }))();
 
 export const Basic: Story<Props> = props => (
   <View column style={{ width: 200 }}>
-    <SocialButton {...props} style={{ marginBottom: 10 }} type="facebook" />
-    <SocialButton {...props} style={{ marginBottom: 10 }} type="google" />
-    <SocialButton {...props} type="linkedin" />
+    <SocialButton {...props} type="facebook" />
+    <SocialButton {...props} style={styles.indent} type="google" />
+    <SocialButton {...props} style={styles.indent} type="linkedin" />
   </View>
 );
 
 export const Disabled: Story<Props> = props => (
   <View column style={{ width: 200 }}>
-    <SocialButton {...props} style={{ marginBottom: 10 }} type="facebook" disabled />
-    <SocialButton {...props} style={{ marginBottom: 10 }} disabled type="google" />
-    <SocialButton {...props} disabled type="linkedin" />
+    <SocialButton {...props} disabled type="facebook" />
+    <SocialButton {...props} style={styles.indent} disabled type="google" />
+    <SocialButton {...props} style={styles.indent} disabled type="linkedin" />
   </View>
 );
 
@@ -40,3 +40,5 @@ Disabled.parameters = {
     storyDescription: 'Unactive buttons',
   },
 };
+
+const styles: Styles = { indent: { marginTop: 10 } };

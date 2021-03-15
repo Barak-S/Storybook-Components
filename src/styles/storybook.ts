@@ -1,11 +1,13 @@
-import { FC } from 'react';
 import { Story } from '@storybook/react';
+import { FC, ReactNode } from 'react';
 
-export interface StoryMeta<P> {
+import { Styles } from './types';
+
+export interface StoryMeta<P = Record<string, unknown>> {
   title?: string;
   component?: FC<P>;
   subcomponents?: Record<string, FC>;
-  args?: Partial<P>;
+  args?: Partial<P> & { children?: ReactNode };
   argTypes?: StoryMetaArgTypes<P>;
   parameters?: StoryMetaParameters;
 }
@@ -28,6 +30,8 @@ interface StoryMetaArgType {
   step?: number;
   options?: unknown[];
   separator?: string;
+  /** action to be logged */
+  action?: string;
 }
 
 interface StoryMetaArgTypeDescr {
@@ -72,30 +76,59 @@ interface StoryMetaArgTable {
 }
 
 interface StoryMetaParameters {
-  docs?: {
-    inlineStories?: boolean;
-    /** Description block */
-    description?: {
-      component?: string;
-      story?: string;
-    };
-    /** Source code block */
-    source?: {
-      /**
-       * Parameter that controls how source is auto-generated. Valid values include:
-       * `auto` - Use dynamic snippets if the story is written using Args and the framework supports it.
-       * `dynamic` - Dynamically generated snippet based on the output of the story function, e.g. JSX code for react.
-       * `code` - Use the raw story source as written in the story file
-       */
-      type?: 'auto' | 'dynamic' | 'code';
-      /** The source snippet that’s displayed for a stor */
-      code?: string;
-    };
-  };
+  docs?: StoryMetaDocsParameter;
   /** Add component subtitle */
   componentSubtitle?: string;
   /** Component indents and position at the canvas */
-  layout?: 'centered' | 'fullscreen' | 'padded';
+  layout?: StoryMetaLayoutParameter;
+  actions?: StoryMetaActionsParameter;
 }
+
+interface StoryMetaDocsParameter {
+  inlineStories?: boolean;
+  /** Description block */
+  description?: {
+    component?: string;
+    story?: string;
+  };
+  /** Source code block */
+  source?: {
+    /**
+     * Parameter that controls how source is auto-generated. Valid values include:
+     * `auto` - Use dynamic snippets if the story is written using Args and the framework supports it.
+     * `dynamic` - Dynamically generated snippet based on the output of the story function, e.g. JSX code for react.
+     * `code` - Use the raw story source as written in the story file
+     */
+    type?: 'auto' | 'dynamic' | 'code';
+    /** The source snippet that’s displayed for a stor */
+    code?: string;
+  };
+}
+
+type StoryMetaLayoutParameter = 'centered' | 'fullscreen' | 'padded';
+
+interface StoryMetaActionsParameter {
+  /**
+   * The following configuration automatically creates actions for each on argType
+   * (which you can either specify manually or can be inferred automatically).
+   * @example { argTypesRegex: '^on.*' }
+   */
+  argTypesRegex?: string;
+  handles?: string[];
+}
+
+// Utils
+
+export const sbAutoDetectActionProps: StoryMetaParameters = {
+  actions: { argTypesRegex: '^on.*' },
+};
+
+export const sbStyles: Styles = {
+  rowIndent: {
+    marginTop: 14,
+  },
+};
+
+// Exports
 
 export { Story };
