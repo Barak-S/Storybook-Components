@@ -23,6 +23,7 @@ const steps: OnboardingStep[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
+    skippable: true,
   },
   {
     index: 1,
@@ -32,7 +33,8 @@ const steps: OnboardingStep[] = [
     },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
-    required: false,
+    required: true,
+    skippable: true,
   },
   {
     index: 2,
@@ -43,6 +45,7 @@ const steps: OnboardingStep[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
+    skippable: true,
   },
   {
     index: 3,
@@ -53,6 +56,7 @@ const steps: OnboardingStep[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: false,
+    skippable: true,
   },
 ];
 
