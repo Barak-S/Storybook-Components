@@ -3,6 +3,8 @@ import { RoundedIconButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { DashbaordStepperMobileLabel, DashboardStepper } from 'components/Dashboard';
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { routes } from 'screens/consts';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
@@ -17,6 +19,7 @@ export interface OnboardingStep {
   title: OnboardinStepTitle;
   description: string;
   required?: boolean;
+  skippable?: boolean;
 }
 
 type OnboardinStepTitle = string | { short: string; long: string };
@@ -32,7 +35,7 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const stepperSteps = steps.map(val => getShortTitle(val.title));
 
-  const { title: curStepTitle, description: curStepDescription, required } = steps[curStepIndex];
+  const { title: curStepTitle, description: curStepDescription, required, skippable } = steps[curStepIndex];
 
   const stepIndex = `${curStepIndex + 1}.`;
 
@@ -60,6 +63,11 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
               </Title>
               <Text className={classes.stepDescription}>{curStepDescription}</Text>
               {required && <Text className={classes.stepRequired}>{'required*'}</Text>}
+              {skippable && (
+                <Link to={routes.dashboard.events} className={classes.stepSkip}>
+                  {'Skip for Now'}
+                </Link>
+              )}
             </Grid>
           </Grid>
           <Grid item xs={12} md={9}>
@@ -161,9 +169,17 @@ const useStyles = (theme: Theme) =>
       lineHeight: 1.6,
     },
     stepRequired: {
+      display: 'block',
       color: colors.rustyRed,
       fontSize: 10,
       textTransform: 'capitalize',
+      marginBottom: 22,
+    },
+    stepSkip: {
+      display: 'block',
+      color: colors.coolBlueTwo,
+      fontSize: 14,
+      textDecoration: 'none',
     },
     body: {
       height: '100%',
