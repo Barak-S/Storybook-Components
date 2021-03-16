@@ -147,7 +147,7 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       - name: "Storybook: build"
         run: yarn storybook:build
-      - name: "Storybook: upload"
+      - name: "Storybook: upload to unique path"
         run: >
           ASSET_ID=$(openssl rand -hex 5)
 
@@ -155,7 +155,15 @@ jobs:
 
           ASSET_URL="$AWS_ASSETS_URL/storybook/$ASSET_ID"
 
-          echo "STORYBOOK_URL=$ASSET_URL" >> $GITHUB_ENV
+          echo "STORYBOOK_UNIQUE_URL=$ASSET_URL" >> $GITHUB_ENV
+      - name: "Storybook: upload to env path"
+        run: >
+          aws s3 sync --acl public-read --follow-symlinks --delete
+          ./storybook-static s3://$AWS_ASSETS_BUCKET/storybook/$ASSET_ID
+
+          ASSET_URL="$AWS_ASSETS_URL/storybook/$ASSET_ID"
+
+          echo "STORYBOOK_ENV_URL=$ASSET_URL" >> $GITHUB_ENV
       - name: "Slack: storybook"
         if: ${{ env.SLACK_ENABLED == 'true' }}
         uses: Ilshidur/action-slack@master
@@ -166,7 +174,9 @@ jobs:
             :control_knobs: ${{ env.APP_ENV_EMOJI }} :art: `v${{ env.APP_VERSION
             }}`: Storybook has been uploaded
 
-            ${{ env.STORYBOOK_URL }}
+            ${{ env.STORYBOOK_ENV_URL }}
+
+            ${{ env.STORYBOOK_UNIQUE_URL }}
       - name: "Tests: upload coverage"
         run: >
           ASSET_ID=$(openssl rand -hex 5)
@@ -200,7 +210,7 @@ jobs:
 
             App: ${{ env.APP_URL }}
 
-            Storybook: ${{ env.STORYBOOK_URL }}
+            Storybook: ${{ env.STORYBOOK_UNIQUE_URL }}
 
             Tests coverage: ${{ env.TEST_COVERAGE_URL }}
 
