@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: "Env: set package version"
         run: >
           echo "APP_VERSION=$(cat package.json | grep version | head -1 | awk
