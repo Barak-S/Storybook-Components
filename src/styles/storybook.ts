@@ -82,6 +82,7 @@ interface StoryMetaParameters {
   /** Component indents and position at the canvas */
   layout?: StoryMetaLayoutParameter;
   actions?: StoryMetaActionsParameter;
+  chromatic?: StoryMetaChromaticParameter;
 }
 
 interface StoryMetaDocsParameter {
@@ -117,16 +118,39 @@ interface StoryMetaActionsParameter {
   handles?: string[];
 }
 
+interface StoryMetaChromaticParameter {
+  /** Disables Chromatic for this story */
+  disable?: boolean;
+  /** This helps you define one or more viewport sizes to capture */
+  viewports?: number[];
+  /** Notifies Chromatic to pause the animations when they finish for the specific story. */
+  pauseAnimationAtEnd?: boolean;
+  /**
+   * Use story-level delay to ensure a minimum amount of time (in milliseconds) has
+   * passed before Chromatic takes a screenshot.
+   */
+  delay?: boolean;
+  /**
+   * The diffThreshold parameter allows you to fine tune the threshold for visual
+   * change between snapshots before they’re flagged by Chromatic
+   */
+  diffThreshold?: number;
+}
+
 // Utils
 
-export const sbAutoDetectActionProps: StoryMetaParameters = {
-  actions: { argTypesRegex: '^on.*' },
+export const sbAutoDetectActionProps: StoryMetaActionsParameter = {
+  argTypesRegex: '^on.*',
 };
 
 export const sbStyles: Styles = {
   rowIndent: {
     marginTop: 14,
   },
+};
+
+export const sbChromaticDefViewports: StoryMetaChromaticParameter = {
+  viewports: [375, 1194, 1920],
 };
 
 // Exports

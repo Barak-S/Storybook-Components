@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { sbAutoDetectActionProps, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, sbChromaticDefViewports, StoryMeta } from 'styles';
 
 import DashboardEvent, { DashboardEventProps as Props } from '.';
 
@@ -40,7 +40,8 @@ export default ((): StoryMeta<Props> => ({
   },
   parameters: {
     layout: 'fullscreen',
-    ...sbAutoDetectActionProps,
+    actions: { ...sbAutoDetectActionProps },
+    chromatic: { ...sbChromaticDefViewports },
   },
 }))();
 

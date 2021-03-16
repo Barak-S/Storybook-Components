@@ -57,7 +57,7 @@ export default ((): StoryMeta<Props> => ({
   },
   parameters: {
     layout: 'fullscreen',
-    ...sbAutoDetectActionProps,
+    actions: { ...sbAutoDetectActionProps },
   },
 }))();
 

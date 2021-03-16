@@ -12,7 +12,7 @@ export default ((): StoryMeta<Props> => ({
   },
   parameters: {
     layout: 'centered',
-    ...sbAutoDetectActionProps,
+    actions: { ...sbAutoDetectActionProps },
   },
 }))();
 

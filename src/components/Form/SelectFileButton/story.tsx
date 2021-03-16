@@ -8,7 +8,7 @@ export default ((): StoryMeta<Props> => ({
   component: FormSelectFileButton,
   parameters: {
     layout: 'centered',
-    ...sbAutoDetectActionProps,
+    actions: { ...sbAutoDetectActionProps },
   },
 }))();
 
