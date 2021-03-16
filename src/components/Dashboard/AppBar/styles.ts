@@ -19,8 +19,9 @@ export const styles: Styles = {
     fontSize: 'inherit',
     height: '100%',
   },
-  suppotLink: {
+  supportLink: {
     height: '100%',
+    textDecoration: 'none',
   },
 };
 

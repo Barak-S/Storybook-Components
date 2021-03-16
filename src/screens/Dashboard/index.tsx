@@ -14,6 +14,7 @@ import DashboardFaqScreen from './Faq';
 import OnboardingScreens from './Onboarding';
 import DashboardProfileScreen from './Profile';
 import DashboardSupportScreen from './Support';
+import DashboardTermsScreen from './Terms';
 import DashboardUserManagementScreen from './UserManagement';
 
 type Props = StyleProps;
@@ -82,6 +83,9 @@ export const DashboardScreens: FC<Props> = () => {
               </Route>
               <Route path={routes.dashboard.support}>
                 <DashboardSupportScreen />
+              </Route>
+              <Route path={routes.dashboard.terms}>
+                <DashboardTermsScreen />
               </Route>
               <OnboardingScreens />
               <Redirect to={routes.dashboard.events} />

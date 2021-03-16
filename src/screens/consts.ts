@@ -25,7 +25,7 @@ export const routes = {
       theme: '/dashboard/onboarding/theme',
       event: '/dashboard/onboarding/event',
     },
+    terms: '/dashboard/terms',
   },
   policy: '/policy',
-  terms: '/terms',
 };
