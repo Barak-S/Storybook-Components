@@ -150,7 +150,7 @@ export const sbStyles: Styles = {
 };
 
 export const sbChromaticDefViewports: StoryMetaChromaticParameter = {
-  viewports: [375, 1194, 1920],
+  viewports: [375, 1194, 1800],
 };
 
 // Exports
