@@ -1,5 +1,5 @@
-import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle, Title } from 'components/Common';
+import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
 import { colors, StyleProps } from 'styles';

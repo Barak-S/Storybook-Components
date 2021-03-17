@@ -10,8 +10,6 @@ import AppBarMenu, { AppBarMenuProps } from './components/Menu';
 import TextBtn from './components/TextBtn';
 import { styles, useStyles } from './styles';
 
-import { Link } from 'react-router-dom';
-
 interface Props extends StyleProps {
   onLogoClick?: () => void;
   onLogoutClick?: () => void;
@@ -51,13 +49,13 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
       </Grid>
       <Grid style={styles.rightSection}>
         <Hidden smDown>
-          <Link to="/dashboard/support" style={styles.supportLink}>
-            <TextBtn style={styles.supportLink}>{'Support'}</TextBtn>
-          </Link>
+          <TextBtn style={styles.supportLink} href="/dashboard/support">
+            {'Support'}
+          </TextBtn>
           <Splitter />
-          <Link to="/dashboard/contact" style={styles.supportLink}>
-            <TextBtn style={styles.supportLink}>{'Contact Us'}</TextBtn>
-          </Link>
+          <TextBtn style={styles.supportLink} href="/dashboard/contact">
+            {'Contact Us'}
+          </TextBtn>
           <Splitter />
         </Hidden>
         <DashboardDropdownMenu
