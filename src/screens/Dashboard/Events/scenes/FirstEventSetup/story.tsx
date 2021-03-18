@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { StoryMeta, Story } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
 
 import DashboardFirstEventSetupView, { DashboardFirstEventSetupViewProps as Props } from './view';
 
@@ -10,16 +10,12 @@ export default ((): StoryMeta<Props> => ({
   title: 'screens/Dashboard/Events/scenes/FirstEventSetup',
   component: DashboardFirstEventSetupView,
   args: { steps },
+  parameters: {
+    actions: { ...sbAutoDetectActionProps },
+  },
 }))();
 
-export const Basic: Story<Props> = args => (
-  <DashboardFirstEventSetupView
-    {...args}
-    steps={steps}
-    onActionBtnClick={action('onActionBtnClick')}
-    onIconBtnClick={action('onIconBtnClick')}
-  />
-);
+export const Basic: Story<Props> = args => <DashboardFirstEventSetupView {...args} steps={steps} />;
 
 export const Demo: Story<Props> = args => {
   const [step, setStep] = useState<number>(0);
@@ -39,7 +35,6 @@ export const Demo: Story<Props> = args => {
       curStepIndex={step}
       actionBtnTitle={actionButtonTitle[step]}
       onActionBtnClick={handleActionButtonClick}
-      onIconBtnClick={action('onIconBtnClick')}
     />
   );
 };

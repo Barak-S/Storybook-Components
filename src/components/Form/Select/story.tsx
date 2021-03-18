@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import { Story, StoryMeta } from 'styles';
 import { action } from '@storybook/addon-actions';
+import React, { FC, useState } from 'react';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
 
-import FormSelect, { FormSelectProps as Props, FormSelectOption as Option } from '.';
+import FormSelect, { FormSelectOption as Option, FormSelectProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
   title: 'components/Form/Select',
@@ -17,6 +17,7 @@ export default ((): StoryMeta<Props> => ({
   },
   parameters: {
     layout: 'centered',
+    actions: { ...sbAutoDetectActionProps },
   },
 }))();
 

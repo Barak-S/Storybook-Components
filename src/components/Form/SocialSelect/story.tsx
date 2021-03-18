@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
-import { Story, StoryMeta } from 'styles';
 import { action } from '@storybook/addon-actions';
+import React, { FC, useState } from 'react';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
 
 import FormSocialSelect, { FormSocialSelectNetworkType, FormSocialSelectProps as Props } from '.';
 
@@ -12,6 +12,7 @@ export default ((): StoryMeta<Props> => ({
   },
   parameters: {
     layout: 'centered',
+    actions: { ...sbAutoDetectActionProps },
   },
 }))();
 

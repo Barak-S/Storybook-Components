@@ -18,7 +18,7 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormPasswordInputWrap: FC<Omit<Props, 'value' | 'onChange' | 'onChangeVisibleClick' | 'visible'>> = props => {
+const FormPasswordInputTemplate: FC<Omit<Props, 'value' | 'onChange' | 'onChangeVisibleClick' | 'visible'>> = props => {
   const [value, setValue] = useState<string>('12345678');
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -40,15 +40,15 @@ const FormPasswordInputWrap: FC<Omit<Props, 'value' | 'onChange' | 'onChangeVisi
 
 export const Basic: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormPasswordInputWrap {...args} />
-    <FormPasswordInputWrap {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} />
+    <FormPasswordInputTemplate {...args} />
+    <FormPasswordInputTemplate {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} />
   </View>
 );
 
 export const Valid: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormPasswordInputWrap {...args} valid />
-    <FormPasswordInputWrap {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} valid />
+    <FormPasswordInputTemplate {...args} valid />
+    <FormPasswordInputTemplate {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} valid />
   </View>
 );
 
@@ -57,8 +57,8 @@ const helperText = `Password length must be minimum 8 characters, should be alph
 
 export const Error: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormPasswordInputWrap {...args} error helperText={helperText} />
-    <FormPasswordInputWrap
+    <FormPasswordInputTemplate {...args} error helperText={helperText} />
+    <FormPasswordInputTemplate
       {...args}
       style={{ marginTop: 30 }}
       iconStart={<LineAwesomeIcon type="lock" />}

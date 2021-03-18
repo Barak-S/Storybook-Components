@@ -19,14 +19,6 @@ export const DashboardEventsListScene: FC<Props> = ({ style }) => {
       regStartDate={new Date()}
       onSetupRegistrationClick={() => setStatus(status === 'event-setup' ? 'registration-setup' : 'waiting')}
       onRegContinueClick={() => setStatus('active')}
-      // onInviteTeamMembersClick: action('onInviteTeamMembersClick'),
-      // onAddPresenterClick: action('onAddPresenterClick'),
-      // onEditSessionsClick: action('onEditSessionsClick'),
-      // onEditClick: action('onEditClick'),
-      // onCloneClick: action('onCloneClick'),
-      // onArchiveClick: action('onArchiveClick'),
-      // onRemoveClick: action('onRemoveClick'),
-      // onCopyToClipboardClick: action('onCopyToClipboardClick'),
     />
   );
 };

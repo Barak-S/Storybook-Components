@@ -16,15 +16,15 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormToggleWrap: FC<Omit<Props, 'value' | 'onChange'>> = args => {
+const FormToggleTemplate: FC<Omit<Props, 'value' | 'onChange'>> = args => {
   const [value, setValue] = useState<boolean>(false);
 
-  const handleChange = (v: boolean) => {
-    action('onChange')(v);
-    setValue(v);
+  const handleChange = (val: boolean) => {
+    action('onChange')(val);
+    setValue(val);
   };
 
   return <FormToggle {...args} value={value} onChange={handleChange} />;
 };
 
-export const Basic: Story<Props> = args => <FormToggleWrap {...args} />;
+export const Basic: Story<Props> = args => <FormToggleTemplate {...args} />;

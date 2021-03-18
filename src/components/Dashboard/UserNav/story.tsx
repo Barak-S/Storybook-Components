@@ -1,6 +1,5 @@
-import { action } from '@storybook/addon-actions';
 import React from 'react';
-import { StoryMeta, Story } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
 
 import DashboardUseNav, { DashboardUserNavProps as Props } from '.';
 
@@ -12,6 +11,9 @@ export default ((): StoryMeta<Props> => ({
       control: 'color',
     },
   },
+  parameters: {
+    actions: { ...sbAutoDetectActionProps },
+  },
 }))();
 
-export const Basic: Story<Props> = args => <DashboardUseNav onBtnClick={action('onBtnClick')} {...args} />;
+export const Basic: Story<Props> = args => <DashboardUseNav {...args} />;
