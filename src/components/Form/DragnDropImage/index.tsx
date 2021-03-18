@@ -1,9 +1,9 @@
 import { View } from 'components/Common';
-import SelectFileButton from 'components/Form/SelectFileButton';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
 import { Style } from 'styles';
 
+import { FormSelectFileBtn } from '../SelectFileBtn';
 import { useStyles } from './styles';
 
 interface Props {
@@ -46,9 +46,9 @@ export const FormDragnDropImage: FC<Props> = ({ style }) => {
           <span className={classes.titleInput}>{'Drag an image here'}</span>
         </View>
         <span className={classes.blockCenter}>{'Or'}</span>
-        {!imageFile && <SelectFileButton onFileSelect={() => updateData} />}
+        {!imageFile && <FormSelectFileBtn onFileSelect={() => updateData} />}
       </View>
-      {imageFile && <SelectFileButton onFileSelect={() => updateData} />}
+      {imageFile && <FormSelectFileBtn onFileSelect={() => updateData} />}
     </View>
   );
 };

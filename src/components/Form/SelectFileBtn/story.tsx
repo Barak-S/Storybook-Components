@@ -1,0 +1,15 @@
+import React from 'react';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+
+import FormSelectFileBtn, { FormSelectFileBtnProps as Props } from '.';
+
+export default ((): StoryMeta<Props> => ({
+  title: 'components/Form/SelectFileBtn',
+  component: FormSelectFileBtn,
+  parameters: {
+    layout: 'centered',
+    ...sbAutoDetectActionProps,
+  },
+}))();
+
+export const Basic: Story<Props> = props => <FormSelectFileBtn {...props} />;

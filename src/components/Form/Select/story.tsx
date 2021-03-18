@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import { Story, StoryMeta } from 'styles';
+import { action } from '@storybook/addon-actions';
 
-import FormSelect, { FormSelectProps as Props } from '.';
+import FormSelect, { FormSelectProps as Props, FormSelectOption as Option } from '.';
 
 export default ((): StoryMeta<Props> => ({
   title: 'components/Form/Select',
@@ -19,4 +20,13 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Base: Story<Props> = props => <FormSelect {...props} />;
+const FormSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = props => {
+  const [value, setValue] = useState<Option | undefined>(undefined);
+  const handleChane = (val: Option | undefined) => {
+    setValue(val);
+    action('onChange')(val);
+  };
+  return <FormSelect {...props} value={value} onChange={handleChane} />;
+};
+
+export const Base: Story<Props> = args => <FormSelectTemplate {...args} />;
