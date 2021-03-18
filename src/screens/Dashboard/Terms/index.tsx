@@ -1,16 +1,14 @@
+import { makeStyles } from '@material-ui/core';
+import { ScreenTitle } from 'components/Common';
+import { ContentTerms } from 'components/Content';
+import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
-import { makeStyles, Theme, useTheme } from '@material-ui/core';
-import { ContentTerms } from 'components/Content';
-import { ScreenTitle } from 'components/Common';
-import { BackgroundedContainer } from 'components/Layout';
 
 type Props = StyleProps;
 
 export const DashboardTermsScreen: FC<Props> = () => {
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
+  const classes = useStyles();
   return (
     <>
       <ScreenTitle title="Terms" />
@@ -21,7 +19,7 @@ export const DashboardTermsScreen: FC<Props> = () => {
   );
 };
 
-const useStyles = (theme: Theme) =>
+const useStyles = () =>
   makeStyles({
     content: {
       margin: '55px 35px',

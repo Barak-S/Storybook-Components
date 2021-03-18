@@ -1,4 +1,4 @@
-import { makeStyles, Theme, useTheme, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import React, { FC } from 'react';
 import { colors, StyleProps } from 'styles';
 
@@ -17,9 +17,7 @@ interface Data {
 }
 
 export const DataTable: FC<Props> = ({ headers, data, style }) => {
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
+  const classes = useStyles();
   return (
     <TableContainer style={style}>
       <Table className={classes.container} aria-label="simple table">
@@ -50,7 +48,7 @@ export const DataTable: FC<Props> = ({ headers, data, style }) => {
   );
 };
 
-export const useStyles = (theme: Theme) =>
+export const useStyles = () =>
   makeStyles({
     container: {
       minWidth: 320,

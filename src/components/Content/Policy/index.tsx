@@ -1,8 +1,8 @@
 import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { Title } from 'components/Common';
-import React, { FC } from 'react';
-import { mc, Style, colors, StyleProps } from 'styles';
 import DataTable from 'components/Data/Table';
+import React, { FC } from 'react';
+import { colors, mc, Style } from 'styles';
 
 interface Props {
   style?: Style;

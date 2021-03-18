@@ -1,7 +1,7 @@
-import { Title } from 'components/Common';
 import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { Title } from 'components/Common';
 import React, { FC } from 'react';
-import { mc, colors, StyleProps, Style } from 'styles';
+import { colors, mc, Style } from 'styles';
 
 interface Props {
   style?: Style;

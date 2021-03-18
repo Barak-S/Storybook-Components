@@ -30,6 +30,7 @@ module.exports = {
     '@typescript-eslint/ban-tslint-comment': 'error',
     '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
     '@typescript-eslint/method-signature-style': ['error', 'property'],
+    '@typescript-eslint/no-unused-vars': 'error',
     // TODO: Specify rules
     // '@typescript-eslint/naming-convention': ['error'],
     '@typescript-eslint/no-base-to-string': 'error',
