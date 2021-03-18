@@ -130,6 +130,9 @@ jobs:
         run: >
           aws s3 sync --acl public-read --follow-symlinks --delete ./dist
           s3://$AWS_S3_BUCKET
+      - name: "AWS: Invalidate"
+        run: |
+          aws cloudfront create-invalidation --distribution-id=$CLOUDFRONT_DIST_ID --paths="/index.html"
       - name: "Slack: deployed"
         if: ${{ env.SLACK_ENABLED == 'true' }}
         uses: Ilshidur/action-slack@master
