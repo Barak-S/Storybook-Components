@@ -24,4 +24,5 @@ export const ProfileFormPasswordSection: FC<Props> = ({ style }) => {
   );
 };
 
+export type ProfileFormPasswordSectionProps = Props;
 export default ProfileFormPasswordSection;

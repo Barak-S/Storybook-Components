@@ -64,4 +64,5 @@ export const ProfileFormAccountSectionCompanySection: FC<Props> = ({ style }) =>
   );
 };
 
+export type ProfileFormAccountSectionCompanySectionProps = Props;
 export default ProfileFormAccountSectionCompanySection;

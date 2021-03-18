@@ -28,4 +28,5 @@ export const ProfileFormAccountSectionBioSection: FC<Props> = ({ style }) => {
   );
 };
 
+export type ProfileFormAccountSectionBioSectionProps = Props;
 export default ProfileFormAccountSectionBioSection;

@@ -28,4 +28,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <LineAwesomeIcon {...props} />;
+export const Basic: Story<Props> = args => <LineAwesomeIcon {...args} />;

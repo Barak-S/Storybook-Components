@@ -1,14 +1,13 @@
-import React, { FC } from 'react';
-
-import { useStyles } from './styles';
-
-import ImageSection from './components/ImageSection';
-import CompanySection from './components/CompanySection';
-import SocialSection from './components/SocialSection';
-import BioSection from './components/BioSection';
 import { ContainedButton } from 'components/Buttons';
-import { Style } from 'styles';
 import { View } from 'components/Common';
+import React, { FC } from 'react';
+import { Style } from 'styles';
+
+import BioSection from './components/BioSection';
+import CompanySection from './components/CompanySection';
+import ImageSection from './components/ImageSection';
+import SocialSection from './components/SocialSection';
+import { useStyles } from './styles';
 
 interface Props {
   style?: Style;
@@ -31,4 +30,5 @@ export const ProfileFormAccountSection: FC<Props> = ({ style }) => {
   );
 };
 
+export type ProfileFormAccountSectionProps = Props;
 export default ProfileFormAccountSection;

@@ -1,10 +1,11 @@
 import React from 'react';
+import { Story, StoryMeta } from 'styles';
 
-import ProfileForm from './';
+import ProfileForm, { ProfileFormProps as Props } from '.';
 
-export default {
+export default ((): StoryMeta<Props> => ({
   title: 'components/Profile/Form',
   component: ProfileForm,
-};
+}))();
 
-export const Basic = () => <ProfileForm />;
+export const Basic: Story<Props> = args => <ProfileForm {...args} />;

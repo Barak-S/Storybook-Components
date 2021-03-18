@@ -35,4 +35,5 @@ export const ProfileFormPasswordSectionPasswordChange: FC<Props> = ({ style }) =
   );
 };
 
+export type ProfileFormPasswordSectionPasswordChangeProps = Props;
 export default ProfileFormPasswordSectionPasswordChange;

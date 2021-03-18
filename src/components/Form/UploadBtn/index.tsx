@@ -52,4 +52,5 @@ export const FormUploadBtn: FC<Props> = ({ image, styleName, isUpload }) => {
   );
 };
 
+export type FormUploadBtnProps = Props;
 export default FormUploadBtn;

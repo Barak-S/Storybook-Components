@@ -27,4 +27,5 @@ export const ProfileFormAccountSectionImageSection: FC<Props> = ({ style }) => {
   );
 };
 
+export type ProfileFormAccountSectionImageSectionProps = Props;
 export default ProfileFormAccountSectionImageSection;

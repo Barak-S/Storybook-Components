@@ -1,21 +1,17 @@
-import { View } from 'components/Common';
-import AccordionSections from './index';
 import React from 'react';
+import { Story, StoryMeta } from 'styles';
 
-export default {
+import AccordionSections, { AccordionSectionsProps as Props } from '.';
+
+export default ((): StoryMeta<Props> => ({
   title: 'components/Navigation/AccordionSections',
   component: AccordionSections,
-};
+  args: {
+    sections: [
+      { id: 0, title: 'Fist section', content: 'Fist section' },
+      { id: 1, title: 'Second section', content: 'Second section' },
+    ],
+  },
+}))();
 
-export const Basic = () => (
-  <View>
-    <View row>
-      <AccordionSections
-        sections={[
-          { id: 0, title: 'Fist section', content: 'Fist section' },
-          { id: 1, title: 'Second section', content: 'Second section' },
-        ]}
-      />
-    </View>
-  </View>
-);
+export const Basic: Story<Props> = args => <AccordionSections {...args} />;

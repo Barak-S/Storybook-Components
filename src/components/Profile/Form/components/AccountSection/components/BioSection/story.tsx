@@ -1,17 +1,11 @@
-import { View } from 'components/Common';
 import React from 'react';
+import { Story, StoryMeta } from 'styles';
 
-import BioSection from '.';
+import BioSection, { ProfileFormAccountSectionBioSectionProps as Props } from '.';
 
-export default {
+export default ((): StoryMeta<Props> => ({
   title: 'components/Profile/Form/components/AccountSection/components/BioSection',
   component: BioSection,
-};
+}))();
 
-export const Basic = () => (
-  <View column>
-    <View row>
-      <BioSection />
-    </View>
-  </View>
-);
+export const Basic: Story<Props> = args => <BioSection {...args} />;

@@ -83,6 +83,7 @@ interface StoryMetaParameters {
   layout?: StoryMetaLayoutParameter;
   actions?: StoryMetaActionsParameter;
   chromatic?: StoryMetaChromaticParameter;
+  backgrounds?: StoryMetaBackgroundsParameter;
 }
 
 interface StoryMetaDocsParameter {
@@ -135,6 +136,17 @@ interface StoryMetaChromaticParameter {
    * change between snapshots before they’re flagged by Chromatic
    */
   diffThreshold?: number;
+}
+
+interface StoryMetaBackgroundsParameter {
+  default?: string;
+  disable?: boolean;
+  values?: StoryMetaBackgroundsParameterValue[];
+}
+
+interface StoryMetaBackgroundsParameterValue {
+  name: string;
+  value: string;
 }
 
 // Utils

@@ -45,4 +45,5 @@ export const ProfileFormAccountSectionSocialSection: FC<Props> = ({ style }) => 
   );
 };
 
+export type ProfileFormAccountSectionSocialSectionProps = Props;
 export default ProfileFormAccountSectionSocialSection;

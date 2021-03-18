@@ -13,8 +13,8 @@ export default ((): StoryMeta<Props> => ({
     url: 'https://eventplaceholder.com/event-name',
     regUrl: 'https://digital-oasis.io/event-name/event-registration/form',
     image: 'https://picsum.photos/id/1036/300/200',
-    date: new Date(),
-    regStartDate: new Date(),
+    date: new Date('2021-03-18T11:00:00.000Z'),
+    regStartDate: new Date('2021-03-18T11:00:00.000Z'),
   },
   argTypes: {
     status: { table: { category: 'Info' } },
@@ -49,8 +49,16 @@ export const Basic: Story<Props> = args => <DashboardEvent {...args} />;
 
 export const EventSetupState: Story<Props> = args => <DashboardEvent {...args} status="event-setup" />;
 
+EventSetupState.argTypes = { status: { control: false } };
+
 export const RegistrationSetupState: Story<Props> = args => <DashboardEvent {...args} status="registration-setup" />;
+
+RegistrationSetupState.argTypes = { status: { control: false } };
 
 export const WaitingState: Story<Props> = args => <DashboardEvent {...args} status="waiting" />;
 
+WaitingState.argTypes = { status: { control: false } };
+
 export const ActiveState: Story<Props> = args => <DashboardEvent {...args} status="active" />;
+
+ActiveState.argTypes = { status: { control: false } };

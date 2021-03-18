@@ -1,6 +1,6 @@
 import { View } from 'components/Common';
-import React, { FC } from 'react';
-import { StoryMeta } from 'styles';
+import React from 'react';
+import { Story, StoryMeta } from 'styles';
 
 import DashboardStepper, { DashboardStepperProps as Props } from '.';
 
@@ -14,10 +14,10 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: FC<Partial<Props>> = args => (
+export const Basic: Story<Props> = args => (
   <View column style={{ width: '100%', maxWidth: 1000, padding: 20 }}>
-    <DashboardStepper steps={steps} activeStep={0} style={{ marginBottom: 30 }} {...args} />
-    <DashboardStepper steps={steps} activeStep={1} style={{ marginBottom: 30 }} {...args} />
-    <DashboardStepper steps={steps} activeStep={2} {...args} />
+    <DashboardStepper {...args} steps={steps} activeStep={0} style={{ marginBottom: 30 }} />
+    <DashboardStepper {...args} steps={steps} activeStep={1} style={{ marginBottom: 30 }} />
+    <DashboardStepper {...args} steps={steps} activeStep={2} />
   </View>
 );

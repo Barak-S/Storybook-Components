@@ -1,16 +1,11 @@
-import { View } from 'components/Common';
-import CompanySection from '.';
 import React from 'react';
+import { Story, StoryMeta } from 'styles';
 
-export default {
+import CompanySection, { ProfileFormAccountSectionCompanySectionProps as Props } from '.';
+
+export default ((): StoryMeta<Props> => ({
   title: 'components/Profile/Form/components/AccountSection/components/CompanySection',
   component: CompanySection,
-};
+}))();
 
-export const Basic = () => (
-  <View column>
-    <View row>
-      <CompanySection />
-    </View>
-  </View>
-);
+export const Basic: Story<Props> = args => <CompanySection {...args} />;

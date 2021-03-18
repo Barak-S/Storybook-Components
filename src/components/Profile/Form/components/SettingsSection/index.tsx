@@ -22,4 +22,5 @@ export const ProfileFormSettingsSection: FC<Props> = ({ style }) => {
   );
 };
 
+export type ProfileFormSettingsSectionProps = Props;
 export default ProfileFormSettingsSection;
