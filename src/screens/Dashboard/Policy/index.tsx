@@ -1,21 +1,21 @@
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
-import { ContentTerms } from 'components/Content';
+import { ContentPolicy } from 'components/Content';
 import { ScreenTitle } from 'components/Common';
 import { BackgroundedContainer } from 'components/Layout';
 
 type Props = StyleProps;
 
-export const DashboardTermsScreen: FC<Props> = () => {
+export const DashboardPolicyScreen: FC<Props> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
     <>
-      <ScreenTitle title="Terms" />
+      <ScreenTitle title="Privacy Policy" />
       <BackgroundedContainer>
-        <ContentTerms className={classes.content} />
+        <ContentPolicy className={classes.content} />
       </BackgroundedContainer>
     </>
   );
@@ -28,5 +28,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardTermsScreenProps = Props;
-export default DashboardTermsScreen;
+export type DashboardPolicyScreenProps = Props;
+export default DashboardPolicyScreen;

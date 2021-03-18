@@ -6,6 +6,8 @@ import AuthRecoverPassScreen from './RecoverPass';
 import AuthResetPass from './ResetPass';
 import AuthSignInScreen from './SignIn';
 import AuthSignUpScreen from './SignUp';
+import AuthTermsScreen from './Terms';
+import AuthPolicyScreen from './Policy';
 
 export const AuthScreens: FC = () => {
   return (
@@ -21,6 +23,12 @@ export const AuthScreens: FC = () => {
       </Route>
       <Route path={routes.auth.reset}>
         <AuthResetPass />
+      </Route>
+      <Route path={routes.terms}>
+        <AuthTermsScreen />
+      </Route>
+      <Route path={routes.policy}>
+        <AuthPolicyScreen />
       </Route>
       <Redirect to={routes.auth.signin} />
     </Switch>
