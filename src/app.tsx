@@ -60,7 +60,7 @@ export const App: FC = () => {
 
   return (
     <>
-      {authLoaded && <Screens logined={!!authUser} />}
+      {authLoaded && <Screens logedIn={!!authUser} />}
       {appConfig.env !== 'prd' && <Text style={styles.envLabel} block>{`v${appConfig.version} (${appConfig.env})`}</Text>}
     </>
   );
