@@ -16,7 +16,7 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormToggleWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
+const FormToggleWrap: FC<Omit<Props, 'value' | 'onChange'>> = args => {
   const [value, setValue] = useState<boolean>(false);
 
   const handleChange = (v: boolean) => {
@@ -24,7 +24,7 @@ const FormToggleWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
     setValue(v);
   };
 
-  return <FormToggle {...props} value={value} onChange={handleChange} />;
+  return <FormToggle {...args} value={value} onChange={handleChange} />;
 };
 
-export const Basic: Story<Props> = props => <FormToggleWrap {...props} />;
+export const Basic: Story<Props> = args => <FormToggleWrap {...args} />;

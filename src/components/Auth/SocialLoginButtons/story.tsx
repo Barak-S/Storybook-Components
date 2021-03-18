@@ -10,10 +10,10 @@ export default ((): StoryMeta<Props> => ({
   component: AuthSocialLoginButtons,
 }))();
 
-export const Basic: Story<Props> = props => {
+export const Basic: Story<Props> = args => {
   return (
     <View style={{ width: 650 }}>
-      <AuthSocialLoginButtons onBtnClick={action('onBtnClick')} {...props} />
+      <AuthSocialLoginButtons onBtnClick={action('onBtnClick')} {...args} />
     </View>
   );
 };

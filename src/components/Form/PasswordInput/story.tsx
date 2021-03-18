@@ -38,28 +38,28 @@ const FormPasswordInputWrap: FC<Omit<Props, 'value' | 'onChange' | 'onChangeVisi
   );
 };
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormPasswordInputWrap {...props} />
-    <FormPasswordInputWrap {...props} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} />
+    <FormPasswordInputWrap {...args} />
+    <FormPasswordInputWrap {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} />
   </View>
 );
 
-export const Valid: Story<Props> = props => (
+export const Valid: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormPasswordInputWrap {...props} valid />
-    <FormPasswordInputWrap {...props} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} valid />
+    <FormPasswordInputWrap {...args} valid />
+    <FormPasswordInputWrap {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="lock" />} valid />
   </View>
 );
 
 // eslint-disable-next-line max-len
 const helperText = `Password length must be minimum 8 characters, should be alphanumeric with 1 special character. Password length must be minimum 8 characters, should be alphanumeric with 1 special character.`;
 
-export const Error: Story<Props> = props => (
+export const Error: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormPasswordInputWrap {...props} error helperText={helperText} />
+    <FormPasswordInputWrap {...args} error helperText={helperText} />
     <FormPasswordInputWrap
-      {...props}
+      {...args}
       style={{ marginTop: 30 }}
       iconStart={<LineAwesomeIcon type="lock" />}
       error

@@ -12,4 +12,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <FormSelectFileButton {...props} />;
+export const Basic: Story<Props> = args => <FormSelectFileButton {...args} />;

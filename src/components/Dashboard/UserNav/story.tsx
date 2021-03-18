@@ -14,4 +14,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <DashboardUseNav onBtnClick={action('onBtnClick')} {...props} />;
+export const Basic: Story<Props> = args => <DashboardUseNav onBtnClick={action('onBtnClick')} {...args} />;

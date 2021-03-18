@@ -12,4 +12,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <FormTextEditor {...props} />;
+export const Basic: Story<Props> = args => <FormTextEditor {...args} />;

@@ -16,36 +16,36 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormTextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = props => {
+const FormTextInputWrap: FC<Omit<Props, 'value' | 'onChange'>> = args => {
   const [value, setValue] = useState<string>('Value');
-  return <FormTextInput value={value} onChange={e => setValue(e.currentTarget.value)} {...props} />;
+  return <FormTextInput value={value} onChange={e => setValue(e.currentTarget.value)} {...args} />;
 };
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View column style={{ width: 300, padding: 20 }}>
-    <FormTextInputWrap {...props} />
-    <FormTextInputWrap {...props} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="user" />} />
+    <FormTextInputWrap {...args} />
+    <FormTextInputWrap {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="user" />} />
   </View>
 );
 
-export const Valid: Story<Props> = props => (
+export const Valid: Story<Props> = args => (
   <View column style={{ width: 300, padding: 20 }}>
-    <FormTextInputWrap {...props} valid />
-    <FormTextInputWrap {...props} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="user" />} valid />
+    <FormTextInputWrap {...args} valid />
+    <FormTextInputWrap {...args} style={{ marginTop: 30 }} iconStart={<LineAwesomeIcon type="user" />} valid />
   </View>
 );
 
 const helperText = `Some textfield error`;
 
-export const Error: Story<Props> = props => (
+export const Error: Story<Props> = args => (
   <View column style={{ width: 300 }}>
-    <FormTextInputWrap error helperText={helperText} {...props} />
+    <FormTextInputWrap error helperText={helperText} {...args} />
     <FormTextInputWrap
       style={{ marginTop: 30 }}
       error
       helperText={helperText}
       iconStart={<LineAwesomeIcon type="user" />}
-      {...props}
+      {...args}
     />
   </View>
 );

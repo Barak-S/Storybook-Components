@@ -18,9 +18,9 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <RoundedIconButton {...props} />;
+export const Basic: Story<Props> = args => <RoundedIconButton {...args} />;
 
-export const Disabled: Story<Props> = props => <RoundedIconButton {...props} disabled />;
+export const Disabled: Story<Props> = args => <RoundedIconButton {...args} disabled />;
 
 Disabled.parameters = {
   docs: {

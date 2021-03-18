@@ -8,4 +8,4 @@ export default ((): StoryMeta<Props> => ({
   component: AuthFormContainer,
 }))();
 
-export const Basic: Story<Props> = props => <AuthFormContainer {...props}>{'%children%'}</AuthFormContainer>;
+export const Basic: Story<Props> = args => <AuthFormContainer {...args}>{'%children%'}</AuthFormContainer>;

@@ -20,13 +20,13 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = props => {
+const FormSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = args => {
   const [value, setValue] = useState<Option | undefined>(undefined);
   const handleChane = (val: Option | undefined) => {
     setValue(val);
     action('onChange')(val);
   };
-  return <FormSelect {...props} value={value} onChange={handleChane} />;
+  return <FormSelect {...args} value={value} onChange={handleChane} />;
 };
 
 export const Base: Story<Props> = args => <FormSelectTemplate {...args} />;

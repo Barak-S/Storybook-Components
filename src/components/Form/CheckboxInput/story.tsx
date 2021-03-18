@@ -15,8 +15,8 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <FormCheckboxInput {...props} />;
+export const Basic: Story<Props> = args => <FormCheckboxInput {...args} />;
 
-export const DefaultChecked: Story<Props> = props => <FormCheckboxInput {...props} defaultChecked />;
+export const DefaultChecked: Story<Props> = args => <FormCheckboxInput {...args} defaultChecked />;
 
-export const Disabled: Story<Props> = props => <FormCheckboxInput {...props} disabled />;
+export const Disabled: Story<Props> = args => <FormCheckboxInput {...args} disabled />;

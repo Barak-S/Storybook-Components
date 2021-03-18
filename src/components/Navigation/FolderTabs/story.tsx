@@ -9,11 +9,11 @@ export default ((): StoryMeta<Props> => ({
   component: FolderTabs,
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View column>
     <View row>
       <FolderTabs
-        {...props}
+        {...args}
         values={[
           { id: 0, name: 'First', content: 'sdfsdf' },
           { id: 1, name: 'Second', content: '123' },

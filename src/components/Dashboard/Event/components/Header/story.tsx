@@ -10,10 +10,10 @@ export default ((): StoryMeta<Props> => ({
   component: DashboardEventHeader,
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View column style={{ width: '100%', padding: 20 }}>
     <DashboardEventHeader
-      {...props}
+      {...args}
       url="eventplaceholder.com/event-name"
       onClick={action('onClick')}
       onEditClick={action('onEditClick')}

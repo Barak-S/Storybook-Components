@@ -50,4 +50,5 @@ export const ProfileFormSettingsSectionEventActivity: FC<Props> = ({ style }) =>
   );
 };
 
+export type ProfileFormSettingsSectionEventActivity = Props;
 export default ProfileFormSettingsSectionEventActivity;

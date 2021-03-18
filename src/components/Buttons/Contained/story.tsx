@@ -16,20 +16,20 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View column>
-    <ContainedButton {...props}>{'Log In'}</ContainedButton>
-    <ContainedButton {...props} style={sbStyles.rowIndent} disabled />
-    <ContainedButton {...props} style={sbStyles.rowIndent} processing disabled />
-    <ContainedButton {...props} style={sbStyles.rowIndent} type="plus" />
-    <ContainedButton {...props} style={sbStyles.rowIndent} theme="red" type="plus" />
+    <ContainedButton {...args}>{'Log In'}</ContainedButton>
+    <ContainedButton {...args} style={sbStyles.rowIndent} disabled />
+    <ContainedButton {...args} style={sbStyles.rowIndent} processing disabled />
+    <ContainedButton {...args} style={sbStyles.rowIndent} type="plus" />
+    <ContainedButton {...args} style={sbStyles.rowIndent} theme="red" type="plus" />
   </View>
 );
 
-export const Disabled: Story<Props> = props => <ContainedButton {...props} disabled />;
+export const Disabled: Story<Props> = args => <ContainedButton {...args} disabled />;
 
-export const Processing: Story<Props> = props => <ContainedButton {...props} processing />;
+export const Processing: Story<Props> = args => <ContainedButton {...args} processing />;
 
-export const PlusType: Story<Props> = props => <ContainedButton {...props} type="plus" />;
+export const PlusType: Story<Props> = args => <ContainedButton {...args} type="plus" />;
 
-export const RedTheme: Story<Props> = props => <ContainedButton {...props} theme="red" />;
+export const RedTheme: Story<Props> = args => <ContainedButton {...args} theme="red" />;

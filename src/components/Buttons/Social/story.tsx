@@ -19,19 +19,19 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View column style={{ width: 200 }}>
-    <SocialButton {...props} type="facebook" />
-    <SocialButton {...props} style={styles.indent} type="google" />
-    <SocialButton {...props} style={styles.indent} type="linkedin" />
+    <SocialButton {...args} type="facebook" />
+    <SocialButton {...args} style={styles.indent} type="google" />
+    <SocialButton {...args} style={styles.indent} type="linkedin" />
   </View>
 );
 
-export const Disabled: Story<Props> = props => (
+export const Disabled: Story<Props> = args => (
   <View column style={{ width: 200 }}>
-    <SocialButton {...props} disabled type="facebook" />
-    <SocialButton {...props} style={styles.indent} disabled type="google" />
-    <SocialButton {...props} style={styles.indent} disabled type="linkedin" />
+    <SocialButton {...args} disabled type="facebook" />
+    <SocialButton {...args} style={styles.indent} disabled type="google" />
+    <SocialButton {...args} style={styles.indent} disabled type="linkedin" />
   </View>
 );
 

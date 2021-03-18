@@ -15,13 +15,13 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormSocialSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = props => {
+const FormSocialSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = args => {
   const [value, setValue] = useState<FormSocialSelectNetworkType | undefined>(undefined);
   const handleChange = (val: FormSocialSelectNetworkType | undefined) => {
     setValue(val);
     action('onChange')(val);
   };
-  return <FormSocialSelect {...props} value={value} onChange={handleChange} />;
+  return <FormSocialSelect {...args} value={value} onChange={handleChange} />;
 };
 
 export const Default: Story<Props> = args => <FormSocialSelectTemplate {...args} style={{ width: 200 }} />;

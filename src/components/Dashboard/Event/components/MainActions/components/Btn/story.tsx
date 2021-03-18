@@ -14,7 +14,7 @@ export default ((): StoryMeta<Props> => ({
   parameters: {},
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View
     row
     style={{
@@ -24,7 +24,7 @@ export const Basic: Story<Props> = props => (
       padding: 50,
     }}
   >
-    <DashboardEventMainActionsBtn {...props} icon="envelope">
+    <DashboardEventMainActionsBtn {...args} icon="envelope">
       {'Invite Team Members'}
     </DashboardEventMainActionsBtn>
   </View>

@@ -22,10 +22,10 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <View row style={{ display: 'flex', width: 300, padding: 20 }}>
-    <LineAwesomeIcon {...props} type="skull-crossbones" />
-    <LineAwesomeIcon {...props} type="radiation-alt" />
-    <LineAwesomeIcon {...props} type="envira" />
+    <LineAwesomeIcon {...args} type="skull-crossbones" />
+    <LineAwesomeIcon {...args} type="radiation-alt" />
+    <LineAwesomeIcon {...args} type="envira" />
   </View>
 );

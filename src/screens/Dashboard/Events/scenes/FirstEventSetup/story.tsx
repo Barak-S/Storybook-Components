@@ -12,24 +12,19 @@ export default ((): StoryMeta<Props> => ({
   args: { steps },
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <DashboardFirstEventSetupView
-    {...props}
+    {...args}
     steps={steps}
     onActionBtnClick={action('onActionBtnClick')}
     onIconBtnClick={action('onIconBtnClick')}
   />
 );
 
-export const Demo: Story<Props> = props => {
+export const Demo: Story<Props> = args => {
   const [step, setStep] = useState<number>(0);
   const steps = ['profile information', 'invite team members', 'select event theme', 'setup event'];
-  const actionButtonTitle = [
-    'Add your first event',
-    'Continue Event Setup',
-    'Continue Event Step3',
-    'Continue Event Step4',
-  ];
+  const actionButtonTitle = ['Add your first event', 'Continue Event Setup', 'Continue Event Step3', 'Continue Event Step4'];
 
   const handleActionButtonClick = () => {
     const currentStep = step >= steps.length - 1 ? 0 : step + 1;
@@ -39,7 +34,7 @@ export const Demo: Story<Props> = props => {
 
   return (
     <DashboardFirstEventSetupView
-      {...props}
+      {...args}
       steps={steps}
       curStepIndex={step}
       actionBtnTitle={actionButtonTitle[step]}

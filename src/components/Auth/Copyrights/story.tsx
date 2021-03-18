@@ -8,4 +8,4 @@ export default ((): StoryMeta<Props> => ({
   component: AuthCopyrights,
 }))();
 
-export const Basic: Story<Props> = props => <AuthCopyrights {...props} />;
+export const Basic: Story<Props> = args => <AuthCopyrights {...args} />;

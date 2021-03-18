@@ -14,10 +14,10 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: FC<Partial<Props>> = props => (
+export const Basic: FC<Partial<Props>> = args => (
   <View column style={{ width: '100%', maxWidth: 1000, padding: 20 }}>
-    <DashboardStepper steps={steps} activeStep={0} style={{ marginBottom: 30 }} {...props} />
-    <DashboardStepper steps={steps} activeStep={1} style={{ marginBottom: 30 }} {...props} />
-    <DashboardStepper steps={steps} activeStep={2} {...props} />
+    <DashboardStepper steps={steps} activeStep={0} style={{ marginBottom: 30 }} {...args} />
+    <DashboardStepper steps={steps} activeStep={1} style={{ marginBottom: 30 }} {...args} />
+    <DashboardStepper steps={steps} activeStep={2} {...args} />
   </View>
 );

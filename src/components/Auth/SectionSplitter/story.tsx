@@ -8,4 +8,4 @@ export default ((): StoryMeta<Props> => ({
   component: AuthSectionSplitter,
 }))();
 
-export const Basic: Story<Props> = props => <AuthSectionSplitter {...props}>{'Text'}</AuthSectionSplitter>;
+export const Basic: Story<Props> = args => <AuthSectionSplitter {...args}>{'Text'}</AuthSectionSplitter>;

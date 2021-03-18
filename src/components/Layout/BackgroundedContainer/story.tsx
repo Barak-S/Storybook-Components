@@ -8,4 +8,4 @@ export default ((): StoryMeta<Props> => ({
   component: BackgroundedContainer,
 }))();
 
-export const Basic: Story<Props> = props => <BackgroundedContainer {...props}>{'%children%'}</BackgroundedContainer>;
+export const Basic: Story<Props> = args => <BackgroundedContainer {...args}>{'%children%'}</BackgroundedContainer>;

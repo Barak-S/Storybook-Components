@@ -11,6 +11,6 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => (
-  <Image {...props} style={{ width: 300, height: 200 }} source="https://picsum.photos/id/237/300/200" />
+export const Basic: Story<Props> = args => (
+  <Image {...args} style={{ width: 300, height: 200 }} source="https://picsum.photos/id/237/300/200" />
 );

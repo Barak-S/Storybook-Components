@@ -15,4 +15,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <DashboardAppBar {...props} />;
+export const Basic: Story<Props> = args => <DashboardAppBar {...args} />;

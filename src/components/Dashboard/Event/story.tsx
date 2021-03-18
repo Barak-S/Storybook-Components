@@ -45,12 +45,12 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => <DashboardEvent {...props} />;
+export const Basic: Story<Props> = args => <DashboardEvent {...args} />;
 
-export const EventSetupState: Story<Props> = props => <DashboardEvent {...props} status="event-setup" />;
+export const EventSetupState: Story<Props> = args => <DashboardEvent {...args} status="event-setup" />;
 
-export const RegistrationSetupState: Story<Props> = props => <DashboardEvent {...props} status="registration-setup" />;
+export const RegistrationSetupState: Story<Props> = args => <DashboardEvent {...args} status="registration-setup" />;
 
-export const WaitingState: Story<Props> = props => <DashboardEvent {...props} status="waiting" />;
+export const WaitingState: Story<Props> = args => <DashboardEvent {...args} status="waiting" />;
 
-export const ActiveState: Story<Props> = props => <DashboardEvent {...props} status="active" />;
+export const ActiveState: Story<Props> = args => <DashboardEvent {...args} status="active" />;

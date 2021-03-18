@@ -61,8 +61,8 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = props => (
+export const Basic: Story<Props> = args => (
   <BackgroundedContainer style={{ minHeight: '100vh', justifyContent: 'flex-start' }}>
-    <OnboardingContainer {...props} />
+    <OnboardingContainer {...args} />
   </BackgroundedContainer>
 );
