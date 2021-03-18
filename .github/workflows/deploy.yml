@@ -164,9 +164,9 @@ jobs:
       - name: "Storybook: upload to env path"
         run: >
           aws s3 sync --acl public-read --follow-symlinks --delete
-          ./storybook-static s3://$AWS_ASSETS_BUCKET/storybook/$ASSET_ID
+          ./storybook-static s3://$AWS_ASSETS_BUCKET/storybook/$APP_ENV
 
-          ASSET_URL="$AWS_ASSETS_URL/storybook/$ASSET_ID"
+          ASSET_URL="$AWS_ASSETS_URL/storybook/$APP_ENV"
 
           echo "STORYBOOK_ENV_URL=$ASSET_URL" >> $GITHUB_ENV
       - name: "Slack: storybook"
