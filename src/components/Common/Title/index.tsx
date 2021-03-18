@@ -1,10 +1,18 @@
 import React, { FC } from 'react';
 import { isArray, isNumber } from 'lodash';
-import { ms, px, Style } from 'styles';
-import { TitleProps } from './types';
-import Heading from './components/Heading';
+import { ms, px, Style, StyleProps } from 'styles';
+import TitleHeading, { TitleHeadingType } from './components/Heading';
 
-export const Title: FC<TitleProps> = ({ className, type, style, size, children, color, bold, content }) => {
+interface Props extends StyleProps {
+  className?: string;
+  size?: number | string;
+  bold?: boolean;
+  color?: string;
+  content?: string;
+  type?: TitleHeadingType;
+}
+
+export const Title: FC<Props> = ({ className, type, style, size, children, color, bold, content }) => {
   const getSizeStyle = (): Style | undefined => {
     if (!size) {
       return undefined;
@@ -23,10 +31,11 @@ export const Title: FC<TitleProps> = ({ className, type, style, size, children, 
   );
 
   return (
-    <Heading type={type} className={className} style={finalStyle}>
+    <TitleHeading type={type} className={className} style={finalStyle}>
       {content || children}
-    </Heading>
+    </TitleHeading>
   );
 };
 
+export type TitleProps = Props;
 export default Title;

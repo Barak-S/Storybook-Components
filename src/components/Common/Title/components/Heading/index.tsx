@@ -1,7 +1,15 @@
 import React, { FC } from 'react';
-import { HeadingProps } from './types';
+import { Style } from 'styles';
 
-export const Heading: FC<HeadingProps> = ({ type, style, className, children }) => {
+interface Props {
+  style?: Style;
+  type?: TitleHeadingType;
+  className?: string;
+}
+
+export type TitleHeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+export const TitleHeading: FC<Props> = ({ type, style, className, children }) => {
   switch (type) {
     case 'h2':
       return (
@@ -42,4 +50,4 @@ export const Heading: FC<HeadingProps> = ({ type, style, className, children }) 
   }
 };
 
-export default Heading;
+export default TitleHeading;

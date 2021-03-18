@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DO-128: FAQ
 - DO-129: Privacy Policy
 - DO-130: Application Terms of Service
+- DO-131: Profile screen added
 
 ## [1.0.33] - 2021-03-18
 ### Added
