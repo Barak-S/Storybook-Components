@@ -3,7 +3,7 @@ import { StyleProps, colors } from 'styles';
 import { ContentPolicy } from 'components/Content';
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
 import { routes } from 'screens/consts';
-import { Text, TextLink, View, ScreenTitle } from 'components/Common';
+import { Text, TextLink, View, ScreenTitle, Splitter } from 'components/Common';
 import { BackgroundedContainer } from 'components/Layout';
 
 type Props = StyleProps;
@@ -21,6 +21,7 @@ export const AuthPolicyScreen: FC<Props> = () => {
           <TextLink className={classes.textLink} href={routes.auth.signin}>
             {'log in'}
           </TextLink>
+          <Splitter style={{marginRight: 19}} />
           <TextLink className={classes.signupLink} href={routes.auth.signup}>
             {'Sign up'}
           </TextLink>
@@ -38,7 +39,7 @@ export const useStyles = (theme: Theme) =>
     },
     textLink: {
       textTransform: 'capitalize',
-      marginRight: 38,
+      marginRight: 19,
       position: 'relative',
       display: 'block',
     },
