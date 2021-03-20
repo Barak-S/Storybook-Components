@@ -9,12 +9,12 @@ interface Props extends StyleProps {
   completed: boolean;
 }
 
-export const StepperIcon: FC<Props> = ({ label, active, completed }) => {
+export const StepperIcon: FC<Props> = ({ style, label, active, completed }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
-    <div className={mc(classes.container, active && classes.active, completed && classes.completed)}>
+    <div className={mc(classes.container, active && classes.active, completed && classes.completed)} style={style}>
       {!label && completed ? <LineAwesomeIcon size={16} type="check" /> : label}
     </div>
   );

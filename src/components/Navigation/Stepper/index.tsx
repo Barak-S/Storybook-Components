@@ -1,4 +1,12 @@
-import { makeStyles, Step, StepLabel, Stepper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  makeStyles,
+  Step as MaterialStep,
+  StepLabel as MaterialStepLabel,
+  Stepper as MaterialStepper,
+  Theme,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import React, { FC } from 'react';
 import { colors, mc, StyleProps } from 'styles';
 
@@ -10,7 +18,7 @@ interface Props extends StyleProps {
   activeStep: number;
 }
 
-export const DashboardStepper: FC<Props> = ({ steps, activeStep, style }) => {
+export const Stepper: FC<Props> = ({ steps, activeStep, style }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -22,19 +30,19 @@ export const DashboardStepper: FC<Props> = ({ steps, activeStep, style }) => {
     const iconLabel = !isMobile || isActive ? index + 1 : undefined;
 
     return (
-      <Step className={classes.step} key={label} style={{ zIndex: 10 - index }}>
-        <StepLabel
+      <MaterialStep className={classes.step} key={label} style={{ zIndex: 10 - index }}>
+        <MaterialStepLabel
           icon={<StepperIcon label={iconLabel} active={isActive} completed={isCompleted} />}
           className={mc(classes.label, isActiveLabel && classes.activeStep)}
         >
           {!isMobile ? label : undefined}
-        </StepLabel>
-      </Step>
+        </MaterialStepLabel>
+      </MaterialStep>
     );
   });
 
   return (
-    <Stepper
+    <MaterialStepper
       style={style}
       className={classes.container}
       alternativeLabel
@@ -42,7 +50,7 @@ export const DashboardStepper: FC<Props> = ({ steps, activeStep, style }) => {
       connector={<StepperConnector />}
     >
       {renderSteps}
-    </Stepper>
+    </MaterialStepper>
   );
 };
 
@@ -110,5 +118,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardStepperProps = Props;
-export default DashboardStepper;
+export type StepperProps = Props;
+export default Stepper;

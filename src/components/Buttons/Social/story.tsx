@@ -6,7 +6,7 @@ import { StoryMeta, Styles } from 'styles';
 import SocialButton, { SocialButtonProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Buttons/SocialButton',
+  title: 'components/Buttons/Social',
   component: SocialButton,
   argTypes: {
     type: {

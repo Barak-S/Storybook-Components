@@ -1,7 +1,8 @@
 import { Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { RoundedIconButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
-import { DashbaordStepperMobileLabel, DashboardStepper } from 'components/Dashboard';
+import { DashbaordStepperMobileLabel } from 'components/Dashboard';
+import { Stepper } from 'components/Navigation';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'screens/consts';
@@ -49,7 +50,7 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
                 {title}
               </Title>
               <Grid style={{ width: '100%' }}>
-                <DashboardStepper steps={stepperSteps} activeStep={curStepIndex} />
+                <Stepper steps={stepperSteps} activeStep={curStepIndex} />
                 {isMobile && <DashbaordStepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
               </Grid>
             </Grid>

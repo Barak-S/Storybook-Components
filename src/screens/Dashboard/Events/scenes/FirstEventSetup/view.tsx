@@ -1,7 +1,8 @@
 import { Button, Grid, IconButton, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Title } from 'components/Common';
-import { DashbaordStepperMobileLabel, DashboardSceneContainer, DashboardStepper } from 'components/Dashboard';
+import { DashbaordStepperMobileLabel, DashboardSceneContainer } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
+import { Stepper } from 'components/Navigation';
 import React, { FC } from 'react';
 import { colors, ms, mx, StyleProps, Styles } from 'styles';
 
@@ -34,7 +35,7 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
           <Title className={classes.title} type="h4">
             {'create your first event'}
           </Title>
-          <DashboardStepper steps={steps} activeStep={curStepIndex} />
+          <Stepper steps={steps} activeStep={curStepIndex} />
           {!isTablet && (
             <IconButton style={styles.iconButton} onClick={onIconBtnClick}>
               <LineAwesomeIcon type="angle-right" size={34} />

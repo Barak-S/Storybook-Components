@@ -5,7 +5,7 @@ import { StoryMeta } from 'styles';
 import RoundedIconButton, { RoundedIconButtonProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Buttons/RoundedIconButton',
+  title: 'components/Buttons/RoundedIcon',
   component: RoundedIconButton,
   args: {
     icon: 'times',
