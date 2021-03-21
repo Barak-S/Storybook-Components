@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, StoryMeta } from 'styles';
+import { Story, StoryMeta } from 'utils';
 
 import ProfileFormSettingsSection, { ProfileFormSettingsSectionProps as Props } from '.';
 

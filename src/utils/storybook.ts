@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react';
 import { FC, ReactNode } from 'react';
 
-import { Styles } from './types';
+import { Styles } from 'styles';
 
 export interface StoryMeta<P = Record<string, unknown>> {
   title?: string;

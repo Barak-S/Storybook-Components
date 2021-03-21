@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import DashboardFirstEventSetupView, { DashboardFirstEventSetupViewProps as Props } from './view';
 

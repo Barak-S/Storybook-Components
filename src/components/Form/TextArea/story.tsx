@@ -1,6 +1,6 @@
 import { View } from 'components/Common';
 import React, { useState } from 'react';
-import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import FormTextArea, { FormTextAreaProps as Props } from '.';
 

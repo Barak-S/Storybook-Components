@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions';
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
-import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import FormPasswordInput, { FormPasswordInputProps as Props } from '.';
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { colors, sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { colors } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import DashboardEventMainActionsBtn, { DashboardEventMainActionsBtnProps as Props } from '.';
 

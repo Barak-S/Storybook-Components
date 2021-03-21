@@ -1,7 +1,7 @@
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
-import { StoryMeta, Story } from 'styles';
+import { StoryMeta, Story } from 'utils';
 
 import FormTextInput, { FormTextInputProps as Props } from '.';
 

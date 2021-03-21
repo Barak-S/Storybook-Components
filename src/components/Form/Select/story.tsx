@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import React, { FC, useState } from 'react';
-import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import FormSelect, { FormSelectOption as Option, FormSelectProps as Props } from '.';
 

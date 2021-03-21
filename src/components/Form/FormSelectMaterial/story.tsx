@@ -1,6 +1,6 @@
 import { View } from 'components/Common';
 import React from 'react';
-import { Story, StoryMeta } from 'styles';
+import { Story, StoryMeta } from 'utils';
 
 import FormSelectMaterial, { FormSelectMaterialProps as Props } from '.';
 

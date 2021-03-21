@@ -1,6 +1,6 @@
 import { View } from 'components/Common';
 import React from 'react';
-import { sbAutoDetectActionProps, sbStyles, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, sbStyles, Story, StoryMeta } from 'utils';
 
 import ContainedButton, { ContainedButtonProps as Props } from '.';
 

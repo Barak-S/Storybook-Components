@@ -1,5 +1,5 @@
 import React from 'react';
-import { sbChromaticDefViewports, Story, StoryMeta } from 'styles';
+import { sbChromaticDefViewports, Story, StoryMeta } from 'utils';
 
 import Stepper, { StepperProps as Props } from '.';
 

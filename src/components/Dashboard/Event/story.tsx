@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { sbAutoDetectActionProps, sbChromaticDefViewports, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, sbChromaticDefViewports, StoryMeta } from 'utils';
 
 import DashboardEvent, { DashboardEventProps as Props } from '.';
 

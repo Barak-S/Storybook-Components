@@ -1,6 +1,6 @@
 import { BackgroundedContainer } from 'components/Layout';
 import React from 'react';
-import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import OnboardingContainer, { OnboardingContainerProps as Props, OnboardingStep } from '.';
 

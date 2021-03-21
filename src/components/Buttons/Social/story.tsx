@@ -1,7 +1,8 @@
 import { Story } from '@storybook/react';
 import { View } from 'components/Common';
 import React from 'react';
-import { StoryMeta, Styles } from 'styles';
+import { Styles } from 'styles';
+import { StoryMeta } from 'utils';
 
 import SocialButton, { SocialButtonProps as Props } from '.';
 

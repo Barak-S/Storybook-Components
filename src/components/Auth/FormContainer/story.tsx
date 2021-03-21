@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryMeta, Story } from 'styles';
+import { StoryMeta, Story } from 'utils';
 
 import AuthFormContainer, { AuthFormContainerProps as Props } from '.';
 

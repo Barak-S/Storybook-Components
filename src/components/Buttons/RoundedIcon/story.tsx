@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { StoryMeta } from 'styles';
+import { StoryMeta } from 'utils';
 
 import RoundedIconButton, { RoundedIconButtonProps as Props } from '.';
 
