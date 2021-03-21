@@ -2,7 +2,7 @@ import { ScreenTitle, Title } from 'components/Common';
 import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
-import { colors, StyleProps } from 'styles';
+import { colors, StyleProps, Styles } from 'styles';
 import AccordionSections from 'components/Navigation/AccordionSecions';
 
 type Props = StyleProps;
@@ -17,7 +17,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
       <BackgroundedContainer style={{ minHeight: '100vh', justifyContent: 'flex-start' }}>
         <Paper className={classes.container} elevation={2}>
           <Title type="h3" className={classes.primaryHeader}>
-            {'Digital Oasis FAQ'}
+            {'IRIS FAQ'}
           </Title>
           <p className={classes.secondaryText}>
             {'If you are coming to an event at Digital Oasis take a look at these frequently asked questions:'}
@@ -26,6 +26,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
             <li className={classes.listItemHeader}>
               <p className={classes.listItemHeader}>{'ABOUT PLATFORM'}</p>
               <AccordionSections
+                style={styles.accordion}
                 sections={[
                   {
                     id: 0,
@@ -44,6 +45,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
             <li className={classes.listItemHeader}>
               <p className={classes.listItemHeader}>{'HOSTING AN EVENT'}</p>
               <AccordionSections
+                style={styles.accordion}
                 sections={[
                   {
                     id: 0,
@@ -61,6 +63,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
             <li className={classes.listItemHeader}>
               <p className={classes.listItemHeader}>{'TECHNICAL HELP'}</p>
               <AccordionSections
+                style={styles.accordion}
                 sections={[
                   {
                     id: 0,
@@ -103,6 +106,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
             <li className={classes.listItemHeader}>
               <p className={classes.listItemHeader}>{'ATTENDING AN EVENT'}</p>
               <AccordionSections
+                style={styles.accordion}
                 sections={[
                   {
                     id: 0,
@@ -134,6 +138,21 @@ export const DashboardFaqScreen: FC<Props> = () => {
   );
 };
 
+const styles: Styles = {
+  accordion:{
+    color: colors.brownishGrey, 
+    borderRadius: 10, 
+    minHeight: 60,  
+    paddingTop: 7, 
+    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)', 
+    boxShadow: 'none', 
+    fontWeight: 400, 
+    marginBottom: 5,
+    marginTop: 0
+  }
+};
+
+
 export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
@@ -146,6 +165,16 @@ export const useStyles = (theme: Theme) =>
       maxWidth: '82.5%',
       lineHeight: 1.3,
 
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: '40px',
+      },
+      [theme.breakpoints.down('md')]: {
+        padding: '60px 20px',
+        borderRadius: 30,
+      },
+      [theme.breakpoints.up('md')]: {
+        padding: '60px 100px',
+      },
       [theme.breakpoints.up('lg')]: {
         padding: '60px 140px',
       },
@@ -153,22 +182,25 @@ export const useStyles = (theme: Theme) =>
     primaryHeader: {
       fontWeight: 500,
       color: colors.marineBlue,
-      fontSize: 36,
+      fontSize: 40,
       marginBottom: 5,
     },
     secondaryText: {
       color: colors.brownishGrey,
-      paddingTop: 20,
       paddinBottom: 8,
       fontSize: 18,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 23
+      },
     },
     primaryList: {
       listStyle: 'none',
-      marginTop: 25,
+      marginTop: 10,
     },
     listItemHeader: {
+      fontWeight: 500,
       color: colors.coolBlue,
-      paddingTop: 3,
+      paddingTop: 12,
       marginBottom: 20,
       fontSize: 18,
     },
