@@ -1,12 +1,10 @@
-import React, { FC } from 'react';
-
-import { FormTextInput, FormDragnDropImage, FormSelect } from 'components/Form';
-
 import Divider from '@material-ui/core/Divider';
+import { View } from 'components/Common';
+import { FormDragnDropImage, FormSelect, FormTextInput } from 'components/Form';
+import React, { FC } from 'react';
+import { Style } from 'styles';
 
 import { useStyles } from './styles';
-import { Style } from 'styles';
-import { View } from 'components/Common';
 
 interface Props {
   style?: Style;
@@ -35,20 +33,22 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style }) => {
           <View>
             <View className={classes.selectorInf}>
               <FormSelect
+                fullWidth
+                label="Role"
                 options={[
-                  { value: 0, label: 'item1' },
-                  { value: 1, label: 'item2' },
+                  { value: 0, name: 'item1' },
+                  { value: 1, name: 'item2' },
                 ]}
-                placeholder="Role"
               />
             </View>
             <View className={classes.selectorInf}>
               <FormSelect
+                fullWidth
                 options={[
-                  { value: 0, label: 'item1' },
-                  { value: 1, label: 'item2' },
+                  { value: 0, name: 'item1' },
+                  { value: 1, name: 'item2' },
                 ]}
-                placeholder="Company Type"
+                label="Company Type"
               />
             </View>
             <View className={classes.selectorInf}>

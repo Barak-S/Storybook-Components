@@ -1,68 +1,85 @@
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
-import React, { FC, ReactNode } from 'react';
-import Select from 'react-select';
-import { colors, mc, Style, StyleProps, Styles } from 'styles';
+import { FormControl, InputLabel, makeStyles, MenuItem, Select, SelectProps } from '@material-ui/core';
+import { LineAwesomeIcon } from 'components/Icons';
+import React, { FC, useState } from 'react';
+import { mc, StyleProps } from 'styles';
+import { genId } from 'utils';
 
-import IndicatorsContainer from './components/IndicatorsContainer';
-import { useStyles } from './styles';
+export interface SelectOption {
+  name?: string | undefined;
+  value: unknown;
+}
 
-interface Props extends StyleProps {
-  title?: string;
-  placeholder?: string;
-  value?: Option;
-  options?: Option[];
-  style?: Style;
+interface CustomProps extends SelectProps {
+  label: string;
+  options: SelectOption[];
   className?: string;
-  onChange?: (val: Option | undefined) => void;
 }
 
-interface Option {
-  value: number;
-  label: string | ReactNode;
-  icon?: LineAwesomeIconType;
-}
+type Props = StyleProps & CustomProps;
 
-export const FormSelect: FC<Props> = ({ title, placeholder, value, options, style, className, onChange }) => {
+export const FormSelect: FC<Props> = ({ label, className, options, ...props }) => {
+  const [open, setOpen] = useState<boolean>(false);
   const classes = useStyles();
-
-  const prepareOption = (val: Option): Option => {
-    const { value, label, icon } = val;
-    return !icon
-      ? val
-      : {
-          value,
-          label: (
-            <>
-              <LineAwesomeIcon type={icon} style={styles.icon} />
-              <span>{label}</span>
-            </>
-          ),
-        };
-  };
+  const selectId = genId();
+  const iconType = open ? 'chevron-circle-up' : 'chevron-circle-down';
 
   return (
-    <FormControl className={mc(classes.container, className)} style={style}>
-      <InputLabel shrink>{title}</InputLabel>
+    <FormControl className={mc(classes.container, className)}>
+      <InputLabel id={selectId}>{label}</InputLabel>
       <Select
-        value={value}
-        defaultValue={value}
-        onChange={val => onChange && onChange(val ? val : undefined)}
-        components={{ IndicatorsContainer }}
-        placeholder={placeholder}
-        className={classes.input}
-        options={options?.map(prepareOption)}
-        disabled
-      />
+        className={classes.select}
+        labelId={selectId}
+        {...props}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        classes={{
+          icon: classes.nativeIcon,
+          root: classes.selectRoot,
+        }}
+      >
+        {options.map(({ value }) => (
+          <MenuItem key={String(value)} value={String(value)}>
+            {String(value)}
+          </MenuItem>
+        ))}
+      </Select>
+      <LineAwesomeIcon type={iconType} size={24} className={classes.icon} />
     </FormControl>
   );
 };
 
-const styles: Styles = {
-  icon: { fill: colors.veryLightPinkTwo },
-};
+const useStyles = makeStyles({
+  container: {
+    width: '100%',
+    height: 52,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  select: {
+    height: '100%',
+    flex: '1 0 auto',
+  },
+  selectRoot: {
+    height: '100%',
+    borderRadius: 12,
+    '&.MuiSelect-select.MuiSelect-select': {
+      paddingRight: 45,
+    },
+    '&:focus': {
+      borderRadius: 12,
+    },
+  },
+  nativeIcon: {
+    display: 'none',
+  },
+  icon: {
+    position: 'absolute',
+    top: '50%',
+    right: 14,
+    transform: 'translateY(-50%)',
+    pointerEvents: 'none',
+  },
+});
 
-export type FormSelectOption = Option;
 export type FormSelectProps = Props;
 export default FormSelect;

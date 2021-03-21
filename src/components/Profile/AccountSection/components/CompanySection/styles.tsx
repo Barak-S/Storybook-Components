@@ -36,7 +36,7 @@ export const useStyles = () =>
     },
     selectorInf: {
       marginBottom: '47px',
-      width: 'max-content',
+      width: '100%',
       [theme.breakpoints.down('md')]: {
         width: 'inherit',
       },

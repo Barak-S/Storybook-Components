@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
-import { FormRow, FormSelectMaterial, FormTextArea, FormTextInput as TextInput } from 'components/Form';
+import { FormRow, FormSelect, FormTextArea, FormTextInput as TextInput } from 'components/Form';
 import React, { FC } from 'react';
 import { HandleTextInputChange, TeamFormData, HandleSelectFieldChange } from 'screens/Dashboard/Onboarding/Team';
 import { colors, mc, StyleProps } from 'styles';
@@ -56,7 +56,7 @@ export const TeamMemberForm: FC<Props> = ({ data, onTextFieldChange, onSelectFie
         <TextInput label="email" value={email || ''} onChange={onTextFieldChange('email')} />
       </FormRow>
       <FormRow>
-        <FormSelectMaterial
+        <FormSelect
           className={mc(classes.half, classes.select)}
           label="user group"
           options={userGroups}
@@ -64,7 +64,7 @@ export const TeamMemberForm: FC<Props> = ({ data, onTextFieldChange, onSelectFie
           value={userGroup || ''}
           onChange={onSelectFieldChange}
         />
-        <FormSelectMaterial
+        <FormSelect
           className={mc(classes.half, classes.select)}
           label="company type"
           options={companyTypes}

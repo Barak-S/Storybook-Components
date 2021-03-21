@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import { StyleProps } from 'styles';
-
-import FormSelect, { FormSelectOption as Option } from '../Select';
+import FormSelect, { SelectOption as Option } from '../Select';
 
 interface Props extends StyleProps {
+  label: string;
   title?: string;
   placehoder?: string;
   value?: NetworkType;
@@ -13,41 +13,42 @@ interface Props extends StyleProps {
 type NetworkType = 'facebook' | 'google';
 
 const options: Option[] = [
-  { value: 0, label: 'Facebook', icon: 'facebook' },
-  { value: 1, label: 'Google', icon: 'google' },
+  { value: 'facebook', name: 'Facebook' },
+  { value: 'google', name: 'Google' },
 ];
 
-export const FormSocialSelect: FC<Props> = ({ style, title, placehoder, value, onChange }) => {
+export const FormSocialSelect: FC<Props> = ({ style, title, label, placehoder, value, onChange }) => {
   const typeToOption = (val: NetworkType): Option | undefined => {
     switch (val) {
       case 'facebook':
-        return options.find(itm => itm.icon === 'facebook');
+        return options.find(itm => itm.name === 'Facebook');
       case 'google':
-        return options.find(itm => itm.icon === 'google');
+        return options.find(itm => itm.name === 'Google');
       default:
         return undefined;
     }
   };
 
-  const optionToType = ({ value }: Option): NetworkType | undefined => {
+  const optionToType = (value: unknown): NetworkType | undefined => {
     switch (value) {
-      case 0:
+      case 'facebook':
         return 'facebook';
-      case 1:
+      case 'google':
         return 'google';
       default:
         return undefined;
     }
   };
 
-  const handleChange = (option: Option | undefined) => {
+  const handleChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
     if (onChange) {
-      onChange(option ? optionToType(option) : undefined);
+      onChange(optionToType(event.target.value));
     }
   };
 
   return (
     <FormSelect
+      label={label}
       style={style}
       title={title}
       placeholder={placehoder}

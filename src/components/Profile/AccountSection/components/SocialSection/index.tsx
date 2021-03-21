@@ -20,22 +20,22 @@ export const ProfileAccountSocialSection: FC<Props> = ({ style }) => {
       </div>
       <div className={classes.blockInf}>
         <div className={classes.socBlock}>
-          <FormSocialSelect />
+          <FormSocialSelect label="Global Account" />
           <FormTextInput className={classes.inputText} />
           <FormToggle title="Global Account" />
         </div>
         <div className={classes.socBlock}>
-          <FormSocialSelect />
+          <FormSocialSelect label="Global Account" />
           <FormTextInput className={classes.inputText} />
           <FormToggle title="Global Account" />
         </div>
         <div className={classes.socBlock}>
-          <FormSocialSelect />
+          <FormSocialSelect label="Global Account" />
           <FormTextInput className={classes.inputText} />
           <FormToggle title="Global Account" />
         </div>
         <div className={classes.socBlock}>
-          <FormSocialSelect />
+          <FormSocialSelect label="Global Account" />
           <FormTextInput className={classes.inputText} />
           <FormToggle title="Global Account" />
         </div>

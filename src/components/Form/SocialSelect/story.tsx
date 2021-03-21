@@ -9,6 +9,7 @@ export default ((): StoryMeta<Props> => ({
   component: FormSocialSelect,
   args: {
     title: 'Items',
+    label: 'Social Select',
   },
   parameters: {
     layout: 'centered',
