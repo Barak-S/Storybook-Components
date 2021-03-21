@@ -15,6 +15,7 @@ interface Props extends StyleProps {
   btnsBackgroundColor?: string;
   hiddenBtns?: BtnType[];
   onBtnClick?: (type: BtnType) => void;
+  onClick?: () => void;
 }
 
 type BtnType = 'add' | 'profile' | 'faq' | 'support' | 'contact';
@@ -24,6 +25,7 @@ export const DashboardUserNav: FC<Props> = ({
   hiddenBtns,
   btnsBackgroundColor = colors.paleGrey,
   onBtnClick,
+  onClick,
 }) => {
   const isDisabled = (btn: BtnType) => disabledBtns && disabledBtns.includes(btn);
   const isHidden = (btn: BtnType) => hiddenBtns && hiddenBtns.includes(btn);
@@ -41,7 +43,7 @@ export const DashboardUserNav: FC<Props> = ({
   const btnStye: Style = { backgroundColor: btnsBackgroundColor };
 
   return (
-    <Grid container className={classes.container}>
+    <Grid container className={classes.container} onClick={onClick}>
       {!isHidden('add') && (
         <DashboardButton
           style={btnStye}

@@ -87,7 +87,7 @@ const useStyles = (theme: Theme) =>
       display: 'flex',
       width: '100%',
       position: 'relative',
-      maxWidth: 1520,
+      maxWidth: 1525,
       margin: '0 auto',
     },
     paper: {

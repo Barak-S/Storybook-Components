@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Menu } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
-import React, { FC, MouseEvent } from 'react';
+import React, { FC, MouseEvent, MutableRefObject, ReactNode, useEffect, useRef } from 'react';
 
 import { colors, mc, StyleProps } from 'styles';
 
@@ -18,13 +18,33 @@ interface Props extends StyleProps {
   };
 }
 
+const useEventsAwayDropdown = (ref: MutableRefObject<ReactNode>, handleClick: () => void): void => {
+  useEffect(() => {
+    const handleClickOutsideComponent: EventListener = (event): void => {
+      if (ref.current && ref.current !== event.target) {
+        handleClick();
+      }
+    };
+
+    const events = ['mousedown', 'touchstart', 'touchmove', 'scroll'];
+    events.forEach(event => document.addEventListener(event, handleClickOutsideComponent));
+
+    return () => {
+      events.forEach(event => document.removeEventListener(event, handleClickOutsideComponent));
+    };
+  }, [ref]);
+};
+
 export const Dropdown: FC<Props> = ({ icon, anchor = undefined, open, onClose, onToggle, classes, children }) => {
   const styleClasses = useStyles();
   const iconType: LineAwesomeIconType = !!anchor ? 'angle-up' : 'angle-down';
+  const menuRef = useRef(null);
+
+  useEventsAwayDropdown(menuRef, onClose);
 
   return (
     <Grid className={mc(styleClasses.container, classes?.container)}>
-      <a href="#" onClick={onToggle} className={mc(styleClasses.anchor, classes?.anchor)}>
+      <a ref={menuRef} href="#" onClick={onToggle} className={mc(styleClasses.anchor, classes?.anchor)}>
         <LineAwesomeIcon type={icon || iconType} className={classes?.icon} />
       </a>
       <Menu

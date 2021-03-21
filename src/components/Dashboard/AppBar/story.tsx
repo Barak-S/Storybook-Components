@@ -8,6 +8,7 @@ export default ((): StoryMeta<Props> => ({
   component: DashboardAppBar,
   args: {},
   parameters: {
+    layout: 'fullscreen',
     actions: { ...sbAutoDetectActionProps },
   },
 }))();

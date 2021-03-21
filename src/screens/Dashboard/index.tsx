@@ -1,11 +1,12 @@
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle, View } from 'components/Common';
-import { DashboardAppBar, DashboardMobileMenu, DashboardAppBarBtn } from 'components/Dashboard';
+import { DashboardAppBar, DashboardMobileMenu, DashboardAppBarBtn, DashboardUserNavBtnType } from 'components/Dashboard';
 import { useAuth } from 'core/auth';
 import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { ms, srollToTop, StyleProps, Styles } from 'styles';
+import { Log } from 'core';
 
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
@@ -26,7 +27,10 @@ export const DashboardScreens: FC<Props> = () => {
   }, []);
 
   const [mobileMenuVisible, setMobileMenuVisible] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<DashboardAppBarBtn>('events');
 
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const history = useHistory();
   const { signOut } = useAuth();
 
@@ -43,29 +47,54 @@ export const DashboardScreens: FC<Props> = () => {
     history.push({ pathname: routes.dashboard[name] });
   };
 
+  const log = Log('screens.DashboardEvents');
+
+  const handleUseNavBtnClick = (btn: DashboardUserNavBtnType) => {
+    log.debug('hanlde user nav btn click, btn=', btn);
+    switch (btn) {
+      case 'contact':
+        return history.push({ pathname: routes.dashboard.contact });
+      case 'faq':
+        return history.push({ pathname: routes.dashboard.faq });
+      case 'profile':
+        return history.push({ pathname: routes.dashboard.profile });
+      case 'support':
+        return history.push({ pathname: routes.dashboard.support });
+    }
+  };
+
   return (
     <>
       <ScreenTitle title="Dashboard" />
       <Grid container style={styles.container}>
         {mobileMenuVisible && (
           <DashboardMobileMenu
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
             open={mobileMenuVisible}
             onClose={handleToggleMobileMenu}
             onLogoutClick={handleLogoutClick}
             onMenuBtnClick={handleAppBarMenuBtnClick}
+            handleUseNavBtnClick={handleUseNavBtnClick}
           />
         )}
-        <Grid container style={ms(styles.dashboardWrap, { position: mobileMenuVisible ? 'absolute' : 'initial' })}>
+        <Grid
+          container
+          className={classes.dashboardWrap}
+          style={ms(styles.dashboardWrap, { position: mobileMenuVisible ? 'absolute' : 'initial' })}
+        >
           <DashboardAppBar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
             onLogoClick={() => history.push({ pathname: routes.dashboard.index })}
             onLogoutClick={handleLogoutClick}
             onMobileMenuClick={handleToggleMobileMenu}
             onMenuBtnClick={handleAppBarMenuBtnClick}
           />
-          <View style={styles.dashboardBody} column justifyContent="center" alignItems="center">
+          <View style={styles.dashboardBody} column justifyContent="flex-start" alignItems="center">
             <Switch>
               <Route path={routes.dashboard.events}>
-                <DashboardEventsScreen />
+                <DashboardEventsScreen handleUseNavBtnClick={handleUseNavBtnClick} />
               </Route>
               <Route path={routes.dashboard.analytics}>
                 <DashboardAnalyticsScreen />
@@ -106,12 +135,6 @@ const styles: Styles = {
     display: 'flex',
     flex: '1 0 auto',
   },
-  dashboardWrap: {
-    top: 0,
-    left: 0,
-    flexDirection: 'column',
-    flex: '1 0 auto',
-  },
   tabPanel: {
     width: '100%',
   },
@@ -123,6 +146,23 @@ const styles: Styles = {
     flex: '1 0 auto',
   },
 };
+
+const useStyles = (theme: Theme) =>
+  makeStyles({
+    dashboardWrap: {
+      top: 0,
+      left: 0,
+      flexDirection: 'column',
+      flex: '1 0 auto',
+      paddingTop: 60,
+      [theme.breakpoints.up('md')]: {
+        paddingTop: 69,
+      },
+      [theme.breakpoints.up('lg')]: {
+        paddingTop: 73,
+      },
+    },
+  })();
 
 export type DashboardScreensProps = Props;
 export default DashboardScreens;

@@ -28,16 +28,14 @@ export const DashboardEmailConfirmView: FC<Props> = ({ processing, onSubmit }) =
   return (
     <DashboardSceneContainer style={styles.container}>
       <Grid className={classes.inner}>
-        <Text style={styles.text}>
-          {'You will experience limited functionality until your email address is confirmed.'}
-        </Text>
+        <Text style={styles.text}>{'You will experience limited functionality until your email address is confirmed.'}</Text>
         {processing ? (
           <View style={styles.processingWrap} justifyContent="center" alignItems="center">
             <CircularProgress size={20} color="secondary" />
           </View>
         ) : (
           <Button
-            style={styles.button}
+            className={classes.button}
             variant="contained"
             color="primary"
             endIcon={<LineAwesomeIcon type={isTablet ? 'paper-plane' : 'envelope-open-text'} />}
@@ -62,15 +60,6 @@ const styles: Styles = {
     color: colors.brownishGrey,
     textAlign: 'center',
   },
-  button: {
-    minHeight: 35,
-    padding: '7px 15px',
-    borderRadius: 6,
-    fontSize: 15,
-    letterSpacing: 1.5,
-    lineHeight: 1.2,
-    maxWidth: 320,
-  },
   processingWrap: {
     minHeight: 35,
   },
@@ -88,6 +77,18 @@ const useStyles = (theme: Theme) =>
       padding: '25px 30px 76px',
       [theme.breakpoints.up('sm')]: {
         padding: '25px 55px 76px',
+      },
+    },
+    button: {
+      minHeight: 35,
+      padding: '7px 15px',
+      borderRadius: 6,
+      fontSize: 15,
+      letterSpacing: 1.5,
+      lineHeight: 1.2,
+      maxWidth: 195,
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: 320,
       },
     },
   })();

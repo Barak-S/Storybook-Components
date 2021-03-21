@@ -27,11 +27,11 @@ export const styles: Styles = {
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
-    menuWrap: {
+    container: {
+      position: 'fixed',
+      top: 0,
       height: 60,
       backgroundColor: colors.whiteTwo,
-      ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
-      ...mx.borderTop(1, 'solid', colors.lightBlueGrey),
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
@@ -39,6 +39,9 @@ export const useStyles = (theme: Theme) =>
       alignItems: 'center',
       paddingRight: 10,
       fontSize: 20,
+      ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
+      ...mx.borderTop(1, 'solid', colors.lightBlueGrey),
+      ...mx.zIndex.appbar,
       [theme.breakpoints.up('md')]: {
         height: 69,
         fontSize: 18,

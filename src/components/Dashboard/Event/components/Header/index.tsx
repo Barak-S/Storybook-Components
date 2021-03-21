@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Grid, Link, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { Splitter } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
@@ -22,7 +22,9 @@ export const DashboardEventHeader: FC<Props> = ({ url, onClick, onEditClick, onC
   return (
     <Grid className={classes.container}>
       <input type="text" onClick={() => !!onClick && onClick(url)} className={classes.input} value={url} disabled />
-      <LineAwesomeIcon className={classes.copyIcon} type="external-link-alt" />
+      <Link href={url} target="_blank">
+        <LineAwesomeIcon className={classes.copyIcon} type="external-link-alt" />
+      </Link>
       <Splitter style={{ height: 33 }} />
       <ItemMenu
         onEditClick={onEditClick}
@@ -61,12 +63,14 @@ const useStyles = (theme: Theme) =>
       whiteSpace: 'nowrap',
       textAlign: 'left',
       textOverflow: 'ellipsis',
+      fontSize: 15,
       '&:hover': {
         textDecoration: 'none',
       },
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('lg')]: {
         minWidth: 'initial',
         textAlign: 'right',
+        fontSize: 16,
       },
       '&.MuiLink-root': {
         display: 'flex',

@@ -8,42 +8,23 @@ import {
   DashboardUserNav,
   DashboardUserNavBtnType,
 } from 'components/Dashboard';
-import { Log, useAuth } from 'core';
+import { useAuth } from 'core';
 import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { routes } from 'screens/consts';
 import { colors, mx, StyleProps, Styles } from 'styles';
-
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';
 import DashboardEventsListScene from './scenes/List';
 
-const log = Log('screens.DashboardEvents');
+interface Props extends StyleProps {
+  handleUseNavBtnClick?: (btn: DashboardUserNavBtnType) => void;
+}
 
-type Props = StyleProps;
-
-export const DashboardEventsScreen: FC<Props> = () => {
+export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const [tab, setTab] = useState<number>(0);
   const [listVisible, setListVisible] = useState<boolean>(false);
-
-  const history = useHistory();
   const { userConfirmed } = useAuth();
 
   // Handlers
-
-  const handleUseNavBtnClick = (btn: DashboardUserNavBtnType) => {
-    log.debug('hanlde user nav btn click, btn=', btn);
-    switch (btn) {
-      case 'contact':
-        return history.push({ pathname: routes.dashboard.contact });
-      case 'faq':
-        return history.push({ pathname: routes.dashboard.faq });
-      case 'profile':
-        return history.push({ pathname: routes.dashboard.profile });
-      case 'support':
-        return history.push({ pathname: routes.dashboard.support });
-    }
-  };
 
   // Render
 
@@ -94,13 +75,13 @@ export const DashboardEventsScreen: FC<Props> = () => {
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={1}>
-            {'Archive'}
+            {tabs[1].label}
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={2}>
-            {'Explore'}
+            {tabs[2].label}
           </DashboardTabPanel>
           <DashboardTabPanel className={classes.tabPanel} value={tab} index={3}>
-            {'Liked'}
+            {tabs[3].label}
           </DashboardTabPanel>
         </Grid>
         <Hidden mdUp>

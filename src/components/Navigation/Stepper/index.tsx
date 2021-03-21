@@ -102,6 +102,7 @@ const useStyles = (theme: Theme) =>
           position: 'relative',
           top: 'initial',
           transform: 'translateX(42%)',
+          paddingRight: 10,
         },
       },
       '& .MuiStepLabel-label': {

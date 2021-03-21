@@ -103,7 +103,7 @@ const useStyles = (theme: Theme) =>
       height: '100%',
 
       [theme.breakpoints.up('md')]: {
-        padding: '72px 0',
+        padding: '72px',
       },
     },
   })();

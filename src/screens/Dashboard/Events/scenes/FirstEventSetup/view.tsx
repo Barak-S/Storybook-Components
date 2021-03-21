@@ -115,14 +115,21 @@ const useStyles = (theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      maxWidth: 300,
+      maxWidth: 180,
       minHeight: 52,
       color: colors.white,
       fontSize: 15,
       letterSpacing: 2.25,
       padding: '5px 15px',
+      borderRadius: 6,
+      lineHeight: 1.4,
+      textAlign: 'left',
       '& .MuiIcon-root': {
         transform: 'translateY(-1px)',
+      },
+      [theme.breakpoints.up('md')]: {
+        maxWidth: 300,
+        textAlign: 'center',
       },
     },
   })();

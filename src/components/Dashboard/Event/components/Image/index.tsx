@@ -88,7 +88,7 @@ const useStyles = (theme: Theme) =>
     },
     editBtn: {
       background: colors.rustyRed,
-      maxWidth: 240,
+      maxWidth: 220,
     },
   })();
 

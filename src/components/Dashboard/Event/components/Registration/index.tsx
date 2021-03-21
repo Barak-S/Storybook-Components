@@ -105,7 +105,7 @@ export const DashboardEventRegistration: FC<Props> = ({
               className={classes.continueButton}
               onClick={handleContinueClick}
             >
-              {'continue'}
+              {'create email invite'}
             </ContainedButton>
           </Grid>
         )}
@@ -171,11 +171,14 @@ const useStyles = (theme: Theme) =>
     },
     registrationBlock: {
       background: colors.white,
-      padding: '18px 20px',
+      padding: 15,
       borderRadius: 12,
       marginBottom: 23,
       '&:last-child': {
         marginBottom: 0,
+      },
+      [theme.breakpoints.up('lg')]: {
+        padding: '18px 20px',
       },
     },
     title: {
@@ -191,10 +194,6 @@ const useStyles = (theme: Theme) =>
     },
     setupButton: {
       background: colors.rustyRed,
-    },
-    continueButton: {
-      background: colors.marineBlue,
-      maxWidth: 144,
     },
     skeleton: {
       height: 12,
@@ -251,6 +250,7 @@ const useStyles = (theme: Theme) =>
       fontStyle: 'italic',
       opacity: 0.81,
       textTransform: 'none',
+      textAlign: 'center',
     },
     regContinue: {
       display: 'flex',
@@ -272,6 +272,16 @@ const useStyles = (theme: Theme) =>
       },
       [theme.breakpoints.up('lg')]: {
         maxWidth: 254,
+      },
+    },
+    continueButton: {
+      '&.MuiButton-contained': {
+        background: colors.marineBlue,
+        width: 'auto',
+        '& .MuiButton-label': {
+          paddingRight: 25,
+          paddingLeft: 10,
+        },
       },
     },
   })();

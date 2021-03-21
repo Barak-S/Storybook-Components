@@ -173,7 +173,12 @@ export const AuthSignUpScreen: FC<Props> = () => {
               </Grid>
               <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
                 <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
-                  <ContainedButton processing={processing} disabled={processing || submitDissabled} onClick={handleSubmitPress}>
+                  <ContainedButton
+                    processing={processing}
+                    disabled={processing || submitDissabled}
+                    onClick={handleSubmitPress}
+                    style={{ width: '100%' }}
+                  >
                     {'Sign Up'}
                   </ContainedButton>
                 </Grid>

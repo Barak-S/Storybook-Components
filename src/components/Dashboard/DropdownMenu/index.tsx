@@ -2,16 +2,24 @@ import { Avatar, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@mater
 import React, { FC, useState, MouseEvent } from 'react';
 import profileImg from 'assets/profilePlaceholder.png';
 import { colors, StyleProps, Styles } from 'styles';
-import AppBarMenu, { AppBarMenuProps } from '../AppBar/components/Menu';
+import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from '../AppBar/components/Menu';
 import { Dropdown } from 'components/Common';
 
 interface Props extends StyleProps {
+  activeTab: DashboardAppBarBtn;
+  setActiveTab: (name: DashboardAppBarBtn) => void;
   onLogoutClick?: () => void;
   onMenuBtnClick: AppBarMenuProps['onMenuBtnClick'];
   onMobileMenuClick?: () => void;
 }
 
-export const DashboardDropdownMenu: FC<Props> = ({ onLogoutClick, onMenuBtnClick, onMobileMenuClick }) => {
+export const DashboardDropdownMenu: FC<Props> = ({
+  activeTab,
+  setActiveTab,
+  onLogoutClick,
+  onMenuBtnClick,
+  onMobileMenuClick,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | undefined>(undefined);
@@ -43,7 +51,13 @@ export const DashboardDropdownMenu: FC<Props> = ({ onLogoutClick, onMenuBtnClick
           icon: classes.dropdownIcon,
         }}
       >
-        <AppBarMenu onMenuBtnClick={onMenuBtnClick} onLogoutClick={onLogoutClick} hiddenBtns={['events', 'analytics', 'users']} />
+        <AppBarMenu
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onMenuBtnClick={onMenuBtnClick}
+          onLogoutClick={onLogoutClick}
+          hiddenBtns={['events', 'analytics', 'users']}
+        />
       </Dropdown>
     </Grid>
   );
@@ -92,6 +106,7 @@ const useStyles = (theme: Theme) =>
         overflow: 'hidden',
 
         '& .MuiButtonBase-root': {
+          display: 'flex',
           padding: '8px 16px',
           color: colors.marineBlue,
           fontWeight: 400,

@@ -29,9 +29,16 @@ export const DashboardTabs: FC<Props> = ({ style, tab = 0, tabs, className, onTa
 
   return (
     <Tabs style={style} className={mc(classes.container, className)} value={tab} onChange={onTabChange}>
-      {tabs.map(({ label, index, disabled = false, visible = true }) =>
-        visible ? <Tab key={index} label={label} disabled={disabled} {...handleTabClick(index)} /> : null,
-      )}
+      {tabs.map(({ label, index, disabled = false, visible = true }) => (
+        <Tab
+          key={index}
+          data-index={index}
+          label={label}
+          disabled={disabled}
+          {...handleTabClick(index)}
+          style={{ ...(!visible && { display: 'none' }) }}
+        />
+      ))}
     </Tabs>
   );
 };

@@ -48,6 +48,9 @@ const zIndexMap = {
   mobileMenu: {
     zIndex: 31,
   },
+  appbar: {
+    zIndex: 40,
+  },
 };
 
 const square = (size: Style['width'] | number): Style => {

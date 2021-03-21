@@ -32,23 +32,35 @@ export const FormCopyTextInput: FC<Props> = ({ url, onCopyClick, className, valu
 const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
+      display: 'flex',
+      flexDirection: 'column',
       width: '100%',
       position: 'relative',
       overflow: 'hidden',
       borderRadius: 12,
       ...mx.border(1, 'solid', colors.brownishGrey),
+      height: 46,
+      [theme.breakpoints.up('lg')]: {
+        height: 52,
+      },
     },
     input: {
       width: '100%',
+      border: 'none',
+      height: '100%',
+      '& .MuiInput-root': {
+        border: 'none',
+        height: '100%',
+      },
       '& .MuiInputBase-input': {
-        height: 46,
+        border: 'none',
+        height: '100%',
         fontSize: 16,
         color: colors.blackTwo,
         background: colors.white,
         paddingRight: 80,
         [theme.breakpoints.up('lg')]: {
           paddingRight: 95,
-          height: 52,
           fontSize: 19,
         },
       },
@@ -61,7 +73,7 @@ const useStyles = (theme: Theme) =>
       top: 0,
       right: 0,
       width: 70,
-      height: 46,
+      height: '100%',
       fontSize: 16,
       background: colors.veryLightPinkThree,
       color: colors.blackTwo,
@@ -71,7 +83,6 @@ const useStyles = (theme: Theme) =>
       ...mx.centeredContent(),
       [theme.breakpoints.up('lg')]: {
         padding: '0 24px',
-        height: 52,
         fontSize: 19,
         width: 85,
       },

@@ -1,7 +1,7 @@
 import { Button, CircularProgress, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC } from 'react';
-import { colors, ms, mc, StyleProps, Styles } from 'styles';
+import { colors, mc, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -19,8 +19,8 @@ export const ContainedButton: FC<Props> = ({ className, style, disabled, type, p
 
   return (
     <Button
-      className={mc(className, theme === 'red' && classes.redThemeContainer)}
-      style={ms(styles.container, style)}
+      className={mc(theme === 'red' && classes.redThemeContainer, className)}
+      style={style}
       variant="contained"
       color="primary"
       disabled={disabled}
@@ -29,28 +29,22 @@ export const ContainedButton: FC<Props> = ({ className, style, disabled, type, p
       onClick={onClick}
     >
       {processing ? <CircularProgress color="secondary" size={20} /> : children}
-      {icon && <LineAwesomeIcon type={icon} size={16} />}
+      {icon && <LineAwesomeIcon type={icon} size={64} />}
     </Button>
   );
-};
-
-const styles: Styles = {
-  container: {
-    height: 52,
-    width: '100%',
-  },
 };
 
 const useStyles = (theme: Theme) =>
   makeStyles({
     redThemeContainer: {
+      width: '100%',
+      height: 34,
+      maxHeight: 34,
       color: colors.white,
       fontSize: 13,
       letterSpacing: 2.25,
-      height: 34,
       boxShadow: `0 3px 5px 0 ${colors.withAlpha(colors.black, 0.3)}`,
       background: colors.rustyRed,
-      maxHeight: 34,
       borderRadius: 6,
       padding: 0,
       '&:hover': {
@@ -58,12 +52,16 @@ const useStyles = (theme: Theme) =>
       },
       '& .MuiIcon-root': {
         marginLeft: 5,
-        transform: 'translateY(-1.5px)',
+        transform: 'scale(0.25)',
+        position: 'absolute',
+        top: -16,
+        right: -16,
       },
       '& .MuiButton-label': {
         display: 'flex',
         alignItems: 'center',
         height: '100%',
+        paddingRight: 10,
       },
       [theme.breakpoints.up('lg')]: {
         fontSize: 14,

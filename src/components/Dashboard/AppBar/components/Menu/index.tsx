@@ -1,9 +1,11 @@
-import { List, makeStyles, MenuItem, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { List, makeStyles, MenuItem, Theme, useTheme } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
+  activeTab: DashboardAppBarBtn;
+  setActiveTab: (name: DashboardAppBarBtn) => void;
   onMenuBtnClick: (name: DashboardAppBarBtn) => void;
   onClick?: () => void;
   onLogoutClick?: () => void;
@@ -21,18 +23,17 @@ interface BtnData {
 }
 
 export const AppBarMenu: FC<Props> = ({
+  activeTab,
   hiddenBtns,
   logoutVisible = true,
   iconsVisibile = true,
   onClick,
   onLogoutClick,
   onMenuBtnClick,
+  setActiveTab,
 }) => {
-  const [active, setactive] = useState<DashboardAppBarBtn>('events');
-
   const theme = useTheme();
   const classes = useStyles(theme);
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const buttons: BtnData[] = [
     {
@@ -64,7 +65,7 @@ export const AppBarMenu: FC<Props> = ({
 
   const handleMenuButtonClick = (name: DashboardAppBarBtn) => () => {
     onMenuBtnClick(name);
-    setactive(name);
+    setActiveTab(name);
   };
 
   const isBtnHidden = (name: DashboardAppBarBtn) => Boolean(hiddenBtns && hiddenBtns.find(itm => itm === name));
@@ -72,9 +73,9 @@ export const AppBarMenu: FC<Props> = ({
   return (
     <List className={classes.container} component="nav" onClick={onClick}>
       {buttons.map(({ name, icon, label }) => {
-        const isSelected = name === active;
+        const isSelected = name === activeTab;
 
-        return (isMobile && isSelected) || (!isMobile && !isBtnHidden(name)) ? (
+        return !isBtnHidden(name) ? (
           <MenuItem key={name} component="button" selected={isSelected} onClick={handleMenuButtonClick(name)}>
             {iconsVisibile && <LineAwesomeIcon type={icon} />}
             {label}
@@ -102,20 +103,21 @@ const useStyles = (theme: Theme) =>
       },
       '& .MuiButtonBase-root': {
         textTransform: 'capitalize',
+        display: 'none',
         '&.Mui-selected, &:hover': {
+          display: 'flex',
           color: colors.marineBlue,
           background: 'none',
           height: '100%',
           fontWeight: 500,
           fontSize: 20,
-          pointerEvents: 'none',
           [theme.breakpoints.up('md')]: {
-            pointerEvents: 'initial',
             backgroundColor: colors.white,
             fontSize: 18,
           },
         },
         [theme.breakpoints.up('md')]: {
+          display: 'flex',
           padding: '0 40px',
           fontWeight: 500,
           fontSize: 18,

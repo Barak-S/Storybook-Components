@@ -98,7 +98,7 @@ export const DashboardEvent: FC<Props> = ({
             </Grid>
           </Grid>
           <Grid container className={classes.row}>
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={6} lg={6} className={classes.row}>
               <EventTitle>{title}</EventTitle>
             </Grid>
             <Grid item xs={12} md={6} lg={6} className={classes.eventHeaderWrap}>

@@ -6,18 +6,27 @@ import React, { FC, MouseEvent } from 'react';
 import { StyleProps } from 'styles';
 import DashboardDropdownMenu from '../DropdownMenu';
 
-import AppBarMenu, { AppBarMenuProps } from './components/Menu';
+import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from './components/Menu';
 import TextBtn from './components/TextBtn';
 import { styles, useStyles } from './styles';
 
 interface Props extends StyleProps {
+  activeTab: DashboardAppBarBtn;
+  setActiveTab: (name: DashboardAppBarBtn) => void;
   onLogoClick?: () => void;
   onLogoutClick?: () => void;
   onMobileMenuClick?: () => void;
   onMenuBtnClick: AppBarMenuProps['onMenuBtnClick'];
 }
 
-export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobileMenuClick, onMenuBtnClick }) => {
+export const DashboardAppBar: FC<Props> = ({
+  activeTab,
+  setActiveTab,
+  onLogoClick,
+  onLogoutClick,
+  onMobileMenuClick,
+  onMenuBtnClick,
+}) => {
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (onLogoClick) {
@@ -35,12 +44,14 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
   const classes = useStyles(theme);
 
   return (
-    <Grid className={classes.menuWrap}>
+    <Grid className={classes.container}>
       <Grid className={classes.mainSection}>
         <a style={styles.logoWrap} href="#" onClick={handleLogoClick}>
           <Image className={classes.logo} source={logoImg} />
         </a>
         <AppBarMenu
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
           onMenuBtnClick={onMenuBtnClick}
           hiddenBtns={['notes', 'profile']}
           logoutVisible={false}
@@ -59,6 +70,8 @@ export const DashboardAppBar: FC<Props> = ({ onLogoClick, onLogoutClick, onMobil
           <Splitter />
         </Hidden>
         <DashboardDropdownMenu
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
           onLogoutClick={handleLogoutClick}
           onMobileMenuClick={onMobileMenuClick}
           onMenuBtnClick={onMenuBtnClick}
