@@ -86,8 +86,8 @@ export const DashboardEventRegistration: FC<Props> = ({
               </Hidden>
               <Grid item className={classes.setupBtnHolder}>
                 <ContainedButton
-                  theme="red"
-                  icon="chevron-circle-right"
+                  theme="small"
+                  endIcon="chevron-circle-right"
                   className={classes.setupButton}
                   onClick={handleSetupRegClick}
                 >
@@ -100,8 +100,8 @@ export const DashboardEventRegistration: FC<Props> = ({
           <Grid container className={classes.regContinue}>
             <FormCopyTextInput className={classes.input} url={regUrl} onCopyClick={handleCopyToClipboardClick} />
             <ContainedButton
-              theme="red"
-              icon="chevron-circle-right"
+              theme="small"
+              endIcon="chevron-circle-right"
               className={classes.continueButton}
               onClick={handleContinueClick}
             >

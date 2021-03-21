@@ -89,4 +89,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
+export type FormCopyTextInputProps = Props;
 export default FormCopyTextInput;

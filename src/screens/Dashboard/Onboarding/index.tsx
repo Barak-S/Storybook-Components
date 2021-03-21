@@ -27,10 +27,7 @@ const steps: OnboardingStep[] = [
   },
   {
     index: 1,
-    title: {
-      long: 'Invite Team Members',
-      short: 'Team Members',
-    },
+    title: 'Invite Team Members',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,

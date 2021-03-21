@@ -1,6 +1,6 @@
 import { makeStyles, TextareaAutosize, TextareaAutosizeProps } from '@material-ui/core';
 import { Text } from 'components/Common';
-import React, { FC, useState, ChangeEventHandler } from 'react';
+import React, { FC, useState } from 'react';
 import { colors, mc, mx, StyleProps } from 'styles';
 import { genId } from 'utils';
 
@@ -12,18 +12,10 @@ interface CustomProps extends StyleProps {
 type Props = TextareaAutosizeProps & CustomProps;
 
 export const FormTextArea: FC<Props> = ({ value = '', label, onChange, ...props }) => {
-  const [areaValue, setAreaValue] = useState<string>(value);
   const [focus, setFocus] = useState<boolean>(false);
   const classes = useStyles();
-  const isActive = focus || Boolean(areaValue);
+  const isActive = focus || Boolean(value);
   const textAreaId = genId();
-
-  const handleChangeArea: ChangeEventHandler<HTMLTextAreaElement> = event => {
-    setAreaValue(event.target.value);
-    if (onChange) {
-      onChange(event);
-    }
-  };
 
   return (
     <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea)}>
@@ -32,9 +24,9 @@ export const FormTextArea: FC<Props> = ({ value = '', label, onChange, ...props 
         {...props}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
-        onChange={handleChangeArea}
+        onChange={onChange}
         className={classes.textArea}
-        value={areaValue}
+        value={value}
       />
       <Text className={mc(classes.label, isActive && classes.focusedLabel)}>{label}</Text>
     </label>

@@ -24,7 +24,7 @@ export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, on
       {source && <Image source={source} className={classes.image} />}
       {isEventSetup && (
         <Grid className={classes.overlay}>
-          <ContainedButton theme="red" className={classes.editBtn} icon="chevron-circle-right" onClick={onEditClick}>
+          <ContainedButton theme="small" className={classes.editBtn} endIcon="chevron-circle-right" onClick={onEditClick}>
             {'review & update'}
           </ContainedButton>
         </Grid>

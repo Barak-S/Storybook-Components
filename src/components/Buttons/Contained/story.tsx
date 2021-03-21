@@ -21,8 +21,9 @@ export const Basic: Story<Props> = args => (
     <ContainedButton {...args}>{'Log In'}</ContainedButton>
     <ContainedButton {...args} style={sbStyles.rowIndent} disabled />
     <ContainedButton {...args} style={sbStyles.rowIndent} processing disabled />
-    <ContainedButton {...args} style={sbStyles.rowIndent} type="plus" />
-    <ContainedButton {...args} style={sbStyles.rowIndent} theme="red" type="plus" />
+    <ContainedButton {...args} style={sbStyles.rowIndent} endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.rowIndent} theme="small" endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.rowIndent} theme="small" startIcon="plus-circle" />
   </View>
 );
 
@@ -30,6 +31,6 @@ export const Disabled: Story<Props> = args => <ContainedButton {...args} disable
 
 export const Processing: Story<Props> = args => <ContainedButton {...args} processing />;
 
-export const PlusType: Story<Props> = args => <ContainedButton {...args} type="plus" />;
+export const PlusType: Story<Props> = args => <ContainedButton {...args} endIcon="plus-circle" />;
 
-export const RedTheme: Story<Props> = args => <ContainedButton {...args} theme="red" />;
+export const RedTheme: Story<Props> = args => <ContainedButton {...args} theme="small" />;

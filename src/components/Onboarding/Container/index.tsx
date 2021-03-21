@@ -1,5 +1,5 @@
-import { Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import { RoundedIconButton } from 'components/Buttons';
+import { Button, Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { ContainedButton, RoundedIconButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { DashbaordStepperMobileLabel } from 'components/Dashboard';
 import { Stepper } from 'components/Navigation';
@@ -72,7 +72,25 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
             </Grid>
           </Grid>
           <Grid item xs={12} md={9}>
-            <Grid className={classes.body}>{children}</Grid>
+            <Grid className={classes.body}>
+              {children}
+              <Grid className={classes.controls}>
+                <ContainedButton
+                  theme="small"
+                  className={classes.backButton}
+                  startIcon="chevron-circle-left"
+                  disabled={!curStepIndex}
+                >
+                  {'back'}
+                </ContainedButton>
+                <Grid className={classes.buttonGroup}>
+                  <Button className={classes.textButton}>{'Save & Continue Later'}</Button>
+                  <ContainedButton theme="small" endIcon="chevron-circle-right" className={classes.continueButton}>
+                    {'continue'}
+                  </ContainedButton>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
@@ -195,6 +213,54 @@ const useStyles = (theme: Theme) =>
     },
     close: {
       marginLeft: 20,
+    },
+    controls: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      paddingTop: 20,
+      ...mx.borderTop(1, 'solid', colors.greyish),
+      [theme.breakpoints.up('sm')]: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+    },
+    backButton: {
+      marginBottom: 20,
+      maxWidth: 320,
+      [theme.breakpoints.up('sm')]: {
+        marginBottom: 0,
+        maxWidth: 100,
+      },
+    },
+    buttonGroup: {
+      display: 'flex',
+      flexDirection: 'column-reverse',
+      alignItems: 'center',
+      width: '100%',
+      maxWidth: 320,
+      [theme.breakpoints.up('sm')]: {
+        flexDirection: 'row',
+      },
+    },
+    continueButton: {
+      marginBottom: 20,
+      [theme.breakpoints.up('sm')]: {
+        marginBottom: 0,
+      },
+    },
+    textButton: {
+      color: colors.coolBlue,
+      textTransform: 'capitalize',
+      marginRight: 15,
+      width: '100%',
+      maxWidth: 145,
+      fontSize: 14,
+      fontWeight: 400,
+      '& .MuiButton-label': {
+        whiteSpace: 'nowrap',
+      },
     },
   })();
 

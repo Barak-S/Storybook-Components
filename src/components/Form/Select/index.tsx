@@ -3,7 +3,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC, ReactNode } from 'react';
 import Select from 'react-select';
-import { colors, ms, Style, StyleProps, Styles } from 'styles';
+import { colors, mc, Style, StyleProps, Styles } from 'styles';
 
 import IndicatorsContainer from './components/IndicatorsContainer';
 import { useStyles } from './styles';
@@ -14,6 +14,7 @@ interface Props extends StyleProps {
   value?: Option;
   options?: Option[];
   style?: Style;
+  className?: string;
   onChange?: (val: Option | undefined) => void;
 }
 
@@ -23,7 +24,7 @@ interface Option {
   icon?: LineAwesomeIconType;
 }
 
-export const FormSelect: FC<Props> = ({ title, placeholder, value, options, style, onChange }) => {
+export const FormSelect: FC<Props> = ({ title, placeholder, value, options, style, className, onChange }) => {
   const classes = useStyles();
 
   const prepareOption = (val: Option): Option => {
@@ -42,7 +43,7 @@ export const FormSelect: FC<Props> = ({ title, placeholder, value, options, styl
   };
 
   return (
-    <FormControl style={ms(styles.container, style)}>
+    <FormControl className={mc(classes.container, className)} style={style}>
       <InputLabel shrink>{title}</InputLabel>
       <Select
         value={value}
@@ -59,7 +60,6 @@ export const FormSelect: FC<Props> = ({ title, placeholder, value, options, styl
 };
 
 const styles: Styles = {
-  container: { display: 'contents' },
   icon: { fill: colors.veryLightPinkTwo },
 };
 
