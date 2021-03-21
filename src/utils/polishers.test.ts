@@ -1,12 +1,12 @@
-import { polishers } from './polishers';
+import { polish } from './polishers';
 
-describe('polishers.clearName()', () => {
+describe('polish.name()', () => {
   test('should return correct val', () => {
-    expect(polishers.clearName('John Doe')).toBe('John Doe');
-    expect(polishers.clearName('John_')).toBe('John');
-    expect(polishers.clearName('Ar. Gen')).toBe('Ar. Gen');
-    expect(polishers.clearName(`Mathias d'Arras`)).toBe(`Mathias d'Arras`);
-    expect(polishers.clearName(`Martin Luther King, Jr.`)).toBe(`Martin Luther King, Jr.`);
-    expect(polishers.clearName(`aaaaabbbbbcccccaaaaabbbbbccccceeeeeddddd`)).toBe(`aaaaabbbbbcccccaaaaabbbbbccccceeeee`);
+    expect(polish.name('John Doe')).toBe('John Doe');
+    expect(polish.name('John_')).toBe('John');
+    expect(polish.name('Ar. Gen')).toBe('Ar. Gen');
+    expect(polish.name(`Mathias d'Arras`)).toBe(`Mathias d'Arras`);
+    expect(polish.name(`Martin Luther King, Jr.`)).toBe(`Martin Luther King, Jr.`);
+    expect(polish.name(`aaaaabbbbbcccccaaaaabbbbbccccceeeeeddddd`)).toBe(`aaaaabbbbbcccccaaaaabbbbbccccceeeee`);
   });
 });

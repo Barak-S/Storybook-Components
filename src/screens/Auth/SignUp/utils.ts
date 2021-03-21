@@ -1,4 +1,4 @@
-import { isDictEmpty, polishers, validators } from 'utils';
+import { isDictEmpty, polish, validators } from 'utils';
 
 export interface FormData {
   firstName?: string;
@@ -35,9 +35,9 @@ export const getFormErrs = (data: FormData): FormErrs | undefined => {
  * @param val - modify form data
  */
 export const polishFormData = (val: FormData): FormData => ({
-  firstName: polishers.clearName(val.firstName),
-  lastName: polishers.clearName(val.lastName),
-  email: polishers.clearEmail(val.email),
-  password: polishers.clearPassword(val.password),
-  confirmPassword: polishers.clearPassword(val.confirmPassword),
+  firstName: polish.name(val.firstName),
+  lastName: polish.name(val.lastName),
+  email: polish.email(val.email),
+  password: polish.password(val.password),
+  confirmPassword: polish.password(val.confirmPassword),
 });

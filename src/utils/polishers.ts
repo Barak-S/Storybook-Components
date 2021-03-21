@@ -22,9 +22,9 @@ const setMaxSize = (val: string | undefined, maxSize: number): string | undefine
   return val.length > maxSize ? val.substring(0, maxSize) : val;
 };
 
-export const polishers = {
-  clearName,
-  clearEmail,
-  clearPassword,
+export const polish = {
+  name: clearName,
+  email: clearEmail,
+  password: clearPassword,
   setMaxSize,
 };

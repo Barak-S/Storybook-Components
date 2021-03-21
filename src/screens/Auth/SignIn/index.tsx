@@ -14,7 +14,7 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, StyleProps } from 'styles';
-import { errToStr, isDictEmpty, polishers, validators } from 'utils';
+import { errToStr, isDictEmpty, polish, validators } from 'utils';
 
 import { styles, useStyles } from './styles';
 
@@ -35,8 +35,8 @@ interface FormData {
 type FormErrs = Partial<Record<keyof FormData, string>> & { request?: string };
 
 const polishData = ({ email, password }: FormData): FormData => ({
-  email: polishers.clearEmail(email),
-  password: polishers.clearPassword(password),
+  email: polish.email(email),
+  password: polish.password(password),
 });
 
 export const AuthSignInScreen: FC<Props> = () => {

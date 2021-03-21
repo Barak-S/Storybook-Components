@@ -11,7 +11,7 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { globalStyles, ms, StyleProps, Styles } from 'styles';
-import { errToStr, polishers, validators } from 'utils';
+import { errToStr, polish, validators } from 'utils';
 
 const log = Log('screens.AuthRecoverPass');
 
@@ -33,7 +33,7 @@ const getFormErrs = (data: FormData): FormErrs | undefined => {
 };
 
 const polishFormData = (data: FormData): FormData => ({
-  email: polishers.clearEmail(data.email),
+  email: polish.email(data.email),
 });
 
 export const AuthRecoverPassScreen: FC<Props> = () => {
