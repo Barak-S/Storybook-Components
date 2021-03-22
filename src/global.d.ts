@@ -19,7 +19,7 @@ declare module '*.json' {
 }
 
 declare module '*.md' {
-  const content: string;
+  const content: unknown;
   export default content;
 }
 
