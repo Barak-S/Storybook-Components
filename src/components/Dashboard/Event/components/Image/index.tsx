@@ -24,7 +24,13 @@ export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, on
       {source && <Image source={source} className={classes.image} />}
       {isEventSetup && (
         <Grid className={classes.overlay}>
-          <ContainedButton theme="small" className={classes.editBtn} endIcon="chevron-circle-right" onClick={onEditClick}>
+          <ContainedButton
+            size="small"
+            color="red"
+            className={classes.editBtn}
+            endIcon="chevron-circle-right"
+            onClick={onEditClick}
+          >
             {'review & update'}
           </ContainedButton>
         </Grid>
@@ -87,7 +93,8 @@ const useStyles = (theme: Theme) =>
       },
     },
     editBtn: {
-      background: colors.rustyRed,
+      paddingLeft: 0,
+      paddingRight: 0,
       maxWidth: 220,
     },
   })();

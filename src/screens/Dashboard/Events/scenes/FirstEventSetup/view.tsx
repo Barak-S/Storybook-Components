@@ -1,4 +1,5 @@
-import { Button, Grid, IconButton, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { ContainedButton } from 'components/Buttons';
 import { Title } from 'components/Common';
 import { DashbaordStepperMobileLabel, DashboardSceneContainer } from 'components/Dashboard';
 import { LineAwesomeIcon } from 'components/Icons';
@@ -43,15 +44,15 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
           )}
           {isMobile && <DashbaordStepperMobileLabel steps={steps} curStepIndex={curStepIndex} />}
         </Grid>
-        <Button
+        <ContainedButton
           className={classes.actionButton}
-          variant="contained"
           color="primary"
-          endIcon={<LineAwesomeIcon type={iconType} />}
+          size="normal"
+          endIcon={iconType}
           onClick={onActionBtnClick}
         >
           {actionBtnTitle}
-        </Button>
+        </ContainedButton>
       </Grid>
     </DashboardSceneContainer>
   );
@@ -64,12 +65,6 @@ const styles: Styles = {
   iconButton: {
     color: colors.coolBlueTwo,
     ...mx.square(40),
-  },
-  actionButtonLabel: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 };
 
@@ -112,21 +107,8 @@ const useStyles = (theme: Theme) =>
     },
     actionButton: {
       width: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
       maxWidth: 180,
-      minHeight: 52,
-      color: colors.white,
-      fontSize: 15,
-      letterSpacing: 2.25,
       padding: '5px 15px',
-      borderRadius: 6,
-      lineHeight: 1.4,
-      textAlign: 'left',
-      '& .MuiIcon-root': {
-        transform: 'translateY(-1px)',
-      },
       [theme.breakpoints.up('md')]: {
         maxWidth: 300,
         textAlign: 'center',

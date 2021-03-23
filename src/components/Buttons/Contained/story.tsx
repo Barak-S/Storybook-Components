@@ -18,12 +18,19 @@ export default ((): StoryMeta<Props> => ({
 
 export const Basic: Story<Props> = args => (
   <View column>
-    <ContainedButton {...args}>{'Log In'}</ContainedButton>
-    <ContainedButton {...args} style={sbStyles.mt10} disabled />
-    <ContainedButton {...args} style={sbStyles.mt10} processing disabled />
-    <ContainedButton {...args} style={sbStyles.mt10} endIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.mt10} theme="small" endIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.mt10} theme="small" startIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb30}>
+      {'Log In'}
+    </ContainedButton>
+    <ContainedButton {...args} style={sbStyles.mb10} size="small" disabled />
+    <ContainedButton {...args} style={sbStyles.mb10} size="small" processing />
+    <ContainedButton {...args} style={sbStyles.mb10} size="small" endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb10} size="small" startIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb30} size="small" color="red" />
+    <ContainedButton {...args} style={sbStyles.mb10} disabled />
+    <ContainedButton {...args} style={sbStyles.mb10} processing />
+    <ContainedButton {...args} style={sbStyles.mb10} endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb10} startIcon="plus-circle" />
+    <ContainedButton {...args} color="red" />
   </View>
 );
 
@@ -32,5 +39,3 @@ export const Disabled: Story<Props> = args => <ContainedButton {...args} disable
 export const Processing: Story<Props> = args => <ContainedButton {...args} processing />;
 
 export const PlusType: Story<Props> = args => <ContainedButton {...args} endIcon="plus-circle" />;
-
-export const RedTheme: Story<Props> = args => <ContainedButton {...args} theme="small" />;

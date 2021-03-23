@@ -92,7 +92,7 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
       </FormRow>
       <FormRow style={{ justifyContent: 'flex-end' }}>
         <ContainedButton
-          theme="small"
+          size="small"
           onClick={onSubmit}
           endIcon="envelope-open"
           className={classes.submit}
