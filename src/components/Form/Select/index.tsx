@@ -1,13 +1,11 @@
-import { FormControl, InputLabel, makeStyles, MenuItem, Select, SelectProps } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, SelectProps } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
 import { mc, StyleProps } from 'styles';
 import { genId } from 'utils';
 
-export interface SelectOption {
-  name?: string | undefined;
-  value: unknown;
-}
+type Props = StyleProps & CustomProps;
 
 interface CustomProps extends SelectProps {
   label: string;
@@ -15,7 +13,10 @@ interface CustomProps extends SelectProps {
   className?: string;
 }
 
-type Props = StyleProps & CustomProps;
+export interface SelectOption {
+  name?: string | undefined;
+  value: unknown;
+}
 
 export const FormSelect: FC<Props> = ({ label, className, options, ...props }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -48,7 +49,7 @@ export const FormSelect: FC<Props> = ({ label, className, options, ...props }) =
   );
 };
 
-const useStyles = makeStyles({
+export const useStyles = makeStyles({
   container: {
     width: '100%',
     height: 52,

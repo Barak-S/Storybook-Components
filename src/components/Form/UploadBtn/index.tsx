@@ -2,15 +2,15 @@ import React, { FC, useState, useEffect } from 'react';
 import { useStyles } from './styles';
 import { LineAwesomeIcon } from 'components/Icons';
 import IconButton from '@material-ui/core/IconButton';
-import { colors } from 'styles';
+import { colors, mc, StyleProps } from 'styles';
 
-interface Props {
-  styleName?: string;
+interface Props extends StyleProps {
   isUpload?: boolean;
   image?: string;
+  className?: string;
 }
 
-export const FormUploadBtn: FC<Props> = ({ image, styleName, isUpload }) => {
+export const FormUploadBtn: FC<Props> = ({ image, className, isUpload }) => {
   const [, setColor] = useState(colors.marineBlue);
   const [imageFile, setFile] = useState('');
   const classes = useStyles();
@@ -32,20 +32,20 @@ export const FormUploadBtn: FC<Props> = ({ image, styleName, isUpload }) => {
   };
 
   return (
-    <div className={classes.blockUpload}>
-      {isUpload ? (
+    <div className={mc(classes.container, className)}>
+      {isUpload && (
         <input onChange={() => handleChange} accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-      ) : null}
+      )}
       <label htmlFor="icon-button-file">
         <IconButton
-          className={styleName ? styleName : classes.iconBtn}
+          className={classes.iconBtn}
           aria-label="upload picture"
           component="span"
           onMouseEnter={() => setColor(colors.marineBlue)}
-          onMouseLeave={() => setColor('#012169')}
+          onMouseLeave={() => setColor(colors.marineBlue)}
         >
           {imageFile && <img src={imageFile} className={`${classes.imagePrev}`} />}
-          <LineAwesomeIcon size={48} type="plus" color="#012169" />
+          <LineAwesomeIcon size={48} type="plus" color={colors.marineBlue} />
         </IconButton>
       </label>
     </div>

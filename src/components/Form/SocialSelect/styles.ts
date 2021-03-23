@@ -40,7 +40,6 @@ export const useStyles = () =>
     title: {
       display: 'flex',
     },
-
     error: {
       border: 'red',
     },

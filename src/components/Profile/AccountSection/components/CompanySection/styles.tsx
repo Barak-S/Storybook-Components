@@ -12,26 +12,25 @@ export const useStyles = () =>
     },
     title: {
       letterSpacing: '0px',
-      color: colors.marine,
+      color: colors.coolBlue,
       display: 'block',
     },
     subtitle: {
+      paddingTop: 10,
+      paddingBottom: 12,
       display: 'block',
       letterSpacing: '0px',
       color: colors.brownishGrey,
     },
-    blockInf: {
-      display: 'flex',
-      [theme.breakpoints.down('sm')]: {
-        flexDirection: 'column',
-      },
-    },
     inputInf: {
-      maxWidth: '526px',
       marginRight: '40px',
+      [theme.breakpoints.down('md')]: {
+        marginLeft: '15px',
+      },
       [theme.breakpoints.down('sm')]: {
-        maxWidth: 'inherit',
-        margin: '0',
+        marginRight: '0px',
+        marginLeft: '0px',
+        margin: '0px',
       },
     },
     selectorInf: {
@@ -41,4 +40,17 @@ export const useStyles = () =>
         width: 'inherit',
       },
     },
+    uploadImg:{
+      maxHeight: 165,
+      maxWidth: 500,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
+    },
+    companySelect:{
+      maxWidth: 266,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
+    }
   }))();

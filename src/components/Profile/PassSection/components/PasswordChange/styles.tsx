@@ -14,11 +14,13 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
+      paddingTop: 8,
     },
     subtitle: {
       display: 'block',
       letterSpacing: '0px',
       color: colors.brownishGrey,
+      paddingTop: 12,
     },
     blockInf: {
       marginBottom: '50px',

@@ -16,9 +16,9 @@ export const ProfilePassSectionPasswordChange: FC<Props> = ({ style }) => {
   return (
     <View style={style} className={classes.passSection}>
       <View className={classes.headerSection}>
-        <span className={classes.title}>{'Bio'}</span>
+        <span className={classes.title}>{'Change Your Password'}</span>
         <span className={classes.subtitle}>
-          {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
+          {'Password length must be minimum 8 characters, should be alphanumeric with 1 special character.'}
         </span>
       </View>
       <View className={classes.blockInf}>

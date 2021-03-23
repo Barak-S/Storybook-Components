@@ -7,6 +7,7 @@ interface Props extends StyleProps {
   title?: string;
   placehoder?: string;
   value?: NetworkType;
+  className?: string;
   onChange?: (val: NetworkType | undefined) => void;
 }
 
@@ -17,7 +18,7 @@ const options: Option[] = [
   { value: 'google', name: 'Google' },
 ];
 
-export const FormSocialSelect: FC<Props> = ({ style, title, label, placehoder, value, onChange }) => {
+export const FormSocialSelect: FC<Props> = ({ style, className, title, label, placehoder, value, onChange }) => {
   const typeToOption = (val: NetworkType): Option | undefined => {
     switch (val) {
       case 'facebook':
@@ -48,6 +49,7 @@ export const FormSocialSelect: FC<Props> = ({ style, title, label, placehoder, v
 
   return (
     <FormSelect
+      className={className}
       label={label}
       style={style}
       title={title}

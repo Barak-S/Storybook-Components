@@ -4,7 +4,6 @@ import { colors } from 'styles';
 export const useStyles = () =>
   makeStyles(() => ({
     ReaderSection: {
-      width: 'fit-content',
       marginBottom: '37px',
     },
     headerSection: {
@@ -14,6 +13,7 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
+      paddingBottom: 9
     },
     subtitle: {
       display: 'block',

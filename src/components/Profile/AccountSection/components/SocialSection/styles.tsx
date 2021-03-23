@@ -4,7 +4,6 @@ import { colors } from 'styles';
 export const useStyles = () =>
   makeStyles((theme: Theme) => ({
     socSection: {
-      width: '-webkit-fill-available',
       marginBottom: '37px',
     },
     headerSection: {
@@ -14,6 +13,7 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
+      paddingBottom: 9,
     },
     subtitle: {
       display: 'block',
@@ -35,9 +35,17 @@ export const useStyles = () =>
       },
     },
     inputText: {
+      maxWidth: 386,
       margin: '0 35px',
       [theme.breakpoints.down('sm')]: {
         margin: '15px 0',
+        maxWidth: '100%',
       },
     },
+    socSelect:{
+      maxWidth: 198,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },  
+    }
   }))();

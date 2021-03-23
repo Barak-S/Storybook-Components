@@ -32,9 +32,7 @@ export const useStyles = () =>
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      [theme.breakpoints.down('md')]: {
-        display: 'none',
-      },
+      alignItems: 'center',
     },
     titleInput: {
       fontSize: '15px',
@@ -58,9 +56,6 @@ export const useStyles = () =>
       width: '18px',
       height: '20px',
       fontFamily: 'Rubik',
-      [theme.breakpoints.down('md')]: {
-        display: 'none',
-      },
     },
     blockSubmit: {
       position: 'relative',

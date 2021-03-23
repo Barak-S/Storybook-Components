@@ -1,18 +1,22 @@
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
-import { Style } from 'styles';
+import { colors, mc, StyleProps } from 'styles';
 
 import { FormSelectFileBtn } from '../SelectFileBtn';
 import { useStyles } from './styles';
 
-interface Props {
-  style?: Style;
+interface Props extends StyleProps {
+  className?: string;
 }
 
-export const FormDragnDropImage: FC<Props> = ({ style }) => {
-  const [imageFile, setFile] = useState('');
+export const FormDragnDropImage: FC<Props> = ({ style, className }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [imageFile, setFile] = useState('');
 
   const handleClick = (e: React.DragEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -35,20 +39,21 @@ export const FormDragnDropImage: FC<Props> = ({ style }) => {
   };
 
   return (
-    <View style={style}>
-      <View row className={classes.container}>
-        <input onClick={handleClick} type="file" className={classes.inputFile} onChange={() => handleChange} />
-        {imageFile && <img src={imageFile} className={classes.imagePrev} />}
-        <View column className={classes.blockImage}>
-          <View className={classes.icon}>
-            <LineAwesomeIcon size={62} type="image" color="#407ec9" />
+    <View className={mc(classes.container, className)} style={style} row>
+      <input onClick={handleClick} type="file" className={classes.inputFile} onChange={() => handleChange} />
+      {imageFile && <img src={imageFile} className={classes.imagePrev} />}
+      {!isMobile && (
+        <>
+          <View column className={classes.blockImage}>
+            <View className={classes.icon}>
+              <LineAwesomeIcon size={62} type="image" color={colors.coolBlueTwo} />
+            </View>
+            <span className={classes.titleInput}>{'Drag an image here'}</span>
           </View>
-          <span className={classes.titleInput}>{'Drag an image here'}</span>
-        </View>
-        <span className={classes.blockCenter}>{'Or'}</span>
-        {!imageFile && <FormSelectFileBtn onFileSelect={() => updateData} />}
-      </View>
-      {imageFile && <FormSelectFileBtn onFileSelect={() => updateData} />}
+          <span className={classes.blockCenter}>{'Or'}</span>
+        </>
+      )}
+      {!imageFile && <FormSelectFileBtn onFileSelect={() => updateData} />}
     </View>
   );
 };

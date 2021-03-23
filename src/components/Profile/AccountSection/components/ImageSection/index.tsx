@@ -1,8 +1,7 @@
 import { View } from 'components/Common';
 import { FormSelectFileBtn, FormUploadBtn } from 'components/Form';
 import React, { FC, useState } from 'react';
-import { Style } from 'styles';
-
+import { Style } from 'styles'
 import { useStyles } from './styles';
 
 interface Props {
@@ -20,7 +19,7 @@ export const ProfileAccountImageSection: FC<Props> = ({ style }) => {
   return (
     <View style={style} className={classes.avaBlock}>
       <View className={classes.avatar}>
-        <FormUploadBtn isUpload image={imageFile} />
+        <FormUploadBtn isUpload image={imageFile} className={classes.imgBlock} />
       </View>
       <FormSelectFileBtn onFileSelect={() => updateData} />
     </View>

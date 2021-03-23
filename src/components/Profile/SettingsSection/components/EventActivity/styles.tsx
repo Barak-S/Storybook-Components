@@ -14,6 +14,7 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
+      paddingBottom: 10,
     },
     subtitle: {
       display: 'block',
@@ -25,6 +26,7 @@ export const useStyles = () =>
       marginBottom: '50px',
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
+        marginBottom: '10px',
       },
       '&>div': {
         width: '-webkit-fill-available',
