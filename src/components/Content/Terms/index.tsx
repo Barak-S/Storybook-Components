@@ -313,20 +313,22 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
 const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      padding: '45px 20px',
+      padding: '70px 100px',
       borderRadius: 20,
-      width: '100%',
+      margin: '55px 105px',
+      maxWidth: '95%',
       alignItems: 'center',
       position: 'relative',
-      maxWidth: '82.5%',
-      lineHeight: 1.3,
-
-      [theme.breakpoints.up('lg')]: {
-        padding: '70px 100px',
+      lineHeight: 1.5,
+      [theme.breakpoints.down('lg')]: {
+        padding: '45px 20px',
       },
       [theme.breakpoints.down('md')]: {
+        margin: '35px 20px',
         borderRadius: 30,
-        paddingTop: '40px'
+      },
+      [theme.breakpoints.down('sm')]: {
+        margin: '35px 10px',
       },
     },
     primaryHeader: {

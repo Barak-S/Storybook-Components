@@ -26,7 +26,7 @@ export const AuthTermsScreen: FC<Props> = () => {
             {'Sign up'}
           </TextLink>
         </View>
-        <ContentTerms className={classes.content} />
+        <ContentTerms />
       </BackgroundedContainer>
     </>
   );
@@ -34,9 +34,6 @@ export const AuthTermsScreen: FC<Props> = () => {
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
-    content: {
-      margin: '10px 35px',
-    },
     textLink: {
       textTransform: 'capitalize',
       marginRight: 19,
