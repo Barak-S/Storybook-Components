@@ -18,27 +18,14 @@ interface Section {
 
 export const AccordionSections: FC<Props> = ({ style, sections }) => {
   const classes = useStyles();
-
   return (
     <View style={styles.container}>
       {sections.map(({ id, title, content }) => (
-        <Accordion 
-          style={ms(styles.blockHeading, style)} 
-          key={id}
-          classes={{
-              root: classes.root,
-            }} 
-        >
-          <AccordionSummary 
-            classes={{
-              root: classes.accordion,
-            }} 
-            expandIcon={<LineAwesomeIcon
-              color={colors.marineBlue} 
-              type="chevron-circle-down"
-                        />}
+        <Accordion style={ms(styles.blockHeading, style)} key={id} classes={{ root: classes.root }}>
+          <AccordionSummary
+            classes={{ root: classes.accordion }}
+            expandIcon={<LineAwesomeIcon color={colors.marineBlue} type="chevron-circle-down" />}
           >
-            
             <Typography style={styles.heading}>{title}</Typography>
           </AccordionSummary>
           <AccordionDetails style={styles.content}>
@@ -63,36 +50,35 @@ const styles: Styles = {
   content: {
     background: 'white',
   },
-  icon: { 
-    fill: colors.marineBlue, 
-    transform: 'rotate(-90deg)' 
+  icon: {
+    fill: colors.marineBlue,
+    transform: 'rotate(-90deg)',
   },
 };
 
-const useStyles = () =>
-  makeStyles({
-    root:{
-      '&:before': {
-        display: 'none'
-      }
+const useStyles = makeStyles({
+  root: {
+    '&:before': {
+      display: 'none',
     },
-    accordion: {
-      '& .MuiIcon-root': {
-        fill: colors.marineBlue, 
-        transform: 'rotate(-90deg)' ,
-        transition: '0.3s ease',
-        '&:hover': {
-          transform: 'rotate(0)'
-        },
-      },
-      '& .Mui-expanded':{
+  },
+  accordion: {
+    '& .MuiIcon-root': {
+      fill: colors.marineBlue,
+      transform: 'rotate(-90deg)',
+      transition: '0.3s ease',
+      '&:hover': {
         transform: 'rotate(0)',
-        '& .MuiIcon-root': {
-          transform: 'rotate(0deg)' ,
-        },
       },
     },
-  })();
+    '& .Mui-expanded': {
+      transform: 'rotate(0)',
+      '& .MuiIcon-root': {
+        transform: 'rotate(0deg)',
+      },
+    },
+  },
+});
 
 export type AccordionSectionsProps = Props;
 export default AccordionSections;

@@ -156,8 +156,14 @@ export const sbAutoDetectActionProps: StoryMetaActionsParameter = {
 };
 
 export const sbStyles: Styles = {
-  rowIndent: {
-    marginTop: 14,
+  mt10: {
+    marginTop: 10,
+  },
+  mb10: {
+    marginBottom: 10,
+  },
+  mb30: {
+    marginBottom: 30,
   },
 };
 

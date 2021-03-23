@@ -1,7 +1,7 @@
-import { Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { EventStatus } from 'components/Events/types';
 import React, { FC } from 'react';
-import { colors, StyleProps } from 'styles';
+import { colors, StyleProps, useScreenSizes } from 'styles';
 
 import EventDate from './components/Date';
 import EventHeader from './components/Header';
@@ -74,13 +74,7 @@ export const DashboardEvent: FC<Props> = ({
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const {
-    breakpoints: { up, down },
-  } = theme;
-
-  const isTablet = useMediaQuery(down('md'));
-  const isMobile = useMediaQuery(down('sm'));
-  const isDesktop = useMediaQuery(up('lg'));
+  const { isMobile, isDesktop, isTablet } = useScreenSizes();
 
   const handleImageOnCopyClick = () => {
     if (onCopyToClipboardClick) {

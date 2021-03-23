@@ -1,18 +1,19 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { FormRow, FormSelect, FormTextArea, FormTextInput as TextInput } from 'components/Form';
-import React, { FC } from 'react';
-import { HandleTextInputChange, TeamFormData, HandleSelectFieldChange } from 'screens/Dashboard/Onboarding/Team';
+import React, { ChangeEvent, FC } from 'react';
+import { TeamMemberInvite } from 'core/api';
 import { colors, mc, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  data: TeamFormData;
-  onTextFieldChange: HandleTextInputChange;
-  onSelectFieldChange: HandleSelectFieldChange;
-  onSubmit: () => void;
+  data?: FormData;
+  onChange?: (data: FormData) => void;
+  onSubmit?: () => void;
 }
 
-export const TeamMemberForm: FC<Props> = ({ data, onTextFieldChange, onSelectFieldChange, onSubmit }) => {
+type FormData = Partial<TeamMemberInvite>;
+
+export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit, onChange }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -38,22 +39,35 @@ export const TeamMemberForm: FC<Props> = ({ data, onTextFieldChange, onSelectFie
     },
   ];
 
+  const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    onChange && onChange({ ...data, [key]: event.currentTarget.value });
+  };
+
+  const handleSelectChange = (key: keyof FormData) => (event: ChangeEvent<{ name?: string; value: unknown }>) => {
+    onChange && onChange({ ...data, [key]: event.currentTarget.value });
+  };
+
   return (
-    <Grid component="form" className={classes.container}>
+    <Grid style={style} component="form" className={classes.container}>
       <FormRow>
         <TextInput
           className={classes.half}
           label="first name"
           value={firstName || ''}
-          onChange={onTextFieldChange('firstName')}
+          onChange={handleTextFieldChanged('firstName')}
         />
-        <TextInput className={classes.half} label="last name" value={lastName || ''} onChange={onTextFieldChange('lastName')} />
+        <TextInput
+          className={classes.half}
+          label="last name"
+          value={lastName || ''}
+          onChange={handleTextFieldChanged('lastName')}
+        />
       </FormRow>
       <FormRow>
-        <TextInput label="company name" value={companyName || ''} onChange={onTextFieldChange('companyName')} />
+        <TextInput label="company name" value={companyName || ''} onChange={handleTextFieldChanged('companyName')} />
       </FormRow>
       <FormRow>
-        <TextInput label="email" value={email || ''} onChange={onTextFieldChange('email')} />
+        <TextInput label="email" value={email || ''} onChange={handleTextFieldChanged('email')} />
       </FormRow>
       <FormRow>
         <FormSelect
@@ -62,7 +76,7 @@ export const TeamMemberForm: FC<Props> = ({ data, onTextFieldChange, onSelectFie
           options={userGroups}
           name="userGroup"
           value={userGroup || ''}
-          onChange={onSelectFieldChange}
+          onChange={handleSelectChange('userGroup')}
         />
         <FormSelect
           className={mc(classes.half, classes.select)}
@@ -70,11 +84,11 @@ export const TeamMemberForm: FC<Props> = ({ data, onTextFieldChange, onSelectFie
           options={companyTypes}
           name="companyType"
           value={companyType || ''}
-          onChange={onSelectFieldChange}
+          onChange={handleSelectChange('companyType')}
         />
       </FormRow>
       <FormRow>
-        <FormTextArea label="invititation message" value={message || ''} onChange={onTextFieldChange('message')} />
+        <FormTextArea label="invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />
       </FormRow>
       <FormRow style={{ justifyContent: 'flex-end' }}>
         <ContainedButton
@@ -137,4 +151,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default TeamMemberForm;
+export type OnboardingTeamScreenFormData = FormData;
+export default OnboardingTeamScreenForm;

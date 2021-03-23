@@ -1,22 +1,23 @@
 import { List, ListItem, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { TeamMemberInvite } from 'core/api';
 import React, { FC } from 'react';
-import { TeamFormData } from 'screens/Dashboard/Onboarding/Team';
 import { StyleProps } from 'styles';
-import TeamMemberCard from '../TeamMemberCard';
+
+import TeamMemberCard from '../MemberInviteCard';
 
 interface Props extends StyleProps {
-  members: TeamFormData[];
+  items: TeamMemberInvite[];
 }
 
-export const TeamMemberList: FC<Props> = ({ members }) => {
+export const TeamMemberInvitesList: FC<Props> = ({ items }) => {
   const theme = useTheme();
   const classes = useStyle(theme);
 
   return (
     <List className={classes.container}>
-      {members.map(memberData => (
-        <ListItem key={memberData.email} className={classes.listItem}>
-          <TeamMemberCard data={memberData} />
+      {items.map(item => (
+        <ListItem key={item.email} className={classes.listItem}>
+          <TeamMemberCard data={item} />
         </ListItem>
       ))}
     </List>
@@ -45,4 +46,4 @@ const useStyle = (theme: Theme) =>
     },
   })();
 
-export default TeamMemberList;
+export default TeamMemberInvitesList;

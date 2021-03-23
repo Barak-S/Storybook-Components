@@ -1,46 +1,31 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
-import { SelectOption } from 'components/Form';
-import { OnboardingContainer, OnboardingStep, TeamMemberForm, TeamMemberList } from 'components/Onboarding';
-import React, { ChangeEvent, FC, useState } from 'react';
+import { SetupContainer, SetupStep } from 'components/Setup';
+import { TeamMemberInvitesList } from 'components/Team';
+import { isTeamMemberInvite, TeamMemberInvite } from 'core/api';
+import React, { FC, useState } from 'react';
 import { StyleProps } from 'styles';
 
+import OnboardingTeamScreenForm, { OnboardingTeamScreenFormData as FormData } from './components/Form';
+
 interface Props extends StyleProps {
-  steps: OnboardingStep[];
+  steps: SetupStep[];
   onCloseClick?: () => void;
 }
 
-export interface TeamFormData {
-  firstName?: string;
-  lastName?: string;
-  companyName?: string;
-  email?: string;
-  userGroup?: string;
-  companyType?: string;
-  message?: string;
-}
-
-export type HandleTextInputChange = (
-  key: keyof TeamFormData,
-) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-
-export type HandleSelectFieldChange = (event: ChangeEvent<SelectOption>) => void;
-
 export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
-  const [invitedMembers, setInvitedMembers] = useState<TeamFormData[]>([]);
-  const [data, setData] = useState<TeamFormData>({});
+  const [invites, setInvites] = useState<TeamMemberInvite[]>([]);
+  const [data, setData] = useState<FormData | undefined>();
 
-  const handleTextFieldChanged: HandleTextInputChange = key => event => {
-    setData({ ...data, [key]: event.currentTarget.value });
+  const handleFormChange = (newData: FormData) => {
+    setData(newData);
   };
 
-  const handleSelectFieldChanged: HandleSelectFieldChange = ({ target: { name, value } }) => {
-    setData({ ...data, [String(name)]: value });
-  };
-
-  const handleSubmitForm = () => {
-    setInvitedMembers([...invitedMembers, data]);
-    setData({});
+  const handleFormSubmit = () => {
+    if (isTeamMemberInvite(data)) {
+      setInvites([...invites, data]);
+    }
+    setData(undefined);
   };
 
   const theme = useTheme();
@@ -49,19 +34,14 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
   return (
     <>
       <ScreenTitle title="Onboarding Team" />
-      <OnboardingContainer title="Create Your Event" steps={steps} curStepIndex={1} onCloseClick={onCloseClick}>
+      <SetupContainer title="Create Your Event" steps={steps} curStepIndex={1} onCloseClick={onCloseClick}>
         <Grid className={classes.container}>
           <Grid className={classes.content}>
-            <TeamMemberForm
-              data={data}
-              onTextFieldChange={handleTextFieldChanged}
-              onSelectFieldChange={handleSelectFieldChanged}
-              onSubmit={handleSubmitForm}
-            />
-            <TeamMemberList members={invitedMembers} />
+            <OnboardingTeamScreenForm data={data} onChange={handleFormChange} onSubmit={handleFormSubmit} />
+            <TeamMemberInvitesList items={invites} />
           </Grid>
         </Grid>
-      </OnboardingContainer>
+      </SetupContainer>
     </>
   );
 };

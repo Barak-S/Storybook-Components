@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent } from 'react';
 import { StyleProps } from 'styles';
-import FormSelect, { SelectOption as Option } from '../Select';
+import FormSelect, { FormSelectOption as Option } from '../Select';
 
 interface Props extends StyleProps {
   label: string;

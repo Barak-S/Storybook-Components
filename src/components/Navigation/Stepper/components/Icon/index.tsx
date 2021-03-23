@@ -34,21 +34,21 @@ const useStyles = (theme: Theme) =>
       ...mx.square(13),
       ...mx.border(3, 'solid', 'currentColor'),
       [theme.breakpoints.up('md')]: {
-        ...mx.square(40),
         fontSize: 16,
         background: colors.white,
+        ...mx.square(40),
       },
     },
     active: {
       fontSize: 16,
-      ...mx.square(40),
       background: colors.white,
+      ...mx.square(40),
     },
     completed: {
-      ...mx.square(25),
       fontSize: 16,
       background: colors.warmPurple,
       color: colors.white,
+      ...mx.square(25),
       ...mx.border(3, 'solid', colors.warmPurple),
       [theme.breakpoints.up('md')]: {
         ...mx.square(40),

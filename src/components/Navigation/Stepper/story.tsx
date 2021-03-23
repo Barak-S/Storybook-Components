@@ -1,5 +1,5 @@
 import React from 'react';
-import { sbChromaticDefViewports, Story, StoryMeta } from 'utils';
+import { sbChromaticDefViewports, sbStyles, Story, StoryMeta } from 'utils';
 
 import Stepper, { StepperProps as Props } from '.';
 
@@ -16,8 +16,8 @@ export default ((): StoryMeta<Props> => ({
 
 export const Basic: Story<Props> = args => (
   <>
-    <Stepper {...args} activeStep={0} style={{ marginBottom: 30 }} />
-    <Stepper {...args} activeStep={1} style={{ marginBottom: 30 }} />
+    <Stepper {...args} activeStep={0} style={sbStyles.mb30} />
+    <Stepper {...args} activeStep={1} style={sbStyles.mb30} />
     <Stepper {...args} activeStep={2} />
   </>
 );

@@ -1,39 +1,40 @@
-import { Button, Grid, makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import { ContainedButton, RoundedIconButton } from 'components/Buttons';
+import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { RoundedIconButton, TextButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { DashbaordStepperMobileLabel } from 'components/Dashboard';
 import { Stepper } from 'components/Navigation';
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'screens/consts';
-import { colors, mx, StyleProps } from 'styles';
+import { colors, mx, StyleProps, useScreenSizes } from 'styles';
+
+import SetupContainerFooter from './components/Footer';
 
 interface Props extends StyleProps {
   title: string;
-  steps: OnboardingStep[];
+  steps: SetupStep[];
   curStepIndex?: number;
   onCloseClick?: () => void;
+  onSkipClick?: () => void;
 }
 
-export interface OnboardingStep {
+export interface SetupStep {
   index: number;
-  title: OnboardinStepTitle;
+  title: SetupStepTitle;
   description: string;
   required?: boolean;
   skippable?: boolean;
 }
 
-type OnboardinStepTitle = string | { short: string; long: string };
+type SetupStepTitle = string | { short: string; long: string };
 
-const getShortTitle = (val: OnboardinStepTitle): string => (typeof val === 'string' ? val : val.short);
+const getShortTitle = (val: SetupStepTitle): string => (typeof val === 'string' ? val : val.short);
 
-const getLongTitle = (val: OnboardinStepTitle): string => (typeof val === 'string' ? val : val.long);
+const getLongTitle = (val: SetupStepTitle): string => (typeof val === 'string' ? val : val.long);
 
-export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, children }) => {
+export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, onSkipClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isMobile, isDesktop } = useScreenSizes();
+
   const stepperSteps = steps.map(val => getShortTitle(val.title));
 
   const { title: curStepTitle, description: curStepDescription, required, skippable } = steps[curStepIndex];
@@ -65,31 +66,16 @@ export const OnboardingContainer: FC<Props> = ({ title, steps, curStepIndex = 0,
               <Text className={classes.stepDescription}>{curStepDescription}</Text>
               {required && <Text className={classes.stepRequired}>{'required*'}</Text>}
               {skippable && (
-                <Link to={routes.dashboard.events} className={classes.stepSkip}>
+                <TextButton onClick={onSkipClick} className={classes.stepSkip}>
                   {'Skip for Now'}
-                </Link>
+                </TextButton>
               )}
             </Grid>
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid className={classes.body}>
               {children}
-              <Grid className={classes.controls}>
-                <ContainedButton
-                  theme="small"
-                  className={classes.backButton}
-                  startIcon="chevron-circle-left"
-                  disabled={!curStepIndex}
-                >
-                  {'back'}
-                </ContainedButton>
-                <Grid className={classes.buttonGroup}>
-                  <Button className={classes.textButton}>{'Save & Continue Later'}</Button>
-                  <ContainedButton theme="small" endIcon="chevron-circle-right" className={classes.continueButton}>
-                    {'continue'}
-                  </ContainedButton>
-                </Grid>
-              </Grid>
+              <SetupContainerFooter className={classes.controls} />
             </Grid>
           </Grid>
         </Grid>
@@ -195,10 +181,8 @@ const useStyles = (theme: Theme) =>
       marginBottom: 22,
     },
     stepSkip: {
-      display: 'block',
-      color: colors.coolBlueTwo,
-      fontSize: 14,
-      textDecoration: 'none',
+      textAlign: 'left',
+      alignItems: 'flex-start',
     },
     body: {
       height: '100%',
@@ -215,54 +199,10 @@ const useStyles = (theme: Theme) =>
       marginLeft: 20,
     },
     controls: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
       paddingTop: 20,
       ...mx.borderTop(1, 'solid', colors.greyish),
-      [theme.breakpoints.up('sm')]: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      },
-    },
-    backButton: {
-      marginBottom: 20,
-      maxWidth: 320,
-      [theme.breakpoints.up('sm')]: {
-        marginBottom: 0,
-        maxWidth: 100,
-      },
-    },
-    buttonGroup: {
-      display: 'flex',
-      flexDirection: 'column-reverse',
-      alignItems: 'center',
-      width: '100%',
-      maxWidth: 320,
-      [theme.breakpoints.up('sm')]: {
-        flexDirection: 'row',
-      },
-    },
-    continueButton: {
-      marginBottom: 20,
-      [theme.breakpoints.up('sm')]: {
-        marginBottom: 0,
-      },
-    },
-    textButton: {
-      color: colors.coolBlue,
-      textTransform: 'capitalize',
-      marginRight: 15,
-      width: '100%',
-      maxWidth: 145,
-      fontSize: 14,
-      fontWeight: 400,
-      '& .MuiButton-label': {
-        whiteSpace: 'nowrap',
-      },
     },
   })();
 
-export type OnboardingContainerProps = Props;
-export default OnboardingContainer;
+export type SetupContainerProps = Props;
+export default SetupContainer;

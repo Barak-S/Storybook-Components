@@ -34,50 +34,50 @@ export const parameters = {
         type: 'mobile',
       },
       tabletSM: {
-        name: 'Small Tablet (600 x 834)',
+        name: 'Small Tablet (834 x 600)',
         styles: {
-          height: '600px',
           width: '834px',
+          height: '600px',
         },
         type: 'tablet',
       },
       tabletMD: {
         name: 'Medium Tablet (1194 x 834)',
         styles: {
-          height: '1194px',
-          width: '834px',
+          width: '1194px',
+          height: '834px',
         },
         type: 'tablet',
       },
       tabletLG: {
         name: 'Large Tablet (1279 x 720)',
         styles: {
-          height: '1279px',
-          width: '720px',
+          width: '1279px',
+          height: '720px',
         },
         type: 'tablet',
       },
       desktopSM: {
         name: 'Small Desktop (1280 x 720)',
         styles: {
-          height: '1280px',
-          width: '720px',
+          width: '1280px',
+          height: '720px',
         },
         type: 'desktop',
       },
       desktopMD: {
         name: 'Medium Desktop (1366 x 768)',
         styles: {
-          height: '1366px',
-          width: '768px',
+          width: '1366px',
+          height: '768px',
         },
         type: 'desktop',
       },
       desktopLG: {
         name: 'Large Desktop (1920 x 1080)',
         styles: {
-          height: '1920px',
-          width: '1080px',
+          width: '1920px',
+          height: '1080px',
         },
         type: 'desktop',
       },

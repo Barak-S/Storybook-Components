@@ -1,14 +1,16 @@
 import { Button, Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
-import { TeamFormData } from 'screens/Dashboard/Onboarding/Team';
 import { StyleProps, colors, mx } from 'styles';
 import { Text } from 'components/Common';
+import { TeamMemberInvite } from 'core/api';
 
 interface Props extends StyleProps {
-  data: TeamFormData;
+  data: TeamMemberInvite;
 }
 
-export const TeamMemberCard: FC<Props> = ({ data: { firstName, lastName, email, userGroup, companyType, companyName } }) => {
+export const TeamMemberInviteCard: FC<Props> = ({
+  data: { firstName, lastName, email, userGroup, companyType, companyName },
+}) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -117,4 +119,4 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export default TeamMemberCard;
+export default TeamMemberInviteCard;

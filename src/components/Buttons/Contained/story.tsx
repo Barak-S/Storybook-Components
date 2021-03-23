@@ -19,11 +19,11 @@ export default ((): StoryMeta<Props> => ({
 export const Basic: Story<Props> = args => (
   <View column>
     <ContainedButton {...args}>{'Log In'}</ContainedButton>
-    <ContainedButton {...args} style={sbStyles.rowIndent} disabled />
-    <ContainedButton {...args} style={sbStyles.rowIndent} processing disabled />
-    <ContainedButton {...args} style={sbStyles.rowIndent} endIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.rowIndent} theme="small" endIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.rowIndent} theme="small" startIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mt10} disabled />
+    <ContainedButton {...args} style={sbStyles.mt10} processing disabled />
+    <ContainedButton {...args} style={sbStyles.mt10} endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mt10} theme="small" endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mt10} theme="small" startIcon="plus-circle" />
   </View>
 );
 

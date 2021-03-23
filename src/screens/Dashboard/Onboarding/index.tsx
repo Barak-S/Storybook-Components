@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { BackgroundedContainer } from 'components/Layout';
-import { OnboardingStep } from 'components/Onboarding';
+import { SetupStep } from 'components/Setup';
 import React, { FC, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
@@ -13,7 +13,7 @@ import OnboardingThemeScreen from './Theme';
 
 type Props = StyleProps;
 
-const steps: OnboardingStep[] = [
+const steps: SetupStep[] = [
   {
     index: 0,
     title: {

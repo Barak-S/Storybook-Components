@@ -1,3 +1,5 @@
+import { useMediaQuery, useTheme } from '@material-ui/core';
+
 export const screens = {
   desktop: 992,
   lgDesktop: 1200,
@@ -17,4 +19,43 @@ export const headings = {
 export const sizes = {
   ...screens,
   ...headings,
+};
+
+/**
+ * Hook for managing behaviour for a different screen sizes
+ * @returns utils
+ */
+export const useScreenSizes = () => {
+  const theme = useTheme();
+  /**
+   * True, when the screen is mobile size
+   * `@media (max-width:599.95px)`
+   * */
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  /**
+   * True, when the screen is tablet size
+   * `@media (min-width:600px) and (max-width:1279.95px)`
+   * */
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  /**
+   * True, when the screen is desktop size
+   * `@media (min-width:1280px)`
+   * */
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+
+  /** Return value, when the screen is mobile size */
+  const whenMobile = <T>(val: T): T | undefined => (isMobile ? val : undefined);
+  /** Return value, when the screen is tablet size */
+  const whenTablet = <T>(val: T): T | undefined => (isTablet ? val : undefined);
+  /** Return value, when the screen is desktop size */
+  const whenDesktop = <T>(val: T): T | undefined => (isMobile ? val : undefined);
+
+  return {
+    isMobile,
+    whenMobile,
+    isTablet,
+    whenTablet,
+    isDesktop,
+    whenDesktop,
+  };
 };

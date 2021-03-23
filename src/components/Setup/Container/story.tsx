@@ -2,9 +2,9 @@ import { BackgroundedContainer } from 'components/Layout';
 import React from 'react';
 import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
-import OnboardingContainer, { OnboardingContainerProps as Props, OnboardingStep } from '.';
+import SetupContainer, { SetupContainerProps as Props, SetupStep } from '.';
 
-const steps: OnboardingStep[] = [
+const steps: SetupStep[] = [
   {
     index: 0,
     title: {
@@ -14,6 +14,7 @@ const steps: OnboardingStep[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
+    skippable: true,
   },
   {
     index: 1,
@@ -48,8 +49,8 @@ const steps: OnboardingStep[] = [
 ];
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Onboarding/Container',
-  component: OnboardingContainer,
+  title: 'components/Setup/Container',
+  component: SetupContainer,
   args: {
     title: 'create your event',
     curStepIndex: 0,
@@ -63,6 +64,6 @@ export default ((): StoryMeta<Props> => ({
 
 export const Basic: Story<Props> = args => (
   <BackgroundedContainer style={{ minHeight: '100vh', justifyContent: 'flex-start' }}>
-    <OnboardingContainer {...args} />
+    <SetupContainer {...args} />
   </BackgroundedContainer>
 );

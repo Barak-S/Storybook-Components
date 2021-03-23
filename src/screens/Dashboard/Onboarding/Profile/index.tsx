@@ -1,10 +1,10 @@
 import { ScreenTitle } from 'components/Common';
-import { OnboardingContainer, OnboardingStep } from 'components/Onboarding';
+import { SetupContainer, SetupStep } from 'components/Setup';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  steps: OnboardingStep[];
+  steps: SetupStep[];
   onCloseClick?: () => void;
 }
 
@@ -12,9 +12,9 @@ export const OnboardingProfileScreen: FC<Props> = ({ steps, onCloseClick }) => {
   return (
     <>
       <ScreenTitle title="Onboarding Profile" />
-      <OnboardingContainer title="add your profile information" steps={steps} curStepIndex={0} onCloseClick={onCloseClick}>
+      <SetupContainer title="add your profile information" steps={steps} curStepIndex={0} onCloseClick={onCloseClick}>
         <h1>{'PROFILE INFORMATION BODY'}</h1>
-      </OnboardingContainer>
+      </SetupContainer>
     </>
   );
 };

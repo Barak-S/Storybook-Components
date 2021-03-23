@@ -9,11 +9,11 @@ type Props = StyleProps & CustomProps;
 
 interface CustomProps extends SelectProps {
   label: string;
-  options: SelectOption[];
+  options: FormSelectOption[];
   className?: string;
 }
 
-export interface SelectOption {
+export interface FormSelectOption {
   name?: string | undefined;
   value: unknown;
 }

@@ -4,11 +4,10 @@ import {
   StepLabel as MaterialStepLabel,
   Stepper as MaterialStepper,
   Theme,
-  useMediaQuery,
   useTheme,
 } from '@material-ui/core';
 import React, { FC } from 'react';
-import { colors, mc, StyleProps } from 'styles';
+import { colors, mc, StyleProps, useScreenSizes } from 'styles';
 
 import StepperIcon from './components/Icon';
 import { StepperConnector } from './styles';
@@ -21,7 +20,7 @@ interface Props extends StyleProps {
 export const Stepper: FC<Props> = ({ steps, activeStep, style }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isMobile } = useScreenSizes();
 
   const renderSteps = steps.map((label, index) => {
     const isCompleted = index < activeStep;
