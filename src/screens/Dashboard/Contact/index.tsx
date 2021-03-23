@@ -139,10 +139,10 @@ export const DashboardContactScreen: FC<Props> = () => {
                 )}
               </Grid>
               <Grid container justify="center" spacing={2}>
-                <Grid item xs={12} sm={12} className={classes.submit}>
-                  <ContainedButton processing={processing} disabled={processing} onClick={submit}>
-                    {'SEND MESSAGE'}
-                  </ContainedButton>
+                <Grid item xs={12} sm={12}>
+                  <View row className={classes.wrapBtn}>
+                    <ContainedButton className={classes.btn} processing={processing} disabled={processing} onClick={submit}>{'SEND MESSAGE'}</ContainedButton>
+                  </View>
                 </Grid>
               </Grid>
             </Grid>
@@ -183,12 +183,9 @@ export const useStyles = (theme: Theme) =>
         paddingRight: 30,
       },      
     },
-    submit:{
-      display: 'felx !important',
-      justifyContent: 'center',
-      textAlign: 'center',
-      marginTop: 20,
-    },
+    // submit:{
+    //   marginTop: 20,
+    // },
     primaryHeader: {
       fontWeight: 500,
       color: colors.warmPurple,
@@ -292,9 +289,18 @@ export const useStyles = (theme: Theme) =>
         },
       },
     },
-    footer: {
-      color: colors.white,
+    wrapBtn: {
+      display: 'flex',
+      justifyContent: 'center',
     },
+    btn: {
+      background: colors.marineBlue,
+      borderRadius: '6px',
+      width: '220px!important',
+      height: '52px',
+      marginTop: 20,
+    },
+
   })();
 
 export type DashboardContactScreenProps = Props;
