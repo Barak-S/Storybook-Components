@@ -1,4 +1,5 @@
 import { each, isArray, isBoolean, flattenDeep, compact, isString } from 'lodash';
+import { useState } from 'react';
 
 import { MergeStyleVals, Style } from './types';
 
@@ -34,3 +35,27 @@ export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string => compact(
 
 /** Scroll to top */
 export const srollToTop = () => window.scrollTo(0, 0);
+
+/**
+ * Hook for helping manage hover state
+ * @returns `hover` - boolean indicates is hovered or not,
+ * `hoverProps` - props required to detect hover
+ */
+export const useHover = () => {
+  const [hover, setHover] = useState<boolean>(false);
+
+  const onMouseEnter = () => {
+    setHover(true);
+  };
+  const onMouseOver = () => {
+    setHover(true);
+  };
+  const onMouseLeave = () => {
+    setHover(false);
+  };
+  const onMouseOut = () => {
+    setHover(false);
+  };
+
+  return { hover, hoverProps: { onMouseEnter, onMouseLeave, onMouseOut, onMouseOver } };
+};

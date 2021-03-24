@@ -1,6 +1,5 @@
-import { makeStyles } from '@material-ui/core';
 import React, { FC, MouseEvent } from 'react';
-import { colors, mc, ms, StyleProps } from 'styles';
+import { colors, ms, StyleProps, Styles, useHover } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -20,21 +19,24 @@ export const TextButton: FC<Props> = ({ className, style, children, href, disabl
       onClick();
     }
   };
-  const classes = useStyles();
+
+  const { hover, hoverProps } = useHover();
+  const styles = getStyles(size);
 
   return (
     <a
-      className={mc(classes.container, disabled && classes.disabled, className)}
-      style={ms({ fontSize: `${size}px` }, style)}
+      className={className}
+      style={ms(styles.container, disabled && styles.disabled, hover && styles.hover, style)}
       href={href}
       onClick={handleClick}
+      {...hoverProps}
     >
       {children}
     </a>
   );
 };
 
-const useStyles = makeStyles(() => ({
+const getStyles = (size: number): Styles => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -46,14 +48,15 @@ const useStyles = makeStyles(() => ({
     whiteSpace: 'nowrap',
     transition: 'all .3s ease-in-out',
     cursor: 'pointer',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
+    fontSize: `${size}px`,
+  },
+  hover: {
+    textDecoration: 'underline',
   },
   disabled: {
     color: colors.greyish,
   },
-}));
+});
 
 export type TextButtonProps = Props;
 export default TextButton;

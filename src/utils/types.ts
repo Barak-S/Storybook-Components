@@ -1,11 +1,10 @@
-import { isEmpty, values } from 'lodash';
+import { isArray, isBoolean, isEmpty, isNull, isNumber, isString, isUndefined, values } from 'lodash';
 
 export interface UnknowDict {
   [index: string]: unknown;
 }
 
-export const isUnknowDict = (candidate: unknown): candidate is UnknowDict =>
-  typeof candidate === 'object' && candidate !== null;
+export const isUnknowDict = (candidate: unknown): candidate is UnknowDict => typeof candidate === 'object' && candidate !== null;
 
 export interface UndefDict {
   [index: string]: undefined;
@@ -28,3 +27,44 @@ export const dataOrUndef = <T>(val: T | null | undefined): T | undefined => (val
  * @param val - Some object
  */
 export const isDictEmpty = (val: UnknowDict): boolean => values(val).every(isEmpty);
+
+export const select = <K extends string | number, T extends unknown>(key: K, data: Record<K, T>) => data[key];
+
+export const removeNullProps = <T>(obj: T): T => {
+  if (isArray(obj)) {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return (obj.map(itm => removeNullProps(itm)) as unknown) as T;
+  }
+  if (isNumber(obj) || isString(obj) || isBoolean(obj)) {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return (obj as unknown) as T;
+  }
+  if (!isUnknowDict(obj)) {
+    return obj;
+  }
+  const newObj: T = { ...obj };
+  for (const key in newObj) {
+    if (isNull(newObj[key])) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete newObj[key];
+    }
+    if (isUnknowDict(newObj[key])) {
+      newObj[key] = removeNullProps(newObj[key]);
+    }
+  }
+  return newObj;
+};
+
+export const removeUndefProps = <T>(obj: T): T => {
+  if (!isUnknowDict(obj)) {
+    return obj;
+  }
+  const newObj: T = { ...obj };
+  for (const key in newObj) {
+    if (isUndefined(newObj[key])) {
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete newObj[key];
+    }
+  }
+  return newObj;
+};

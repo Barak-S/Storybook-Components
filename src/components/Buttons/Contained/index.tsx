@@ -1,13 +1,15 @@
-import { Button, CircularProgress, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Button, CircularProgress, makeStyles } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC } from 'react';
-import { colors, mc, ms, StyleProps } from 'styles';
+import { colors, mc, ms, StyleProps, Styles, useHover } from 'styles';
+import { select } from 'utils';
 
 interface Props extends StyleProps {
   className?: string;
   disabled?: boolean;
   color?: Color;
-  size?: 'medium' | 'large';
+  size?: Size;
+  shadow?: boolean;
   processing?: boolean;
   startIcon?: LineAwesomeIconType;
   endIcon?: LineAwesomeIconType;
@@ -15,6 +17,7 @@ interface Props extends StyleProps {
 }
 
 type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'red';
+type Size = 'medium' | 'large';
 
 export const ContainedButton: FC<Props> = ({
   className,
@@ -22,77 +25,86 @@ export const ContainedButton: FC<Props> = ({
   disabled,
   startIcon,
   endIcon,
+  shadow = true,
   color = 'primary',
   processing,
   size = 'large',
   children,
   onClick,
 }) => {
-  const muiTheme = useTheme();
-  const classes = useStyles(muiTheme);
-
+  const classes = useStyles();
+  const mainColor = select(color, {
+    default: undefined,
+    inherit: undefined,
+    primary: undefined,
+    secondary: undefined,
+    red: colors.rustyRed,
+  });
+  const hoverColor = select(color, {
+    default: colors.coolBlueTwo,
+    inherit: colors.coolBlueTwo,
+    primary: colors.coolBlueTwo,
+    secondary: undefined,
+    red: colors.withAlpha(colors.rustyRed, 0.7),
+  });
+  const styles = getStyles(mainColor, hoverColor, shadow);
+  const { hover, hoverProps } = useHover();
   return (
     <Button
-      className={mc(
-        classes.container,
-        size === 'medium' && classes.containerMedium,
-        size === 'large' && classes.containerLarge,
-        className,
-      )}
-      style={ms(color === 'red' && { backgroundColor: colors.rustyRed }, style)}
+      className={mc(size === 'medium' && classes.containerMedium, size === 'large' && classes.containerLarge, className)}
+      style={ms(styles.container, hover && styles.hover, style)}
       variant="contained"
       color={color !== 'red' ? color : undefined}
       disabled={disabled}
       startIcon={startIcon && <LineAwesomeIcon type={startIcon} />}
       endIcon={endIcon && <LineAwesomeIcon type={endIcon} />}
       onClick={onClick}
+      {...hoverProps}
     >
       {processing ? <CircularProgress color="secondary" size={20} /> : children}
     </Button>
   );
 };
 
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    container: {
-      width: '100%',
-      color: colors.white,
+const getStyles = (mainColor: string | undefined, hoverColor: string | undefined, shadow: boolean): Styles => ({
+  container: {
+    width: '100%',
+    color: colors.white,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: shadow ? `0 3px 5px 0 ${colors.withAlpha(colors.black, 0.3)}` : undefined,
+    borderRadius: 6,
+    backgroundColor: mainColor,
+  },
+  hover: {
+    backgroundColor: hoverColor,
+  },
+});
+
+const useStyles = makeStyles({
+  containerLarge: {
+    minHeight: 52,
+    fontSize: 15,
+    lineHeight: 1.4,
+    '& .MuiIcon-root': {
+      transform: 'translateY(-1px)',
+    },
+  },
+  containerMedium: {
+    height: 34,
+    fontSize: 13,
+    '& .MuiButton-label': {
       display: 'flex',
-      justifyContent: 'center',
       alignItems: 'center',
-      letterSpacing: 2.25,
-      boxShadow: `0 3px 5px 0 ${colors.withAlpha(colors.black, 0.3)}`,
-      borderRadius: 6,
+      height: '100%',
     },
-    containerLarge: {
-      minHeight: 52,
-      fontSize: 15,
-      lineHeight: 1.4,
-      '& .MuiIcon-root': {
-        transform: 'translateY(-1px)',
-      },
-      [theme.breakpoints.up('md')]: {
-        textAlign: 'center',
-      },
+    '& .MuiIcon-root': {
+      fontSize: 'inherit',
+      marginTop: -2,
     },
-    containerMedium: {
-      height: 34,
-      maxHeight: 34,
-      fontSize: 13,
-      '& .MuiButton-label': {
-        display: 'flex',
-        alignItems: 'center',
-        height: '100%',
-      },
-      '& .MuiIcon-root': {
-        fontSize: 'inherit',
-        marginTop: -2,
-      },
-      [theme.breakpoints.up('lg')]: {
-        fontSize: 14,
-      },
-    },
-  })();
+  },
+});
 
 export type ContainedButtonProps = Props;
 export default ContainedButton;
