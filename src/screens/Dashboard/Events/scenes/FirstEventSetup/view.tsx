@@ -47,7 +47,7 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
         <ContainedButton
           className={classes.actionButton}
           color="primary"
-          size="normal"
+          size="large"
           endIcon={iconType}
           onClick={onActionBtnClick}
         >

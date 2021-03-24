@@ -7,5 +7,4 @@ export * from './SceneContainer';
 export * from './ScreenContainer';
 export * from './StepperMobileLabel';
 export * from './TabPanel';
-export * from './Tabs';
 export * from './UserNav';

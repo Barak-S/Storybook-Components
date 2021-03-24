@@ -7,7 +7,7 @@ interface Props extends StyleProps {
   className?: string;
   disabled?: boolean;
   color?: Color;
-  size?: 'small' | 'normal';
+  size?: 'medium' | 'large';
   processing?: boolean;
   startIcon?: LineAwesomeIconType;
   endIcon?: LineAwesomeIconType;
@@ -24,7 +24,7 @@ export const ContainedButton: FC<Props> = ({
   endIcon,
   color = 'primary',
   processing,
-  size = 'normal',
+  size = 'large',
   children,
   onClick,
 }) => {
@@ -35,8 +35,8 @@ export const ContainedButton: FC<Props> = ({
     <Button
       className={mc(
         classes.container,
-        size === 'small' && classes.containerSmall,
-        size === 'normal' && classes.containerNormal,
+        size === 'medium' && classes.containerMedium,
+        size === 'large' && classes.containerLarge,
         className,
       )}
       style={ms(color === 'red' && { backgroundColor: colors.rustyRed }, style)}
@@ -64,7 +64,7 @@ const useStyles = (theme: Theme) =>
       boxShadow: `0 3px 5px 0 ${colors.withAlpha(colors.black, 0.3)}`,
       borderRadius: 6,
     },
-    containerNormal: {
+    containerLarge: {
       minHeight: 52,
       fontSize: 15,
       lineHeight: 1.4,
@@ -75,7 +75,7 @@ const useStyles = (theme: Theme) =>
         textAlign: 'center',
       },
     },
-    containerSmall: {
+    containerMedium: {
       height: 34,
       maxHeight: 34,
       fontSize: 13,

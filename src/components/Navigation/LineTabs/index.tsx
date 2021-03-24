@@ -1,45 +1,50 @@
-import { makeStyles, Tab, Tabs, Theme, useTheme } from '@material-ui/core';
+import { makeStyles, Tab as MaterialTab, Tabs as MaterialTabs, Theme, useTheme } from '@material-ui/core';
 import React, { ChangeEvent, FC } from 'react';
-import { colors, mc, mx, StyleProps } from 'styles';
+import { colors, mc, ms, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
-  tabs: DasbhoardTab[];
+  tabs: Tab[];
   tab?: number;
-  onTabChange: (e: ChangeEvent<unknown>, newValue: number) => void;
+  indicatorPosition?: 'top' | 'bottom';
+  onChange: (e: ChangeEvent<unknown>, newValue: number) => void;
 }
 
-export interface DasbhoardTab {
+interface Tab {
   label: string;
   index: number;
   disabled?: boolean;
   visible?: boolean;
 }
 
-export const DashboardTabs: FC<Props> = ({ style, tab = 0, tabs, className, onTabChange }) => {
+export const LineTabs: FC<Props> = ({ className, style, tab = 0, tabs, indicatorPosition = 'bottom', onChange }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const handleTabClick = (index: number) => {
-    return {
-      id: `full-width-tab-${index}`,
-      'aria-controls': `full-width-tabpanel-${index}`,
-    };
-  };
-
   return (
-    <Tabs style={style} className={mc(classes.container, className)} value={tab} onChange={onTabChange}>
+    <MaterialTabs
+      style={style}
+      className={mc(
+        classes.container,
+        indicatorPosition === 'top' && classes.indicatorTop,
+        indicatorPosition === 'bottom' && classes.indicatorBottom,
+        className,
+      )}
+      value={tab}
+      onChange={onChange}
+    >
       {tabs.map(({ label, index, disabled = false, visible = true }) => (
-        <Tab
+        <MaterialTab
           key={index}
+          id={`full-width-tab-${index}`}
+          style={ms(!visible && { display: 'none' })}
           data-index={index}
           label={label}
           disabled={disabled}
-          {...handleTabClick(index)}
-          style={{ ...(!visible && { display: 'none' }) }}
+          aria-controls={`full-width-tabpanel-${index}`}
         />
       ))}
-    </Tabs>
+    </MaterialTabs>
   );
 };
 
@@ -47,15 +52,9 @@ const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       '& .MuiTabs-indicator': {
-        top: 0,
         height: 5,
         borderRadius: 50,
         background: colors.windowsBlue,
-        [theme.breakpoints.up('md')]: {
-          display: 'block',
-          bottom: 0,
-          transform: 'translateY(1px)',
-        },
       },
       '& .MuiTab-root': {
         padding: '0 10px',
@@ -77,6 +76,20 @@ const useStyles = (theme: Theme) =>
         },
       },
     },
+    indicatorTop: {
+      '& .MuiTabs-indicator': {
+        top: 0,
+      },
+    },
+    indicatorBottom: {
+      '& .MuiTabs-indicator': {
+        bottom: 0,
+        display: 'block',
+        transform: 'translateY(1px)',
+      },
+    },
   })();
 
-export default DashboardTabs;
+export type LineTab = Tab;
+export type LineTabsProps = Props;
+export default LineTabs;

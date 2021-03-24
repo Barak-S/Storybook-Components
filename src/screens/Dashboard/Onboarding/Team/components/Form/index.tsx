@@ -1,9 +1,9 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { FormRow, FormSelect, FormTextArea, FormTextInput as TextInput } from 'components/Form';
-import React, { ChangeEvent, FC } from 'react';
 import { TeamMemberInvite } from 'core/api';
-import { colors, mc, StyleProps } from 'styles';
+import React, { ChangeEvent, FC } from 'react';
+import { mc, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   data?: FormData;
@@ -91,13 +91,7 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
         <FormTextArea label="invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />
       </FormRow>
       <FormRow style={{ justifyContent: 'flex-end' }}>
-        <ContainedButton
-          size="small"
-          onClick={onSubmit}
-          endIcon="envelope-open"
-          className={classes.submit}
-          disabled={submitDisabled}
-        >
+        <ContainedButton size="medium" onClick={onSubmit} endIcon="envelope-open" disabled={submitDisabled}>
           {'invite and add another'}
         </ContainedButton>
       </FormRow>
@@ -133,20 +127,6 @@ const useStyles = (theme: Theme) =>
     select: {
       '&.MuiFormControl-root': {
         display: 'flex',
-      },
-    },
-    submit: {
-      padding: 0,
-      maxHeight: 35,
-      borderRadius: 8,
-      letterSpacing: 1.5,
-      fontSize: 15,
-      '&.MuiButton-root.MuiButton-contained:not(.Mui-disabled)': {
-        background: colors.marineBlue,
-        color: colors.white,
-      },
-      [theme.breakpoints.up('md')]: {
-        maxWidth: 288,
       },
     },
   })();

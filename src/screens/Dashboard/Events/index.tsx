@@ -1,16 +1,11 @@
-import { Grid, Hidden, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, Hidden } from '@material-ui/core';
 import { ScreenTitle } from 'components/Common';
-import {
-  DasbhoardTab,
-  DashboardScreenContainer,
-  DashboardTabPanel,
-  DashboardTabs,
-  DashboardUserNav,
-  DashboardUserNavBtnType,
-} from 'components/Dashboard';
+import { DashboardScreenContainer, DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
+import { LineTab, LineTabs } from 'components/Navigation';
 import { useAuth } from 'core';
 import React, { FC, useState } from 'react';
-import { colors, mx, StyleProps, Styles } from 'styles';
+import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
+
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';
 import DashboardEventsListScene from './scenes/List';
@@ -24,15 +19,11 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const [listVisible, setListVisible] = useState<boolean>(false);
   const { userConfirmed } = useAuth();
 
-  // Handlers
-
   // Render
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const classes = useStyles(theme);
+  const { isMobile, whenMobile } = useScreenSizes();
 
-  const tabs: DasbhoardTab[] = [
+  const tabs: LineTab[] = [
     {
       index: 0,
       label: 'Upcoming',
@@ -55,15 +46,17 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
     },
   ];
 
-  const eventTabs = <DashboardTabs tabs={tabs} tab={tab} onTabChange={(_e, val) => setTab(val)} />;
+  const renderTabs = () => (
+    <LineTabs tabs={tabs} tab={tab} indicatorPosition={isMobile ? 'top' : 'bottom'} onChange={(_e, val) => setTab(val)} />
+  );
 
   return (
     <>
       <ScreenTitle />
       <DashboardScreenContainer style={styles.container}>
-        <Hidden smDown>{eventTabs}</Hidden>
+        <Hidden smDown>{renderTabs()}</Hidden>
         <Grid>
-          <DashboardTabPanel className={classes.tabPanel} value={tab} index={0}>
+          <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
             {!userConfirmed ? (
               <DashboardEmailConfirmScene />
             ) : !listVisible ? (
@@ -74,18 +67,18 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
               <DashboardUserNav disabledBtns={!userConfirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
-          <DashboardTabPanel className={classes.tabPanel} value={tab} index={1}>
+          <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={1}>
             {tabs[1].label}
           </DashboardTabPanel>
-          <DashboardTabPanel className={classes.tabPanel} value={tab} index={2}>
+          <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={2}>
             {tabs[2].label}
           </DashboardTabPanel>
-          <DashboardTabPanel className={classes.tabPanel} value={tab} index={3}>
+          <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={3}>
             {tabs[3].label}
           </DashboardTabPanel>
         </Grid>
         <Hidden mdUp>
-          <Grid style={styles.mobileTabs}>{eventTabs}</Grid>
+          <Grid style={styles.mobileTabsWrap}>{renderTabs()}</Grid>
         </Hidden>
       </DashboardScreenContainer>
     </>
@@ -98,23 +91,19 @@ const styles: Styles = {
     textTransform: 'uppercase',
     color: colors.brownGrey,
   },
-  mobileTabs: {
+  mobileTabsWrap: {
     width: '100%',
     position: 'fixed',
     bottom: 0,
     left: 0,
     ...mx.zIndex.mobileTabs,
   },
+  tabPanel: {
+    padding: '35px 0',
+  },
+  tabPanelMob: {
+    padding: 0,
+  },
 };
-
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    tabPanel: {
-      padding: 0,
-      [theme.breakpoints.up('md')]: {
-        padding: '35px 0',
-      },
-    },
-  })();
 
 export default DashboardEventsScreen;

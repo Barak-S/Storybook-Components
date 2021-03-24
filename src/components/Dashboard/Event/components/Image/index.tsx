@@ -25,7 +25,7 @@ export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, on
       {isEventSetup && (
         <Grid className={classes.overlay}>
           <ContainedButton
-            size="small"
+            size="medium"
             color="red"
             className={classes.editBtn}
             endIcon="chevron-circle-right"

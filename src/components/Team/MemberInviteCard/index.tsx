@@ -1,18 +1,20 @@
-import { Button, Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
-import React, { FC } from 'react';
-import { StyleProps, colors, mx } from 'styles';
+import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { TextButton } from 'components/Buttons';
 import { Text } from 'components/Common';
 import { TeamMemberInvite } from 'core/api';
+import React, { FC } from 'react';
+import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   data: TeamMemberInvite;
+  onResendClick?: () => void;
 }
 
-export const TeamMemberInviteCard: FC<Props> = ({
-  data: { firstName, lastName, email, userGroup, companyType, companyName },
-}) => {
+export const TeamMemberInviteCard: FC<Props> = ({ data, onResendClick }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  const { firstName, lastName, email, userGroup, companyType, companyName } = data;
 
   return (
     <Paper className={classes.container} elevation={3}>
@@ -30,17 +32,19 @@ export const TeamMemberInviteCard: FC<Props> = ({
         {userGroup && (
           <Grid className={classes.middleData}>
             <Text className={classes.middleLabel}>{'User Group:'}</Text>
-            <Text className={classes.middleText}>{`“${userGroup}“`}</Text>
+            <Text className={classes.middleText}>{`"${userGroup}"`}</Text>
           </Grid>
         )}
         {companyType && (
           <Grid className={classes.middleData}>
             <Text className={classes.middleLabel}>{'Company Type:'}</Text>
-            <Text className={classes.middleText}>{`“${companyType}“`}</Text>
+            <Text className={classes.middleText}>{`"${companyType}"`}</Text>
           </Grid>
         )}
       </Grid>
-      <Button className={classes.button}>{'Resend Invite'}</Button>
+      <TextButton size={14} onClick={onResendClick}>
+        {'Resend Invite'}
+      </TextButton>
     </Paper>
   );
 };
@@ -55,7 +59,6 @@ const useStyles = (theme: Theme) =>
       padding: '26px 30px',
       whiteSpace: 'break-spaces',
       wordBreak: 'break-all',
-      background: colors.paleGrey,
       fontSize: 14,
       lineHeight: 1.4,
       borderRadius: 10,
@@ -82,7 +85,7 @@ const useStyles = (theme: Theme) =>
     },
     topLabel: {
       textAlign: 'center',
-      color: colors.green,
+      color: colors.brownGrey,
       flexShrink: 0,
       wordBreak: 'keep-all',
       whiteSpace: 'nowrap',
@@ -119,4 +122,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
+export type TeamMemberInviteCardProps = Props;
 export default TeamMemberInviteCard;

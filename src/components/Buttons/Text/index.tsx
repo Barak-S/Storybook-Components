@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
     transition: 'all .3s ease-in-out',
     cursor: 'pointer',
     '&:hover': {
-      opacity: 0.7,
+      textDecoration: 'underline',
     },
   },
   disabled: {

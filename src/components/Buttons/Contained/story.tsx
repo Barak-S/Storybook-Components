@@ -21,16 +21,16 @@ export const Basic: Story<Props> = args => (
     <ContainedButton {...args} style={sbStyles.mb30}>
       {'Log In'}
     </ContainedButton>
-    <ContainedButton {...args} style={sbStyles.mb10} size="small" disabled />
-    <ContainedButton {...args} style={sbStyles.mb10} size="small" processing />
-    <ContainedButton {...args} style={sbStyles.mb10} size="small" endIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.mb10} size="small" startIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.mb30} size="small" color="red" />
-    <ContainedButton {...args} style={sbStyles.mb10} disabled />
-    <ContainedButton {...args} style={sbStyles.mb10} processing />
-    <ContainedButton {...args} style={sbStyles.mb10} endIcon="plus-circle" />
-    <ContainedButton {...args} style={sbStyles.mb10} startIcon="plus-circle" />
-    <ContainedButton {...args} color="red" />
+    <ContainedButton {...args} style={sbStyles.mb10} size="medium" disabled />
+    <ContainedButton {...args} style={sbStyles.mb10} size="medium" processing />
+    <ContainedButton {...args} style={sbStyles.mb10} size="medium" endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb10} size="medium" startIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb30} size="medium" color="red" />
+    <ContainedButton {...args} style={sbStyles.mb10} size="large" disabled />
+    <ContainedButton {...args} style={sbStyles.mb10} size="large" processing />
+    <ContainedButton {...args} style={sbStyles.mb10} size="large" endIcon="plus-circle" />
+    <ContainedButton {...args} style={sbStyles.mb10} size="large" startIcon="plus-circle" />
+    <ContainedButton {...args} size="large" color="red" />
   </View>
 );
 
