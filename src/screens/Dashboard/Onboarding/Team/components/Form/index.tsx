@@ -71,7 +71,7 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
       </FormRow>
       <FormRow>
         <FormSelect
-          className={mc(classes.half, classes.select)}
+          className={mc(classes.half)}
           label="user group"
           options={userGroups}
           name="userGroup"
@@ -79,7 +79,7 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
           onChange={handleSelectChange('userGroup')}
         />
         <FormSelect
-          className={mc(classes.half, classes.select)}
+          className={mc(classes.half)}
           label="company type"
           options={companyTypes}
           name="companyType"
@@ -88,11 +88,11 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
         />
       </FormRow>
       <FormRow>
-        <FormTextArea label="invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />
+        <FormTextArea label="Invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />
       </FormRow>
       <FormRow style={{ justifyContent: 'flex-end' }}>
         <ContainedButton size="medium" onClick={onSubmit} endIcon="envelope-open" disabled={submitDisabled}>
-          {'invite and add another'}
+          {'Invite and add another'}
         </ContainedButton>
       </FormRow>
     </Grid>
@@ -106,9 +106,6 @@ const useStyles = (theme: Theme) =>
       flexDirection: 'column',
       width: '100%',
       paddingBottom: 35,
-      [theme.breakpoints.up(1366)]: {
-        maxWidth: 570,
-      },
     },
     half: {
       width: '100%',
@@ -119,14 +116,6 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         maxWidth: '48%',
         marginBottom: 0,
-      },
-      [theme.breakpoints.up(1366)]: {
-        // maxWidth: 275,
-      },
-    },
-    select: {
-      '&.MuiFormControl-root': {
-        display: 'flex',
       },
     },
   })();

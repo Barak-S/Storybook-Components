@@ -12,12 +12,12 @@ export const SetupContainerFooter: FC<Props> = ({ style }) => {
   const classes = useStyles(theme);
   return (
     <Grid style={style} className={classes.container}>
-      <ContainedButton size="medium" className={classes.backBtn} startIcon="chevron-circle-left">
+      <ContainedButton size="large" className={classes.backBtn} startIcon="chevron-circle-left">
         {'back'}
       </ContainedButton>
       <Grid className={classes.buttonGroup}>
         <TextButton className={classes.textBtn}>{'Save & Continue Later'}</TextButton>
-        <ContainedButton size="medium" endIcon="chevron-circle-right" className={classes.continueBtn}>
+        <ContainedButton size="large" endIcon="chevron-circle-right" className={classes.continueBtn}>
           {'continue'}
         </ContainedButton>
       </Grid>

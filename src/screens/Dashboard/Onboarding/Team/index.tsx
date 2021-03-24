@@ -38,7 +38,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
         <Grid className={classes.container}>
           <Grid className={classes.content}>
             <OnboardingTeamScreenForm data={data} onChange={handleFormChange} onSubmit={handleFormSubmit} />
-            <TeamMemberInvitesList items={invites} />
+            <TeamMemberInvitesList className={classes.list} items={invites} />
           </Grid>
         </Grid>
       </SetupContainer>
@@ -59,6 +59,11 @@ const useStyles = (theme: Theme) =>
         flexDirection: 'row',
         justifyContent: 'space-between',
         maxHeight: 590,
+      },
+    },
+    list: {
+      [theme.breakpoints.up(1366)]: {
+        maxWidth: 360,
       },
     },
   })();

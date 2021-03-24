@@ -1,20 +1,21 @@
-import { List, ListItem, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { List, ListItem, makeStyles, useTheme } from '@material-ui/core';
 import { TeamMemberInvite } from 'core/api';
 import React, { FC } from 'react';
-import { StyleProps } from 'styles';
+import { mc, StyleProps } from 'styles';
 
 import TeamMemberCard from '../MemberInviteCard';
 
 interface Props extends StyleProps {
+  className: string;
   items: TeamMemberInvite[];
 }
 
-export const TeamMemberInvitesList: FC<Props> = ({ items }) => {
+export const TeamMemberInvitesList: FC<Props> = ({ style, className, items }) => {
   const theme = useTheme();
   const classes = useStyle(theme);
 
   return (
-    <List className={classes.container}>
+    <List className={mc(classes.container, className)} style={style}>
       {items.map(item => (
         <ListItem key={item.email} className={classes.listItem}>
           <TeamMemberCard data={item} />
@@ -24,26 +25,22 @@ export const TeamMemberInvitesList: FC<Props> = ({ items }) => {
   );
 };
 
-const useStyle = (theme: Theme) =>
-  makeStyles({
-    container: {
-      width: '100%',
-      padding: '0 10px 10px',
-      overflow: 'auto',
-      '&::-webkit-scrollbar': {
-        width: 0,
-      },
-      [theme.breakpoints.up(1366)]: {
-        maxWidth: 360,
-      },
+const useStyle = makeStyles({
+  container: {
+    width: '100%',
+    padding: '0 10px 10px',
+    overflow: 'auto',
+    '&::-webkit-scrollbar': {
+      width: 0,
     },
-    listItem: {
-      padding: 0,
-      marginBottom: 20,
-      '&:last-child': {
-        marginBottom: 0,
-      },
+  },
+  listItem: {
+    padding: 0,
+    marginBottom: 20,
+    '&:last-child': {
+      marginBottom: 0,
     },
-  })();
+  },
+});
 
 export default TeamMemberInvitesList;
