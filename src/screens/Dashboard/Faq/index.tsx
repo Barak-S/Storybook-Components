@@ -27,6 +27,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
               <p className={classes.listItemHeader}>{'ABOUT PLATFORM'}</p>
               <AccordionSections
                 style={styles.accordion}
+                className={classes.accordion}
                 sections={[
                   {
                     id: 0,
@@ -46,6 +47,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
               <p className={classes.listItemHeader}>{'HOSTING AN EVENT'}</p>
               <AccordionSections
                 style={styles.accordion}
+                className={classes.accordion}
                 sections={[
                   {
                     id: 0,
@@ -64,6 +66,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
               <p className={classes.listItemHeader}>{'TECHNICAL HELP'}</p>
               <AccordionSections
                 style={styles.accordion}
+                className={classes.accordion}
                 sections={[
                   {
                     id: 0,
@@ -107,6 +110,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
               <p className={classes.listItemHeader}>{'ATTENDING AN EVENT'}</p>
               <AccordionSections
                 style={styles.accordion}
+                className={classes.accordion}
                 sections={[
                   {
                     id: 0,
@@ -139,44 +143,34 @@ export const DashboardFaqScreen: FC<Props> = () => {
 };
 
 const styles: Styles = {
-  accordion:{
-    color: colors.brownishGrey, 
-    borderRadius: 10, 
-    minHeight: 60,  
-    paddingTop: 7, 
-    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)', 
-    boxShadow: 'none', 
-    fontWeight: 400, 
+  accordion: {
+    color: colors.brownishGrey,
+    borderRadius: 10,
+    minHeight: 76,
+    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
+    boxShadow: 'none',
+    fontWeight: 400,
     marginBottom: 5,
-    marginTop: 0
-  }
+    marginTop: 0,
+  },
 };
-
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      margin: '55px 35px',
-      padding: '45px 20px',
+      padding: '70px 100px',
       borderRadius: 20,
-      width: '100%',
+      margin: '55px 105px',
       alignItems: 'center',
       position: 'relative',
-      maxWidth: '82.5%',
-      lineHeight: 1.3,
-
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: '40px',
-      },
+      lineHeight: 1.5,
       [theme.breakpoints.down('md')]: {
-        padding: '60px 20px',
+        padding: '45px 20px',
         borderRadius: 30,
+        margin: '55px 75px',
       },
-      [theme.breakpoints.up('md')]: {
-        padding: '60px 100px',
-      },
-      [theme.breakpoints.up('lg')]: {
-        padding: '60px 140px',
+      [theme.breakpoints.down('sm')]: {
+        margin: '35px 15px',
       },
     },
     primaryHeader: {
@@ -190,7 +184,7 @@ export const useStyles = (theme: Theme) =>
       paddinBottom: 8,
       fontSize: 18,
       [theme.breakpoints.down('sm')]: {
-        fontSize: 23
+        fontSize: 23,
       },
     },
     primaryList: {
@@ -203,6 +197,14 @@ export const useStyles = (theme: Theme) =>
       paddingTop: 12,
       marginBottom: 20,
       fontSize: 18,
+    },
+    accordion: {
+      height: 76,
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+      '&:hover': {
+        background: colors.paleGrey,
+      },
     },
   })();
 

@@ -17,10 +17,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   return (
     <>
       <ScreenTitle title="Profile" />
-      <DashboardScreenContainer 
-        style={style}
-        className={classes.container}
-      >
+      <DashboardScreenContainer style={style} className={classes.container}>
         <Title className={classes.title} type="h1">
           {'Profile'}
         </Title>
@@ -37,6 +34,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
         {isMobile && (
           <AccordionSections
             style={styles.accordion}
+            className={classes.accordion}
             sections={[
               { id: 0, title: 'Account', content: <ProfileAccountSection /> },
               { id: 1, title: 'Password', content: <ProfilePassSection /> },
@@ -51,16 +49,15 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
 
 const styles: Styles = {
   tabs: {},
-  accordion:{
-    color: colors.brownishGrey, 
-    borderRadius: 10, 
-    minHeight: 60,  
-    paddingTop: 7, 
-    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)', 
-    boxShadow: 'none', 
-    fontWeight: 400, 
+  accordion: {
+    color: colors.brownishGrey,
+    borderRadius: 10,
+    minHeight: 76,
+    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
+    boxShadow: 'none',
+    fontWeight: 400,
     marginBottom: 5,
-    marginTop: 0
+    marginTop: 0,
   },
 };
 
@@ -68,7 +65,7 @@ const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       [theme.breakpoints.down('sm')]: {
-        padding: '25px 10px'
+        padding: '25px 10px',
       },
     },
     title: {
@@ -78,10 +75,16 @@ const useStyles = (theme: Theme) =>
         ...mx.font(30, colors.marineBlue),
         marginBottom: 12,
       },
-
+    },
+    accordion: {
+      height: 76,
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+      '&:hover': {
+        background: colors.paleGrey,
+      },
     },
   })();
-
 
 export type DashboardProfileScreenProps = Props;
 export default DashboardProfileScreen;
