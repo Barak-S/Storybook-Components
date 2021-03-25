@@ -41,7 +41,7 @@ export const useStyles = () =>
   makeStyles(() => ({
     container: {
       height: '52px',
-      alignItems:'center',
+      alignItems: 'center',
     },
     swicher: {
       padding: '2px',

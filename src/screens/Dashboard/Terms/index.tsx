@@ -7,7 +7,6 @@ import { StyleProps } from 'styles';
 type Props = StyleProps;
 
 export const DashboardTermsScreen: FC<Props> = () => {
-
   return (
     <>
       <ScreenTitle title="Terms" />
@@ -17,7 +16,6 @@ export const DashboardTermsScreen: FC<Props> = () => {
     </>
   );
 };
-
 
 export type DashboardTermsScreenProps = Props;
 export default DashboardTermsScreen;

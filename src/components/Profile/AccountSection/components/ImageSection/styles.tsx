@@ -11,7 +11,7 @@ export const useStyles = () =>
       [theme.breakpoints.down('sm')]: {
         marginBottom: '30px',
         marginRight: 0,
-        height: '100%'
+        height: '100%',
       },
     },
     avatar: {
@@ -32,9 +32,9 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.brownishGrey,
     },
-    imgBlock:{
+    imgBlock: {
       [theme.breakpoints.down('sm')]: {
         marginTop: '35px',
       },
-    }
+    },
   }))();

@@ -42,10 +42,10 @@ export const useStyles = () =>
         maxWidth: '100%',
       },
     },
-    socSelect:{
+    socSelect: {
       maxWidth: 198,
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
-      },  
-    }
+      },
+    },
   }))();

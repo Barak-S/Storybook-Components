@@ -80,7 +80,7 @@ const useStyles = makeStyles({
       alignItems: 'center',
       display: 'flex',
       '& .MuiIcon-root': {
-        transform: 'rotate(0deg)',  
+        transform: 'rotate(0deg)',
       },
     },
   },

@@ -40,17 +40,17 @@ export const useStyles = () =>
         width: 'inherit',
       },
     },
-    uploadImg:{
+    uploadImg: {
       maxHeight: 165,
       maxWidth: 500,
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
       },
     },
-    companySelect:{
+    companySelect: {
       maxWidth: 266,
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
       },
-    }
+    },
   }))();

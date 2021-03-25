@@ -13,7 +13,7 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
-      paddingBottom: 9
+      paddingBottom: 9,
     },
     subtitle: {
       display: 'block',

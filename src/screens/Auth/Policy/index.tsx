@@ -21,7 +21,7 @@ export const AuthPolicyScreen: FC<Props> = () => {
           <TextLink className={classes.textLink} href={routes.auth.signin}>
             {'log in'}
           </TextLink>
-          <Splitter style={{marginRight: 19}} />
+          <Splitter style={{ marginRight: 19 }} />
           <TextLink className={classes.signupLink} href={routes.auth.signup}>
             {'Sign up'}
           </TextLink>

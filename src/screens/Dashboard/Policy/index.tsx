@@ -7,7 +7,6 @@ import { StyleProps } from 'styles';
 type Props = StyleProps;
 
 export const DashboardPolicyScreen: FC<Props> = () => {
-
   return (
     <>
       <ScreenTitle title="Privacy Policy" />
