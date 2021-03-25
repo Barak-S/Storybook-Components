@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.39] - 2021-03-26
+### Added
+- Internal state manager
+- API support
+- Profile getting/updating functionality
+
+### Fixed
+- DO-130: Application Terms of Service fixes
+- DO-128: Accordion fixes
+
 ## [1.0.38] - 2021-03-23
 ### Added
 - DO-127: Contact Us Page added
