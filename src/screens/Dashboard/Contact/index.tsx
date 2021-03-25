@@ -6,6 +6,7 @@ import { colors, StyleProps, globalStyles } from 'styles';
 import { FormTextArea, FormTextInput } from 'components/Form';
 import { validators } from 'utils';
 import { ContainedButton } from 'components/Buttons';
+import { LineAwesomeIcon } from 'components/Icons';
 
 type Props = StyleProps;
 
@@ -20,7 +21,6 @@ interface FormData {
 type FormErrs = Partial<Record<keyof FormData, string>> & { request?: string };
 
 export const DashboardContactScreen: FC<Props> = () => {
-
   const [data, setData] = useState<FormData>({ email: '', firstName: '', lastName: '', phoneNumber: '', message: '' });
   const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
@@ -36,7 +36,7 @@ export const DashboardContactScreen: FC<Props> = () => {
   };
 
   const submit = () => {
-    setProcessing(true)
+    setProcessing(true);
   };
 
   return (
@@ -60,13 +60,18 @@ export const DashboardContactScreen: FC<Props> = () => {
                   </p>
                 </Grid>
                 <Grid xs={12} sm={12} md={6} lg={12}>
-                  <p className={classes.phoneNumber}>{'800-477-7469'}</p>
-                  <p className={classes.subText}>
-                    {'Interested in employment opportunities at WorldStage'}{' '}
-                    <a href="#" className={classes.link}>
-                      {'Click Here'}
-                    </a>
-                  </p>
+                  <View className={classes.getInTouch}>
+                    <div className={classes.phoneNumber}>
+                      <LineAwesomeIcon type="phone" color={colors.coolBlue} size={35} className={classes.phoneIcon} />
+                      <p>{'800-477-7469'}</p>
+                    </div>
+                    <p className={classes.subText}>
+                      {'Interested in employment opportunities at WorldStage'}{' '}
+                      <a href="mailto:info@meetiris.com" className={classes.link}>
+                        {'Click Here'}
+                      </a>
+                    </p>
+                  </View>
                 </Grid>
               </Grid>
             </Grid>
@@ -78,70 +83,79 @@ export const DashboardContactScreen: FC<Props> = () => {
                 </Title>
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <FormTextInput
-                  value={firstName || ''}
-                  type="text"
-                  error={!!errs?.firstName}
-                  helperText={errs?.firstName}
-                  InputProps={{ inputProps: { maxLength: 50 } }}
-                  label="First Name"
-                  onChange={handleTextFieldChanged('firstName')}
-                />
+                <View className={classes.inputItem}>
+                  <FormTextInput
+                    value={firstName || ''}
+                    type="text"
+                    error={!!errs?.firstName}
+                    helperText={errs?.firstName}
+                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    label="FIRST NAME"
+                    onChange={handleTextFieldChanged('firstName')}
+                  />
+                </View>
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <FormTextInput
-                  value={lastName || ''}
-                  type="text"
-                  error={!!errs?.lastName}
-                  helperText={errs?.lastName}
-                  InputProps={{ inputProps: { maxLength: 50 } }}
-                  label="Last Name"
-                  onChange={handleTextFieldChanged('lastName')}
-                />
+                <View className={classes.inputItem}>
+                  <FormTextInput
+                    value={lastName || ''}
+                    type="text"
+                    error={!!errs?.lastName}
+                    helperText={errs?.lastName}
+                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    label="LAST NAME"
+                    onChange={handleTextFieldChanged('lastName')}
+                  />
+                </View>
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <FormTextInput
-                  value={email || ''}
-                  type="email"
-                  valid={!validators.getEmailErr(email)}
-                  error={!!errs?.email}
-                  helperText={errs?.email}
-                  InputProps={{ inputProps: { maxLength: 50 } }}
-                  label="Email"
-                  onChange={handleTextFieldChanged('email')}
-                />
+                <View className={classes.inputItem}>
+                  <FormTextInput
+                    value={email || ''}
+                    type="email"
+                    valid={!validators.getEmailErr(email)}
+                    error={!!errs?.email}
+                    helperText={errs?.email}
+                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    label="EMAIL"
+                    onChange={handleTextFieldChanged('email')}
+                  />
+                </View>
               </Grid>
               <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <FormTextInput
-                  value={phoneNumber || ''}
-                  type="text"
-                  error={!!errs?.phoneNumber}
-                  helperText={errs?.phoneNumber}
-                  InputProps={{ inputProps: { maxLength: 50 } }}
-                  label="Phone Number"
-                  onChange={handleTextFieldChanged('phoneNumber')}
-                />
+                <View className={classes.inputItem}>
+                  <FormTextInput
+                    value={phoneNumber || ''}
+                    type="text"
+                    error={!!errs?.phoneNumber}
+                    helperText={errs?.phoneNumber}
+                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    label="PHONE NUMBER"
+                    onChange={handleTextFieldChanged('phoneNumber')}
+                  />
+                </View>
               </Grid>
               <Grid item xs={12} style={globalStyles.inputItem}>
-                <View>
-                  <FormTextArea 
-                    label="A Brief Message"
-                    onChange={handleTextFieldChanged('message')} 
+                <View className={classes.textAreaItem}>
+                  <FormTextArea
+                    label="A BRIEF MESSAGE"
+                    onChange={handleTextFieldChanged('message')}
                     value={message || ''}
+                    className={classes.textArea}
                   />
                 </View>
               </Grid>
               <Grid item xs={12}>
-                {errs && (
-                  <Title className={classes.errors} type="h3">
-                    {'All Required Fields(*)'}
-                  </Title>
-                )}
+                <Title className={classes.errors} type="h3">
+                  {'ALL REQUIRED FIELDS (*)'}
+                </Title>
               </Grid>
               <Grid container justify="center" spacing={2}>
                 <Grid item xs={12} sm={12}>
                   <View row className={classes.wrapBtn}>
-                    <ContainedButton className={classes.btn} processing={processing} disabled={processing} onClick={submit}>{'SEND MESSAGE'}</ContainedButton>
+                    <ContainedButton className={classes.btn} processing={processing} disabled={processing} onClick={submit}>
+                      {'SEND MESSAGE'}
+                    </ContainedButton>
                   </View>
                 </Grid>
               </Grid>
@@ -157,52 +171,58 @@ export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       margin: '55px 35px',
-      padding: '45px 80px',
+      padding: '80px 100px',
       borderRadius: 20,
       width: '100%',
       position: 'relative',
       maxWidth: '82.5%',
       lineHeight: 1.3,
       display: 'flex',
-
+      alignItems: 'center',
       [theme.breakpoints.down('md')]: {
-        padding: '45px 20px',
+        padding: '44px 20px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        padding: '34px 20px',
       },
       [theme.breakpoints.down('lg')]: {
         borderRadius: 35,
       },
     },
-    headerSection:{
+    headerSection: {
       display: 'inline',
       lineHeight: 1.4,
-      paddingRight: 180,
+      paddingRight: 197,
       [theme.breakpoints.up('md')]: {
         display: 'flex',
       },
       [theme.breakpoints.down('lg')]: {
-        paddingRight: 30,
-      },      
+        paddingRight: 20,
+      },
     },
-    // submit:{
-    //   marginTop: 20,
-    // },
     primaryHeader: {
       fontWeight: 500,
       color: colors.warmPurple,
       fontSize: 30,
-      marginBottom: 5,
+      marginBottom: 13,
       paddingLeft: 6,
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: 0,
+      },
     },
     secondaryHeader: {
-      paddingLeft: 6,
+      paddingLeft: 16,
       fontWeight: 500,
       color: colors.marineBlue,
       fontSize: 16,
-      marginBottom: 5,
+      marginBottom: 20,
+      [theme.breakpoints.down('md')]: {
+        marginBottom: 10,
+      },
     },
-    contactForm:{
+    contactForm: {
       [theme.breakpoints.down('sm')]: {
-        marginTop: 85,
+        marginTop: 55,
       },
     },
     fields: {
@@ -224,46 +244,79 @@ export const useStyles = (theme: Theme) =>
     },
     listText: {
       color: colors.brownishGrey,
-      paddingBottom: 10,
-      paddingTop: 10,
+      marginBottom: 81,
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: 31,
+      },
+    },
+    inputItem: {
+      marginRight: 9,
+      marginLeft: 9,
+      marginBottom: 2,
+      [theme.breakpoints.down('md')]: {
+        marginRight: 0,
+        marginLeft: 0,
+        marginBottom: '-10px',
+      },
+    },
+    textAreaItem: {
+      marginRight: 9,
+      marginLeft: 9,
+      marginBottom: 2,
+      [theme.breakpoints.down('md')]: {
+        marginRight: 0,
+        marginLeft: 0,
+      },
     },
     colRight: {
       display: 'flex',
       flexDirection: 'column',
       paddingRight: 25,
       paddingLeft: 6,
-      marginBottom: 20,
     },
     phoneNumber: {
+      display: 'flex',
+      alignItems: 'center',
       color: colors.coolBlue,
-      paddingTop: 10,
-      paddingLeft:6,
+      paddingLeft: 6,
       fontSize: 18,
+    },
+    phoneIcon: {
+      marginRight: 20,
       [theme.breakpoints.down('sm')]: {
-        paddingTop: 0,
+        marginRight: 10,
       },
-      [theme.breakpoints.up('lg')]: {
-        paddingTop: 55,
+    },
+    getInTouch: {
+      [theme.breakpoints.down('lg')]: {
+        transform: 'translateY(-15px) !important',
+      },
+      [theme.breakpoints.down('sm')]: {
+        transform: 'translateY(0px)',
       },
     },
     subText: {
       color: colors.coolBlue,
-      paddingTop: 10,
+      marginTop: 23,
       paddingLeft: 6,
-      [theme.breakpoints.up('md')]: {
-        paddingTop: 4
+      [theme.breakpoints.down('md')]: {
+        paddingTop: 4,
+        marginTop: 0,
       },
-      [theme.breakpoints.up('lg')]: {
-        paddingTop: 10,
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: 13,
       },
     },
     link: {
       color: colors.marineBlue,
     },
     errors: {
-      color: 'red',
+      color: colors.vermillion,
       textAlign: 'right',
       fontWeight: 400,
+      [theme.breakpoints.down('sm')]: {
+        textAlign: 'center',
+      },
     },
     splitter: {
       margin: '0 10px',
@@ -298,9 +351,15 @@ export const useStyles = (theme: Theme) =>
       borderRadius: '6px',
       width: '220px!important',
       height: '52px',
-      marginTop: 20,
+      marginTop: 13,
+      marginBottom: 30,
     },
-
+    textArea: {
+      height: 170,
+      [theme.breakpoints.down('md')]: {
+        height: 221,
+      },
+    },
   })();
 
 export type DashboardContactScreenProps = Props;

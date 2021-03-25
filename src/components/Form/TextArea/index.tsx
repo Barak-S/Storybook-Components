@@ -7,18 +7,19 @@ import { genId } from 'utils';
 interface CustomProps extends StyleProps {
   value?: string;
   label?: string;
+  className?: string;
 }
 
 type Props = TextareaAutosizeProps & CustomProps;
 
-export const FormTextArea: FC<Props> = ({ value = '', label, onChange, ...props }) => {
+export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange, ...props }) => {
   const [focus, setFocus] = useState<boolean>(false);
   const classes = useStyles();
   const isActive = focus || Boolean(value);
   const textAreaId = genId();
 
   return (
-    <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea)}>
+    <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea, className)}>
       <TextareaAutosize
         id={textAreaId}
         {...props}
