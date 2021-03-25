@@ -18,14 +18,17 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
         {'APPLICATION TERMS OF SERVICE'}
       </Title>
       <h5 className={classes.subtextHeader}>
-        <strong>{'EFFECTIVE DATE: '}</strong>
-        {'7/20/2020'}
+        <strong>{'EFFECTIVE DATE: 7/20/2020'}</strong>
       </h5>
       <p className={classes.secondaryText}>
         {'The creators of Digital Oasis (referred to here as “Digital Oasis,” “we,” “us,” or “our”) are offering this application as a service which connects end users with their Event Producer(s) who have been licensed to offer our Services to their customers.'}
       </p>
       <p className={classes.secondaryText}>
-        {'These Terms of Use (the “Terms”) govern your use of the Digital Oasis application and its related contents and services (collectively, the "Services"). Please read these Terms and our corresponding '}
+        {'These Terms of Use (the '}
+        <strong>{'“Terms”'}</strong>
+        {') govern your use of the Digital Oasis application and its related contents and services (collectively, the '}
+        <strong>{'"Services"'}</strong>
+        {'). Please read these Terms and our corresponding '}
         <a href="/policy" className={classes.linkTo}>
           {'Privacy Policy'}
         </a>
@@ -70,7 +73,7 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
             </li>
             <li>
               <p className={classes.listTextTwo}>
-                {'2. you have been authorized by your Event Producer to use the Services; and 3. you will maintain and promptly update the information you provide to keep it at all times true, accurate, current, and complete.'}
+                {'2. you have been authorized by your Event Producer to use the Services; and'}
               </p>
             </li>
             <li>
@@ -302,7 +305,7 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
             {
               'If you have any questions about Digital Oasis or these Terms, you can contact us at contact '
             }
-            <a href="mailto:oasis.help@worldstage.com" className={classes.linkTo}>{'oasis.help@worldstage.com'}</a>
+            <a href="mailto:oasis.help@worldstage.com" className={classes.linkToLast}>{'oasis.help@worldstage.com'}</a>
           </p>
         </li>
       </ul>
@@ -313,22 +316,21 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
 const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      padding: '70px 100px',
+      padding: '88px 123px',
       borderRadius: 20,
-      margin: '55px 105px',
+      margin: '56px 105px',
       maxWidth: '95%',
       alignItems: 'center',
       position: 'relative',
       lineHeight: 1.5,
-      [theme.breakpoints.down('lg')]: {
-        padding: '45px 20px',
-      },
       [theme.breakpoints.down('md')]: {
-        margin: '35px 20px',
+        margin: '50px 20px',
+        padding: '45px 24px',
         borderRadius: 30,
       },
       [theme.breakpoints.down('sm')]: {
-        margin: '35px 10px',
+        margin: '28px 15px',
+        padding: '34px 20px',
       },
     },
     primaryHeader: {
@@ -366,28 +368,42 @@ const useStyles = (theme: Theme) =>
       color: colors.marineBlue,
       textDecoration: 'none',
     },
+    linkToLast: {
+      color: colors.marineBlue,
+      textDecoration: 'none',
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: 28,
+      },
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: 25,
+      },
+    },
     primaryList: {
       listStyle: 'none',
       marginTop: 25,
-      marginLeft: 112,
+      marginLeft: 154,
+      marginRight: 129,
       [theme.breakpoints.down('md')]: {
-        marginLeft: '40px',
+        marginLeft: 47,
+        marginRight: 41,
       },
       [theme.breakpoints.down('sm')]: {
         marginLeft: '5px',
+        marginRight: 0,
       },
     },
     secondaryList: {
       listStyle: 'none',
       lineHeight: 1.5,
       marginTop: 12,
-      marginLeft: 112,
+      marginLeft: 107,
+      fontWeight: 400,
       color: colors.blackTwo,
       [theme.breakpoints.down('md')]: {
-        marginLeft: '40px',
+        marginLeft: 0,
       },
       [theme.breakpoints.down('sm')]: {
-        marginLeft: '10px',
+        marginLeft: 0,
       },
     },
     listItemHeader: {
