@@ -32,6 +32,7 @@ module.exports = (env = {}) => {
         store: `${srcPath}/store`,
         styles: `${srcPath}/styles`,
         utils: `${srcPath}/utils`,
+        mock: `${srcPath}/mock`,
       },
       extensions: ['.js', '.ts', '.tsx'],
       symlinks: false,

@@ -14,6 +14,7 @@ module.exports = {
         scenes: `${appPath}/scenes`,
         styles: `${appPath}/styles`,
         utils: `${appPath}/utils`,
+        mock: `${appPath}/mock`,
       },
       extensions: ['.js', '.ts', '.tsx'],
     };
