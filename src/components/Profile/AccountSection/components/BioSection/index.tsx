@@ -1,17 +1,24 @@
 import Divider from '@material-ui/core/Divider';
 import { View } from 'components/Common';
-import TextReader from 'components/Form/TextEditor';
+import { FormTextEditor } from 'components/Form';
+import { AccountProfilePatch } from 'core/api';
 import React, { FC } from 'react';
-import { Style } from 'styles';
+import { StyleProps } from 'styles';
 
 import { useStyles } from './styles';
 
-interface Props {
-  style?: Style;
+interface Props extends StyleProps {
+  data?: AccountProfilePatch;
+  onChange?: (val: AccountProfilePatch) => void;
 }
 
-export const ProfileAccountBioSection: FC<Props> = ({ style }) => {
+export const ProfileAccountBioSection: FC<Props> = ({ style, data, onChange }) => {
   const classes = useStyles();
+
+  const handleChange = (val: string) => {
+    onChange && onChange({ bio: val });
+  };
+
   return (
     <View style={style} className={classes.ReaderSection}>
       <View className={classes.headerSection}>
@@ -21,7 +28,7 @@ export const ProfileAccountBioSection: FC<Props> = ({ style }) => {
         </span>
       </View>
       <View className={classes.blockInf}>
-        <TextReader />
+        <FormTextEditor value={data?.bio || ''} onChange={handleChange} />
       </View>
       <Divider />
     </View>

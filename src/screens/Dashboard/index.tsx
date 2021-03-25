@@ -1,23 +1,24 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle, View } from 'components/Common';
-import { DashboardAppBar, DashboardMobileMenu, DashboardAppBarBtn, DashboardUserNavBtnType } from 'components/Dashboard';
+import { DashboardAppBar, DashboardAppBarBtn, DashboardMobileMenu, DashboardUserNavBtnType } from 'components/Dashboard';
+import { Log } from 'core';
 import { useAuth } from 'core/auth';
 import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
+import { useStoreManager } from 'store';
 import { ms, srollToTop, StyleProps, Styles } from 'styles';
-import { Log } from 'core';
 
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
 import DashboardEventsScreen from './Events';
 import DashboardFaqScreen from './Faq';
 import OnboardingScreens from './Onboarding';
+import DashboardPolicyScreen from './Policy';
 import DashboardProfileScreen from './Profile';
 import DashboardSupportScreen from './Support';
-import DashboardUserManagementScreen from './UserManagement';
 import DashboardTermsScreen from './Terms';
-import DashboardPolicyScreen from './Policy';
+import DashboardUserManagementScreen from './UserManagement';
 
 type Props = StyleProps;
 
@@ -33,9 +34,11 @@ export const DashboardScreens: FC<Props> = () => {
   const classes = useStyles(theme);
   const history = useHistory();
   const { signOut } = useAuth();
+  const manager = useStoreManager();
 
   const handleLogoutClick = () => {
     signOut();
+    manager.auth.signOut();
     history.push({ pathname: routes.auth.signin });
   };
 

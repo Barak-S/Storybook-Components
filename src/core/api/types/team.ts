@@ -1,9 +1,3 @@
-export interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
 export interface TeamMemberInvite {
   firstName: string;
   lastName: string;

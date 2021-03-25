@@ -12,3 +12,7 @@ export type MergeStyleVals = MergeStyleVal | MergeStyleVal[];
 export interface StyleProps {
   style?: Style;
 }
+
+export interface ClassNameProps {
+  className?: string;
+}

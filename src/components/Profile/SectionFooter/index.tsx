@@ -1,16 +1,18 @@
 import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
 import React, { FC } from 'react';
-import { colors, StyleProps, Styles } from 'styles';
+import { StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
+  processing?: boolean;
+  disabled?: boolean;
   onSaveClick?: () => void;
 }
 
-export const ProfileSectionFooter: FC<Props> = ({ style, onSaveClick }) => {
+export const ProfileSectionFooter: FC<Props> = ({ style, processing, disabled, onSaveClick }) => {
   return (
     <View row style={[styles.container, style]}>
-      <ContainedButton style={styles.btn} onClick={onSaveClick}>
+      <ContainedButton style={styles.btn} disabled={disabled} processing={processing} onClick={onSaveClick}>
         {'SAVE'}
       </ContainedButton>
     </View>
@@ -23,10 +25,7 @@ const styles: Styles = {
     justifyContent: 'center',
   },
   btn: {
-    background: colors.coolBlue,
-    borderRadius: '6px',
-    width: '166px!important',
-    height: '52px',
+    width: '166px',
   },
 };
 

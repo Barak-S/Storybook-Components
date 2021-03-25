@@ -4,6 +4,7 @@ import { DashboardScreenContainer, DashboardTabPanel, DashboardUserNav, Dashboar
 import { LineTab, LineTabs } from 'components/Navigation';
 import { useAuth } from 'core';
 import React, { FC, useState } from 'react';
+import { useSelector } from 'store';
 import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
 
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
@@ -16,8 +17,8 @@ interface Props extends StyleProps {
 
 export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const [tab, setTab] = useState<number>(0);
-  const [listVisible, setListVisible] = useState<boolean>(false);
-  const { userConfirmed } = useAuth();
+  const { confirmed } = useAuth();
+  const onboarding = useSelector(s => s.profile.data?.onboarding);
 
   // Render
 
@@ -31,18 +32,18 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
     {
       index: 1,
       label: 'Archive',
-      disabled: !userConfirmed,
+      disabled: !confirmed,
       visible: !isMobile,
     },
     {
       index: 2,
       label: 'Explore',
-      disabled: !userConfirmed,
+      disabled: !confirmed,
     },
     {
       index: 3,
       label: 'Liked',
-      disabled: !userConfirmed,
+      disabled: !confirmed,
     },
   ];
 
@@ -57,14 +58,10 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
         <Hidden smDown>{renderTabs()}</Hidden>
         <Grid>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
-            {!userConfirmed ? (
-              <DashboardEmailConfirmScene />
-            ) : !listVisible ? (
-              <FirstEventSetup onFinish={() => setListVisible(true)} />
-            ) : null}
-            {listVisible && <DashboardEventsListScene />}
+            {!confirmed ? <DashboardEmailConfirmScene /> : onboarding !== 'done' ? <FirstEventSetup /> : null}
+            {onboarding === 'done' && <DashboardEventsListScene />}
             <Hidden smDown>
-              <DashboardUserNav disabledBtns={!userConfirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
+              <DashboardUserNav disabledBtns={!confirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={1}>

@@ -12,11 +12,11 @@ import {
   verifyCognitoEmail,
 } from './utils';
 
-const log = Log('core.api.auth.context');
+const log = Log('core.api.auth');
 
 interface AuthContext {
   loaded: boolean;
-  userConfirmed: boolean;
+  confirmed: boolean;
   user?: CognitoUser;
   signIn: (email: string, password: string) => Promise<CognitoUser>;
   signUp: (data: CognitoSignUpInput) => Promise<CognitoUser>;
@@ -35,7 +35,7 @@ const mockFn = () => {
 export const useAuth = (): AuthContext => {
   const val = useContext(Context);
   const mockData: AuthContext = {
-    userConfirmed: false,
+    confirmed: false,
     loaded: false,
     signIn: mockFn,
     signUp: mockFn,
@@ -50,10 +50,11 @@ export const useAuth = (): AuthContext => {
 export const AuthProvider: FC = ({ children }) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [user, setUser] = useState<CognitoUser | undefined>(undefined);
-  const [userConfirmed, setUserConfirmed] = useState<boolean>(false);
+  const [confirmed, setUserConfirmed] = useState<boolean>(false);
 
   useEffect(() => {
     loadCurUser().catch(err => log.err(err));
+    Auth.currentSession();
   }, []);
 
   const loadCurUser = async () => {
@@ -146,7 +147,7 @@ export const AuthProvider: FC = ({ children }) => {
   const value = useMemo(
     () => ({
       loaded,
-      userConfirmed,
+      confirmed,
       user,
       signIn,
       signUp,
@@ -155,7 +156,7 @@ export const AuthProvider: FC = ({ children }) => {
       forgotPasswordSubmit,
       resendEmailConfirmation,
     }),
-    [loaded, user, userConfirmed],
+    [loaded, user, confirmed],
   );
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

@@ -5,22 +5,24 @@ import { StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   value?: string;
-  onChange?: () => void;
+  onChange?: (val: string) => void;
 }
 
-export const FormTextEditor: FC<Props> = ({ value, onChange, style }) => (
-  <View style={style}>
-    <Editor
-      value={value}
-      init={{
-        mobile: {
-          theme: 'mobile',
-        },
-      }}
-      onChange={onChange}
-    />
-  </View>
-);
+export const FormTextEditor: FC<Props> = ({ style, value, onChange }) => {
+  return (
+    <View style={style}>
+      <Editor
+        value={value || ''}
+        init={{
+          mobile: {
+            theme: 'mobile',
+          },
+        }}
+        onChange={e => onChange && onChange(e.target.getContent())}
+      />
+    </View>
+  );
+};
 
 export type FormTextEditorProps = Props;
 export default FormTextEditor;

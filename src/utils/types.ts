@@ -68,3 +68,16 @@ export const removeUndefProps = <T>(obj: T): T => {
   }
   return newObj;
 };
+
+/**
+ * Basic template for the type guards
+ * @returns Does the `val` is type of `T`
+ */
+export type TypeGuard<T> = (val: unknown) => val is T;
+
+export const isStrOrUndef = (val: unknown) => isString(val) || isUndefined(val);
+
+export const isStr = isString;
+export const isUndef = isUndefined;
+export const isBool = isBoolean;
+export const isNum = isNumber;

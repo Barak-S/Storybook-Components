@@ -1,29 +1,33 @@
-import { makeStyles, Theme, Grid } from '@material-ui/core';
-import { View } from 'components/Common';
-import React, { FC } from 'react';
-import { Style, colors } from 'styles';
+import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
+import { View } from 'components/Common';
+import { AccountProfile, AccountProfilePatch } from 'core/api';
+import React, { FC } from 'react';
+import { colors, StyleProps, Styles } from 'styles';
+
 import BioSection from './components/BioSection';
 import CompanySection from './components/CompanySection';
 import ImageSection from './components/ImageSection';
 import SocialSection from './components/SocialSection';
 
-
-interface Props {
-  style?: Style;
+interface Props extends StyleProps {
+  profile: AccountProfile;
+  data?: AccountProfilePatch;
+  processing?: boolean;
+  onChange?: (val: AccountProfilePatch) => void;
+  onSubmit?: () => void;
 }
 
-export const ProfileAccountSection: FC<Props> = ({ style }) => {
+export const ProfileAccountSection: FC<Props> = ({ style, processing, data, profile, onChange, onSubmit }) => {
   const classes = useStyles();
-
   return (
-    <View row style={style} className={classes.contact} >
+    <View row style={style} className={classes.contact}>
       <Grid container>
-        <Grid xs={12} sm={12} md={2} lg={2} className={classes.item1} >
+        <Grid xs={12} sm={12} md={2} lg={2} className={classes.item1}>
           <ImageSection />
         </Grid>
 
-        <Grid xs={12} sm={12} md={10} lg={10} className={classes.item2} >
+        <Grid xs={12} sm={12} md={10} lg={10} className={classes.item2}>
           <View className={classes.headerSection}>
             <span className={classes.title}>{'Contact & Company Information'}</span>
             <span className={classes.subtitle}>
@@ -32,18 +36,25 @@ export const ProfileAccountSection: FC<Props> = ({ style }) => {
           </View>
         </Grid>
 
-        <Grid xs={12} sm={12} md={10} lg={10} className={classes.item3}>          
-          <CompanySection />
+        <Grid xs={12} sm={12} md={10} lg={10} className={classes.item3}>
+          <CompanySection data={data} profile={profile} onChange={onChange} />
           <SocialSection />
-          <BioSection />
+          <BioSection data={data} onChange={onChange} />
           <View row className={classes.wrapBtn}>
-            <ContainedButton className={classes.btn}>{'SAVE'}</ContainedButton>
-          </View> 
+            <ContainedButton style={styles.submitBtn} processing={processing} disabled={processing} onClick={onSubmit}>
+              {'SAVE'}
+            </ContainedButton>
+          </View>
         </Grid>
-
       </Grid>
     </View>
   );
+};
+
+const styles: Styles = {
+  submitBtn: {
+    width: '166px',
+  },
 };
 
 const useStyles = () =>
@@ -85,47 +96,40 @@ const useStyles = () =>
       letterSpacing: '0px',
       color: colors.brownishGrey,
     },
-    socialSection:{
+    socialSection: {
       [theme.breakpoints.down('sm')]: {
         marginLeft: 'auto',
       },
     },
-    item1:{
+    item1: {
       order: 1,
       [theme.breakpoints.down('md')]: {
-        transform: 'translateX(-22px)'
+        transform: 'translateX(-22px)',
       },
       [theme.breakpoints.down('sm')]: {
         order: 2,
-        transform: 'translateX(0px)'
+        transform: 'translateX(0px)',
       },
     },
-    item2:{
+    item2: {
       height: 55,
       order: 2,
       [theme.breakpoints.down('sm')]: {
         order: 1,
       },
     },
-    btn: {
-      background: colors.coolBlue,
-      borderRadius: '6px',
-      width: '166px!important',
-      height: '52px',
-    },
-    item3:{
+    item3: {
       order: 3,
       [theme.breakpoints.up('sm')]: {
         marginLeft: 'auto',
-        transform: 'translateY(-95px)'
+        transform: 'translateY(-95px)',
       },
       [theme.breakpoints.down('sm')]: {
         marginLeft: '0px',
-        transform: 'translateY(0px)'
+        transform: 'translateY(0px)',
       },
-    }
+    },
   }))();
-
 
 export type ProfileAccountSectionProps = Props;
 export default ProfileAccountSection;

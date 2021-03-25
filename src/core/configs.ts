@@ -10,6 +10,9 @@ interface AppConfig {
   title?: string;
   company?: string;
   description?: string;
+  api: {
+    url: string;
+  };
   cognito: {
     region: string;
     userPoolId: string;
@@ -31,6 +34,9 @@ const getAppConfig = (): AppConfig => ({
   title: APP_TITLE,
   company: APP_COMPANY,
   description: APP_DESCRIPTION,
+  api: {
+    url: getStringOrThrow(API_URL, 'API_URL'),
+  },
   cognito: {
     region: getStringOrThrow(COGNITO_REGION, 'COGNITO_REGION'),
     userPoolId: getStringOrThrow(COGNITO_USER_POOL_ID, 'COGNITO_USER_POOL_ID'),

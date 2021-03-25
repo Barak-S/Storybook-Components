@@ -6,6 +6,7 @@ import { appConfig } from 'core/configs';
 import { parseUrlSearchStr } from 'core/navigation';
 import React, { FC, useEffect } from 'react';
 import { Screens } from 'screens';
+import { useSelector, useStoreManager } from 'store';
 import { mx, Styles } from 'styles';
 import { capitalizeFirstLetter } from 'utils';
 
@@ -16,10 +17,22 @@ initAmplify();
 export const App: FC = () => {
   const { loaded: authLoaded, user: authUser } = useAuth();
   const { showSnackbar } = useSnackbar();
+  const manager = useStoreManager();
+  const token = useSelector(s => s.auth.token);
 
   useEffect(() => {
     processIncomingQsParams();
   }, []);
+
+  useEffect(() => {
+    manager.auth.update().catch(err => log.err('auth update err=', err));
+  }, [authUser]);
+
+  useEffect(() => {
+    if (token) {
+      manager.profile.update().catch(err => log.err('profile update err=', err));
+    }
+  }, [token]);
 
   // Incoming params
 

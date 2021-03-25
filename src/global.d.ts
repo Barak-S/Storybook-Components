@@ -30,6 +30,7 @@ declare const APP_TITLE: string | undefined;
 declare const APP_COMPANY: string | undefined;
 declare const APP_DESCRIPTION: string | undefined;
 declare const APP_URL: string | undefined;
+declare const API_URL: string | undefined;
 declare const COGNITO_USER_POOL_ID: string | undefined;
 declare const COGNITO_WEB_CLIENT_ID: string | undefined;
 declare const COGNITO_REGION: string | undefined;

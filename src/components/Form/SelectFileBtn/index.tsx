@@ -7,10 +7,11 @@ import { dataOrUndef } from 'utils';
 interface Props extends StyleProps {
   title?: string;
   accept?: string;
+  disabled?: boolean;
   onFileSelect: (result?: string | ArrayBuffer) => void;
 }
 
-export const FormSelectFileBtn: FC<Props> = ({ style, title = 'CHOOSE FILE', accept = 'image/*', onFileSelect }) => {
+export const FormSelectFileBtn: FC<Props> = ({ style, title = 'CHOOSE FILE', accept = 'image/*', disabled, onFileSelect }) => {
   const handleClick = (e: DragEvent<HTMLInputElement>) => {
     e.preventDefault();
     return false;
@@ -30,7 +31,9 @@ export const FormSelectFileBtn: FC<Props> = ({ style, title = 'CHOOSE FILE', acc
 
   return (
     <View style={ms(styles.container, style)}>
-      <ContainedButton style={styles.btn}>{title}</ContainedButton>
+      <ContainedButton disabled={disabled} style={styles.btn}>
+        {title}
+      </ContainedButton>
       <input
         onDrop={handleClick}
         style={styles.input}
