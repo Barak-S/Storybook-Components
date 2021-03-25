@@ -5,6 +5,7 @@ import { routes } from 'screens/consts';
 import { ContentTerms } from 'components/Content';
 import { Text, TextLink, View, ScreenTitle, Splitter } from 'components/Common';
 import { BackgroundedContainer } from 'components/Layout';
+import { ScreenFooter } from 'components/Screen';
 
 type Props = StyleProps;
 
@@ -28,6 +29,7 @@ export const AuthTermsScreen: FC<Props> = () => {
         </View>
         <ContentTerms />
       </BackgroundedContainer>
+      <ScreenFooter theme="light" />
     </>
   );
 };

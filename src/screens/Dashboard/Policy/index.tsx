@@ -1,6 +1,7 @@
 import { ScreenTitle } from 'components/Common';
 import { ContentPolicy } from 'components/Content';
 import { BackgroundedContainer } from 'components/Layout';
+import { ScreenFooter } from 'components/Screen';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
@@ -13,6 +14,7 @@ export const DashboardPolicyScreen: FC<Props> = () => {
       <BackgroundedContainer>
         <ContentPolicy />
       </BackgroundedContainer>
+      <ScreenFooter theme="light" />
     </>
   );
 };

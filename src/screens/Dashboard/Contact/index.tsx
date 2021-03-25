@@ -7,6 +7,7 @@ import { FormTextArea, FormTextInput } from 'components/Form';
 import { validators } from 'utils';
 import { ContainedButton } from 'components/Buttons';
 import { LineAwesomeIcon } from 'components/Icons';
+import { ScreenFooter } from 'components/Screen';
 
 type Props = StyleProps;
 
@@ -163,6 +164,7 @@ export const DashboardContactScreen: FC<Props> = () => {
           </Grid>
         </Paper>
       </DashboardScreenContainer>
+      <ScreenFooter theme="dark" />
     </>
   );
 };

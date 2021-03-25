@@ -4,6 +4,7 @@ import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 import AccordionSections from 'components/Navigation/AccordionSecions';
+import { ScreenFooter } from 'components/Screen';
 
 type Props = StyleProps;
 
@@ -138,6 +139,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
           </ul>
         </Paper>
       </BackgroundedContainer>
+      <ScreenFooter theme="light" />
     </>
   );
 };

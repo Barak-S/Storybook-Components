@@ -5,6 +5,7 @@ import { makeStyles, Theme, useTheme } from '@material-ui/core';
 import { routes } from 'screens/consts';
 import { Text, TextLink, View, ScreenTitle, Splitter } from 'components/Common';
 import { BackgroundedContainer } from 'components/Layout';
+import { ScreenFooter } from 'components/Screen';
 
 type Props = StyleProps;
 
@@ -28,6 +29,7 @@ export const AuthPolicyScreen: FC<Props> = () => {
         </View>
         <ContentPolicy />
       </BackgroundedContainer>
+      <ScreenFooter theme="light" />
     </>
   );
 };
