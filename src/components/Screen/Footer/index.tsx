@@ -7,24 +7,22 @@ import { routes } from 'screens/consts';
 import { LineAwesomeIcon } from 'components/Icons';
 
 interface Props extends StyleProps {
-  theme?: 'light' | 'dark';
+  theme?: SceenFooterTheme;
 }
 
-export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme }) => {
+type SceenFooterTheme = 'light' | 'dark';
+
+export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-
-  const backgroundColor = controlTheme === 'dark' ? colors.darkIndigo : colors.white;
   const color = controlTheme === 'dark' ? colors.white : colors.darkIndigo;
-  const borderTop = controlTheme === 'dark' ? `2px solid ${colors.white}` : `2px solid ${colors.greyish}`;
-
-  const styles = getStyles(backgroundColor, color, borderTop);
+  const styles = getStyles(controlTheme);
 
   return (
     <View style={ms(styles.container, style)}>
       <Grid container className={classes.copyright}>
         <Grid sm={12} md={4} className={classes.copyrightWrap}>
-          <AuthCopyrights style={{ color: color }} />
+          <AuthCopyrights style={{ color }} />
         </Grid>
         <Grid sm={12} md={4} className={classes.socialWrap}>
           <ul className={classes.socialSection}>
@@ -66,12 +64,12 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme }) => {
   );
 };
 
-const getStyles = (backgroundColor: string | undefined, color: string | undefined, borderTop: string | undefined): Styles => ({
+const getStyles = (theme: SceenFooterTheme): Styles => ({
   container: {
     width: '100%',
-    color: color,
-    backgroundColor: backgroundColor,
-    borderTop: borderTop,
+    color: theme === 'dark' ? colors.white : colors.darkIndigo,
+    backgroundColor: theme === 'dark' ? colors.darkIndigo : colors.white,
+    borderTop: theme === 'dark' ? `2px solid ${colors.white}` : `2px solid ${colors.greyish}`,
   },
 });
 
