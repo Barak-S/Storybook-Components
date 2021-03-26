@@ -1,10 +1,10 @@
 import { Grid, makeStyles, Theme } from '@material-ui/core';
-import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
 import { AccountProfile, AccountProfilePatch } from 'core/api';
 import React, { FC } from 'react';
-import { colors, StyleProps, Styles } from 'styles';
+import { colors, StyleProps } from 'styles';
 
+import ProfileSectionFooter from '../SectionFooter';
 import BioSection from './components/BioSection';
 import CompanySection from './components/CompanySection';
 import ImageSection from './components/ImageSection';
@@ -40,21 +40,11 @@ export const ProfileAccountSection: FC<Props> = ({ style, processing, data, prof
           <CompanySection data={data} profile={profile} onChange={onChange} />
           <SocialSection />
           <BioSection data={data} onChange={onChange} />
-          <View row className={classes.wrapBtn}>
-            <ContainedButton style={styles.submitBtn} processing={processing} disabled={processing} onClick={onSubmit}>
-              {'SAVE'}
-            </ContainedButton>
-          </View>
+          <ProfileSectionFooter processing={processing} disabled={processing} onSaveClick={onSubmit} />
         </Grid>
       </Grid>
     </View>
   );
-};
-
-const styles: Styles = {
-  submitBtn: {
-    width: '166px',
-  },
 };
 
 const useStyles = () =>
@@ -72,10 +62,6 @@ const useStyles = () =>
       [theme.breakpoints.down('sm')]: {
         display: 'block',
       },
-    },
-    wrapBtn: {
-      display: 'flex',
-      justifyContent: 'center',
     },
     headerSection: {
       [theme.breakpoints.down('md')]: {
