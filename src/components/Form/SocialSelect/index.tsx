@@ -1,66 +1,44 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC } from 'react';
 import { StyleProps } from 'styles';
-import FormSelect, { FormSelectOption as Option } from '../Select';
+
+import FormSelect from '../Select';
 
 interface Props extends StyleProps {
   label: string;
   title?: string;
   placehoder?: string;
-  value?: NetworkType;
+  value?: SocialNetworkType;
   className?: string;
-  onChange?: (val: NetworkType | undefined) => void;
+  onChange?: (val: SocialNetworkType | undefined) => void;
 }
 
-type NetworkType = 'facebook' | 'google';
+interface SocialNetwork {
+  name: string;
+  type: SocialNetworkType;
+}
 
-const options: Option[] = [
-  { value: 'facebook', name: 'Facebook' },
-  { value: 'google', name: 'Google' },
+type SocialNetworkType = 'facebook' | 'google';
+
+const options: SocialNetwork[] = [
+  { type: 'facebook', name: 'Facebook' },
+  { type: 'google', name: 'Google' },
 ];
 
-export const FormSocialSelect: FC<Props> = ({ style, className, title, label, placehoder, value, onChange }) => {
-  const typeToOption = (val: NetworkType): Option | undefined => {
-    switch (val) {
-      case 'facebook':
-        return options.find(itm => itm.name === 'Facebook');
-      case 'google':
-        return options.find(itm => itm.name === 'Google');
-      default:
-        return undefined;
-    }
-  };
+export const FormSocialSelect: FC<Props> = ({ style, className, title, label, placehoder, value, onChange }) => (
+  <FormSelect
+    className={className}
+    label={label}
+    style={style}
+    title={title}
+    placeholder={placehoder}
+    value={options.find(itm => itm.type === value)}
+    options={options}
+    keyExtractor={itm => itm.type}
+    titleExtractor={itm => itm.name}
+    onChange={itm => onChange && onChange(itm.type)}
+  />
+);
 
-  const optionToType = (value: unknown): NetworkType | undefined => {
-    switch (value) {
-      case 'facebook':
-        return 'facebook';
-      case 'google':
-        return 'google';
-      default:
-        return undefined;
-    }
-  };
-
-  const handleChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
-    if (onChange) {
-      onChange(optionToType(event.target.value));
-    }
-  };
-
-  return (
-    <FormSelect
-      className={className}
-      label={label}
-      style={style}
-      title={title}
-      placeholder={placehoder}
-      value={value ? typeToOption(value) : undefined}
-      options={options}
-      onChange={handleChange}
-    />
-  );
-};
-
-export type FormSocialSelectNetworkType = NetworkType;
+export type FormSocialSelectNetworkType = SocialNetworkType;
 export type FormSocialSelectProps = Props;
 export default FormSocialSelect;

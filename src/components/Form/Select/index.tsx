@@ -1,86 +1,72 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectProps } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, useState } from 'react';
-import { mc, StyleProps } from 'styles';
-import { genId } from 'utils';
+import { isString } from 'lodash';
+import React, { ChangeEvent, PureComponent } from 'react';
+import { ClassNameProps, StyleProps } from 'styles';
 
-type Props = StyleProps & CustomProps;
+import FormSelectStyled from './components/Styled';
 
-interface CustomProps extends SelectProps {
+interface Props<T> extends StyleProps, ClassNameProps {
   label: string;
-  options: FormSelectOption[];
-  className?: string;
+  options: T[];
+  value?: T;
+  title?: string;
+  name?: string;
+  placeholder?: string;
+  fullWidth?: boolean;
+  required?: boolean;
+  keyExtractor: (v: T) => string;
+  titleExtractor: (v: T) => string;
+  onChange?: (v: T) => void;
 }
 
-export interface FormSelectOption {
-  name?: string | undefined;
-  value: unknown;
+export class FormSelect<T> extends PureComponent<Props<T>> {
+  constructor(props: Props<T>) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  private handleChange(e: ChangeEvent<{ name?: string; value: unknown }>) {
+    const { options, keyExtractor, onChange } = this.props;
+    const { value } = e.target;
+    if (!isString(value)) {
+      return;
+    }
+    const item = options.find(itm => keyExtractor(itm) === value);
+    if (item && onChange) {
+      onChange(item);
+    }
+  }
+
+  render() {
+    const {
+      className,
+      style,
+      label,
+      value,
+      options,
+      keyExtractor,
+      titleExtractor,
+      fullWidth,
+      required,
+      title,
+      name,
+      placeholder,
+    } = this.props;
+    return (
+      <FormSelectStyled
+        className={className}
+        style={style}
+        label={label}
+        fullWidth={fullWidth}
+        required={required}
+        title={title}
+        name={name}
+        placeholder={placeholder}
+        options={options.map(itm => ({ name: titleExtractor(itm), value: keyExtractor(itm) }))}
+        value={value ? keyExtractor(value) : ''}
+        onChange={this.handleChange}
+      />
+    );
+  }
 }
 
-export const FormSelect: FC<Props> = ({ label, className, options, ...props }) => {
-  const [open, setOpen] = useState<boolean>(false);
-  const classes = useStyles();
-  const selectId = genId();
-  const iconType = open ? 'chevron-circle-up' : 'chevron-circle-down';
-
-  return (
-    <FormControl className={mc(classes.container, className)}>
-      <InputLabel id={selectId}>{label}</InputLabel>
-      <Select
-        className={classes.select}
-        labelId={selectId}
-        {...props}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-        classes={{
-          icon: classes.nativeIcon,
-          root: classes.selectRoot,
-        }}
-      >
-        {options.map(({ value }) => (
-          <MenuItem key={String(value)} value={String(value)}>
-            {String(value)}
-          </MenuItem>
-        ))}
-      </Select>
-      <LineAwesomeIcon type={iconType} size={24} className={classes.icon} />
-    </FormControl>
-  );
-};
-
-export const useStyles = makeStyles({
-  container: {
-    width: '100%',
-    height: 52,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  select: {
-    height: '100%',
-    flex: '1 0 auto',
-  },
-  selectRoot: {
-    height: '100%',
-    borderRadius: 12,
-    '&.MuiSelect-select.MuiSelect-select': {
-      paddingRight: 45,
-    },
-    '&:focus': {
-      borderRadius: 12,
-    },
-  },
-  nativeIcon: {
-    display: 'none',
-  },
-  icon: {
-    position: 'absolute',
-    top: '50%',
-    right: 14,
-    transform: 'translateY(-50%)',
-    pointerEvents: 'none',
-  },
-});
-
-export type FormSelectProps = Props;
+export type FormSelectProps<T> = Props<T>;
 export default FormSelect;

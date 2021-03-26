@@ -13,6 +13,14 @@ interface Props extends StyleProps {
 
 type FormData = Partial<TeamMemberInvite>;
 
+interface UserGroup {
+  value: string;
+}
+
+interface CompanyType {
+  value: string;
+}
+
 export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit, onChange }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -21,7 +29,7 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
 
   const submitDisabled = !email || !firstName || !lastName || !companyName || !userGroup || !companyType;
 
-  const userGroups = [
+  const userGroups: UserGroup[] = [
     {
       value: 'Presenter',
     },
@@ -30,7 +38,7 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
     },
   ];
 
-  const companyTypes = [
+  const companyTypes: CompanyType[] = [
     {
       value: 'Sponsor',
     },
@@ -43,8 +51,12 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
     onChange && onChange({ ...data, [key]: event.currentTarget.value });
   };
 
-  const handleSelectChange = (key: keyof FormData) => (event: ChangeEvent<{ name?: string; value: unknown }>) => {
-    onChange && onChange({ ...data, [key]: event.currentTarget.value });
+  const handleUserGroupChange = (key: keyof FormData) => (val: UserGroup) => {
+    onChange && onChange({ ...data, [key]: val.value });
+  };
+
+  const handleCompanyTypeChange = (key: keyof FormData) => (val: CompanyType) => {
+    onChange && onChange({ ...data, [key]: val.value });
   };
 
   return (
@@ -70,21 +82,25 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
         <TextInput label="email" value={email || ''} onChange={handleTextFieldChanged('email')} />
       </FormRow>
       <FormRow>
-        <FormSelect
+        <FormSelect<UserGroup>
           className={mc(classes.half)}
           label="user group"
           options={userGroups}
           name="userGroup"
-          value={userGroup || ''}
-          onChange={handleSelectChange('userGroup')}
+          value={userGroup ? userGroups.find(itm => itm.value === userGroup) : undefined}
+          keyExtractor={itm => itm.value}
+          titleExtractor={itm => itm.value}
+          onChange={handleUserGroupChange('userGroup')}
         />
-        <FormSelect
+        <FormSelect<CompanyType>
           className={mc(classes.half)}
           label="company type"
           options={companyTypes}
           name="companyType"
-          value={companyType || ''}
-          onChange={handleSelectChange('companyType')}
+          value={companyType ? companyTypes.find(itm => itm.value === companyType) : undefined}
+          keyExtractor={itm => itm.value}
+          titleExtractor={itm => itm.value}
+          onChange={handleCompanyTypeChange('companyType')}
         />
       </FormRow>
       <FormRow>

@@ -1,25 +1,32 @@
-import { View } from 'components/Common';
-import React from 'react';
-import { Story, StoryMeta } from 'utils';
+import React, { FC, useState } from 'react';
+import { Story } from 'utils';
 
-import FormSelect, { FormSelectProps as Props } from '.';
+import FormSelect, { FormSelectProps } from '.';
 
-export default ((): StoryMeta<Props> => ({
+interface Item {
+  id: string;
+  name: string;
+}
+
+const items: Item[] = [
+  { id: 'first', name: 'First' },
+  { id: 'second', name: 'Second' },
+];
+
+export default {
   title: 'components/Form/Select',
   component: FormSelect,
   args: {
-    label: 'Select item',
-    options: [{ value: 'option 1' }, { value: 'option 2' }, { value: 'option 3' }, { value: 'option 4' }],
+    label: 'Select',
+    options: items,
+    keyExtractor: (itm: Item) => itm.id,
+    titleExtractor: (itm: Item) => itm.name,
   },
-  parameters: {
-    layout: 'centered',
-  },
-}))();
-
-export const Basic: Story<Props> = args => {
-  return (
-    <View style={{ width: 300 }}>
-      <FormSelect {...args} />
-    </View>
-  );
 };
+
+const FormSelectTemplate: FC<Omit<FormSelectProps<Item>, 'value' | 'onChange'>> = props => {
+  const [value, setValue] = useState<Item | undefined>();
+  return <FormSelect<Item> {...props} value={value} onChange={setValue} />;
+};
+
+export const Basic: Story<FormSelectProps<Item>> = args => <FormSelectTemplate {...args} />;

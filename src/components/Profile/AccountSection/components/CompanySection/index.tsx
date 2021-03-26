@@ -13,6 +13,18 @@ interface Props extends StyleProps {
   onChange?: (val: AccountProfilePatch) => void;
 }
 
+interface UserRole {
+  value: string;
+}
+
+interface CompanyType {
+  value: string;
+}
+
+const userRoles: UserRole[] = [{ value: 'Administrator' }, { value: 'Manager' }];
+
+const companytypes: CompanyType[] = [{ value: 'Comercial' }, { value: 'Non profit' }];
+
 export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, onChange }) => {
   const classes = useStyles();
 
@@ -51,21 +63,19 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
               className={classes.companySelect}
               fullWidth
               label="Role"
-              options={[
-                { value: 0, name: 'item1' },
-                { value: 1, name: 'item2' },
-              ]}
+              options={userRoles}
+              keyExtractor={itm => itm.value}
+              titleExtractor={itm => itm.value}
             />
           </View>
           <View className={classes.selectorInf}>
             <FormSelect
               className={classes.companySelect}
               fullWidth
-              options={[
-                { value: 0, name: 'item1' },
-                { value: 1, name: 'item2' },
-              ]}
+              options={companytypes}
               label="Company Type"
+              keyExtractor={itm => itm.value}
+              titleExtractor={itm => itm.value}
             />
           </View>
           <View className={classes.selectorInf}>
