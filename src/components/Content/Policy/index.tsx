@@ -26,7 +26,7 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
   return (
     <Paper className={mc(classes.container, className)} elevation={2} style={style}>
       <Title type="h3" className={classes.primaryHeader}>
-        {'DIGITAL OASIS PRIVACY POLICY'}
+        {'IRIS PRIVACY POLICY'}
       </Title>
 
       <p className={classes.secondaryText}>

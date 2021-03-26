@@ -8,6 +8,7 @@ export const useStyles = () =>
       flexDirection: 'column',
       marginRight: '10%',
       margin: '0px',
+      alignItems: 'center',
       [theme.breakpoints.down('sm')]: {
         marginBottom: '30px',
         marginRight: 0,

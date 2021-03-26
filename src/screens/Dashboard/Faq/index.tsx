@@ -21,7 +21,7 @@ export const DashboardFaqScreen: FC<Props> = () => {
             {'IRIS FAQ'}
           </Title>
           <p className={classes.secondaryText}>
-            {'If you are coming to an event at Digital Oasis take a look at these frequently asked questions:'}
+            {'If you are coming to an event at IRIS take a look at these frequently asked questions:'}
           </p>
           <ul className={classes.primaryList}>
             <li className={classes.listItemHeader}>

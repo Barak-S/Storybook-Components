@@ -43,7 +43,9 @@ export const DashboardContactScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Contact Us" />
-      <DashboardScreenContainer style={{ minHeight: '100vh', backgroundColor: colors.darkIndigo, alignItems: 'center' }}>
+      <DashboardScreenContainer
+        style={{ minHeight: '100vh', backgroundColor: colors.darkIndigo, alignItems: 'center', padding: 0 }}
+      >
         <Paper className={classes.container}>
           <Grid container justify="space-between" spacing={2}>
             <Grid sm={12} lg={5}>
@@ -172,23 +174,25 @@ export const DashboardContactScreen: FC<Props> = () => {
 export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      margin: '55px 35px',
+      margin: '124px 124px',
       padding: '80px 100px',
       borderRadius: 20,
-      width: '100%',
       position: 'relative',
-      maxWidth: '82.5%',
+      maxWidth: 1599,
       lineHeight: 1.3,
       display: 'flex',
       alignItems: 'center',
+      [theme.breakpoints.down('lg')]: {
+        borderRadius: 35,
+        margin: '50px 124px',
+      },
       [theme.breakpoints.down('md')]: {
         padding: '44px 20px',
+        margin: '50px 57px',
       },
       [theme.breakpoints.down('sm')]: {
         padding: '34px 20px',
-      },
-      [theme.breakpoints.down('lg')]: {
-        borderRadius: 35,
+        margin: '49px 20px',
       },
     },
     headerSection: {
@@ -208,8 +212,8 @@ export const useStyles = (theme: Theme) =>
       fontSize: 30,
       marginBottom: 13,
       paddingLeft: 6,
-      [theme.breakpoints.down('sm')]: {
-        paddingLeft: 0,
+      [theme.breakpoints.down('md')]: {
+        paddingLeft: 6,
       },
     },
     secondaryHeader: {
