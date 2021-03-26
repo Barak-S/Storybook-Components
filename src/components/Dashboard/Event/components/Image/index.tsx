@@ -1,8 +1,8 @@
 import { Grid, Link, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { Image } from 'components/Common';
-import { EventStatus } from 'components/Events/types';
 import { LineAwesomeIcon } from 'components/Icons';
+import { EventStatus } from 'core/api';
 import React, { FC, useState } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 

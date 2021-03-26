@@ -1,5 +1,5 @@
 import { DashboardEvent } from 'components/Dashboard';
-import { EventStatus } from 'components/Events';
+import { EventStatus } from 'core/api';
 import React, { FC, useState } from 'react';
 import { StyleProps } from 'styles';
 

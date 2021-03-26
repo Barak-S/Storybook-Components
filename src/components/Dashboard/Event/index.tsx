@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
-import { EventStatus } from 'components/Events/types';
+import { EventStatus } from 'core/api';
 import React, { FC } from 'react';
 import { colors, StyleProps, useScreenSizes } from 'styles';
 
