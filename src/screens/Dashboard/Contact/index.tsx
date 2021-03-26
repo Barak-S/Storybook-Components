@@ -1,13 +1,13 @@
-import { ScreenTitle, View, Title } from 'components/Common';
-import { makeStyles, Paper, Theme, useTheme, Grid } from '@material-ui/core';
-import { DashboardScreenContainer } from 'components/Dashboard';
-import React, { FC, useState, ChangeEvent } from 'react';
-import { colors, StyleProps, globalStyles } from 'styles';
-import { FormTextArea, FormTextInput } from 'components/Form';
-import { validators } from 'utils';
+import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
+import { Title, View } from 'components/Common';
+import { DashboardScreenContainer } from 'components/Dashboard';
+import { FormTextArea, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
-import { ScreenFooter } from 'components/Screen';
+import { ScreenFooter, ScreenTitle } from 'components/Screen';
+import React, { ChangeEvent, FC, useState } from 'react';
+import { colors, globalStyles, StyleProps } from 'styles';
+import { validators } from 'utils';
 
 type Props = StyleProps;
 

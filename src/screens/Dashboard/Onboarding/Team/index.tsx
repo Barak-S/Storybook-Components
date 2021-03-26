@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { ScreenTitle } from 'components/Common';
+import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupStep } from 'components/Setup';
 import { TeamMemberInvitesList } from 'components/Team';
 import { isTeamMemberInvite, TeamMemberInvite } from 'core/api';

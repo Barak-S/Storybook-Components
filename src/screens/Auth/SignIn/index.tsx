@@ -1,11 +1,13 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
+import { BrandLogo } from 'components/Brand';
 import { ContainedButton, SocialButtonNetworkType } from 'components/Buttons';
-import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
+import { Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { FormCheckboxInput, FormPasswordInput, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
 import { BackgroundedContainer } from 'components/Layout';
+import { ScreenTitle } from 'components/Screen';
 import { appConfig, Log } from 'core';
 import { getAmpifyStorageType, setAmpifyStorageType } from 'core/amplify';
 import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
@@ -146,7 +148,7 @@ export const AuthSignInScreen: FC<Props> = () => {
             {'Sign up'}
           </TextLink>
         </View>
-        <Logo />
+        <BrandLogo className={classes.logo} type="text" />
         <AuthFormContainer>
           <View className={classes.fields}>
             <Grid container justify="center" spacing={2}>

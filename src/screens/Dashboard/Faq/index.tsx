@@ -1,10 +1,10 @@
-import { ScreenTitle, Title } from 'components/Common';
 import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { Title } from 'components/Common';
 import { BackgroundedContainer } from 'components/Layout';
+import AccordionSections from 'components/Navigation/AccordionSecions';
+import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
-import AccordionSections from 'components/Navigation/AccordionSecions';
-import { ScreenFooter } from 'components/Screen';
 
 type Props = StyleProps;
 

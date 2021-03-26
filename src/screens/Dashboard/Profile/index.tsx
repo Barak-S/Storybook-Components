@@ -1,9 +1,10 @@
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
-import { ScreenTitle, Title } from 'components/Common';
+import { Title } from 'components/Common';
 import { DashboardScreenContainer } from 'components/Dashboard';
 import { useSnackbar } from 'components/Feedback';
 import { AccordionSections, FolderTabs } from 'components/Navigation';
 import { ProfileAccountSection, ProfilePassSection, ProfileSettingsSection } from 'components/Profile';
+import { ScreenTitle } from 'components/Screen';
 import { Log } from 'core';
 import { AccountProfilePatch, accountProfileToPatch } from 'core/api';
 import React, { FC, useState } from 'react';

@@ -1,5 +1,5 @@
 import { Grid, Hidden } from '@material-ui/core';
-import { ScreenTitle } from 'components/Common';
+import { ScreenTitle } from 'components/Screen';
 import { DashboardScreenContainer, DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
 import { LineTab, LineTabs } from 'components/Navigation';
 import { useAuth } from 'core';

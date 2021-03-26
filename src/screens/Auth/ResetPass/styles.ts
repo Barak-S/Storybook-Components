@@ -21,9 +21,13 @@ export const styles: Styles = {
 export const useStyles = (theme: Theme) =>
   makeStyles({
     logo: {
+      width: 112,
+      height: 63,
       marginBottom: 20,
       [theme.breakpoints.up('lg')]: {
         marginBottom: 50,
+        width: 224,
+        height: 126,
       },
     },
   })();

@@ -1,11 +1,10 @@
 import { Grid, Hidden, useTheme } from '@material-ui/core';
-import logoImg from 'assets/logoSquare.png';
-
-import { Image, Splitter } from 'components/Common';
+import { BrandLogo } from 'components/Brand';
+import { Splitter } from 'components/Common';
 import React, { FC, MouseEvent } from 'react';
 import { StyleProps } from 'styles';
-import DashboardDropdownMenu from '../DropdownMenu';
 
+import DashboardDropdownMenu from '../DropdownMenu';
 import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from './components/Menu';
 import TextBtn from './components/TextBtn';
 import { styles, useStyles } from './styles';
@@ -47,7 +46,7 @@ export const DashboardAppBar: FC<Props> = ({
     <Grid className={classes.container}>
       <Grid className={classes.mainSection}>
         <a style={styles.logoWrap} href="#" onClick={handleLogoClick}>
-          <Image className={classes.logo} source={logoImg} />
+          <BrandLogo className={classes.logo} type="icon" />
         </a>
         <AppBarMenu
           activeTab={activeTab}

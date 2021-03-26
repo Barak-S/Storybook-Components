@@ -1,4 +1,4 @@
-import { ScreenTitle } from 'components/Common';
+import { ScreenTitle } from 'components/Screen';
 import { ContentTerms } from 'components/Content';
 import { ScreenFooter } from 'components/Screen';
 import { BackgroundedContainer } from 'components/Layout';

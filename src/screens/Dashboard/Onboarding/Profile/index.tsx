@@ -1,4 +1,4 @@
-import { ScreenTitle } from 'components/Common';
+import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupStep } from 'components/Setup';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';

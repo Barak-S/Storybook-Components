@@ -1,10 +1,12 @@
 import { Grid, useTheme } from '@material-ui/core';
 import { AuthCopyrights, AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
+import { BrandLogo } from 'components/Brand';
 import { ContainedButton, SocialButtonNetworkType } from 'components/Buttons';
-import { Logo, ScreenTitle, Splitter, Text, TextLink, View } from 'components/Common';
+import { Splitter, Text, TextLink, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { FormPasswordInput, FormTextInput } from 'components/Form';
 import { BackgroundedContainer } from 'components/Layout';
+import { ScreenTitle } from 'components/Screen';
 import { appConfig, Log } from 'core';
 import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -86,8 +88,8 @@ export const AuthSignUpScreen: FC<Props> = () => {
     <>
       <ScreenTitle title="Sign up" />
       <BackgroundedContainer style={styles.container}>
-        <View row className={classes.logo}>
-          <Logo />
+        <View row className={classes.logoWrap}>
+          <BrandLogo className={classes.logo} />
         </View>
         <View>
           <Text style={styles.title}>{`Let’s Get Started`}</Text>

@@ -1,6 +1,7 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { ScreenTitle, View } from 'components/Common';
+import { View } from 'components/Common';
 import { DashboardAppBar, DashboardAppBarBtn, DashboardMobileMenu, DashboardUserNavBtnType } from 'components/Dashboard';
+import { ScreenTitle } from 'components/Screen';
 import { Log } from 'core';
 import { useAuth } from 'core/auth';
 import React, { FC, useEffect, useState } from 'react';

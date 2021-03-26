@@ -29,13 +29,21 @@ export const styles: Styles = {
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
-    logo: {
+    logoWrap: {
       display: 'flex',
       justifyContent: 'center',
       '@media screen and (min-width: 1366px)': {
         width: '100%',
         paddingLeft: 72,
         justifyContent: 'flex-start',
+      },
+    },
+    logo: {
+      width: 112,
+      height: 63,
+      [theme.breakpoints.up('lg')]: {
+        width: 224,
+        height: 126,
       },
     },
     copyright: {

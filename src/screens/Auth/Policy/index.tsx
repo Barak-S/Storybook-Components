@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-import { StyleProps, colors } from 'styles';
-import { ContentPolicy } from 'components/Content';
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
-import { routes } from 'screens/consts';
-import { Text, TextLink, View, ScreenTitle, Splitter } from 'components/Common';
+import { Splitter, Text, TextLink, View } from 'components/Common';
+import { ContentPolicy } from 'components/Content';
 import { BackgroundedContainer } from 'components/Layout';
-import { ScreenFooter } from 'components/Screen';
+import { ScreenFooter, ScreenTitle } from 'components/Screen';
+import React, { FC } from 'react';
+import { routes } from 'screens/consts';
+import { colors, StyleProps } from 'styles';
 
 type Props = StyleProps;
 

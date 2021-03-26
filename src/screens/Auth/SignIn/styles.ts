@@ -14,10 +14,6 @@ export const styles: Styles = {
   signupLink: {
     color: colors.brownishGrey,
   },
-  logo: {
-    width: 224,
-    height: 126,
-  },
   formTitle: {
     textTransform: 'capitalize',
     textAlign: 'center',
@@ -82,6 +78,15 @@ export const useStyles = (theme: Theme) =>
         justifyContent: 'flex-end',
         padding: '35px 80px',
         fontSize: 18,
+      },
+    },
+    logo: {
+      width: 112,
+      height: 63,
+
+      [theme.breakpoints.up('lg')]: {
+        width: 224,
+        height: 126,
       },
     },
   })();

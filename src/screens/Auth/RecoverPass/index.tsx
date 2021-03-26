@@ -1,10 +1,12 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { AuthFormContainer } from 'components/Auth';
+import { BrandLogo } from 'components/Brand';
 import { ContainedButton } from 'components/Buttons';
-import { Logo, ScreenTitle, Text, TextLink, Title, View } from 'components/Common';
+import { Text, TextLink, Title, View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { FormTextInput } from 'components/Form';
 import { BackgroundedContainer } from 'components/Layout';
+import { ScreenTitle } from 'components/Screen';
 import { Log } from 'core';
 import { isCognitoErrResponse, useAuth } from 'core/auth';
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -90,7 +92,7 @@ export const AuthRecoverPassScreen: FC<Props> = () => {
     <>
       <ScreenTitle title="Password Recovery" />
       <BackgroundedContainer style={styles.authScreen}>
-        <Logo className={classes.logo} />
+        <BrandLogo className={classes.logo} type="text" />
         <AuthFormContainer style={styles.container}>
           <Grid container justify="center" style={styles.form}>
             <Title type="h3" style={ms(globalStyles.authTitle, styles.title)}>
@@ -158,9 +160,13 @@ const styles: Styles = {
 const useStyles = (theme: Theme) =>
   makeStyles({
     logo: {
+      width: 112,
+      height: 63,
       marginBottom: 20,
       [theme.breakpoints.up('lg')]: {
         marginBottom: 50,
+        width: 224,
+        height: 126,
       },
     },
   })();
