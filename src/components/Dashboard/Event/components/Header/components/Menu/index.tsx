@@ -1,7 +1,7 @@
-import { Grid, makeStyles, List, MenuItem, useTheme, Theme } from '@material-ui/core';
-import { Dropdown } from 'components/Common';
+import { Grid, List, makeStyles, MenuItem, Theme, useTheme } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
-import React, { FC, useState, MouseEvent } from 'react';
+import { Dropdown } from 'components/Navigation';
+import React, { FC, MouseEvent, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {

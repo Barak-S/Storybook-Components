@@ -1,9 +1,10 @@
 import { Avatar, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
-import React, { FC, useState, MouseEvent } from 'react';
 import profileImg from 'assets/profilePlaceholder.png';
+import { Dropdown } from 'components/Navigation';
+import React, { FC, MouseEvent, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
+
 import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from '../AppBar/components/Menu';
-import { Dropdown } from 'components/Common';
 
 interface Props extends StyleProps {
   activeTab: DashboardAppBarBtn;
