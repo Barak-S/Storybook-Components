@@ -1,15 +1,18 @@
 import axios from 'axios';
 import appConfig from 'core/configs';
 import { Log } from 'core/log';
-import { secMs, TypeGuard } from 'utils';
+import { secMs } from 'utils';
 
-import { AccountProfile, ApiOpt, ApiReqOpt, isApiErrResp, isAccountProfile, AccountProfilePatch } from './types';
+import { AccountProfile, AccountProfilePatch, ApiOpt, ApiReqOpt, isAccountProfile, isApiErrResp } from './types';
+import { isStatus200 } from './utils';
 
 const log = Log('core.api');
 
 export const getApiWithOpt = ({ token }: ApiOpt) => {
-  const apiReq = async <T>(opt: ApiReqOpt, guard: TypeGuard<T>): Promise<T> => {
-    const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true } = opt;
+  /** Basic */
+
+  const apiReq = async <T>(opt: ApiReqOpt<T>): Promise<T> => {
+    const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true, guard } = opt;
     if (auth && !token) {
       log.err(`Trying to call "${path}" without a token`);
       throw new Error(`Trying to call "${path}" without a token`);
@@ -41,16 +44,19 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     }
   };
 
+  /** Profile */
+
   const getAccountProfile = async (): Promise<AccountProfile> =>
-    apiReq({ auth: true, path: '/account/profile' }, isAccountProfile);
+    apiReq({ auth: true, path: '/account/profile', guard: isAccountProfile });
 
   const modifyAccountProfile = async (data: AccountProfilePatch): Promise<AccountProfile> =>
-    apiReq({ auth: true, path: '/account/profile', method: 'PATCH', data }, isAccountProfile);
+    apiReq({ auth: true, path: '/account/profile', method: 'PATCH', data, guard: isAccountProfile });
+
+  /** Export */
 
   return { getAccountProfile, modifyAccountProfile };
 };
 
-const isStatus200 = (status: number) => status >= 200 && status <= 299;
-
 export type Api = ReturnType<typeof getApiWithOpt>;
 export * from './types';
+export * from './utils';
