@@ -1,6 +1,6 @@
 import { Grid, Hidden, useTheme } from '@material-ui/core';
 import { BrandLogo } from 'components/Brand';
-import { Splitter } from 'components/Common';
+import { VerticalSplitter } from 'components/Data';
 import React, { FC, MouseEvent } from 'react';
 import { StyleProps } from 'styles';
 
@@ -62,11 +62,11 @@ export const DashboardAppBar: FC<Props> = ({
           <TextBtn style={styles.supportLink} href="/dashboard/support">
             {'Support'}
           </TextBtn>
-          <Splitter />
+          <VerticalSplitter />
           <TextBtn style={styles.supportLink} href="/dashboard/contact">
             {'Contact Us'}
           </TextBtn>
-          <Splitter />
+          <VerticalSplitter />
         </Hidden>
         <DashboardDropdownMenu
           activeTab={activeTab}

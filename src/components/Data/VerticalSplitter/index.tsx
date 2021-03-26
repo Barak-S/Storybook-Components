@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { colors, Styles, ms, mx, StyleProps } from 'styles';
-import { View } from '..';
+import { View } from 'components/Common';
 
 type Props = StyleProps;
 
-export const Splitter: FC<Props> = ({ style }) => {
+export const VerticalSplitter: FC<Props> = ({ style }) => {
   return <View style={ms(styles.splitter, style)} />;
 };
 
@@ -16,4 +16,4 @@ const styles: Styles = {
   },
 };
 
-export default Splitter;
+export default VerticalSplitter;

@@ -1,5 +1,5 @@
 import { Grid, Link, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { Splitter } from 'components/Common';
+import { VerticalSplitter } from 'components/Data';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, StyleProps } from 'styles';
@@ -25,7 +25,7 @@ export const DashboardEventHeader: FC<Props> = ({ url, onClick, onEditClick, onC
       <Link href={url} target="_blank">
         <LineAwesomeIcon className={classes.copyIcon} type="external-link-alt" />
       </Link>
-      <Splitter style={{ height: 33 }} />
+      <VerticalSplitter style={{ height: 33 }} />
       <ItemMenu
         onEditClick={onEditClick}
         onCloneClick={onCloneClick}

@@ -1,6 +1,7 @@
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
-import { Splitter, Text, TextLink, View } from 'components/Common';
+import { Text, TextLink, View } from 'components/Common';
 import { ContentTerms } from 'components/Content';
+import { VerticalSplitter } from 'components/Data';
 import { BackgroundedContainer } from 'components/Layout';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import React, { FC } from 'react';
@@ -22,7 +23,7 @@ export const AuthTermsScreen: FC<Props> = () => {
           <TextLink className={classes.textLink} href={routes.auth.signin}>
             {'log in'}
           </TextLink>
-          <Splitter style={{ marginRight: 19 }} />
+          <VerticalSplitter style={{ marginRight: 19 }} />
           <TextLink className={classes.signupLink} href={routes.auth.signup}>
             {'Sign up'}
           </TextLink>

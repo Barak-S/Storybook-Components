@@ -2,7 +2,8 @@ import { Grid, useTheme } from '@material-ui/core';
 import { AuthCopyrights, AuthFormContainer, AuthSectionSplitter, AuthSocialLoginButtons } from 'components/Auth';
 import { BrandLogo } from 'components/Brand';
 import { ContainedButton, SocialButtonNetworkType } from 'components/Buttons';
-import { Splitter, Text, TextLink, View } from 'components/Common';
+import { Text, TextLink, View } from 'components/Common';
+import { VerticalSplitter } from 'components/Data';
 import { useSnackbar } from 'components/Feedback';
 import { FormPasswordInput, FormTextInput } from 'components/Form';
 import { BackgroundedContainer } from 'components/Layout';
@@ -199,7 +200,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
           <AuthCopyrights />
           <View row justifyContent="center">
             <TextLink href={routes.terms}>{'Terms of Service'}</TextLink>
-            <Splitter style={styles.splitter} />
+            <VerticalSplitter style={styles.splitter} />
             <TextLink href={routes.policy}>{'Privacy Policy'}</TextLink>
           </View>
         </Grid>
