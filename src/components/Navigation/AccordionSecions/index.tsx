@@ -3,7 +3,7 @@ import { AccordionDetails, AccordionSummary, makeStyles } from '@material-ui/cor
 import { View, Text } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, ReactNode } from 'react';
-import { colors, ms, mc, StyleProps, Styles } from 'styles';
+import { colors, mc, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   sections: Section[];
@@ -21,10 +21,10 @@ export const AccordionSections: FC<Props> = ({ style, className, sections }) => 
   return (
     <View style={styles.container}>
       {sections.map(({ id, title, content }) => (
-        <Accordion style={ms(styles.blockHeading, style)} key={id} classes={{ root: classes.root }}>
+        <Accordion style={style} key={id} classes={{ root: classes.root }}>
           <AccordionSummary
             classes={{ root: mc(classes.accordion, className) }}
-            expandIcon={<LineAwesomeIcon color={colors.marineBlue} type="chevron-circle-down" />}
+            expandIcon={<LineAwesomeIcon type="chevron-circle-down" />}
           >
             <Text style={styles.heading}>{title}</Text>
           </AccordionSummary>
@@ -41,19 +41,12 @@ const styles: Styles = {
   container: {
     width: '100%',
   },
-  blockHeading: {
-    background: colors.lightPeriwinkle,
-  },
   heading: {
     color: colors.marineBlue,
     fontSize: 19,
   },
   content: {
     background: 'white',
-  },
-  icon: {
-    fill: colors.marineBlue,
-    transform: 'rotate(-90deg)',
   },
 };
 
@@ -62,10 +55,12 @@ const useStyles = makeStyles({
     '&:before': {
       display: 'none',
     },
+    '& .MuiIconButton-root': {
+      color: colors.marineBlue,
+    },
   },
   accordion: {
     '& .MuiIcon-root': {
-      fill: colors.marineBlue,
       transform: 'rotate(-90deg)',
       transition: '0.3s ease',
       alignItems: 'center',
@@ -79,8 +74,13 @@ const useStyles = makeStyles({
       transform: 'rotate(0)',
       alignItems: 'center',
       display: 'flex',
+      color: colors.coolBlueTwo,
+      // transform: 'translateY(-1px)',
       '& .MuiIcon-root': {
-        transform: 'rotate(0deg)',
+        transform: 'rotate(180deg)',
+        '&:hover': {
+          transform: 'rotate(180deg)',
+        },
       },
     },
   },

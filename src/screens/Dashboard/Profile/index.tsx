@@ -128,7 +128,7 @@ const styles: Styles = {
     background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
     boxShadow: 'none',
     fontWeight: 400,
-    marginBottom: 5,
+    marginBottom: 13,
     marginTop: 0,
   },
 };
@@ -138,6 +138,13 @@ const useStyles = (theme: Theme) =>
     container: {
       [theme.breakpoints.down('sm')]: {
         padding: '25px 10px',
+      },
+      '& .MuiAccordionSummary-root.Mui-expanded': {
+        background: colors.white,
+        border: 'none',
+        borderTop: `1px solid ${colors.greyish}`,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
       },
     },
     title: {

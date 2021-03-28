@@ -1,4 +1,4 @@
-import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { makeStyles, Paper, Theme, useTheme, useMediaQuery } from '@material-ui/core';
 import { Title } from 'components/Common';
 import { BackgroundedContainer } from 'components/Layout';
 import AccordionSections from 'components/Navigation/AccordionSecions';
@@ -11,6 +11,9 @@ type Props = StyleProps;
 export const DashboardFaqScreen: FC<Props> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const styles = getStyles(isMobile);
 
   return (
     <>
@@ -144,20 +147,19 @@ export const DashboardFaqScreen: FC<Props> = () => {
   );
 };
 
-const styles: Styles = {
+const getStyles = (isMobile: boolean): Styles => ({
   accordion: {
     color: colors.brownishGrey,
     borderRadius: 10,
-    minHeight: 76,
     background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
     boxShadow: 'none',
     fontWeight: 400,
-    marginBottom: 5,
+    marginBottom: isMobile ? 12 : 5,
     marginTop: 0,
   },
-};
+});
 
-export const useStyles = (theme: Theme) =>
+const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       padding: '70px 100px',
@@ -165,14 +167,21 @@ export const useStyles = (theme: Theme) =>
       margin: '55px 105px',
       alignItems: 'center',
       position: 'relative',
-      lineHeight: 1.5,
       [theme.breakpoints.down('md')]: {
-        padding: '45px 20px',
+        padding: '33px 43px',
         borderRadius: 30,
         margin: '55px 75px',
       },
       [theme.breakpoints.down('sm')]: {
         margin: '35px 15px',
+        padding: '40px 20px',
+      },
+      '& .MuiAccordionSummary-root.Mui-expanded': {
+        background: colors.white,
+        border: 'none',
+        borderTop: `1px solid ${colors.greyish}`,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
       },
     },
     primaryHeader: {
@@ -201,7 +210,12 @@ export const useStyles = (theme: Theme) =>
       fontSize: 18,
     },
     accordion: {
-      height: 76,
+      [theme.breakpoints.up('sm')]: {
+        height: 76,
+      },
+      [theme.breakpoints.down('sm')]: {
+        minHeight: '76px',
+      },
       borderTopRightRadius: 10,
       borderTopLeftRadius: 10,
       '&:hover': {
