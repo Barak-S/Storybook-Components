@@ -20,7 +20,7 @@ interface Props extends StyleProps {
 export const Stepper: FC<Props> = ({ steps, activeStep, style }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const { isMobile } = useScreenSizes();
+  const { isMobile, isDesktop } = useScreenSizes();
 
   const renderSteps = steps.map((label, index) => {
     const isCompleted = index < activeStep;
@@ -34,7 +34,7 @@ export const Stepper: FC<Props> = ({ steps, activeStep, style }) => {
           icon={<StepperIcon label={iconLabel} active={isActive} completed={isCompleted} />}
           className={mc(classes.label, isActiveLabel && classes.activeStep)}
         >
-          {!isMobile ? label : undefined}
+          {isDesktop ? label : undefined}
         </MaterialStepLabel>
       </MaterialStep>
     );

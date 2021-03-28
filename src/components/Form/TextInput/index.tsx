@@ -7,16 +7,17 @@ interface CustomProps {
   iconStart?: ReactNode;
   iconEnd?: ReactNode;
   valid?: boolean;
+  adornmentType?: 'transparent';
 }
 
 type Props = TextFieldProps & CustomProps;
 
-export const FormTextInput: FC<Props> = ({ iconStart, iconEnd, valid, InputProps, ...props }) => {
+export const FormTextInput: FC<Props> = ({ iconStart, iconEnd, valid, adornmentType, InputProps, ...props }) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
   const endIconProps = <InputAdornment position="end">{iconEnd}</InputAdornment>;
   const isStartIcon = !!iconStart;
   const { value } = props;
-  const classes = useStyles({ value, isStartIcon, valid });
+  const classes = useStyles({ value, isStartIcon, valid, adornmentType });
 
   return (
     <TextField

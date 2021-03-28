@@ -33,7 +33,7 @@ const getLongTitle = (val: SetupStepTitle): string => (typeof val === 'string' ?
 export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, onSkipClick, children }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const { isMobile, isDesktop } = useScreenSizes();
+  const { isDesktop } = useScreenSizes();
 
   const stepperSteps = steps.map(val => getShortTitle(val.title));
 
@@ -52,7 +52,7 @@ export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCl
               </Title>
               <Grid style={{ width: '100%' }}>
                 <Stepper steps={stepperSteps} activeStep={curStepIndex} />
-                {isMobile && <DashbaordStepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
+                {!isDesktop && <DashbaordStepperMobileLabel steps={stepperSteps} curStepIndex={curStepIndex} />}
               </Grid>
             </Grid>
           </Grid>

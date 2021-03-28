@@ -1,6 +1,6 @@
 import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
-import React, { ChangeEventHandler, DragEvent, FC } from 'react';
+import React, { ChangeEventHandler, CSSProperties, DragEvent, FC } from 'react';
 import { ms, StyleProps, Styles } from 'styles';
 import { dataOrUndef } from 'utils';
 
@@ -8,10 +8,18 @@ interface Props extends StyleProps {
   title?: string;
   accept?: string;
   disabled?: boolean;
+  buttonStyles?: CSSProperties;
   onFileSelect: (result?: string | ArrayBuffer) => void;
 }
 
-export const FormSelectFileBtn: FC<Props> = ({ style, title = 'CHOOSE FILE', accept = 'image/*', disabled, onFileSelect }) => {
+export const FormSelectFileBtn: FC<Props> = ({
+  style,
+  buttonStyles,
+  title = 'CHOOSE FILE',
+  accept = 'image/*',
+  disabled,
+  onFileSelect,
+}) => {
   const handleClick = (e: DragEvent<HTMLInputElement>) => {
     e.preventDefault();
     return false;
@@ -31,7 +39,7 @@ export const FormSelectFileBtn: FC<Props> = ({ style, title = 'CHOOSE FILE', acc
 
   return (
     <View style={ms(styles.container, style)}>
-      <ContainedButton disabled={disabled} style={styles.btn}>
+      <ContainedButton disabled={disabled} style={ms(styles.btn, buttonStyles)}>
         {title}
       </ContainedButton>
       <input
@@ -55,6 +63,7 @@ const styles: Styles = {
   btn: {
     width: '148px',
     height: '34px',
+    minHeight: 34,
     fontSize: 'small',
     lineHeight: 'normal',
   },
@@ -66,6 +75,7 @@ const styles: Styles = {
     height: '100%',
     opacity: '0',
     zIndex: 9,
+    cursor: 'pointer',
   },
 };
 

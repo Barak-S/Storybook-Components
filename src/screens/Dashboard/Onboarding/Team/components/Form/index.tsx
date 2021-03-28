@@ -107,7 +107,13 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
         <FormTextArea label="Invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />
       </FormRow>
       <FormRow style={{ justifyContent: 'flex-end' }}>
-        <ContainedButton size="medium" onClick={onSubmit} endIcon="envelope-open" disabled={submitDisabled}>
+        <ContainedButton
+          style={{ width: 'auto' }}
+          size="medium"
+          onClick={onSubmit}
+          endIcon="envelope-open"
+          disabled={submitDisabled}
+        >
           {'Invite and add another'}
         </ContainedButton>
       </FormRow>

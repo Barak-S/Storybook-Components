@@ -2,6 +2,7 @@ import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupStep } from 'components/Setup';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
+import OnboardingProfileScreenForm from './components/Form';
 
 interface Props extends StyleProps {
   steps: SetupStep[];
@@ -13,7 +14,7 @@ export const OnboardingProfileScreen: FC<Props> = ({ steps, onCloseClick }) => {
     <>
       <ScreenTitle title="Onboarding Profile" />
       <SetupContainer title="add your profile information" steps={steps} curStepIndex={0} onCloseClick={onCloseClick}>
-        <h1>{'PROFILE INFORMATION BODY'}</h1>
+        <OnboardingProfileScreenForm />
       </SetupContainer>
     </>
   );

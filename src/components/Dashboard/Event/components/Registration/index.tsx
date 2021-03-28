@@ -104,6 +104,7 @@ export const DashboardEventRegistration: FC<Props> = ({
               endIcon="chevron-circle-right"
               className={classes.continueButton}
               onClick={handleContinueClick}
+              style={{ width: 'auto' }}
             >
               {'create email invite'}
             </ContainedButton>
@@ -158,6 +159,9 @@ const styles: Styles = {
   },
   counter: {
     fontSize: 26,
+  },
+  continueButton: {
+    width: 'auto',
   },
 };
 
@@ -278,6 +282,8 @@ const useStyles = (theme: Theme) =>
       '&.MuiButton-contained': {
         background: colors.marineBlue,
         width: 'auto',
+        paddingRight: 10,
+        paddingLeft: 10,
         '& .MuiButton-label': {
           paddingRight: 25,
           paddingLeft: 10,

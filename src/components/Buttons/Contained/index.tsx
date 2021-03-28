@@ -101,7 +101,6 @@ const useStyles = makeStyles({
     },
     '& .MuiIcon-root': {
       fontSize: 'inherit',
-      marginTop: -2,
     },
   },
 });

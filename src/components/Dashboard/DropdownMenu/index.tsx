@@ -34,11 +34,17 @@ export const DashboardDropdownMenu: FC<Props> = ({
     setAnchorEl(undefined);
   };
 
+  const handleMobileMenuClick = () => {
+    if (onMobileMenuClick) {
+      onMobileMenuClick();
+    }
+  };
+
   const classes = useStyles(theme);
 
   return (
     <Grid style={styles.container}>
-      <a style={styles.thumbWrap} href="#" onClick={isMobile ? onMobileMenuClick : handleProfileClick}>
+      <a style={styles.thumbWrap} href="#" onClick={isMobile ? handleMobileMenuClick : handleProfileClick}>
         <Avatar className={classes.thumb} alt="Profile Picture" src={profileImg} />
       </a>
       <Dropdown
@@ -46,7 +52,7 @@ export const DashboardDropdownMenu: FC<Props> = ({
         anchor={anchorEl}
         open={!!anchorEl}
         onClose={handleMenuClose}
-        onToggle={handleProfileClick}
+        onToggle={isMobile ? handleMobileMenuClick : handleProfileClick}
         classes={{
           menu: classes.dropdown,
           icon: classes.dropdownIcon,

@@ -15,12 +15,21 @@ interface Props extends StyleProps {
   onRemoveClick?: () => void;
 }
 
-export const DashboardEventHeader: FC<Props> = ({ url, onClick, onEditClick, onCloneClick, onArchiveClick, onRemoveClick }) => {
+export const DashboardEventHeader: FC<Props> = ({
+  style,
+  url,
+
+  onClick,
+  onEditClick,
+  onCloneClick,
+  onArchiveClick,
+  onRemoveClick,
+}) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
-    <Grid className={classes.container}>
+    <Grid className={classes.container} style={style}>
       <input type="text" onClick={() => !!onClick && onClick(url)} className={classes.input} value={url} disabled />
       <Link href={url} target="_blank">
         <LineAwesomeIcon className={classes.copyIcon} type="external-link-alt" />

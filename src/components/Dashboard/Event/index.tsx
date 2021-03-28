@@ -127,6 +127,7 @@ export const DashboardEvent: FC<Props> = ({
               onCloneClick={onCloneClick}
               onArchiveClick={onArchiveClick}
               onRemoveClick={onRemoveClick}
+              style={{ marginBottom: 15 }}
             />
           )}
           <EventMainActions

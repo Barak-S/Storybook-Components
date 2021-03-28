@@ -1,7 +1,7 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton, TextButton } from 'components/Buttons';
 import React, { FC } from 'react';
-import { StyleProps } from 'styles';
+import { colors, mx, StyleProps, useScreenSizes } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -10,14 +10,26 @@ interface Props extends StyleProps {
 export const SetupContainerFooter: FC<Props> = ({ style }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
+  const { isDesktop } = useScreenSizes();
+
   return (
     <Grid style={style} className={classes.container}>
-      <ContainedButton size="large" className={classes.backBtn} startIcon="chevron-circle-left">
+      <ContainedButton
+        size="medium"
+        className={classes.backBtn}
+        startIcon="chevron-circle-left"
+        style={{ ...(isDesktop && { maxWidth: 100 }) }}
+      >
         {'back'}
       </ContainedButton>
       <Grid className={classes.buttonGroup}>
         <TextButton className={classes.textBtn}>{'Save & Continue Later'}</TextButton>
-        <ContainedButton size="large" endIcon="chevron-circle-right" className={classes.continueBtn}>
+        <ContainedButton
+          size="medium"
+          endIcon="chevron-circle-right"
+          className={classes.continueBtn}
+          style={{ ...(isDesktop && { maxWidth: 145 }) }}
+        >
           {'continue'}
         </ContainedButton>
       </Grid>
@@ -31,6 +43,8 @@ const useStyles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      paddingTop: 20,
+      ...mx.borderTop(1, 'solid', colors.greyish),
       [theme.breakpoints.up('sm')]: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -53,6 +67,7 @@ const useStyles = (theme: Theme) =>
       maxWidth: 320,
       [theme.breakpoints.up('sm')]: {
         flexDirection: 'row',
+        justifyContent: 'flex-end',
       },
     },
     continueBtn: {
