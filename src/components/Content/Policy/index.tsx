@@ -47,8 +47,12 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
       <p className={classes.boldText}>{'Additional terms related to data privacy laws in certain countries:'}</p>
       <p className={classes.secondaryText}>
         {
-          'For the purposes of interpreting data privacy laws and regulations in certain countries (including the European Union General Data Protection Regulation or “GDPR”, and the United Kingdom 2018 Data Protection Act), we are considered to be a “data processor” of the Personal Information that is collected and processed through WorldStage. We process your personal data on behalf of your Live Event Provider, who is the “data controller” of that Personal Information. We provide more information in the section titled “Information for Users Located in the European Union or United Kingdom”, about how we protect the rights granted to you under these laws, and how you can exercise those rights.'
+          'For the purposes of interpreting data privacy laws and regulations in certain countries (including the European Union General Data Protection Regulation or “GDPR”, and the United Kingdom 2018 Data Protection Act), we are considered to be a “data processor” of the Personal Information that is collected and processed through WorldStage. We process your personal data on behalf of your Live Event Provider, who is the “data controller” of that Personal Information. We provide more information in the section titled '
         }
+        <strong className={classes.boldParagpraphText}>
+          {'“Information for Users Located in the European Union or United Kingdom”'}
+        </strong>
+        {', about how we protect the rights granted to you under these laws, and how you can exercise those rights.'}
       </p>
       <p className={classes.secondaryText}>
         {
@@ -94,10 +98,10 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell2} component="td" scope="row">
                 {'Personal Information'}
               </TableCell>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell1} component="td" scope="row" style={{ maxWidth: 308 }}>
                 {'Collected from you at registration or provided to us by your Live Event Provider'}
               </TableCell>
               <TableCell className={classes.dataCell2} component="td" scope="row">
@@ -111,10 +115,10 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell2} component="td" scope="row">
                 {'Sensitive Personal Information'}
               </TableCell>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell1} component="td" scope="row" style={{ maxWidth: 308 }}>
                 {'When you submit any information in our app'}
               </TableCell>
               <TableCell className={classes.dataCell2} component="td" scope="row">
@@ -128,10 +132,10 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell2} component="td" scope="row">
                 {'Chat Messages'}
               </TableCell>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell1} component="td" scope="row" style={{ maxWidth: 308 }}>
                 {'When you use the chat functionality in our app'}
               </TableCell>
               <TableCell className={classes.dataCell2} component="td" scope="row">
@@ -145,10 +149,10 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell2} component="td" scope="row">
                 {'Activity Information'}
               </TableCell>
-              <TableCell className={classes.dataCell1} component="td" scope="row">
+              <TableCell className={classes.dataCell1} component="td" scope="row" style={{ maxWidth: 308 }}>
                 {'When you access or use WorldStage'}
               </TableCell>
               <TableCell className={classes.dataCell2} component="td" scope="row">
@@ -202,9 +206,9 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
           }
         </p>
 
-        <ol className={classes.primaryList}>
+        <ul className={classes.primaryList}>
           <li className={classes.listItemHeader}>
-            <p className={classes.listItemHeader}>{'TRAFFIC DATA'}</p>
+            <p className={classes.listItemHeader}>{'1. TRAFFIC DATA'}</p>
             <p className={classes.listText}>
               {
                 'As part of the Service, Lucky Orange collects information relating to traffic on the WorldStage website(s), such as; pages visited, the visitor’s mouse movements and clicks, keystroke data, HTML data on a page visited by a visitor if such HTML data includes Personal Information (collectively, “Traffic Data”). Lucky Orange uses Traffic Data to provide Customers with real-time analytics and uptime monitoring.'
@@ -212,7 +216,7 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
             </p>
           </li>
           <li className={classes.listItemHeader}>
-            <p className={classes.listItemHeader}>{'IP ADDRESS AND HEADER INFORMATION:'}</p>
+            <p className={classes.listItemHeader}>{'2. IP ADDRESS AND HEADER INFORMATION:'}</p>
             <p className={classes.listText}>
               {
                 'Through the Service, WorldStage collects and uses IP address and Header Information from visitors when they browse our website(s). Lucky Orange processes your IP address to help WorldStage identify your internet service provider and the geolocation from which You are accessing the Customer website. Lucky Orange processes Header Information on behalf of WorldStage to determine which websites originated traffic into WorldStage’s website, the type of browser You are using, and information about your device and operating system. These details are useful to WorldStage to help us identify issues with and improve our websites. To help protect your privacy, Lucky Orange allows WorldStage to enable IP address masking, which is a feature that removes the last three digits of your IP address before storing it on the Lucky Orange servers.'
@@ -220,7 +224,7 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
             </p>
           </li>
           <li className={classes.listItemHeader}>
-            <p className={classes.listItemHeader}>{'DERIVED DATA:'}</p>
+            <p className={classes.listItemHeader}>{'3. DERIVED DATA:'}</p>
             <p className={classes.listText}>
               {
                 'All of the data Lucky Orange collects through the Service, including Personal Information, relates to a visitor’s use of a WorldStage’s website solely. Lucky Orange does not track visitors across other Customer websites. However, Lucky Orange does aggregate (i.e., combine your data with the data of others to create a statistical summary that removes all personally identifiable information) Traffic Data to further our legitimate interests in providing statistical benchmarking data and vertical-driven insights to Lucky Orange Customers. This data, when stripped of all personally identifiable information in combination with the data of others to create a statistical summary, is identified as Derived Data (as defined in the Lucky Orange Terms of Service).'
@@ -232,8 +236,8 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
               }{' '}
             </p>
           </li>
-        </ol>
-        <br />
+        </ul>
+
         <Title type="h3" className={classes.secondaryHeader}>
           {'HOW WE USE THE INFORMATION'}
         </Title>
@@ -299,15 +303,15 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
         </ul>
         <br />
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Information For Users Located In The European Union Or United Kingdom'}
+          {'INFORMATION FOR USERS LOCATED IN THE EUROPEAN UNION OR UNITED KINGDOM'}
         </Title>
 
         <p className={classes.secondaryText}>
           {
             'Individuals who reside in the European Union (“EU”) or the United Kingdom (“UK”) have “data subject” rights which may be subject to limitations and/or restrictions. You can exercise your privacy rights or send privacy related queries to us at any time by sending us an email at '
           }
-          <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-            {'privacy@worldstage.com'}
+          <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+            {'Info@meetiris.com'}
           </a>
           {'.'}
         </p>
@@ -318,44 +322,52 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
         </p>
 
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Legal Basis For Processing Personal Data'}
+          {'LEGAL BASIS FOR PROCESSING PERSONAL DATA'}
         </Title>
 
         <p className={classes.secondaryText}>{'We process personal data based on one or more of the following:'}</p>
-
-        <ul className={classes.secondaryList}>
-          <li>
-            <p className={classes.listTextTwo}>
-              {
-                '● As a “data processor” we rely primarily on the fact that your Live Event Provider (the “data controller”) is legally entitled to collect information through our app, and that we have a legal obligation to process your Personal Information and Sensitive Personal Information on your Live Event Provider’s behalf. Because we want to make sure we are respecting your rights, we are happy to provide more details about those rights here. Please note that as a data processor, we may have a limited ability to respond to your requests directly. If we are unable to act on your request ourselves, we will let you know, and promptly forward your request to your Live Event Provider.'
-              }
-            </p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>
-              {
-                ' ● In other instances, we may process your Personal Information and/or Sensitive Personal Information based on either our legitimate interests, or the legitimate interests of your Live Event Provider. o Some examples of your Live Event Provider’s legitimate interests are that your Live Event Provider is using our app as a part of your care experience, and that the information you are providing is a part of the medical record your Live Event Provider is keeping about you. o Some examples of our legitimate interests are that we may need to use personal data if we’re troubleshooting issues with, or testing improvements to our app. Depending on those purposes, you may have the right to opt-out of such processing. You may do so by contacting us as described in the “How to Reach Us” section'
-              }
-            </p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>
-              {
-                ' ● A note about automated processing: Some functionality of WorldStage will automatically notify your Live Event Provider to reach out to you through WorldStage’s chat functionality based on certain information that you may provide through questionnaires. This processing is an essential function of WorldStage, and we and your Live Event Provider believe that we have “compelling, legitimate grounds” to process your Personal Information in this way. If you have concerns about our use of automated processing, you are welcome to contact us, or you can raise those concerns with your Live Event Provider.'
-              }
-            </p>
-          </li>
-        </ul>
-        <br />
+        <div className={classes.bulletList}>
+          <ul className={classes.secondaryList}>
+            <li>
+              <p className={classes.listTextTwo}>
+                {
+                  '● As a “data processor” we rely primarily on the fact that your Live Event Provider (the “data controller”) is legally entitled to collect information through our app, and that we have a legal obligation to process your Personal Information and Sensitive Personal Information on your Live Event Provider’s behalf. Because we want to make sure we are respecting your rights, we are happy to provide more details about those rights here. Please note that as a data processor, we may have a limited ability to respond to your requests directly. If we are unable to act on your request ourselves, we will let you know, and promptly forward your request to your Live Event Provider.'
+                }
+              </p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>
+                {
+                  ' ● In other instances, we may process your Personal Information and/or Sensitive Personal Information based on either our legitimate interests, or the legitimate interests of your Live Event Provider.'
+                }
+                <br />
+                {
+                  'o Some examples of your Live Event Provider’s legitimate interests are that your Live Event Provider is using our app as a part of your care experience, and that the information you are providing is a part of the medical record your Live Event Provider is keeping about you.'
+                }
+                <br />
+                {
+                  'o Some examples of our legitimate interests are that we may need to use personal data if we’re troubleshooting issues with, or testing improvements to our app. Depending on those purposes, you may have the right to opt-out of such processing. You may do so by contacting us as described in the “How to Reach Us” section'
+                }
+              </p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>
+                {
+                  ' ● A note about automated processing: Some functionality of WorldStage will automatically notify your Live Event Provider to reach out to you through WorldStage’s chat functionality based on certain information that you may provide through questionnaires. This processing is an essential function of WorldStage, and we and your Live Event Provider believe that we have “compelling, legitimate grounds” to process your Personal Information in this way. If you have concerns about our use of automated processing, you are welcome to contact us, or you can raise those concerns with your Live Event Provider.'
+                }
+              </p>
+            </li>
+          </ul>
+        </div>
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Your Privacy Rights And How To Contact Us'}
+          {'YOUR PRIVACY RIGHTS AND HOW TO CONTACT US '}
         </Title>
         <p className={classes.secondaryText}>
           {
             'Users of WorldStage are considered to be “data subjects” under applicable data protection laws (including the European Union General Data Protection Regulation or “GDPR” and the United Kingdom 2018 Data Protection Act). You can exercise your privacy rights or send privacy related queries to us at any time by sending us an email at '
           }
-          <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-            {'privacy@worldstage.com'}
+          <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+            {'Info@meetiris.com'}
           </a>
           {'.'}
         </p>
@@ -369,32 +381,32 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
             'Right to access your information – Information that you provide, and information that we derive from what you provide (such as answers to questionnaires or chat messages between you and your Live Event Provider) are generally available for you to view. However, you may also ask us to provide supplementary information about:'
           }
         </p>
-
-        <ul className={classes.secondaryList}>
-          <li>
-            <p className={classes.listTextTwo}>
-              {'● Information about you stored in our databases that is not visible to you through our app'}
-            </p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>{'● The categories of data that we are processing'}</p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>{'● The purposes of data processing'}</p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>{'● The categories of third-parties who we disclose data to'}</p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>
-              {'● How long we will store data, and the criteria that we use to determine how long data will be stored'}
-            </p>
-          </li>
-          <li>
-            <p className={classes.listTextTwo}>{'● Your other rights regarding our use of data'}</p>
-          </li>
-        </ul>
-        <br />
+        <div className={classes.bulletList}>
+          <ul className={classes.secondaryList}>
+            <li>
+              <p className={classes.listTextTwo}>
+                {'● Information about you stored in our databases that is not visible to you through our app'}
+              </p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>{'● The categories of data that we are processing'}</p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>{'● The purposes of data processing'}</p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>{'● The categories of third-parties who we disclose data to'}</p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>
+                {'● How long we will store data, and the criteria that we use to determine how long data will be stored'}
+              </p>
+            </li>
+            <li>
+              <p className={classes.listTextTwo}>{'● Your other rights regarding our use of data'}</p>
+            </li>
+          </ul>
+        </div>
         <p className={classes.secondaryText}>
           {
             'We will provide you with the information that you have requested within 30 days of receiving your request. If providing you with any piece of information that you have requested would affect the rights and freedoms of another person, we won’t be able to share that piece of information. If we can’t provide a complete response to your request for information based on that reason, we will inform you. We will still provide you with all of the other information that you have requested that we are able to share.'
@@ -407,8 +419,8 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
           {
             'you, we forward your request to your Live Event Provider. If you have a concern about the accuracy of your information, you also have a right to ask us to temporarily restrict the processing of your Personal Information, while its accuracy is verified. To ask us to restrict processing, you may contact our privacy team at '
           }
-          <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-            {'privacy@worldstage.com'}
+          <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+            {'Info@meetiris.com'}
           </a>
           {'.'}
         </p>
@@ -416,10 +428,10 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
           {
             'Right to object to certain kinds data processing - In certain circumstances, such as if you believe your Personal Information has been recorded inaccurately, you may object to us processing your data, either temporarily, or for those purposes. To object to processing, you can contact our privacy team at '
           }
-          <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-            {'privacy@worldstage.com'}
+          <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+            {'Info@meetiris.com'}
           </a>
-          {'. While we evaluate your objection, you may also ask us to temporarily restrict processing of your data.'}
+          {'. While we evaluate your objection, you may also ask us to temporarily restrict processing of your data. '}
           <strong className={classes.boldSecondaryText}>
             {
               'WorldStage does not use any personal data that we collect, either from you or from your Live Event Provider, for marketing purposes.'
@@ -427,40 +439,40 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
           </strong>
         </p>
         <p className={classes.secondaryText}>
-          <strong className={classes.boldSecondaryText}>{'Right to your data in a portable format – '}</strong>
+          <strong className={classes.boldItalicText}>{'Right to your data in a portable format – '}</strong>
           {
             'With agreement from, and at the direction of your Live Event Provider, we will give you an extract of your data so that you can provide it to another service. If you ask us and it is technically possible, we will directly transfer the data to the other service for you. We will not provide any information to the extent that this involves disclosing data about any other individual.'
           }
         </p>
         <p className={classes.secondaryText}>
-          <strong className={classes.boldSecondaryText}>{'Right to erasure - '}</strong>
+          <strong className={classes.boldItalicText}>{'Right to erasure - '}</strong>
           {'You can contact our privacy team at '}
-          <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-            {'privacy@worldstage.com'}
+          <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+            {'Info@meetiris.com'}
           </a>
           {
             ' to request erasure of any Personal Information that we hold about you. You understand that because your personal data has been collected on behalf of your Live Event Provider, we will likely need to forward any such request to your Live Event Provider for review and approval, before we can act on a request to erase data.'
           }
         </p>
         <p className={classes.secondaryText}>
-          <strong className={classes.boldSecondaryText}>{'Right to lodge a complaint – '}</strong>
+          <strong className={classes.boldItalicText}>{'Right to lodge a complaint – '}</strong>
           {
             'If you have any concerns about how we are handling your Personal Information, you have a right to file a complaint with the data protection authority, or other relevant regulator, in your country. However, we are dedicated to protecting your personal data and we want to make sure you feel safe when you process it, and if you have any concerns about how we are processing your Personal Information, we would appreciate the opportunity to resolve the issue before you contact the data protection authority. You can contact our privacy team at '
           }
-          <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-            {'privacy@worldstage.com'}
+          <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+            {'Info@meetiris.com'}
           </a>
           {'.'}
         </p>
         <p className={classes.secondaryText}>
-          <strong className={classes.boldSecondaryText}>{'Right to withdraw your consent – '}</strong>
+          <strong className={classes.boldItalicText}>{'Right to withdraw your consent – '}</strong>
           {
             'At any point, you may contact us to withdraw your consent for us to collect or process your Personal Information. Because we process your Personal Information on behalf of your Live Event Provider, we will forward any such request that we receive to your Live Event Provider for review. Withdrawing your consent will require us to delete your account and suspend your access to our app.'
           }
         </p>
-        <br />
+
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Disclosure Of The Information'}
+          {'DISCLOSURE OF THE INFORMATION'}
         </Title>
 
         <p className={classes.secondaryText}>
@@ -482,9 +494,9 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
             'If we become involved in a merger, acquisition, or any form of sale of some or all of its assets, Personal Information and Sensitive Personal Information will be transferred to the new entity to continue providing WorldStage.'
           }
         </p>
-        <br />
+
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Information Retention'}
+          {'INFORMATION RETENTION'}
         </Title>
 
         <p className={classes.secondaryText}>
@@ -497,9 +509,9 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
             'We keep database backups of your Personal Information and Sensitive Personal Information for the purposes of recovering from an outage. On deactivation of your User Account, those backup records will be deleted after 7 (seven) days from the date of deactivation of your User Account.'
           }
         </p>
-        <br />
+
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Third Party Service Providers'}
+          {'THIRD PARTY SERVICE PROVIDERS'}
         </Title>
         <p className={classes.secondaryText}>
           {
@@ -522,26 +534,26 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow className={classes.headerRow}>
-              <TableCell key={2} className={classes.headerCell}>
+              <TableCell key={2} className={classes.headerCell2}>
                 {'activity'}
               </TableCell>
-              <TableCell key={3} className={classes.headerCell}>
+              <TableCell key={3} className={classes.headerCell2}>
                 {'purpose'}
               </TableCell>
-              <TableCell key={4} className={classes.headerCell}>
+              <TableCell key={4} className={classes.headerCell2}>
                 {'user location'}
               </TableCell>
-              <TableCell key={5} className={classes.headerCell}>
+              <TableCell key={5} className={classes.headerCell2}>
                 {'place of processing'}
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow className={classes.headerRow}>
-              <TableCell key={2} className={classes.dataCell4}>
+              <TableCell key={2} className={classes.dataCell3}>
                 {'Application or Website Hosting'}
               </TableCell>
-              <TableCell key={3} className={classes.dataCell3}>
+              <TableCell key={3} className={classes.dataCell4}>
                 {
                   'We work with third-party cloud hosting providers to host our app and our website, and to help us manage our cloud infrastructure in a secure and compliant manner.'
                 }
@@ -560,10 +572,10 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
               </TableCell>
             </TableRow>
             <TableRow className={classes.headerRow}>
-              <TableCell key={2} className={classes.dataCell4}>
+              <TableCell key={2} className={classes.dataCell3}>
                 {'Chat Functionality'}
               </TableCell>
-              <TableCell key={3} className={classes.dataCell3}>
+              <TableCell key={3} className={classes.dataCell4}>
                 {'We work with a compliant, third-party chat platform provider to enable WorldStage’s chat functionality.'}
               </TableCell>
               <TableCell key={5} className={classes.dataCell3}>
@@ -585,7 +597,7 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
       <br />
       <div className={classes.indentRightSection}>
         <Title type="h3" className={classes.secondaryHeader}>
-          {'Security Procedures'}
+          {'SECURITY PROCEDURES'}
         </Title>
 
         <p className={classes.secondaryText}>
@@ -598,23 +610,22 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
             'In the event of a security breach, we commit to complying with all local, state and national laws to notify you and any relevant data protection authorities, to the extent required under applicable laws.'
           }
         </p>
-        <br />
-        <br />
         <div className={classes.closing}>
           <Title type="h3" className={classes.secondaryHeader}>
-            {'Privacy Team'}
+            {'PRIVACY TEAM'}
           </Title>
           <p className={classes.secondaryText}>{'The contact details of our privacy team are provided below:'}</p>
           <p className={classes.secondaryText}>
             {'E-mail Address:'}{' '}
-            <a href="mailto:privacy@worldstage.com" className={classes.linkTo}>
-              {'privacy@worldstage.com'}
+            <a href="mailto:Info@meetiris.com" className={classes.linkTo}>
+              {'Info@meetiris.com'}
             </a>
           </p>
           <p className={classes.secondaryText}>{'Postal Address: 259 West 30th Street, 12th Floor New York, NY 10001'}</p>
-          <p>
+          <p className={classes.endText}>
             <a href="#" className={classes.endText}>
-              {'Please check cookie Mention Here'}
+              {'Please check cookie '}
+              <strong className={classes.boldParagpraphText}>{'Mention Here'}</strong>
             </a>
           </p>
         </div>
@@ -626,30 +637,35 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
 const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      padding: '70px 100px',
+      padding: '88px 123px',
       borderRadius: 20,
       margin: '55px 105px',
       maxWidth: '95%',
       alignItems: 'center',
       position: 'relative',
       lineHeight: 1.5,
-      [theme.breakpoints.down('lg')]: {
-        padding: '45px 20px',
-      },
       [theme.breakpoints.down('md')]: {
         margin: '35px 20px',
+        padding: '45px 24px',
         borderRadius: 30,
       },
       [theme.breakpoints.down('sm')]: {
         margin: '35px 10px',
+        padding: '16px 20px',
       },
     },
     primaryHeader: {
       fontWeight: 500,
       color: colors.marineBlue,
       fontSize: 36,
-      marginBottom: 5,
+      marginBottom: 1,
       lineHeight: 1.2,
+      [theme.breakpoints.down('md')]: {
+        marginBottom: 20,
+      },
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: 9,
+      },
     },
     secondaryHeader: {
       fontWeight: 500,
@@ -674,21 +690,47 @@ const useStyles = (theme: Theme) =>
       color: colors.brownishGrey,
       fontWeight: 500,
     },
+    boldItalicText: {
+      color: colors.brownishGrey,
+      fontWeight: 500,
+      fontStyle: 'italic',
+    },
     primaryList: {
-      marginTop: 25,
-      marginLeft: 25,
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: '112px',
+      listStyle: 'none',
+      marginTop: 50,
+      [theme.breakpoints.up('lg')]: {
+        marginLeft: 150,
+      },
+      [theme.breakpoints.down('md')]: {
+        marginLeft: 68,
+        marginTop: 35,
+      },
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
       },
     },
     secondaryList: {
       listStyle: 'none',
       lineHeight: 1.5,
-      marginTop: 18,
-      marginLeft: 25,
+      marginTop: 16,
+      marginBottom: 9,
       color: colors.blackTwo,
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: '112px',
+      [theme.breakpoints.up('xl')]: {
+        marginLeft: 150,
+      },
+      [theme.breakpoints.down('md')]: {
+        marginLeft: 68,
+      },
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+      },
+    },
+    bulletList: {
+      marginTop: 50,
+      marginBottom: 42,
+      [theme.breakpoints.down('md')]: {
+        marginTop: 35,
+        marginBottom: 27,
       },
     },
     listItemHeader: {
@@ -709,6 +751,11 @@ const useStyles = (theme: Theme) =>
       color: colors.brownGrey,
       fontSize: 14,
       fontWeight: 400,
+      marginTop: '-5px',
+      marginBottom: 66,
+      [theme.breakpoints.down('md')]: {
+        marginBottom: 35,
+      },
     },
     linkTo: {
       color: colors.marineBlue,
@@ -719,14 +766,12 @@ const useStyles = (theme: Theme) =>
       color: colors.marineBlue,
       textDecoration: 'none',
       fontWeight: 400,
+      marginTop: 24,
     },
     indentRightSection: {
-      marginRight: 220,
-      [theme.breakpoints.down('lg')]: {
-        marginRight: 10,
-      },
-      [theme.breakpoints.down('md')]: {
-        marginRight: 0,
+      marginRight: 0,
+      [theme.breakpoints.up('lg')]: {
+        marginRight: 281,
       },
     },
     tableHeaderCell: {
@@ -739,6 +784,7 @@ const useStyles = (theme: Theme) =>
       height: 42,
       textAlign: 'center',
       fontSize: 19,
+      padding: 0,
     },
     hiddenTableHeader: {
       background: '#fff',
@@ -746,6 +792,7 @@ const useStyles = (theme: Theme) =>
     },
     closing: {
       fontWeight: 500,
+      marginTop: 35,
     },
     table: {
       minWidth: 320,
@@ -759,50 +806,59 @@ const useStyles = (theme: Theme) =>
       textTransform: 'uppercase',
       textAlign: 'center',
       fontSize: 19,
+      padding: 0,
+      height: 47,
+    },
+    headerCell2: {
+      color: colors.coolBlue,
+      textTransform: 'uppercase',
+      textAlign: 'center',
+      fontSize: 19,
+      padding: 0,
+      height: 47,
+      width: '25%',
+      borderBottom: `20px solid ${colors.white}`,
     },
     dataCell1: {
       backgroundColor: colors.whiteTwo,
-      borderLeft: '3px solid white',
-      borderRight: '3px solid white',
-      borderTop: '6px solid white',
-      borderBottom: '6px solid white',
+      borderLeft: `3px solid ${colors.white}`,
+      borderRight: `3px solid ${colors.white}`,
+      borderTop: `6px solid ${colors.white}`,
+      borderBottom: `6px solid ${colors.white}`,
       color: colors.brownishGrey,
-      padding: '30px 15px',
+      height: 129,
       textAlign: 'left',
-      [theme.breakpoints.up('lg')]: {
-        padding: '30px 40px',
-      },
+    },
+    dataCell4: {
+      backgroundColor: colors.whiteTwo,
+      borderTop: `12px solid ${colors.white}`,
+      borderBottom: `6px solid ${colors.white}`,
+      color: colors.brownishGrey,
+      height: 129,
+      textAlign: 'left',
     },
     dataCell2: {
       textAlign: 'center',
       backgroundColor: colors.whiteTwo,
-      borderLeft: '3px solid white',
-      borderRight: '3px solid white',
-      borderTop: '6px solid white',
-      borderBottom: '6px solid white',
+      borderLeft: `3px solid ${colors.white}`,
+      borderRight: `3px solid ${colors.white}`,
+      borderTop: `6px solid ${colors.white}`,
+      borderBottom: `6px solid ${colors.white}`,
       color: colors.brownishGrey,
-      padding: '30px 15px',
-      [theme.breakpoints.up('lg')]: {
-        padding: '30px 40px',
-      },
+      padding: '0px 40px',
+      height: 129,
     },
     dataCell3: {
       textAlign: 'left',
       backgroundColor: colors.whiteTwo,
-      borderTop: '12px solid white',
-      borderBottom: '12px solid white',
+      borderTop: `12px solid ${colors.white}`,
       color: colors.brownishGrey,
+      padding: '0px 40px',
+      height: 129,
+      borderBottom: 'none',
     },
-    dataCell4: {
-      textAlign: 'center',
-      backgroundColor: colors.whiteTwo,
-      borderTop: '12px solid white',
-      borderBottom: '12px solid white',
-      color: colors.brownishGrey,
-      padding: '30px 15px',
-      [theme.breakpoints.up('lg')]: {
-        padding: '30px 40px',
-      },
+    boldParagpraphText: {
+      fontWeight: 500,
     },
   })();
 

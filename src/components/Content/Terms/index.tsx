@@ -365,8 +365,8 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
           <p className={classes.listItemHeader}>{'18. CONTACT US'}</p>
           <p className={classes.listText}>
             {'If you have any questions about IRIS or these Terms, you can contact us at contact '}
-            <a href="mailto:oasis.help@worldstage.com" className={classes.linkToLast}>
-              {'oasis.help@worldstage.com'}
+            <a href="mailto:Info@meetiris.com" className={classes.linkToLast}>
+              {'Info@meetiris.com'}
             </a>
           </p>
         </li>
