@@ -109,6 +109,7 @@ const useStyles = (theme: Theme) =>
       width: '100%',
       maxWidth: 180,
       padding: '5px 15px',
+      letterSpacing: 2.25,
       [theme.breakpoints.up('md')]: {
         maxWidth: 300,
         textAlign: 'center',

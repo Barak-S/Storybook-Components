@@ -1,11 +1,11 @@
-import { Grid, Hidden, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { ContainedButton } from 'components/Buttons';
 import { Text, Title } from 'components/Common';
 import { FormCopyTextInput } from 'components/Form';
 import { EventStatus } from 'core/api';
 import React, { FC } from 'react';
-import { colors, ms, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles, useScreenSizes } from 'styles';
 import { valToDate } from 'utils';
 
 interface Props extends StyleProps {
@@ -29,6 +29,7 @@ export const DashboardEventRegistration: FC<Props> = ({
   onRegContinueClick,
   onCopyToClipboardClick,
 }) => {
+  const { isMobile } = useScreenSizes();
   const isWaiting = status === 'waiting';
   const isEventSetup = status === 'event-setup';
   const isActive = status === 'active';
@@ -78,18 +79,17 @@ export const DashboardEventRegistration: FC<Props> = ({
               </Grid>
             </Grid>
             <Grid container spacing={2} style={{ flexWrap: 'nowrap' }}>
-              <Hidden mdDown>
-                <Grid item className={classes.bottomSkeleton}>
-                  <Skeleton className={classes.skeleton} />
-                  <Skeleton className={classes.skeleton} />
-                </Grid>
-              </Hidden>
+              <Grid item className={classes.bottomSkeleton}>
+                <Skeleton className={classes.skeleton} />
+                <Skeleton className={classes.skeleton} />
+              </Grid>
               <Grid item className={classes.setupBtnHolder}>
                 <ContainedButton
                   size="medium"
                   endIcon="chevron-circle-right"
                   className={classes.setupButton}
                   onClick={handleSetupRegClick}
+                  style={{ ...(!isMobile && { width: 'auto' }) }}
                 >
                   {'setup registration'}
                 </ContainedButton>
@@ -198,6 +198,8 @@ const useStyles = (theme: Theme) =>
     },
     setupButton: {
       background: colors.rustyRed,
+      paddingLeft: 10,
+      paddingRight: 10,
     },
     skeleton: {
       height: 12,
@@ -269,14 +271,11 @@ const useStyles = (theme: Theme) =>
       width: '100%',
     },
     setupBtnHolder: {
+      display: 'flex',
+      justifyContent: 'flex-end',
       width: '100%',
       flexShrink: 0,
-      [theme.breakpoints.up('md')]: {
-        maxWidth: '100%',
-      },
-      [theme.breakpoints.up('lg')]: {
-        maxWidth: 254,
-      },
+      maxWidth: 195,
     },
     continueButton: {
       '&.MuiButton-contained': {
