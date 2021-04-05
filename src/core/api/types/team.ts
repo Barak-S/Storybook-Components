@@ -7,3 +7,9 @@ export interface TeamMemberInvite {
   companyType: string;
   message: string;
 }
+
+export interface TeamMember {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
