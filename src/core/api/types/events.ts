@@ -26,9 +26,12 @@ export interface Event {
   statistics?: EventStatistics;
 }
 
+// TODO: Add security levels
 /** Event security level */
 type EventSecurity = 'open' | 'public-reg' | 'private-reg';
 
+// TODO: Add event types
+/** Event type */
 type EventType = '';
 
 export interface EventCompany {
