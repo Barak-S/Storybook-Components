@@ -4,7 +4,6 @@
 .idea
 .jira.d
 .tmp
-.vscode
 *-lock.json
 *.log
 *.sublime*
@@ -20,5 +19,9 @@ npm-debug.log
 stats.*
 storybook-static
 yarn-error.log
+
+.vscode/*
+!.vscode/snippets/
+!.vscode/*.code-snippets
 
 !scripts/dist

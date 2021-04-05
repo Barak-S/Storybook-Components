@@ -1,0 +1,11 @@
+{
+  "piif": {
+    "prefix": [
+      "piif"
+    ],
+    "body": [
+      "/* istanbul ignore file */"
+    ],
+    "description": "Ignore file for coverage"
+  }
+}

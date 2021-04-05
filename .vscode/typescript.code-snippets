@@ -1,0 +1,135 @@
+{
+  "tse": {
+    "prefix": [
+      "tse"
+    ],
+    "body": [
+      "export $0"
+    ],
+    "description": "Insert export"
+  },
+  "tsea": {
+    "prefix": [
+      "tsea"
+    ],
+    "body": [
+      "export * from '$0';"
+    ],
+    "description": "Insert export "
+  },
+  "tsed": {
+    "prefix": [
+      "tsed"
+    ],
+    "body": [
+      "export default $0;"
+    ],
+    "description": "Insert export default"
+  },
+  "tsr": {
+    "prefix": [
+      "tsr"
+    ],
+    "body": [
+      "return $0;"
+    ],
+    "description": "Insert return"
+  },
+  "tsim": {
+    "prefix": [
+      "tsim"
+    ],
+    "body": [
+      "import { $0 } from '$1';"
+    ],
+    "description": "Import statement"
+  },
+  "tsi": {
+    "prefix": [
+      "tsi"
+    ],
+    "body": [
+      "interface $1 {",
+      "  $0",
+      "}"
+    ],
+    "description": "Create interface"
+  },
+  "tsie": {
+    "prefix": [
+      "tsie"
+    ],
+    "body": [
+      "export interface $1 {",
+      "  $0",
+      "}"
+    ],
+    "description": "Create interface with export"
+  },
+  "tsem": {
+    "prefix": [
+      "tsem"
+    ],
+    "body": [
+      "enum $1 {",
+      "  $0",
+      "}"
+    ],
+    "description": "Enum"
+  },
+  "tsu": {
+    "prefix": [
+      "tsu"
+    ],
+    "body": [
+      "undefined"
+    ],
+    "description": "Undefined"
+  },
+  "tsif": {
+    "prefix": [
+      "tsif"
+    ],
+    "body": [
+      "if ($1) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert if statement"
+  },
+  "tsifel": {
+    "prefix": [
+      "tsifel"
+    ],
+    "body": [
+      "if ($1) {",
+      "  $0",
+      "} else {",
+      "",
+      "}"
+    ],
+    "description": "Insert if-else statement"
+  },
+  "tsifc": {
+    "prefix": [
+      "tsifc"
+    ],
+    "body": [
+      "$1 ? $2 : $3"
+    ],
+    "description": "Insert conditional if statement"
+  },
+  "tstc": {
+    "prefix": [
+      "tstc"
+    ],
+    "body": [
+      "try {",
+      "  $1",
+      "} catch(err: unknown) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert try-catch statement"
+  }
+}
