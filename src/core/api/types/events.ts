@@ -19,18 +19,11 @@ export interface Event {
   /** Big image */
   banner?: string;
 
-  company: EventCompany;
-
-  /** Start of the registration */
-  regStartDate?: number;
-  /** Registration URL */
-  regUrl?: string;
-
-  theme: EventTheme;
-
+  company?: EventCompany;
+  registration?: EventRegistration;
+  theme?: EventTheme;
+  settings?: EventSettings;
   statistics?: EventStatistics;
-
-  settings: EventSettings;
 }
 
 /** Event security level */
@@ -112,6 +105,13 @@ interface EventSocialAccount {
   name: string;
   url: string;
   global?: boolean;
+}
+
+interface EventRegistration {
+  /** Start of the registration */
+  startDate?: number;
+  /** Registration URL */
+  url?: string;
 }
 
 interface EventStatistics {
