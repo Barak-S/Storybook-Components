@@ -1,15 +1,42 @@
 export type EventStatus = 'event-setup' | 'registration-setup' | 'waiting' | 'active';
 
 export interface Event {
+  id: string;
+
+  startDate: number;
+  endDate: number;
+  title: string;
+  description: string;
+  url: string;
+  type: EventType;
+  security: EventSecurity;
+  tags?: string[];
+  socials?: EventSocialAccount[];
+  sessionsCount?: number;
+
   /** Small image */
   thumbnail?: string;
   /** Big image */
   banner?: string;
-  /** Company related information */
+
   company: EventCompany;
-  /** Theme */
+
+  /** Start of the registration */
+  regStartDate?: number;
+  /** Registration URL */
+  regUrl?: string;
+
   theme: EventTheme;
+
+  statistics?: EventStatistics;
+
+  settings: EventSettings;
 }
+
+/** Event security level */
+type EventSecurity = 'open' | 'public-reg' | 'private-reg';
+
+type EventType = '';
 
 export interface EventCompany {
   name: string;
@@ -21,21 +48,32 @@ export interface EventCompany {
   email?: string;
 }
 
-interface EventTheme {
-  /** Main title */
-  title: string;
-  /** Main description */
-  description: string;
-  /** Preview image */
-  preview: string;
+interface EventSettings {
   /** Multi-factor Authentication & Manual Approval settings */
-  authSettings?: EventAuthSettings;
+  auth?: EventAuthSettings;
   /** Email Domain Restriction */
-  emailRestrictions?: EventEmailRestrictions;
+  email?: EventEmailRestrictions;
   /** Password Requirements  */
-  passwordSettings?: EventPasswordSettings;
+  password?: EventPasswordSettings;
   /** Email Validation/Responce Requirements  */
-  validationSettings?: EventValidationSettings;
+  validation?: EventValidationSettings;
+}
+
+interface EventTheme {
+  title: string;
+  description: string;
+  preview: string;
+  colors: EventThemeColors;
+  fonts?: string;
+}
+
+interface EventThemeColors {
+  background: string;
+  largeHeadline: string;
+  mediumHeadline: string;
+  bodyText: string;
+  subhead: string;
+  buttons: string;
 }
 
 interface EventAuthSettings {
@@ -68,4 +106,17 @@ interface EventPasswordSettings {
 interface EventValidationSettings {
   /** Validation of Email Addresses Required */
   email?: boolean;
+}
+
+interface EventSocialAccount {
+  name: string;
+  url: string;
+  global?: boolean;
+}
+
+interface EventStatistics {
+  /** Subscribed users count */
+  subscrUsersCount?: number;
+  /** Active users count */
+  activeUsersCount?: number;
 }
