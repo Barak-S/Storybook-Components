@@ -21,7 +21,7 @@ export const ProfileAccountImageSection: FC<Props> = ({ style }) => {
       <View className={classes.avatar}>
         <FormUploadBtn isUpload image={imageFile} className={classes.imgBlock} />
       </View>
-      <FormSelectFileBtn disabled onFileSelect={() => updateData} />
+      <FormSelectFileBtn disabled onFileSelect={() => updateData} title="CHOOSE IMAGE" btnStyle={{ borderRadius: 6 }} />
     </View>
   );
 };

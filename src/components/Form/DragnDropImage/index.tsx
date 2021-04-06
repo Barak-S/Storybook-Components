@@ -2,7 +2,7 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, useState } from 'react';
-import { colors, mc, StyleProps } from 'styles';
+import { colors, mc, StyleProps, Styles } from 'styles';
 
 import { FormSelectFileBtn } from '../SelectFileBtn';
 import { useStyles } from './styles';
@@ -53,9 +53,17 @@ export const FormDragnDropImage: FC<Props> = ({ style, className }) => {
           <span className={classes.blockCenter}>{'Or'}</span>
         </>
       )}
-      {!imageFile && <FormSelectFileBtn onFileSelect={() => updateData} />}
+      {!imageFile && <FormSelectFileBtn onFileSelect={() => updateData} btnStyle={styles.btn} />}
     </View>
   );
+};
+
+const styles: Styles = {
+  btn: {
+    width: 148,
+    height: 34,
+    letterSpacing: 2.25,
+  },
 };
 
 export type FormDragnDropImageProps = Props;

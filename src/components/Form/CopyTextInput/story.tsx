@@ -5,7 +5,7 @@ import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 import FormCopyTextInput, { FormCopyTextInputProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Form/FormCopyTextInput',
+  title: 'components/Form/CopyTextInput',
   component: FormCopyTextInput,
   args: {
     url: 'https://www.digital-oasis.com/eventname',

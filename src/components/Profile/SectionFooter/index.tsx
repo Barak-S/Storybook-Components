@@ -1,7 +1,7 @@
 import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
 import React, { FC } from 'react';
-import { StyleProps, Styles } from 'styles';
+import { StyleProps, Styles, ms } from 'styles';
 
 interface Props extends StyleProps {
   processing?: boolean;
@@ -11,8 +11,8 @@ interface Props extends StyleProps {
 
 export const ProfileSectionFooter: FC<Props> = ({ style, processing, disabled, onSaveClick }) => {
   return (
-    <View row style={[styles.container, style]}>
-      <ContainedButton style={styles.btn} disabled={disabled} processing={processing} onClick={onSaveClick}>
+    <View row style={styles.container}>
+      <ContainedButton style={ms(styles.btn, style)} disabled={disabled} processing={processing} onClick={onSaveClick}>
         {'SAVE'}
       </ContainedButton>
     </View>

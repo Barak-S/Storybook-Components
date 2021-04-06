@@ -1,7 +1,7 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
 import React, { FC } from 'react';
-import { Style } from 'styles';
+import { Style, Styles } from 'styles';
 
 import ProfileSectionFooter from '../SectionFooter';
 import PasswordChange from './components/PasswordChange';
@@ -16,9 +16,15 @@ export const ProfilePassSection: FC<Props> = ({ style }) => {
   return (
     <View style={style} className={classes.container}>
       <PasswordChange />
-      <ProfileSectionFooter />
+      <ProfileSectionFooter style={styles.btn} />
     </View>
   );
+};
+
+const styles: Styles = {
+  btn: {
+    letterSpacing: '2.25px',
+  },
 };
 
 const useStyles = () =>

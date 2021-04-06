@@ -6,21 +6,20 @@ export const useStyles = () =>
     container: {
       backgroundColor: colors.white,
       boxShadow: 'none',
-      paddingTop: '5px',
     },
     tabs: {
       backgroundColor: colors.white,
     },
     blockContent: {
-      padding: '65px',
+      padding: '32px',
     },
     tab: {
-      width: `248px`,
+      width: `344px`,
       height: `44px`,
       padding: `10px 65px`,
       margin: `2px 1px 0 1px`,
       color: colors.veryLightPinkFour,
-      borderRadius: `20px 20px 0 0`,
+      borderRadius: `12px 12px 0 0`,
       backgroundColor: colors.paleGrey,
     },
     content: {

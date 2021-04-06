@@ -5,7 +5,7 @@ import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 import FormTextArea, { FormTextAreaProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Form/FormTextArea',
+  title: 'components/Form/TextArea',
   component: FormTextArea,
   args: {
     defaultValue:

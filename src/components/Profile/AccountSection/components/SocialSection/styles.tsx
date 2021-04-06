@@ -7,13 +7,14 @@ export const useStyles = () =>
       marginBottom: '37px',
     },
     headerSection: {
-      paddingBottom: '37px',
+      paddingBottom: '16px',
     },
     title: {
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
-      paddingBottom: 9,
+      paddingBottom: 6,
+      fontWeight: 500,
     },
     subtitle: {
       display: 'block',
@@ -43,7 +44,7 @@ export const useStyles = () =>
       },
     },
     socSelect: {
-      maxWidth: 198,
+      maxWidth: 195,
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
       },

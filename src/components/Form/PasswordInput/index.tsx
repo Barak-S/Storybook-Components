@@ -1,5 +1,5 @@
 import { Icon, IconButton } from '@material-ui/core';
-import FormTextInput, { FormTextInputProps } from 'components/Form/TextInput';
+import FormTextInput, { FormTextInputProps } from '../TextInput';
 import React, { FC, MouseEvent } from 'react';
 
 interface CustomProps {
@@ -23,7 +23,7 @@ export const FormPasswordInput: FC<Props> = ({ visible, onChangeVisibleClick, ..
     event.preventDefault();
   };
 
-  const iconClassName = visible ? 'lar la-eye-slash' : 'lar la-eye';
+  const iconClassName = visible ? 'lar la-eye' : 'lar la-eye-slash';
 
   return (
     <FormTextInput

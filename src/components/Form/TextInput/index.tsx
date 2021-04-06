@@ -2,17 +2,19 @@ import React, { FC, ReactNode } from 'react';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { InputAdornment } from '@material-ui/core';
 import { useStyles } from './styles';
+import { Style } from 'styles';
+
+type Props = TextFieldProps & CustomProps;
 
 interface CustomProps {
+  inputStyle?: Style;
   iconStart?: ReactNode;
   iconEnd?: ReactNode;
   valid?: boolean;
   adornmentType?: 'transparent';
 }
 
-type Props = TextFieldProps & CustomProps;
-
-export const FormTextInput: FC<Props> = ({ iconStart, iconEnd, valid, adornmentType, InputProps, ...props }) => {
+export const FormTextInput: FC<Props> = ({ inputStyle, iconStart, iconEnd, valid, adornmentType, InputProps, ...props }) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
   const endIconProps = <InputAdornment position="end">{iconEnd}</InputAdornment>;
   const isStartIcon = !!iconStart;
@@ -25,6 +27,7 @@ export const FormTextInput: FC<Props> = ({ iconStart, iconEnd, valid, adornmentT
       fullWidth
       {...props}
       InputProps={{
+        inputProps: { style: inputStyle },
         startAdornment: iconStart ? startIconProps : undefined,
         endAdornment: iconEnd ? endIconProps : undefined,
         ...(InputProps ? InputProps : {}),

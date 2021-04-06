@@ -15,6 +15,7 @@ export const useStyles = () =>
       color: colors.marine,
       display: 'block',
       paddingBottom: 10,
+      fontWeight: 500,
     },
     subtitle: {
       display: 'block',

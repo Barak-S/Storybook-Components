@@ -75,7 +75,8 @@ const useStyles = () =>
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
-      paddingBottom: 9,
+      paddingBottom: 6,
+      fontWeight: 500,
     },
     subtitle: {
       display: 'block',
@@ -100,6 +101,7 @@ const useStyles = () =>
     item2: {
       height: 55,
       order: 2,
+      paddingTop: 6,
       [theme.breakpoints.down('sm')]: {
         order: 1,
       },
@@ -108,7 +110,7 @@ const useStyles = () =>
       order: 3,
       [theme.breakpoints.up('sm')]: {
         marginLeft: 'auto',
-        transform: 'translateY(-95px)',
+        transform: 'translateY(-90px)',
       },
       [theme.breakpoints.down('sm')]: {
         marginLeft: '0px',

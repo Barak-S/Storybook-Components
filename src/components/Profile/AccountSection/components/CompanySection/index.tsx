@@ -38,7 +38,7 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
   return (
     <View style={style} className={classes.contact}>
       <Grid container>
-        <Grid xs={12} sm={12} md={5} lg={5}>
+        <Grid xs={12} sm={12} md={5} lg={5} className={classes.contactSection}>
           <View className={classes.inputInf}>
             <FormTextInput
               style={styles.rowIndent}

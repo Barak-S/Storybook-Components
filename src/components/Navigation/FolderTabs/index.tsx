@@ -66,6 +66,11 @@ const theme = createMuiTheme({
   overrides: {
     MuiTab: {
       root: {
+        fontSize: 20,
+        letterSpacing: 3,
+        fontWeight: 600,
+        maxWidth: '33%',
+
         '&.Mui-selected': {
           background: `${colors.white}`,
           color: `${colors.coolBlueTwo}`,

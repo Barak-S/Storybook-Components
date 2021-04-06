@@ -137,7 +137,7 @@ const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
       [theme.breakpoints.down('sm')]: {
-        padding: '25px 10px',
+        padding: '27.5px 17px',
       },
       '& .MuiAccordionSummary-root.Mui-expanded': {
         background: colors.white,

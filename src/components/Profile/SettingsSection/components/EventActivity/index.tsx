@@ -35,7 +35,7 @@ export const ProfileSettingsSectionEventActivity: FC<Props> = ({ style, data, on
   return (
     <div className={classes.container} style={style}>
       <div className={classes.headerSection}>
-        <span className={classes.title}>{'EventActivity'}</span>
+        <span className={classes.title}>{'Event Activity'}</span>
         <span className={classes.subtitle}>
           {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
         </span>

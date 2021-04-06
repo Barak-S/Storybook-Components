@@ -16,11 +16,17 @@ export const useStyles = () =>
       display: 'block',
     },
     subtitle: {
-      paddingTop: 10,
-      paddingBottom: 12,
+      paddingTop: 6,
+      paddingBottom: 20,
       display: 'block',
       letterSpacing: '0px',
       color: colors.brownishGrey,
+    },
+    contactSection: {
+      maxWidth: 526,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
+      },
     },
     inputInf: {
       marginRight: '40px',
@@ -41,8 +47,8 @@ export const useStyles = () =>
       },
     },
     uploadImg: {
-      maxHeight: 165,
-      maxWidth: 500,
+      maxHeight: 156,
+      maxWidth: 458,
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
       },

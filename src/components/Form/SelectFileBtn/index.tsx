@@ -1,20 +1,20 @@
 import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
-import React, { ChangeEventHandler, CSSProperties, DragEvent, FC } from 'react';
-import { ms, StyleProps, Styles } from 'styles';
+import React, { ChangeEventHandler, DragEvent, FC } from 'react';
+import { ms, Style, StyleProps, Styles } from 'styles';
 import { dataOrUndef } from 'utils';
 
 interface Props extends StyleProps {
   title?: string;
   accept?: string;
   disabled?: boolean;
-  buttonStyles?: CSSProperties;
+  btnStyle?: Style;
   onFileSelect: (result?: string | ArrayBuffer) => void;
 }
 
 export const FormSelectFileBtn: FC<Props> = ({
   style,
-  buttonStyles,
+  btnStyle,
   title = 'CHOOSE FILE',
   accept = 'image/*',
   disabled,
@@ -39,7 +39,7 @@ export const FormSelectFileBtn: FC<Props> = ({
 
   return (
     <View style={ms(styles.container, style)}>
-      <ContainedButton disabled={disabled} style={ms(styles.btn, buttonStyles)}>
+      <ContainedButton disabled={disabled} style={ms(styles.btn, btnStyle)}>
         {title}
       </ContainedButton>
       <input
@@ -61,7 +61,7 @@ const styles: Styles = {
     textAlign: 'center',
   },
   btn: {
-    width: '148px',
+    width: '151px',
     height: '34px',
     minHeight: 34,
     fontSize: 'small',
