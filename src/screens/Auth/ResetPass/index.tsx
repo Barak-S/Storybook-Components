@@ -119,7 +119,7 @@ export const AuthResetPass: FC<Props> = () => {
                 valid={!validators.getPasswordErr(password)}
                 error={!!errs?.password}
                 helperText={errs?.password}
-                InputProps={{ inputProps: { maxLength: 100 } }}
+                maxLength={100}
                 onChange={handleTextFieldChanged('password')}
                 onChangeVisibleClick={() => setPassVisible(val => !val)}
               />
@@ -139,7 +139,7 @@ export const AuthResetPass: FC<Props> = () => {
                 error={!!errs?.confirmPassword}
                 helperText={errs?.confirmPassword}
                 valid={!validators.getPasswordErr(confirmPassword)}
-                InputProps={{ inputProps: { maxLength: 100 } }}
+                maxLength={100}
                 onChange={handleTextFieldChanged('confirmPassword')}
                 onChangeVisibleClick={() => setPassVisible(val => !val)}
               />

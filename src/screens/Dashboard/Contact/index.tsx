@@ -92,7 +92,7 @@ export const DashboardContactScreen: FC<Props> = () => {
                     type="text"
                     error={!!errs?.firstName}
                     helperText={errs?.firstName}
-                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    maxLength={50}
                     label="FIRST NAME"
                     onChange={handleTextFieldChanged('firstName')}
                   />
@@ -105,7 +105,7 @@ export const DashboardContactScreen: FC<Props> = () => {
                     type="text"
                     error={!!errs?.lastName}
                     helperText={errs?.lastName}
-                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    maxLength={50}
                     label="LAST NAME"
                     onChange={handleTextFieldChanged('lastName')}
                   />
@@ -119,7 +119,7 @@ export const DashboardContactScreen: FC<Props> = () => {
                     valid={!validators.getEmailErr(email)}
                     error={!!errs?.email}
                     helperText={errs?.email}
-                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    maxLength={50}
                     label="EMAIL"
                     onChange={handleTextFieldChanged('email')}
                   />
@@ -132,7 +132,7 @@ export const DashboardContactScreen: FC<Props> = () => {
                     type="text"
                     error={!!errs?.phoneNumber}
                     helperText={errs?.phoneNumber}
-                    InputProps={{ inputProps: { maxLength: 50 } }}
+                    maxLength={50}
                     label="PHONE NUMBER"
                     onChange={handleTextFieldChanged('phoneNumber')}
                   />

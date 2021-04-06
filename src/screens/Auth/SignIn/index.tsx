@@ -162,7 +162,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   valid={!validators.getEmailErr(email)}
                   error={!!errs?.email}
                   helperText={errs?.email}
-                  InputProps={{ inputProps: { maxLength: 50 } }}
+                  maxLength={50}
                   label="Email"
                   iconStart={<LineAwesomeIcon type="user" />}
                   onChange={handleTextFieldChanged('email')}
@@ -176,7 +176,7 @@ export const AuthSignInScreen: FC<Props> = () => {
                   visible={passVisible}
                   valid={!validators.getPasswordErr(password)}
                   error={!!errs?.password}
-                  InputProps={{ inputProps: { maxLength: 100 } }}
+                  maxLength={100}
                   helperText={errs?.password}
                   iconStart={<LineAwesomeIcon type="lock" />}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}

@@ -12,9 +12,19 @@ interface CustomProps {
   iconEnd?: ReactNode;
   valid?: boolean;
   adornmentType?: 'transparent';
+  maxLength?: number;
 }
 
-export const FormTextInput: FC<Props> = ({ inputStyle, iconStart, iconEnd, valid, adornmentType, InputProps, ...props }) => {
+export const FormTextInput: FC<Props> = ({
+  inputStyle,
+  iconStart,
+  iconEnd,
+  valid,
+  adornmentType,
+  maxLength,
+  InputProps,
+  ...props
+}) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
   const endIconProps = <InputAdornment position="end">{iconEnd}</InputAdornment>;
   const isStartIcon = !!iconStart;
@@ -27,7 +37,7 @@ export const FormTextInput: FC<Props> = ({ inputStyle, iconStart, iconEnd, valid
       fullWidth
       {...props}
       InputProps={{
-        inputProps: { style: inputStyle },
+        inputProps: { style: inputStyle, maxLength },
         startAdornment: iconStart ? startIconProps : undefined,
         endAdornment: iconEnd ? endIconProps : undefined,
         ...(InputProps ? InputProps : {}),

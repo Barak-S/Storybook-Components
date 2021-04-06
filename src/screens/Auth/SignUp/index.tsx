@@ -104,7 +104,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 <FormTextInput
                   value={firstName || ''}
                   label="First Name"
-                  InputProps={{ inputProps: { maxLength: 35 } }}
+                  maxLength={35}
                   valid={!validators.getNameErr(firstName)}
                   error={!!errs?.firstName}
                   helperText={errs?.firstName}
@@ -115,7 +115,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                 <FormTextInput
                   value={lastName || ''}
                   label="Last Name"
-                  InputProps={{ inputProps: { maxLength: 35 } }}
+                  maxLength={35}
                   valid={!validators.getNameErr(lastName)}
                   error={!!errs?.lastName}
                   helperText={errs?.lastName}
@@ -127,7 +127,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                   value={email || ''}
                   label="Your Email"
                   type="email"
-                  InputProps={{ inputProps: { maxLength: 50 } }}
+                  maxLength={50}
                   disabled={processing}
                   valid={!validators.getEmailErr(email)}
                   error={!!errs?.email}
@@ -144,7 +144,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                   valid={!validators.getPasswordErr(password)}
                   error={!!errs?.password}
                   helperText={errs?.password}
-                  InputProps={{ inputProps: { maxLength: 100 } }}
+                  maxLength={100}
                   onChange={handleTextFieldChanged('password')}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
                 />
@@ -164,7 +164,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
                   error={!!errs?.confirmPassword}
                   helperText={errs?.confirmPassword}
                   valid={!validators.getPasswordErr(confirmPassword)}
-                  InputProps={{ inputProps: { maxLength: 100 } }}
+                  maxLength={100}
                   onChange={handleTextFieldChanged('confirmPassword')}
                   onChangeVisibleClick={() => setPassVisible(val => !val)}
                 />
