@@ -33,7 +33,6 @@ const styles: Styles = {
   container: {
     marginBottom: '37px',
     width: '-webkit-fill-available',
-    padding: '0px 8px',
   },
   headerWrap: {
     marginBottom: '52px',

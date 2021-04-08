@@ -62,7 +62,7 @@ export const ProfileSettingsSectionEventActivity: FC<Props> = ({ style, data, on
           {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
         </span>
       </div>
-      <div className={classes.blockInf}>
+      <div className={classes.blockInf2}>
         <div className={classes.switch}>
           <FormToggle
             title="Product update"

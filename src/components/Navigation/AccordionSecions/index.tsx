@@ -18,6 +18,7 @@ interface Section {
 
 export const AccordionSections: FC<Props> = ({ style, className, sections }) => {
   const classes = useStyles();
+
   return (
     <View style={styles.container}>
       {sections.map(({ id, title, content }) => (
@@ -75,7 +76,6 @@ const useStyles = makeStyles({
       alignItems: 'center',
       display: 'flex',
       color: colors.coolBlueTwo,
-      // transform: 'translateY(-1px)',
       '& .MuiIcon-root': {
         transform: 'rotate(180deg)',
         '&:hover': {

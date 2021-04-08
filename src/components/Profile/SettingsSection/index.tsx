@@ -1,8 +1,7 @@
-import { makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
 import { AccountProfilePatch } from 'core/api';
 import React, { FC } from 'react';
-import { StyleProps } from 'styles';
+import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 
 import ProfileSectionFooter from '../SectionFooter';
 import EventActivity from './components/EventActivity';
@@ -15,27 +14,29 @@ interface Props extends StyleProps {
 }
 
 export const ProfileSettingsSection: FC<Props> = ({ style, data, processing, onChange, onSubmit }) => {
-  const classes = useStyles();
+  const { isMobile } = useScreenSizes();
   return (
-    <View style={style} className={classes.container}>
+    <View style={ms(styles.container, isMobile && styles.containerSM, style)}>
       <EventActivity data={data} onChange={onChange} />
-      <ProfileSectionFooter processing={processing} disabled={processing} onSaveClick={onSubmit} />
+      <ProfileSectionFooter processing={processing} disabled={processing} style={styles.footer} onSaveClick={onSubmit} />
     </View>
   );
 };
 
-const useStyles = () =>
-  makeStyles((theme: Theme) => ({
-    container: {
-      width: '-webkit-fill-available',
-      display: 'flex',
-      marginBottom: '37px',
-      flexDirection: 'column',
-      [theme.breakpoints.down('sm')]: {
-        display: 'block',
-      },
-    },
-  }))();
+const styles: Styles = {
+  container: {
+    width: '-webkit-fill-available',
+    display: 'flex',
+    marginBottom: '37px',
+    flexDirection: 'column',
+  },
+  containerSM: {
+    display: 'block',
+  },
+  footer: {
+    letterSpacing: 2.25,
+  },
+};
 
 export type ProfileSettingsSectionProps = Props;
 export default ProfileSettingsSection;

@@ -139,6 +139,12 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         padding: '27.5px 17px',
       },
+
+      '& .MuiAccordionDetails-root': {
+        [theme.breakpoints.down('sm')]: {
+          padding: '0px 10px',
+        },
+      },
       '& .MuiAccordionSummary-root.Mui-expanded': {
         background: colors.white,
         border: 'none',
@@ -159,6 +165,9 @@ const useStyles = (theme: Theme) =>
       height: 76,
       borderTopRightRadius: 10,
       borderTopLeftRadius: 10,
+      [theme.breakpoints.down('sm')]: {
+        padding: '0px 10px',
+      },
       '&:hover': {
         background: colors.paleGrey,
       },

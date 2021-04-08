@@ -4,17 +4,18 @@ import { colors } from 'styles';
 export const useStyles = () =>
   makeStyles((theme: Theme) => ({
     container: {
-      marginBottom: '37px',
+      marginBottom: '34px',
       width: '-webkit-fill-available',
     },
     headerSection: {
-      marginBottom: '24px',
+      marginBottom: '22px',
     },
     title: {
       letterSpacing: '0px',
       color: colors.marine,
       display: 'block',
-      paddingBottom: 10,
+      paddingTop: 7,
+      paddingBottom: 6,
       fontWeight: 500,
     },
     subtitle: {
@@ -36,8 +37,31 @@ export const useStyles = () =>
         },
       },
     },
+    blockInf2: {
+      display: 'flex',
+      marginBottom: '110px',
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+        marginBottom: '10px',
+      },
+      '&>div': {
+        width: '-webkit-fill-available',
+        [theme.breakpoints.down('sm')]: {
+          flexDirection: 'row-reverse',
+        },
+      },
+    },
     switch: {
       maxWidth: 'fit-content;',
       marginRight: '60px',
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+        margin: 0,
+      },
+    },
+    root: {
+      '& .MuiIconButton-root': {
+        color: colors.marineBlue,
+      },
     },
   }))();

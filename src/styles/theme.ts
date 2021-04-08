@@ -144,7 +144,7 @@ export const muiTheme = createMuiTheme({
       positionEnd: {
         right: 15,
         '& .MuiIconButton-edgeEnd': {
-          widht: 44,
+          width: 44,
           height: 44,
         },
       },

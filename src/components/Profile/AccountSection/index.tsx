@@ -2,7 +2,7 @@ import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
 import { AccountProfile, AccountProfilePatch } from 'core/api';
 import React, { FC } from 'react';
-import { colors, StyleProps } from 'styles';
+import { colors, StyleProps, Styles } from 'styles';
 
 import ProfileSectionFooter from '../SectionFooter';
 import BioSection from './components/BioSection';
@@ -40,11 +40,17 @@ export const ProfileAccountSection: FC<Props> = ({ style, processing, data, prof
           <CompanySection data={data} profile={profile} onChange={onChange} />
           <SocialSection />
           <BioSection data={data} onChange={onChange} />
-          <ProfileSectionFooter processing={processing} disabled={processing} onSaveClick={onSubmit} />
+          <ProfileSectionFooter processing={processing} disabled={processing} style={styles.btn} onSaveClick={onSubmit} />
         </Grid>
       </Grid>
     </View>
   );
+};
+
+const styles: Styles = {
+  btn: {
+    letterSpacing: '2.25px',
+  },
 };
 
 const useStyles = () =>
