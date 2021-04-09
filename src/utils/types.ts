@@ -81,3 +81,5 @@ export const isStr = isString;
 export const isUndef = isUndefined;
 export const isBool = isBoolean;
 export const isNum = isNumber;
+
+export const lastIndex = (itms: unknown[]) => itms.length - 1;

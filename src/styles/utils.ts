@@ -1,7 +1,9 @@
 import { each, isArray, isBoolean, flattenDeep, compact, isString } from 'lodash';
 import { useState } from 'react';
+import { withAlpha } from './colors';
+import { useScreenSizes } from './sizes';
 
-import { MergeStyleVals, Style } from './types';
+import { MergeStyleVals, Style, Styles } from './types';
 
 /**
  * Merge styles
@@ -34,7 +36,7 @@ type ClassNameArr = ClassNameItem[];
 export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string => compact(flattenDeep(arr)).filter(isString).join(' ');
 
 /** Scroll to top */
-export const srollToTop = () => window.scrollTo(0, 0);
+export const scrollToTop = () => window.scrollTo(0, 0);
 
 /**
  * Hook for helping manage hover state
@@ -58,4 +60,13 @@ export const useHover = () => {
   };
 
   return { hover, hoverProps: { onMouseEnter, onMouseLeave, onMouseOut, onMouseOver } };
+};
+
+type MakeStylesFnOpts = { ms: typeof ms } & { withAlpha: typeof withAlpha } & ReturnType<typeof useScreenSizes>;
+
+type MakeStylesFn = (opt: MakeStylesFnOpts) => Styles;
+
+export const makeStyles = (fn: MakeStylesFn) => () => {
+  const sizes = useScreenSizes();
+  return fn({ ms, withAlpha, ...sizes });
 };

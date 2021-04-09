@@ -8,7 +8,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { useStoreManager } from 'store';
-import { ms, srollToTop, StyleProps, Styles } from 'styles';
+import { ms, scrollToTop, StyleProps, Styles } from 'styles';
 
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
@@ -26,7 +26,7 @@ type Props = StyleProps;
 
 export const DashboardScreens: FC<Props> = () => {
   useEffect(() => {
-    srollToTop();
+    scrollToTop();
   }, []);
 
   const [mobileMenuVisible, setMobileMenuVisible] = useState<boolean>(false);

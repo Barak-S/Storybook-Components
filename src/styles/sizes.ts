@@ -45,17 +45,26 @@ export const useScreenSizes = () => {
 
   /** Return value, when the screen is mobile size */
   const whenMobile = <T>(val: T): T | undefined => (isMobile ? val : undefined);
+  /** Return value, when the screen is not mobile size */
+  const whenNotMobile = <T>(val: T): T | undefined => (!isMobile ? val : undefined);
   /** Return value, when the screen is tablet size */
   const whenTablet = <T>(val: T): T | undefined => (isTablet ? val : undefined);
+  /** Return value, when the screen is not tablet size */
+  const whenNotTablet = <T>(val: T): T | undefined => (!isTablet ? val : undefined);
   /** Return value, when the screen is desktop size */
-  const whenDesktop = <T>(val: T): T | undefined => (isMobile ? val : undefined);
+  const whenDesktop = <T>(val: T): T | undefined => (isDesktop ? val : undefined);
+  /** Return value, when the screen is not desktop size */
+  const whenNotDesktop = <T>(val: T): T | undefined => (!isDesktop ? val : undefined);
 
   return {
     isMobile,
     whenMobile,
+    whenNotMobile,
     isTablet,
     whenTablet,
+    whenNotTablet,
     isDesktop,
     whenDesktop,
+    whenNotDesktop,
   };
 };

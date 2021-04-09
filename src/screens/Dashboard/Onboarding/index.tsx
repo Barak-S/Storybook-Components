@@ -4,7 +4,7 @@ import { SetupStep } from 'components/Setup';
 import React, { FC, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import { srollToTop, StyleProps } from 'styles';
+import { scrollToTop, StyleProps } from 'styles';
 
 import OnboardingEventScreen from './Event';
 import OnboardingProfileScreen from './Profile';
@@ -59,30 +59,30 @@ const steps: SetupStep[] = [
 
 export const OnboardingScreens: FC<Props> = () => {
   useEffect(() => {
-    srollToTop();
+    scrollToTop();
   }, []);
 
   const theme = useTheme();
   const classes = useStyles(theme);
   const history = useHistory();
 
-  const handleCloseOnboardingScreen = () => history.push(routes.dashboard.events);
+  const handleCloseClick = () => history.push(routes.dashboard.events);
 
   return (
     <BackgroundedContainer className={classes.container}>
       <Grid container>
         <Switch>
-          <Route path={routes.dashboard.onboarding.event}>
-            <OnboardingEventScreen steps={steps} onCloseClick={handleCloseOnboardingScreen} />
-          </Route>
           <Route path={routes.dashboard.onboarding.profile}>
-            <OnboardingProfileScreen steps={steps} onCloseClick={handleCloseOnboardingScreen} />
+            <OnboardingProfileScreen steps={steps} onCloseClick={handleCloseClick} />
+          </Route>
+          <Route path={routes.dashboard.onboarding.event}>
+            <OnboardingEventScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
           <Route path={routes.dashboard.onboarding.team}>
-            <OnboardingTeamScreen steps={steps} onCloseClick={handleCloseOnboardingScreen} />
+            <OnboardingTeamScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
           <Route path={routes.dashboard.onboarding.theme}>
-            <OnboardingThemeScreen steps={steps} onCloseClick={handleCloseOnboardingScreen} />
+            <OnboardingThemeScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
           <Redirect to={routes.dashboard.events} />
         </Switch>

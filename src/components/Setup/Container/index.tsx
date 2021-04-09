@@ -4,16 +4,21 @@ import { Text, Title } from 'components/Common';
 import { DashbaordStepperMobileLabel } from 'components/Dashboard';
 import { Stepper } from 'components/Navigation';
 import React, { FC } from 'react';
-import { colors, mx, StyleProps, useScreenSizes } from 'styles';
+import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
 
-import SetupContainerFooter from './components/Footer';
+import SetupContainerFooter, { SetupContainerFooterBtnItem } from './components/Footer';
 
 interface Props extends StyleProps {
   title: string;
   steps: SetupStep[];
   curStepIndex?: number;
+  footer?: {
+    leftBtns?: SetupContainerFooterBtnItem[];
+    rightBtns?: SetupContainerFooterBtnItem[];
+  };
   onCloseClick?: () => void;
   onSkipClick?: () => void;
+  onFooterBtnClick?: (btn: SetupContainerFooterBtnItem) => void;
 }
 
 export interface SetupStep {
@@ -30,7 +35,17 @@ const getShortTitle = (val: SetupStepTitle): string => (typeof val === 'string' 
 
 const getLongTitle = (val: SetupStepTitle): string => (typeof val === 'string' ? val : val.long);
 
-export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCloseClick, onSkipClick, children }) => {
+export const SetupContainer: FC<Props> = ({
+  style,
+  title,
+  steps,
+  curStepIndex = 0,
+  footer,
+  onCloseClick,
+  onSkipClick,
+  onFooterBtnClick,
+  children,
+}) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const { isDesktop } = useScreenSizes();
@@ -42,7 +57,7 @@ export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCl
   const stepIndex = `${curStepIndex + 1}.`;
 
   return (
-    <Grid className={classes.container}>
+    <Grid style={ms(styles.container, style)}>
       <Paper elevation={3} className={classes.paper}>
         <Grid container>
           <Grid item xs={12}>
@@ -75,7 +90,12 @@ export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCl
           <Grid item xs={12} md={9}>
             <Grid className={classes.body}>
               {children}
-              <SetupContainerFooter className={classes.controls} />
+              <SetupContainerFooter
+                style={styles.footer}
+                leftBtns={footer?.leftBtns}
+                rightBtns={footer?.rightBtns}
+                onBtnClick={onFooterBtnClick}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -85,15 +105,22 @@ export const SetupContainer: FC<Props> = ({ title, steps, curStepIndex = 0, onCl
   );
 };
 
+const styles: Styles = {
+  container: {
+    display: 'flex',
+    width: '100%',
+    position: 'relative',
+    maxWidth: 1525,
+    margin: '0 auto',
+  },
+  footer: {
+    paddingTop: 20,
+    ...mx.borderTop(1, 'solid', colors.greyish),
+  },
+};
+
 const useStyles = (theme: Theme) =>
   makeStyles({
-    container: {
-      display: 'flex',
-      width: '100%',
-      position: 'relative',
-      maxWidth: 1525,
-      margin: '0 auto',
-    },
     paper: {
       background: 'transparent',
       width: '100%',
@@ -198,11 +225,8 @@ const useStyles = (theme: Theme) =>
     close: {
       marginLeft: 20,
     },
-    controls: {
-      paddingTop: 20,
-      ...mx.borderTop(1, 'solid', colors.greyish),
-    },
   })();
 
 export type SetupContainerProps = Props;
+export { SetupContainerFooterBtnItem } from './components/Footer';
 export default SetupContainer;

@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React, { FC } from 'react';
-import { StyleProps, Styles, useScreenSizes } from 'styles';
+import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 import CompanyInfo from '../CompanyInfo';
 import EventLogo from '../Logo';
 import ProfilePicture from '../Picture';
@@ -23,10 +23,6 @@ export interface ProfileScreenFormData {
 
 export type FormErrors = Partial<Record<keyof ProfileScreenFormData, string>>;
 
-interface StylesConfig {
-  isDesktop: boolean;
-}
-
 export const OnboardingProfileScreenForm: FC<Props> = ({ data, errors, onChange }) => {
   const { isDesktop } = useScreenSizes();
 
@@ -43,6 +39,10 @@ export const OnboardingProfileScreenForm: FC<Props> = ({ data, errors, onChange 
   );
 };
 
+interface StylesConfig {
+  isDesktop: boolean;
+}
+
 const getStyles = ({ isDesktop }: StylesConfig): Styles => ({
   container: {
     paddingBottom: 56,
@@ -54,8 +54,7 @@ const getStyles = ({ isDesktop }: StylesConfig): Styles => ({
     marginBottom: 30,
   },
   profilePicture: {
-    ...(!isDesktop && { marginBottom: 25 }),
-    ...(isDesktop && { marginRight: 86 }),
+    ...ms(!isDesktop ? { marginBottom: 25 } : { marginRight: 86 }),
   },
 });
 
