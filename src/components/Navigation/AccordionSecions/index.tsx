@@ -1,5 +1,6 @@
 import Accordion from '@material-ui/core/Accordion';
 import { AccordionDetails, AccordionSummary, makeStyles } from '@material-ui/core';
+import { FormToggle } from 'components/Form';
 import { View, Text } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, ReactNode } from 'react';
@@ -14,6 +15,10 @@ interface Section {
   id: number | string;
   title: string;
   content: ReactNode;
+  toggle?: {
+    visible?: boolean;
+    value?: boolean;
+  };
 }
 
 export const AccordionSections: FC<Props> = ({ style, className, sections }) => {
@@ -21,12 +26,13 @@ export const AccordionSections: FC<Props> = ({ style, className, sections }) => 
 
   return (
     <View style={styles.container}>
-      {sections.map(({ id, title, content }) => (
+      {sections.map(({ id, title, content, toggle }) => (
         <Accordion style={style} key={id} classes={{ root: classes.root }}>
           <AccordionSummary
             classes={{ root: mc(classes.accordion, className) }}
             expandIcon={<LineAwesomeIcon type="chevron-circle-down" />}
           >
+            {toggle?.visible && <FormToggle value={toggle.value || false} style={styles.toggleSwitch} />}
             <Text style={styles.heading}>{title}</Text>
           </AccordionSummary>
           <AccordionDetails style={styles.content}>
@@ -49,6 +55,9 @@ const styles: Styles = {
   content: {
     background: 'white',
   },
+  toggleSwitch: {
+    marginRight: 7.5,
+  },
 };
 
 const useStyles = makeStyles({
@@ -59,12 +68,15 @@ const useStyles = makeStyles({
     '& .MuiIconButton-root': {
       color: colors.marineBlue,
     },
+    '& .MuiAccordionSummary-content': {
+      alignItems: 'center',
+    },
   },
   accordion: {
     '& .MuiIcon-root': {
+      alignItems: 'center',
       transform: 'rotate(-90deg)',
       transition: '0.3s ease',
-      alignItems: 'center',
       display: 'flex',
       margin: '0px 0px',
       '&:hover': {

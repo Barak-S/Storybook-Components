@@ -20,6 +20,7 @@ import DashboardProfileScreen from './Profile';
 import DashboardSupportScreen from './Support';
 import DashboardTermsScreen from './Terms';
 import DashboardUserManagementScreen from './UserManagement';
+import DashboardSetupSession from './Session';
 
 type Props = StyleProps;
 
@@ -114,6 +115,9 @@ export const DashboardScreens: FC<Props> = () => {
               </Route>
               <Route path={routes.dashboard.profile}>
                 <DashboardProfileScreen />
+              </Route>
+              <Route path={routes.dashboard.setupSession}>
+                <DashboardSetupSession />
               </Route>
               <Route path={routes.dashboard.support}>
                 <DashboardSupportScreen />

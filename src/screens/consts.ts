@@ -18,6 +18,7 @@ export const routes = {
     profile: '/dashboard/profile',
     support: '/dashboard/support',
     users: '/dashboard/users',
+    setupSession: '/dashboard/setup-session',
     onboarding: {
       index: '/dashboard/onboarding',
       profile: '/dashboard/onboarding/profile',
