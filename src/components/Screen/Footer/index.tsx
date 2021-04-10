@@ -1,9 +1,10 @@
-import { TextLink, View } from 'components/Common';
+import { View } from 'components/Common';
 import { makeStyles, Grid, Theme, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
 import { colors, StyleProps, ms, Styles } from 'styles';
 import { AuthCopyrights } from 'components/Auth';
 import { routes } from 'screens/consts';
+import { NavLink } from 'react-router-dom';
 import { LineAwesomeIcon } from 'components/Icons';
 
 interface Props extends StyleProps {
@@ -17,6 +18,12 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
   const classes = useStyles(theme);
   const color = controlTheme === 'dark' ? colors.white : colors.darkIndigo;
   const styles = getStyles(controlTheme);
+
+  const navLinks = [
+    { label: 'FAQ', path: routes.dashboard.faq },
+    { label: 'Terms of Service', path: routes.terms },
+    { label: 'Privacy Policy', path: routes.policy },
+  ];
 
   return (
     <View style={ms(styles.container, style)}>
@@ -42,21 +49,19 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
         </Grid>
         <Grid sm={12} md={4} className={classes.linktoWrap}>
           <ul className={classes.linkSection}>
-            <li>
-              <TextLink href={routes.dashboard.faq} className={classes.textLink} style={ms({ color: color }, style)}>
-                {'FAQ'}
-              </TextLink>
-            </li>
-            <li>
-              <TextLink href={routes.terms} className={classes.textLink} style={ms({ color: color }, style)}>
-                {'Terms of Service'}
-              </TextLink>
-            </li>
-            <li>
-              <TextLink href={routes.policy} className={classes.textLink} style={ms({ color: color }, style)}>
-                {'Privacy Policy'}
-              </TextLink>
-            </li>
+            {navLinks.map(link => {
+              return (
+                <NavLink
+                  key={link.label}
+                  style={ms({ color: color }, style)}
+                  className={classes.textLink}
+                  activeStyle={{ color: colors.windowsBlue }}
+                  to={link.path}
+                >
+                  {link.label}
+                </NavLink>
+              );
+            })}
           </ul>
         </Grid>
       </Grid>
@@ -88,6 +93,7 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         padding: '30px 20px',
+        paddingBottom: 41,
       },
     },
     linkSection: {
@@ -96,16 +102,17 @@ const useStyles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       fontSize: 18,
+      paddingRight: 113,
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         lineHeight: 3,
-        marginBottom: 25,
+        marginBottom: 33,
       },
       [theme.breakpoints.up('md')]: {
         justifyContent: 'space-around',
       },
-      [theme.breakpoints.up('lg')]: {
-        paddingRight: 113,
+      [theme.breakpoints.down('lg')]: {
+        paddingRight: 0,
       },
     },
     socialSection: {
@@ -114,7 +121,7 @@ const useStyles = (theme: Theme) =>
       flexDirection: 'row',
       justifyContent: 'center',
       [theme.breakpoints.down('sm')]: {
-        marginBottom: 25,
+        marginBottom: 34,
       },
     },
     socialBtn: {
@@ -147,9 +154,10 @@ const useStyles = (theme: Theme) =>
       },
     },
     textLink: {
+      textDecoration: 'none',
       margin: '0 10px',
-      [theme.breakpoints.down('md')]: {
-        margin: '0 5px',
+      [theme.breakpoints.down('lg')]: {
+        margin: '0px 0px',
       },
     },
   })();
