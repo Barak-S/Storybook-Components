@@ -1,6 +1,6 @@
 import { View } from 'components/Common';
 import React, { FC } from 'react';
-import { makeStyles, ms, StyleProps } from 'styles';
+import { buildStyles, ms, StyleProps } from 'styles';
 import { lastIndex } from 'utils';
 
 import SetupContainerFooterBtn, { SetupContainerFooterBtnItem } from './components/Btn';
@@ -70,7 +70,7 @@ export const SetupContainerFooter: FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles(({ isMobile, whenMobile, whenNotMobile }) => ({
+const useStyles = buildStyles(({ isMobile, whenMobile, whenNotMobile }) => ({
   container: {
     flexDirection: isMobile ? 'column' : 'row',
     justifyContent: whenNotMobile('space-between'),

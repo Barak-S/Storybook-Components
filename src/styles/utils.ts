@@ -66,7 +66,7 @@ type MakeStylesFnOpts = { ms: typeof ms } & { withAlpha: typeof withAlpha } & Re
 
 type MakeStylesFn = (opt: MakeStylesFnOpts) => Styles;
 
-export const makeStyles = (fn: MakeStylesFn) => () => {
+export const buildStyles = (fn: MakeStylesFn) => () => {
   const sizes = useScreenSizes();
   return fn({ ms, withAlpha, ...sizes });
 };
