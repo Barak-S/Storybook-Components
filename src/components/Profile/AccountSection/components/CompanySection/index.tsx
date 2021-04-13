@@ -46,12 +46,7 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
               value={data?.firstName || ''}
               onChange={handleTextFieldChanged('firstName')}
             />
-            <FormTextInput
-              style={styles.rowIndent}
-              label="Last Name"
-              value={data?.lastName || ''}
-              onChange={handleTextFieldChanged('lastName')}
-            />
+            <FormTextInput style={styles.rowIndent} label="Last Name" value={data?.lastName || ''} />
             <FormTextInput style={styles.rowIndent} label="Company" value={data?.company?.name || ''} />
             <FormTextInput style={styles.rowIndent} label="Title" />
             <FormTextInput style={styles.rowIndent} label="Email" disabled value={profile.email || ''} />

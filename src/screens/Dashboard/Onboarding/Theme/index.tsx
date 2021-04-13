@@ -1,7 +1,9 @@
+import { Grid } from '@material-ui/core';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupStep } from 'components/Setup';
 import React, { FC } from 'react';
-import { StyleProps } from 'styles';
+import { StyleProps, Styles } from 'styles';
+import ThemeAccordion from './components/ThemeAccordion';
 
 interface Props extends StyleProps {
   steps: SetupStep[];
@@ -9,14 +11,26 @@ interface Props extends StyleProps {
 }
 
 export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
+  const styles = getStyles();
+
   return (
     <>
       <ScreenTitle title="Onboarding Theme" />
       <SetupContainer title="add theme of your event" steps={steps} curStepIndex={2} onCloseClick={onCloseClick}>
-        <h1>{'EVENT THEME BODY'}</h1>
+        <Grid style={styles.container}>
+          <ThemeAccordion />
+        </Grid>
       </SetupContainer>
     </>
   );
 };
+
+const getStyles = (): Styles => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '25px 0 33px',
+  },
+});
 
 export default OnboardingThemeScreen;

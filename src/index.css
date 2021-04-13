@@ -30,6 +30,7 @@ body {
     color: #5c5c5c;
     padding-right: 0!important;
     overflow: auto!important;
+    scroll-behavior: smooth;
 }
 
 input[type="text"]::-ms-clear,
