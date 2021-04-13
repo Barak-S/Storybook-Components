@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.48] - 2021-04-13
+### Fixed
+- DO-138: Footer styling QA and react-router active link
+
 ## [1.0.47] - 2021-04-09
 ### Added
 - DO-120: Setup Session Outer page UI
@@ -13,8 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.46] - 2021-04-08
 ### Changed
-- DO-133: Setting Section UI
 - DO-132: Profile Password Tab
+- DO-133: Setting Section UI
 - Refactoring
 
 ## [1.0.45] - 2021-03-29
@@ -23,8 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.44] - 2021-03-28
 ### Fixed
-- DO-129 : Policy page QA fixes
 - DO-128 : FAQ qa fixes and rework the accordionSection
+- DO-129 : Policy page QA fixes
 
 ## [1.0.43] - 2021-03-28
 ### Added
@@ -47,13 +51,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.39] - 2021-03-26
 ### Added
-- Internal state manager
 - API support
+- Internal state manager
 - Profile getting/updating functionality
 
 ### Fixed
-- DO-130: Application Terms of Service fixes
 - DO-128: Accordion fixes
+- DO-130: Application Terms of Service fixes
 
 ## [1.0.38] - 2021-03-23
 ### Added
@@ -69,8 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.36] - 2021-03-21
 ### Fixed
-- DO-128: QA fixes
 - Components, Screens: general UI fixes
+- DO-128: QA fixes
 
 ## [1.0.35] - 2021-03-19
 ### Fixed
@@ -97,8 +101,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.29] - 2021-03-12
 ### Changed
-- Google Sign In feature enabled
 - Dashboard event view demo added
+- Google Sign In feature enabled
 
 ## [1.0.29] - 2021-03-10
 ### Added
@@ -115,8 +119,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.26] - 2021-03-04
 ### Fixed
-- DO-82: User dropdown menu icon fixed
 - DO-72: Error message for the twice used email confirmation URL changed
+- DO-82: User dropdown menu icon fixed
 
 ## [1.0.25] - 2021-03-04
 ### Fixed
@@ -179,8 +183,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.14] - 2021-02-25
 ### Fixed
-- DO-36: Recovery screen email filed verification fixes
 - DO-36: Password reset fileds fixed
+- DO-36: Recovery screen email filed verification fixes
 
 ## [1.0.13] - 2021-02-24
 ### Changed
@@ -207,8 +211,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.8] - 2021-02-22
 ### Fixes
-- Signup screen fixes
 - Dashboard responsivnes and mobile menu added
+- Signup screen fixes
 
 ## [1.0.7] - 2021-02-22
 ### Added
@@ -232,9 +236,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.3] - 2021-02-17
 ### Added
+- CI: storybook and tests coverage upload added
 - DO-32, DO-34: Icons font added, zeplins colors updated
 - Storybook: knobs addon added
-- CI: storybook and tests coverage upload added
 
 ### Changed
 - Storybook: version upgraded
@@ -257,6 +261,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2021-02-10
 ### Added
-- Testing added
 - Basic configuration added
-
+- Testing added
