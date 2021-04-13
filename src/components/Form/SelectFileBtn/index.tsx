@@ -9,7 +9,7 @@ interface Props extends StyleProps {
   accept?: string;
   disabled?: boolean;
   btnStyle?: Style;
-  onFileSelect: (result?: string | ArrayBuffer) => void;
+  onFileSelect?: (result?: string | ArrayBuffer) => void;
 }
 
 export const FormSelectFileBtn: FC<Props> = ({
@@ -31,7 +31,7 @@ export const FormSelectFileBtn: FC<Props> = ({
     if (reg.exec(file.type)) {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
-        onFileSelect(dataOrUndef(reader.result));
+        onFileSelect && onFileSelect(dataOrUndef(reader.result));
       });
       reader.readAsDataURL(file);
     }
