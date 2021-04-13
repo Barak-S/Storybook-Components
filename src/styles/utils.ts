@@ -36,7 +36,11 @@ type ClassNameArr = ClassNameItem[];
 export const mc = (...arr: (ClassNameItem | ClassNameArr)[]): string => compact(flattenDeep(arr)).filter(isString).join(' ');
 
 /** Scroll to top */
-export const scrollToTop = () => window.scrollTo(0, 0);
+export const scrollToTop = () =>
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 
 /**
  * Hook for helping manage hover state

@@ -24,6 +24,24 @@ export const muiTheme = createMuiTheme({
     fontFamily: '"Rubik", sans-serif',
   },
   overrides: {
+    MuiTooltip: {
+      tooltip: {
+        backgroundColor: colors.warmPurple,
+      },
+      arrow: {
+        color: colors.warmPurple,
+      },
+      popper: {
+        top: '10px!important',
+      },
+    },
+    MuiAccordion: {
+      root: {
+        '&:before': {
+          content: 'none',
+        },
+      },
+    },
     MuiButton: {
       root: {
         fontSize: 15,
@@ -41,6 +59,7 @@ export const muiTheme = createMuiTheme({
     },
     MuiInputBase: {
       root: {
+        height: '100%',
         borderRadius: 12,
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,
@@ -56,6 +75,7 @@ export const muiTheme = createMuiTheme({
         },
       },
       input: {
+        border: `1px solid transparent`,
         boxSizing: 'border-box',
         fontSize: 21,
         borderRadius: 12,
@@ -80,6 +100,15 @@ export const muiTheme = createMuiTheme({
       underline: {
         '&:before, &:after': {
           content: 'none',
+        },
+      },
+      input: {
+        '&[type="date"]::-webkit-calendar-picker-indicator': {
+          opacity: 0,
+          position: 'absolute',
+          left: -27,
+          ...mx.zIndex.base,
+          ...mx.square(54),
         },
       },
     },
