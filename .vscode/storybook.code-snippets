@@ -5,7 +5,7 @@
     ],
     "body": [
       "import React from 'react';",
-      "import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';",
+      "import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';",
       "",
       "import $1, { $1Props as Props } from '.';",
       "",

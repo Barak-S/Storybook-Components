@@ -34,6 +34,7 @@
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
     "clear:cache": "rm -rf ./.cache",
+    "snippets": "md2snipp --root .vscode/snippets --output .vscode",
     "postinstall": "yarn clear:cache && husky install"
   },
   "lint-staged": {
