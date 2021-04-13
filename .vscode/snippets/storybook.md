@@ -4,9 +4,9 @@
 
 **Description**: Create Storybook story
 
-```
+```typescript
 import React from 'react';
-import { sbAutoDetectActionProps, Story, StoryMeta } from 'styles';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
 import $1, { $1Props as Props } from '.';
 
@@ -35,7 +35,7 @@ export const Basic: $1<Props> = props => <$2 {...props} />;
 
 **Description**: Add Storybook meta
 
-```
+```typescript
 export default ((): StoryMeta<Props> => ({
   title: '$1',
   component: $1,

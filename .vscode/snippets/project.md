@@ -6,7 +6,7 @@
 
 **Description**: Create functional component
 
-```
+```typescript
 import { View } from 'components/Common';
 import React, { FC } from 'react';
 import { StyleProps, Styles } from 'styles';
@@ -35,6 +35,6 @@ export default $1;
 
 **Description**: Export props
 
-```
+```typescript
 export type $1Props = Props;
 ```
