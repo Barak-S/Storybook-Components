@@ -5,7 +5,7 @@ import { ClassNameProps, StyleProps } from 'styles';
 import FormSelectStyled from './components/Styled';
 
 interface Props<T> extends StyleProps, ClassNameProps {
-  label: string;
+  label?: string;
   options: T[];
   value?: T;
   title?: string;
@@ -13,6 +13,12 @@ interface Props<T> extends StyleProps, ClassNameProps {
   placeholder?: string;
   fullWidth?: boolean;
   required?: boolean;
+  disabled?: boolean;
+  classes?: {
+    root?: string;
+    label?: string;
+    icon?: string;
+  };
   keyExtractor: (v: T) => string;
   titleExtractor: (v: T) => string;
   onChange?: (v: T) => void;
@@ -46,15 +52,19 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
       titleExtractor,
       fullWidth,
       required,
+      disabled,
       title,
       name,
       placeholder,
+      classes,
     } = this.props;
     return (
       <FormSelectStyled
+        classes={classes}
         className={className}
         style={style}
         label={label}
+        disabled={disabled}
         fullWidth={fullWidth}
         required={required}
         title={title}

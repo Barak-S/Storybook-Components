@@ -8,9 +8,15 @@ import { genId } from 'utils';
 type Props = StyleProps & CustomProps;
 
 interface CustomProps extends SelectProps {
-  label: string;
+  label?: string;
   options: FormSelectStyledOption[];
   className?: string;
+  disabled?: boolean;
+  classes?: {
+    root?: string;
+    label?: string;
+    icon?: string;
+  };
 }
 
 export interface FormSelectStyledOption {
@@ -18,24 +24,25 @@ export interface FormSelectStyledOption {
   value: unknown;
 }
 
-export const FormSelectStyled: FC<Props> = ({ label, className, options, ...props }) => {
+export const FormSelectStyled: FC<Props> = ({ label, className, options, disabled, classes, ...props }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const classes = useStyles();
+  const localClasses = useStyles();
   const selectId = useMemo(() => genId(), []);
   const iconType = open ? 'chevron-circle-up' : 'chevron-circle-down';
 
   return (
-    <FormControl className={mc(classes.container, className)}>
-      <InputLabel id={selectId}>{label}</InputLabel>
+    <FormControl className={mc(localClasses.container, className)}>
+      {!!label && <InputLabel id={selectId}>{label}</InputLabel>}
       <Select
-        className={classes.select}
+        className={localClasses.select}
         labelId={selectId}
         {...props}
+        disabled={disabled}
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         classes={{
-          icon: classes.nativeIcon,
-          root: classes.selectRoot,
+          icon: localClasses.nativeIcon,
+          root: mc(localClasses.selectRoot, classes?.root),
         }}
       >
         {options.map(({ value }) => (
@@ -44,7 +51,7 @@ export const FormSelectStyled: FC<Props> = ({ label, className, options, ...prop
           </MenuItem>
         ))}
       </Select>
-      <LineAwesomeIcon type={iconType} size={24} className={classes.icon} />
+      <LineAwesomeIcon type={iconType} size={24} className={mc(localClasses.icon, classes?.icon)} />
     </FormControl>
   );
 };

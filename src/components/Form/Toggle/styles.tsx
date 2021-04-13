@@ -63,6 +63,7 @@ export const useStyles = () =>
       },
     },
     title: {
+      flexWrap: 'nowrap',
       marginLeft: '8px',
       font: 'normal normal normal 16px/23px Rubik',
       letterSpacing: '0px',

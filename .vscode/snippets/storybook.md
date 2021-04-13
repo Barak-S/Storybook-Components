@@ -16,6 +16,7 @@ export default ((): StoryMeta<Props> => ({
   args: {},
   argTypes: {},
   parameters: {
+    layout: 'centered',
     actions: { ...sbAutoDetectActionProps },
   },
 }))();

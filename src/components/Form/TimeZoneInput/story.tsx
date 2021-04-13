@@ -1,0 +1,24 @@
+import React, { FC, useState } from 'react';
+import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
+
+import FormTimeZoneInput, { FormTimeZoneInputProps as Props } from '.';
+import { TimeZoneData } from './data';
+
+export default ((): StoryMeta<Props> => ({
+  title: 'components/Form/TimeZoneInput',
+  component: FormTimeZoneInput,
+  args: {
+    style: { width: 300 },
+  },
+  parameters: {
+    layout: 'centered',
+    actions: { ...sbAutoDetectActionProps },
+  },
+}))();
+
+const FormTimeZoneInputTemplate: FC<Omit<Props, 'onChange'>> = ({ value: initValue, ...props }) => {
+  const [value, setValue] = useState<TimeZoneData | undefined>(initValue);
+  return <FormTimeZoneInput {...props} value={value} onChange={v => setValue(v)} />;
+};
+
+export const Basic: Story<Props> = args => <FormTimeZoneInputTemplate {...args} />;

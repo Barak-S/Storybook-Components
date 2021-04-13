@@ -12,14 +12,14 @@ interface CustomProps extends StyleProps {
 
 type Props = TextareaAutosizeProps & CustomProps;
 
-export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange, ...props }) => {
+export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange, style, ...props }) => {
   const [focus, setFocus] = useState<boolean>(false);
   const classes = useStyles();
   const isActive = focus || Boolean(value);
   const textAreaId = genId();
 
   return (
-    <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea, className)}>
+    <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea, className)} style={style}>
       <TextareaAutosize
         id={textAreaId}
         {...props}

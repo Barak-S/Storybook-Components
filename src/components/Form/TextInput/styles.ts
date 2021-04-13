@@ -1,14 +1,15 @@
 import { makeStyles } from '@material-ui/core';
-import { colors } from 'styles';
+import { colors, Styles } from 'styles';
 
 interface StylesConfig {
   value: unknown;
   isStartIcon?: boolean;
   valid?: boolean;
   adornmentType?: 'transparent';
+  inputStyle?: Styles;
 }
 
-export const useStyles = ({ value, isStartIcon, valid, adornmentType }: StylesConfig) =>
+export const useStyles = ({ value, isStartIcon, valid, adornmentType, inputStyle }: StylesConfig) =>
   makeStyles(() => ({
     root: {
       '& .MuiInputAdornment-root': {
@@ -46,6 +47,11 @@ export const useStyles = ({ value, isStartIcon, valid, adornmentType }: StylesCo
       ...(adornmentType === 'transparent' && {
         '& .MuiInputBase-input': {
           paddingLeft: 45,
+        },
+      }),
+      ...(inputStyle && {
+        '& .MuiInputBase-input': {
+          ...inputStyle,
         },
       }),
     },
