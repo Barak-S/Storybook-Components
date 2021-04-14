@@ -1,34 +1,58 @@
-import { LineAwesomeIcon } from 'components/Icons';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 import React, { FC } from 'react';
-import { colors } from 'styles';
-import { FormTextInput, FormTextInputProps } from '..';
+import { colors, StyleProps } from 'styles';
+import { isDate, isNum, isStr } from 'utils';
 
-type Props = FormTextInputProps;
+import FormTextInput from '../TextInput';
 
-export const FormDateInput: FC<Props> = ({ ...props }) => {
-  const todayDate = new Date();
-  const todayYear = todayDate.getFullYear();
-  const todayMonth = todayDate.getMonth() + 1 > 9 ? todayDate.getMonth() + 1 : `0${todayDate.getMonth() + 1}`;
-  const todayDay = todayDate.getDate();
-  const defaultDateValue = `${todayYear}-${todayMonth}-${todayDay}`;
+interface Props extends StyleProps {
+  value?: Date;
+  onChange?: (newValue?: Date) => void;
+}
 
+export const FormDateInput: FC<Props> = ({ style, value = new Date(), onChange }) => {
+  const handleChange = (newVal: unknown) => {
+    if (onChange) {
+      if (isDate(newVal)) {
+        onChange(newVal);
+      }
+      if (isNum(newVal) || isStr(newVal)) {
+        onChange(new Date(newVal));
+      }
+    }
+  };
+
+  /**
+   * KeyboardDatePicker API:
+   * https://material-ui-pickers.dev/api/KeyboardDatePicker
+   */
   return (
-    <FormTextInput
-      {...props}
-      iconStart={<LineAwesomeIcon type="calendar" color={colors.brownishGrey} />}
-      iconEnd={null}
-      type="date"
-      value={defaultDateValue}
-      inputStyle={{
-        color: colors.brownishGrey,
-        fontSize: 16,
-        paddingLeft: 68,
-      }}
-      InputLabelProps={{
-        shrink: true,
-      }}
+    <KeyboardDatePicker
+      style={style}
+      value={value}
+      disableToolbar
+      autoOk
+      variant="inline"
+      format="MM/dd/yyyy"
+      margin="normal"
+      TextFieldComponent={fieldProps => (
+        <FormTextInput
+          // iconStart={<LineAwesomeIcon type="calendar" color={colors.brownishGrey} />}
+          inputStyle={{
+            color: colors.brownishGrey,
+            fontSize: 16,
+            // paddingLeft: 68,
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          {...fieldProps}
+        />
+      )}
+      onChange={handleChange}
     />
   );
 };
 
+export type FormDateInputProps = Props;
 export default FormDateInput;

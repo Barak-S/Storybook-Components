@@ -1,4 +1,6 @@
+import DateFnsUtils from '@date-io/date-fns';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { addDecorator } from '@storybook/react';
 import React from 'react';
 
@@ -87,4 +89,8 @@ export const parameters = {
 
 // Decorators
 
-addDecorator(story => <ThemeProvider theme={muiTheme}>{story()}</ThemeProvider>);
+addDecorator(story => (
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <ThemeProvider theme={muiTheme}>{story()}</ThemeProvider>
+  </MuiPickersUtilsProvider>
+));

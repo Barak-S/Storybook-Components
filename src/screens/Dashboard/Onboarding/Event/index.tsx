@@ -100,13 +100,13 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClic
               <Grid style={styles.datesRow}>
                 <Grid style={styles.period}>
                   <Grid style={styles.dateWrapper}>
-                    <FormDateInput value="2021-04-11" />
+                    <FormDateInput />
                   </Grid>
                   <Grid style={styles.datesArrow}>
                     <LineAwesomeIcon type="arrow-right" />
                   </Grid>
                   <Grid style={styles.dateWrapper}>
-                    <FormDateInput value="2021-04-15" />
+                    <FormDateInput />
                   </Grid>
                 </Grid>
                 <Grid style={styles.timeZoneWrapper}>
