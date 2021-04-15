@@ -75,14 +75,14 @@ export const OnboardingScreens: FC<Props> = () => {
           <Route path={routes.dashboard.onboarding.profile}>
             <OnboardingProfileScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
-          <Route path={routes.dashboard.onboarding.event}>
-            <OnboardingEventScreen steps={steps} onCloseClick={handleCloseClick} />
-          </Route>
           <Route path={routes.dashboard.onboarding.team}>
             <OnboardingTeamScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
           <Route path={routes.dashboard.onboarding.theme}>
             <OnboardingThemeScreen steps={steps} onCloseClick={handleCloseClick} />
+          </Route>
+          <Route path={routes.dashboard.onboarding.event}>
+            <OnboardingEventScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
           <Redirect to={routes.dashboard.events} />
         </Switch>

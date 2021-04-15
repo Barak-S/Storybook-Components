@@ -4,7 +4,9 @@ import { SetupContainer, SetupStep } from 'components/Setup';
 import { TeamMemberInvitesList } from 'components/Team';
 import { isTeamMemberInvite, TeamMemberInvite } from 'core/api';
 import React, { FC, useState } from 'react';
-import { StyleProps } from 'styles';
+import { useHistory } from 'react-router';
+import { routes } from 'screens/consts';
+import { scrollToTop, StyleProps } from 'styles';
 
 import OnboardingTeamScreenForm, { OnboardingTeamScreenFormData as FormData } from './components/Form';
 
@@ -16,6 +18,7 @@ interface Props extends StyleProps {
 export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const [invites, setInvites] = useState<TeamMemberInvite[]>([]);
   const [data, setData] = useState<FormData | undefined>();
+  const history = useHistory();
 
   const handleFormChange = (newData: FormData) => {
     setData(newData);
@@ -28,13 +31,24 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
     setData(undefined);
   };
 
+  const handleFooterBtnClick = () => {
+    history.push(routes.dashboard.onboarding.theme);
+    scrollToTop();
+  };
+
   const theme = useTheme();
   const classes = useStyles(theme);
 
   return (
     <>
       <ScreenTitle title="Onboarding Team" />
-      <SetupContainer title="Create Your Event" steps={steps} curStepIndex={1} onCloseClick={onCloseClick}>
+      <SetupContainer
+        title="Create Your Event"
+        steps={steps}
+        curStepIndex={1}
+        onCloseClick={onCloseClick}
+        onFooterBtnClick={handleFooterBtnClick}
+      >
         <Grid className={classes.container}>
           <Grid className={classes.content}>
             <OnboardingTeamScreenForm data={data} onChange={handleFormChange} onSubmit={handleFormSubmit} />
