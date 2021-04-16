@@ -3,6 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { addDecorator } from '@storybook/react';
 import React from 'react';
+import StoryRouter from 'storybook-react-router';
 
 import { muiTheme } from '../src/styles';
 
@@ -94,3 +95,5 @@ addDecorator(story => (
     <ThemeProvider theme={muiTheme}>{story()}</ThemeProvider>
   </MuiPickersUtilsProvider>
 ));
+
+addDecorator(StoryRouter());

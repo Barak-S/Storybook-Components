@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { colors, StyleProps, ms, Styles } from 'styles';
 import { AuthCopyrights } from 'components/Auth';
 import { routes } from 'screens/consts';
+import { NavLink } from 'react-router-dom';
 import { LineAwesomeIcon } from 'components/Icons';
 
 interface Props extends StyleProps {
@@ -48,11 +49,19 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
         </Grid>
         <Grid sm={12} md={4} className={classes.linktoWrap}>
           <ul className={classes.linkSection}>
-            {navLinks.map(link => (
-              <a key={link.label} style={ms({ color }, style)} className={classes.textLink} href={link.path}>
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map(link => {
+              return (
+                <NavLink
+                  key={link.label}
+                  style={ms({ color: color }, style)}
+                  className={classes.textLink}
+                  activeStyle={{ color: colors.windowsBlue }}
+                  to={link.path}
+                >
+                  {link.label}
+                </NavLink>
+              );
+            })}
           </ul>
         </Grid>
       </Grid>
@@ -147,9 +156,6 @@ const useStyles = (theme: Theme) =>
       textDecoration: 'none',
       margin: '0 10px',
       fontSize: 18,
-      '&:active': {
-        color: colors.windowsBlue,
-      },
       [theme.breakpoints.down('lg')]: {
         margin: '0px 0px',
       },

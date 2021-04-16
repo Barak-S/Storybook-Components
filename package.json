@@ -101,6 +101,7 @@
     "prettier": "2.2.1",
     "raw-loader": "4.0.2",
     "redux-devtools-extension": "2.13.9",
+    "storybook-react-router": "1.0.8",
     "style-loader": "2.0.0",
     "ts-jest": "26.5.0",
     "ts-loader": "8.0.14",
