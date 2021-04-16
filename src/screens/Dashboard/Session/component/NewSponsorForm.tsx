@@ -1,6 +1,6 @@
 import { View } from 'components/Common';
 import { makeStyles } from '@material-ui/core';
-import { FormSelect, FormTextInput, FormTextArea, FormSocialSelect } from 'components/Form';
+import { FormSelect, FormTextInput, FormTextArea, FormSocialSelect, FormToggle } from 'components/Form';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
@@ -13,15 +13,12 @@ export const SponsorInfo: FC<Props> = () => {
 
   return (
     <>
-      <span style={styles.subtitle}>
-        {
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'
-        }
-      </span>
-      <span style={styles.title}>{'Module Label'}</span>
-      <FormTextInput className={classes.input} label="Presented By" />
-      <span style={styles.subtitle}>{'How many sponsors do you have for your event?'}</span>
-      {/* number input and progress slider bar */}
+      <View row style={{ alignItems: 'center', paddingTop: 16.5 }}>
+        <span style={styles.subtitle}>{'Is this a new or existing sponsor?'}</span>
+        <span style={styles.switchLabel}>{'New'}</span>
+        <FormToggle value />
+        <span style={styles.switchLabel}>{'Existing'}</span>
+      </View>
       <span style={styles.title}>{'Sponsor Information'}</span>
       <FormTextInput className={classes.inputFull} label="Presented By" />
       <View row style={styles.selectTimeRow}>
@@ -36,14 +33,14 @@ export const SponsorInfo: FC<Props> = () => {
         <FormSelect
           className={classes.select2}
           fullWidth
-          options={userRoles}
-          label="Industry"
+          options={[{ value: 'Sponsor' }]}
+          label="Role"
           keyExtractor={itm => itm.value}
           titleExtractor={itm => itm.value}
         />
       </View>
       <View style={styles.textArea}>
-        <FormTextArea label="Write a session description" />
+        <FormTextArea label="About" />
       </View>
       <FormTextInput className={classes.inputFull} label="Website" />
       <div style={styles.headerSection}>
@@ -94,7 +91,7 @@ const styles: Styles = {
     letterSpacing: '0px',
     color: colors.coolBlue,
     display: 'block',
-    paddingTop: 34,
+    paddingTop: 20,
     paddingBottom: 9,
     fontWeight: 500,
   },
@@ -102,6 +99,11 @@ const styles: Styles = {
     display: 'block',
     letterSpacing: '0px',
     color: colors.brownishGrey,
+    marginRight: 25,
+  },
+  switchLabel: {
+    paddingRight: 11,
+    paddingLeft: 11,
   },
   select1: {
     maxWidth: 266,
