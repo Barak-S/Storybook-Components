@@ -1,5 +1,4 @@
-import Accordion from '@material-ui/core/Accordion';
-import { AccordionDetails, AccordionSummary, makeStyles } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, makeStyles } from '@material-ui/core';
 import { FormToggle } from 'components/Form';
 import { View, Text } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';

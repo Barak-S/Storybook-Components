@@ -35,5 +35,30 @@
       "}))();"
     ],
     "description": "Add Storybook meta"
+  },
+  "psbt": {
+    "prefix": [
+      "psbt"
+    ],
+    "body": [
+      "const $1Template: FC<Omit<Props, 'onChange'>> = ({ value: inputValue, ...props }) => {",
+      "  const [value, setValue] = useState<$2>(inputValue);",
+      "  const handleChange = (newValue: $2) => {",
+      "    action('onChange')(newValue);",
+      "    setValue(newValue);",
+      "  };",
+      "  return <$1 {...props} value={value} onChange={handleChange} />;",
+      "};"
+    ],
+    "description": "Add Storybook component template"
+  },
+  "psbima": {
+    "prefix": [
+      "psbima"
+    ],
+    "body": [
+      "import { action } from '@storybook/addon-actions';"
+    ],
+    "description": "Import Storybook actions"
   }
 }

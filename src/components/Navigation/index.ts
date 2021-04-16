@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+export * from './Accordion';
 export * from './AccordionSecions';
 export * from './Dropdown';
 export * from './FolderTabs';

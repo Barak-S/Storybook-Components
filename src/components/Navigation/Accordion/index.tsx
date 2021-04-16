@@ -1,32 +1,30 @@
-import { Accordion as MuiAccordion, AccordionDetails, AccordionProps, AccordionSummary, Divider } from '@material-ui/core';
+import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Divider } from '@material-ui/core';
 import { Title } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC } from 'react';
-import { Styles, colors } from 'styles';
+import React, { ChangeEvent, FC } from 'react';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
-interface Props extends AccordionProps {
+interface Props extends StyleProps {
   id: string;
   title: string;
   expanded: boolean;
+  onChange?: (newExpanded: boolean) => void;
 }
 
-interface StyleConfig {
-  expanded: boolean;
-}
-
-export const Accordion: FC<Props> = ({ id, title, expanded, onChange, children }) => {
-  const styleConfig: StyleConfig = {
-    expanded,
+export const Accordion: FC<Props> = ({ style, id, title, expanded, onChange, children }) => {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const handleChange = (_event: ChangeEvent<{}>, expanded: boolean) => {
+    if (onChange) {
+      onChange(expanded);
+    }
   };
-
-  const styles = getStyles(styleConfig);
-
+  const styles = getStyles(expanded);
   return (
-    <MuiAccordion expanded={expanded} onChange={onChange} style={styles.container}>
+    <MuiAccordion style={ms(styles.container, style)} expanded={expanded} onChange={handleChange}>
       {expanded && <Divider />}
       <AccordionSummary
-        aria-controls={`${id}d-content`}
-        id={`${id}d-header`}
+        id={`${id}-header`}
+        aria-controls={`${id}-content`}
         style={styles.header}
         expandIcon={<LineAwesomeIcon type="chevron-circle-right" style={styles.icon} />}
       >
@@ -34,12 +32,12 @@ export const Accordion: FC<Props> = ({ id, title, expanded, onChange, children }
           {title}
         </Title>
       </AccordionSummary>
-      <AccordionDetails style={styles.accordionDetails}>{children}</AccordionDetails>
+      <AccordionDetails style={styles.details}>{children}</AccordionDetails>
     </MuiAccordion>
   );
 };
 
-const getStyles = ({ expanded }: StyleConfig): Styles => ({
+const getStyles = (expanded: boolean): Styles => ({
   container: {
     background: expanded ? colors.white : `linear-gradient(90deg, ${colors.paleGrey}, ${colors.lightPeriwinkle})`,
     borderRadius: 12,
@@ -60,10 +58,11 @@ const getStyles = ({ expanded }: StyleConfig): Styles => ({
     ...(expanded && { transform: 'rotate(-270deg)' }),
     color: colors.marineBlue,
   },
-  accordionDetails: {
+  details: {
     display: 'flex',
     flexDirection: 'column',
   },
 });
 
+export type AccordionProps = Props;
 export default Accordion;

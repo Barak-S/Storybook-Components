@@ -1,19 +1,20 @@
 import { Grid } from '@material-ui/core';
-import Accordion from 'components/Accordion';
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import { Accordion } from 'components/Navigation';
+import React, { FC, useEffect, useState } from 'react';
 import { scrollToTop, StyleProps } from 'styles';
+
 import OnboardingThemeForm from '../ThemeForm';
 import OnboardingThemeSwitcher from '../ThemeSwitcher';
 
 export const ThemeAccordion: FC<StyleProps> = () => {
-  const [expanded, setExpanded] = useState<string | false>('theme1');
+  const [expanded, setExpanded] = useState<string | undefined>('theme1');
 
   useEffect(() => {
     scrollToTop();
   }, [expanded]);
 
-  const handleChange = (panel: string) => (_event: ChangeEvent<unknown>, newExpanded: boolean) => {
-    setExpanded(newExpanded ? panel : false);
+  const handleChange = (panel: string) => (newExpanded: boolean) => {
+    setExpanded(newExpanded ? panel : undefined);
   };
 
   return (

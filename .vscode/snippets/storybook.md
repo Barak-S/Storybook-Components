@@ -42,3 +42,26 @@ export default ((): StoryMeta<Props> => ({
   component: $1,
 }))();
 ```
+
+**Prefix**: `psbt`
+
+**Description**: Add Storybook component template
+
+```typescript
+const $1Template: FC<Omit<Props, 'onChange'>> = ({ value: inputValue, ...props }) => {
+  const [value, setValue] = useState<$2>(inputValue);
+  const handleChange = (newValue: $2) => {
+    action('onChange')(newValue);
+    setValue(newValue);
+  };
+  return <$1 {...props} value={value} onChange={handleChange} />;
+};
+```
+
+**Prefix**: `psbima`
+
+**Description**: Import Storybook actions
+
+```typescript
+import { action } from '@storybook/addon-actions';
+```

@@ -1,5 +1,6 @@
 const path = require('path');
 const appPath = path.resolve(__dirname, '../src');
+const IgnoreNotFoundExportPlugin = require('./IgnoreNotFoundExportPlugin.js');
 
 module.exports = {
   stories: ['../**/story.tsx'],
@@ -18,6 +19,7 @@ module.exports = {
       },
       extensions: ['.js', '.ts', '.tsx'],
     };
+    config.plugins = [new IgnoreNotFoundExportPlugin(), ...(config.plugins ? config.plugins : [])];
     return config;
   },
 };

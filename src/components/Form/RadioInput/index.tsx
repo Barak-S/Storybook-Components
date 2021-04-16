@@ -6,7 +6,6 @@ import { colors, StyleProps, Styles } from 'styles';
 interface Props extends StyleProps {
   value: FormControlLabelProps['value'];
   label: FormControlLabelProps['label'];
-  checked?: boolean;
 }
 
 export const FormRadioInput: FC<Props> = ({ value, label }) => {
@@ -30,4 +29,5 @@ const getStyles = (): Styles => ({
   },
 });
 
+export type FormRadioInputProps = Props;
 export default FormRadioInput;
