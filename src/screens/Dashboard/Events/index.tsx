@@ -1,5 +1,5 @@
 import { Grid, Hidden } from '@material-ui/core';
-import { ScreenTitle } from 'components/Screen';
+import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { DashboardScreenContainer, DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
 import { LineTab, LineTabs } from 'components/Navigation';
 import { useAuth } from 'core';
@@ -47,7 +47,13 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   ];
 
   const renderTabs = () => (
-    <LineTabs tabs={tabs} tab={tab} indicatorPosition={isMobile ? 'top' : 'bottom'} onChange={(_e, val) => setTab(val)} />
+    <LineTabs
+      tabs={tabs}
+      tab={tab}
+      indicatorPosition={isMobile ? 'top' : 'bottom'}
+      style={{ height: '48px' }}
+      onChange={(_e, val) => setTab(val)}
+    />
   );
 
   return (
@@ -77,6 +83,7 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
           <Grid style={styles.mobileTabsWrap}>{renderTabs()}</Grid>
         </Hidden>
       </DashboardScreenContainer>
+      <ScreenFooter theme="light" />
     </>
   );
 };
@@ -86,13 +93,12 @@ const styles: Styles = {
     fontSize: 16,
     textTransform: 'uppercase',
     color: colors.brownGrey,
+    minHeight: 'calc(100vh - 60px)',
   },
   mobileTabsWrap: {
     width: '100%',
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
     ...mx.zIndex.mobileTabs,
+    marginTop: 'auto',
   },
   tabPanel: {
     padding: '35px 0',

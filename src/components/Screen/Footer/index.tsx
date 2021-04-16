@@ -101,7 +101,6 @@ const useStyles = (theme: Theme) =>
       textAlign: 'center',
       display: 'flex',
       flexDirection: 'row',
-      fontSize: 18,
       paddingRight: 113,
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
@@ -156,8 +155,15 @@ const useStyles = (theme: Theme) =>
     textLink: {
       textDecoration: 'none',
       margin: '0 10px',
+      fontSize: 18,
       [theme.breakpoints.down('lg')]: {
         margin: '0px 0px',
+      },
+      [theme.breakpoints.down('md')]: {
+        fontSize: 16,
+      },
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 18,
       },
     },
   })();
