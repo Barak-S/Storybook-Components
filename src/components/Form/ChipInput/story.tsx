@@ -23,8 +23,9 @@ export default ((): StoryMeta<Props> => ({
   title: 'components/Form/ChipInput',
   component: FormChipInput,
   args: {
-    style: { width: 300 },
+    style: { width: 500 },
     items: defItems,
+    label: 'Add tags',
   },
   argTypes: {
     items: { control: false },

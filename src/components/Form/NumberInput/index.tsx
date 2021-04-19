@@ -55,6 +55,7 @@ export const FormNumberInput: FC<Props> = ({ style, value, min, max, onChange })
   return (
     <View style={[styles.container, style]}>
       <TextField
+        style={styles.inputRoot}
         InputProps={{
           inputProps: { style: styles.input },
           startAdornment: (
@@ -91,6 +92,9 @@ const getStyles = (disabled: boolean): Styles => ({
     borderRadius: 0,
     background: colors.veryLightPinkThree,
     border: 'none',
+  },
+  inputRoot: {
+    height: '100%',
   },
   input: {
     padding: 0,

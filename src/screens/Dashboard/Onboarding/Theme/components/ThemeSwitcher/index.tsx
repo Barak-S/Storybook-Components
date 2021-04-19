@@ -5,25 +5,20 @@ import React, { FC } from 'react';
 import { StyleProps, Styles, useScreenSizes, colors } from 'styles';
 
 interface Props extends StyleProps {
+  active: boolean;
   picture: string;
-  description?: string;
 }
 
-interface StylesConfig {
-  isDesktop: boolean;
-}
-
-export const OnboardingThemeSwitcher: FC<Props> = ({ description, picture, children }) => {
+export const OnboardingThemeSwitcher: FC<Props> = ({ active, picture, children }) => {
   const { isDesktop } = useScreenSizes();
-  const stylesConfig = { isDesktop };
-  const styles = getStyles(stylesConfig);
+  const styles = getStyles(isDesktop);
 
   return (
     <Grid style={styles.container}>
       <Grid style={styles.description}>
-        {children || description}
+        {children}
         <Grid style={styles.toggleWrapper}>
-          <FormToggle title="Assign Theme" />
+          <FormToggle title="Assign Theme" value={active} />
           <FormTooltip title="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptatum." />
         </Grid>
       </Grid>
@@ -34,7 +29,7 @@ export const OnboardingThemeSwitcher: FC<Props> = ({ description, picture, child
   );
 };
 
-const getStyles = ({ isDesktop }: StylesConfig): Styles => ({
+const getStyles = (isDesktop: boolean): Styles => ({
   container: {
     display: 'flex',
     flexDirection: isDesktop ? 'row' : 'column',

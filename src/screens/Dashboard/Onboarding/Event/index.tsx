@@ -18,6 +18,7 @@ import React, { FC } from 'react';
 import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 import SelectFileBtn from 'components/Form/SelectFileBtn';
 import SocialMediaAccounts from './components/SocialMediaAccounts';
+import EventColorPalette from './components/ColorPalette';
 
 interface Props extends StyleProps {
   steps: SetupStep[];
@@ -132,7 +133,7 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClic
             </Grid>
           </FormControlSection>
           <FormControlSection title="Color Palette" description="Adjust the below colors to align to your event branding.">
-            {/* colorpickers */}
+            <EventColorPalette />
           </FormControlSection>
           <FormControlSection
             title="Fonts"

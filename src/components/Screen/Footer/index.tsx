@@ -28,10 +28,10 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
   return (
     <View style={ms(styles.container, style)}>
       <Grid container className={classes.copyright}>
-        <Grid sm={12} md={4} className={classes.copyrightWrap}>
+        <Grid item sm={12} md={4} className={classes.copyrightWrap}>
           <AuthCopyrights style={{ color }} />
         </Grid>
-        <Grid sm={12} md={4} className={classes.socialWrap}>
+        <Grid item sm={12} md={4} className={classes.socialWrap}>
           <ul className={classes.socialSection}>
             <li>
               <LineAwesomeIcon type="twitter" className={classes.socialBtn} color={color} size={35} />
@@ -47,7 +47,7 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
             </li>
           </ul>
         </Grid>
-        <Grid sm={12} md={4} className={classes.linktoWrap}>
+        <Grid item sm={12} md={4} className={classes.linktoWrap}>
           <ul className={classes.linkSection}>
             {navLinks.map(link => {
               return (

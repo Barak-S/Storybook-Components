@@ -26,14 +26,9 @@ interface RegistrationType {
   value: string;
 }
 
-interface StyleConfig {
-  isDesktop: boolean;
-}
-
 export const OnboardingThemeForm: FC<Props> = ({ data = {}, onChange }) => {
   const { isDesktop } = useScreenSizes();
-  const styleConfig: StyleConfig = { isDesktop };
-  const styles = getStyles(styleConfig);
+  const styles = getStyles(isDesktop);
   const { registrationType } = data;
   const [radioValue, setRadioValue] = useState('all domains');
   const [chipData, setChipData] = useState<FormChipInputItem[]>([
@@ -132,7 +127,7 @@ export const OnboardingThemeForm: FC<Props> = ({ data = {}, onChange }) => {
   );
 };
 
-const getStyles = ({ isDesktop }: StyleConfig): Styles => ({
+const getStyles = (isDesktop: boolean): Styles => ({
   container: {},
   regSelectHolder: {
     width: '100%',

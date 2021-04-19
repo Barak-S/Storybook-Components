@@ -1,8 +1,9 @@
+import { LineAwesomeIconType } from 'components/Icons';
 import { isString } from 'lodash';
 import React, { ChangeEvent, PureComponent } from 'react';
 import { ClassNameProps, StyleProps } from 'styles';
 
-import FormSelectStyled from './components/Styled';
+import FormSelectStyled, { FormSelectStyledProps } from './components/Styled';
 
 interface Props<T> extends StyleProps, ClassNameProps {
   label?: string;
@@ -14,11 +15,9 @@ interface Props<T> extends StyleProps, ClassNameProps {
   fullWidth?: boolean;
   required?: boolean;
   disabled?: boolean;
-  classes?: {
-    root?: string;
-    label?: string;
-    icon?: string;
-  };
+  classes?: FormSelectStyledProps['classes'];
+  iconStart?: boolean;
+  iconExtractor?: (v: T) => LineAwesomeIconType | undefined;
   keyExtractor: (v: T) => string;
   titleExtractor: (v: T) => string;
   onChange?: (v: T) => void;
@@ -50,6 +49,7 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
       options,
       keyExtractor,
       titleExtractor,
+      iconExtractor,
       fullWidth,
       required,
       disabled,
@@ -57,6 +57,7 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
       name,
       placeholder,
       classes,
+      iconStart,
     } = this.props;
     return (
       <FormSelectStyled
@@ -72,6 +73,7 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
         placeholder={placeholder}
         options={options.map(itm => ({ name: titleExtractor(itm), value: keyExtractor(itm) }))}
         value={value ? keyExtractor(value) : ''}
+        iconStart={iconStart && value ? iconExtractor && iconExtractor(value) : undefined}
         onChange={this.handleChange}
       />
     );

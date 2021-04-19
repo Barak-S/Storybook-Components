@@ -23,3 +23,4 @@ export * from './TimeZoneInput';
 export * from './Toggle';
 export * from './Tooltip';
 export * from './UploadBtn';
+export * from './ColorPicker';

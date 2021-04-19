@@ -42,7 +42,7 @@ const getStyles = (): Styles => ({
   description: {
     color: colors.brownishGrey,
     lineHeight: 1.4,
-    marginBottom: 15,
+    marginBottom: 20,
   },
 });
 

@@ -55,8 +55,8 @@ const getStyles = (expanded: boolean): Styles => ({
     fontWeight: 'normal',
   },
   icon: {
-    ...(expanded && { transform: 'rotate(-270deg)' }),
-    color: colors.marineBlue,
+    ...(expanded && { transform: 'rotate(270deg)' }),
+    color: expanded ? colors.coolBlue : colors.marineBlue,
   },
   details: {
     display: 'flex',
