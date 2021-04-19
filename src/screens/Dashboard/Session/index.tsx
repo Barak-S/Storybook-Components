@@ -6,7 +6,7 @@ import { ContainedButton } from 'components/Buttons';
 import { colors, StyleProps, Styles } from 'styles';
 import { BackgroundedContainer } from 'components/Layout';
 import AccordionSections from 'components/Navigation/AccordionSecions';
-import { ScreenTitle } from 'components/Screen';
+import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { LineTabs } from 'components/Navigation/LineTabs';
 import SponsorTab from './SessionTabs/SponsorTab';
 import PresenterTab from './SessionTabs/PresenterTab';
@@ -284,6 +284,7 @@ export const DashboardSetupSession: FC<Props> = () => {
           </Grid>
         </Paper>
       </BackgroundedContainer>
+      <ScreenFooter theme="light" style={{ marginTop: 25 }} />
     </>
   );
 };

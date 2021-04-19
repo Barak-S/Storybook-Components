@@ -4,7 +4,7 @@ import { DashboardScreenContainer } from 'components/Dashboard';
 import { useSnackbar } from 'components/Feedback';
 import { AccordionSections, FolderTabs } from 'components/Navigation';
 import { ProfileAccountSection, ProfilePassSection, ProfileSettingsSection } from 'components/Profile';
-import { ScreenTitle } from 'components/Screen';
+import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { Log } from 'core';
 import { AccountProfilePatch, accountProfileToPatch } from 'core/api';
 import React, { FC, useState } from 'react';
@@ -115,6 +115,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
           />
         )}
       </DashboardScreenContainer>
+      <ScreenFooter theme="light" />
     </>
   );
 };
@@ -136,6 +137,7 @@ const styles: Styles = {
 const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
+      minHeight: '100vh',
       [theme.breakpoints.down('sm')]: {
         padding: '27.5px 17px',
       },

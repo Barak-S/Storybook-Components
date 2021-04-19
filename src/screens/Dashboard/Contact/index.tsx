@@ -55,14 +55,14 @@ export const DashboardContactScreen: FC<Props> = () => {
                 </Title>
               </Grid>
               <Grid container className={classes.headerSection}>
-                <Grid xs={12} sm={12} md={6} lg={12} className={classes.colRight}>
+                <Grid item xs={12} sm={12} md={6} lg={12} className={classes.colRight}>
                   <p className={classes.listText}>
                     {
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor s, consectetur adipiscing elitsed.'
                     }
                   </p>
                 </Grid>
-                <Grid xs={12} sm={12} md={6} lg={12}>
+                <Grid item xs={12} sm={12} md={6} lg={12}>
                   <View className={classes.getInTouch}>
                     <div className={classes.phoneNumber}>
                       <LineAwesomeIcon type="phone" color={colors.coolBlue} size={35} className={classes.phoneIcon} />
@@ -79,7 +79,7 @@ export const DashboardContactScreen: FC<Props> = () => {
               </Grid>
             </Grid>
 
-            <Grid container sm={12} xs={12} lg={7} className={classes.contactForm}>
+            <Grid container item sm={12} xs={12} lg={7} className={classes.contactForm}>
               <Grid item xs={12} sm={12} lg={12}>
                 <Title type="h3" className={classes.secondaryHeader}>
                   {'Get In Touch'}

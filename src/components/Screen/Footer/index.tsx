@@ -53,7 +53,7 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
               return (
                 <NavLink
                   key={link.label}
-                  style={ms({ color: color }, style)}
+                  style={{ color: color }}
                   className={classes.textLink}
                   activeStyle={{ color: colors.windowsBlue }}
                   to={link.path}
