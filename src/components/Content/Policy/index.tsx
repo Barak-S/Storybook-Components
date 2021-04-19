@@ -479,7 +479,7 @@ export const ContentPolicy: FC<Props> = ({ style, className }) => {
           {
             'We do not sell, trade, or rent your Personal Information or your Sensitive Personal Information to any third party, and we only disclose your Personal Information and your Sensitive Personal Information to third-parties as described in the section '
           }
-          <strong className={classes.boldSecondaryText}>{'“Third Party Service Providers”.'}</strong>
+          <strong className={classes.boldSecondaryText}>{'“Third Party Service Providers”. '}</strong>
           {
             'However, we cannot completely ensure that such information will not be disclosed to third parties. For example, we may be legally obliged to disclose information to the government or third parties under certain circumstances, third parties may circumvent our security measures to unlawfully intercept or access transmissions or private communications, or an error may occur in the administration of WorldStage. In the unlikely event that we need to investigate or resolve possible problems or inquiries, we may, and you authorize us to, disclose any information about you to government officials as permitted by applicable law.'
           }
@@ -652,6 +652,7 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         margin: '35px 10px',
         padding: '16px 20px',
+        paddingBottom: 39,
       },
     },
     primaryHeader: {
@@ -715,7 +716,7 @@ const useStyles = (theme: Theme) =>
       marginTop: 16,
       marginBottom: 9,
       color: colors.blackTwo,
-      [theme.breakpoints.up('xl')]: {
+      [theme.breakpoints.up('lg')]: {
         marginLeft: 150,
       },
       [theme.breakpoints.down('md')]: {
@@ -795,6 +796,7 @@ const useStyles = (theme: Theme) =>
       marginTop: 35,
     },
     table: {
+      fontSize: 16,
       minWidth: 320,
       width: '100%',
     },
@@ -805,21 +807,24 @@ const useStyles = (theme: Theme) =>
       color: colors.coolBlue,
       textTransform: 'uppercase',
       textAlign: 'center',
-      fontSize: 19,
+      fontSize: 18,
       padding: 0,
       height: 47,
+      letterSpacing: 1.44,
     },
     headerCell2: {
       color: colors.coolBlue,
       textTransform: 'uppercase',
       textAlign: 'center',
-      fontSize: 19,
+      fontSize: 18,
       padding: 0,
       height: 47,
       width: '25%',
       borderBottom: `20px solid ${colors.white}`,
+      letterSpacing: 1.44,
     },
     dataCell1: {
+      fontSize: 16,
       backgroundColor: colors.whiteTwo,
       borderLeft: `3px solid ${colors.white}`,
       borderRight: `3px solid ${colors.white}`,
@@ -830,6 +835,7 @@ const useStyles = (theme: Theme) =>
       textAlign: 'left',
     },
     dataCell4: {
+      fontSize: 16,
       backgroundColor: colors.whiteTwo,
       borderTop: `12px solid ${colors.white}`,
       borderBottom: `6px solid ${colors.white}`,
@@ -838,6 +844,7 @@ const useStyles = (theme: Theme) =>
       textAlign: 'left',
     },
     dataCell2: {
+      fontSize: 16,
       textAlign: 'center',
       backgroundColor: colors.whiteTwo,
       borderLeft: `3px solid ${colors.white}`,
@@ -849,6 +856,7 @@ const useStyles = (theme: Theme) =>
       height: 129,
     },
     dataCell3: {
+      fontSize: 16,
       textAlign: 'left',
       backgroundColor: colors.whiteTwo,
       borderTop: `12px solid ${colors.white}`,

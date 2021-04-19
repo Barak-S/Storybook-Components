@@ -108,8 +108,12 @@ export const ContentTerms: FC<Props> = ({ style, className }) => {
           </p>
           <p className={classes.listText}>
             {
-              'If a parent or guardian becomes aware that his or her child has provided us with information about their consent, he or she should contact us at [[CONTACT EMAIL]] so we can promptly delete that information.'
+              'If a parent or guardian becomes aware that his or her child has provided us with information about their consent, he or she should contact us at '
             }
+            <a href="mailto:Info@meetiris.com" className={classes.linkToLast}>
+              {'Info@meetiris.com'}
+            </a>
+            {' so we can promptly delete that information.'}
           </p>
         </li>
 
