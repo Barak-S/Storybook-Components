@@ -1,12 +1,31 @@
 import Divider from '@material-ui/core/Divider';
 import { View } from 'components/Common';
 import { FormPasswordInput } from 'components/Form';
-import React, { FC } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import { colors, ms, StyleProps, Styles } from 'styles';
 
-type Props = StyleProps;
+interface Props extends StyleProps {
+  data?: FormData;
+  errs?: FormErrs;
+  onChange?: (data: Partial<FormData>) => void;
+}
 
-export const ProfilePassSectionPasswordChange: FC<Props> = ({ style }) => {
+interface FormData {
+  curPass?: string;
+  newPass?: string;
+  confPass?: string;
+}
+
+type FormErrs = Partial<Record<keyof FormData, string>> & { form?: string };
+
+export const ProfilePassSectionPasswordChange: FC<Props> = ({ style, data, errs, onChange }) => {
+  const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    if (onChange) {
+      onChange({ [key]: value });
+    }
+  };
+
   return (
     <View style={ms(styles.container, style)}>
       <View style={styles.headerWrap}>
@@ -17,12 +36,36 @@ export const ProfilePassSectionPasswordChange: FC<Props> = ({ style }) => {
       </View>
       <View style={styles.blockInf}>
         <View style={styles.oldPass}>
-          <FormPasswordInput visible placeholder="Current Password" inputStyle={styles.input} />
+          <FormPasswordInput
+            visible
+            value={data?.curPass || ''}
+            error={!!errs?.curPass}
+            helperText={errs?.curPass}
+            placeholder="Current Password"
+            inputStyle={styles.input}
+            onChange={handleTextFieldChanged('curPass')}
+          />
         </View>
         <View style={styles.newPass}>
-          <FormPasswordInput visible placeholder="Password" inputStyle={styles.input} />
+          <FormPasswordInput
+            visible
+            value={data?.newPass || ''}
+            error={!!errs?.newPass}
+            helperText={errs?.newPass}
+            placeholder="Password"
+            inputStyle={styles.input}
+            onChange={handleTextFieldChanged('newPass')}
+          />
         </View>
-        <FormPasswordInput visible placeholder="Confirm Password" inputStyle={styles.input} />
+        <FormPasswordInput
+          visible
+          value={data?.confPass || ''}
+          error={!!errs?.confPass}
+          helperText={errs?.confPass}
+          placeholder="Confirm Password"
+          inputStyle={styles.input}
+          onChange={handleTextFieldChanged('confPass')}
+        />
       </View>
       <Divider />
     </View>
@@ -65,5 +108,7 @@ const styles: Styles = {
   },
 };
 
+export type ProfilePassSectionPasswordChangeData = FormData;
+export type ProfilePassSectionPasswordChangeErrs = FormErrs;
 export type ProfilePassSectionPasswordChangeProps = Props;
 export default ProfilePassSectionPasswordChange;
