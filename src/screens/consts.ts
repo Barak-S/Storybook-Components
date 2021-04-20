@@ -13,7 +13,6 @@ export const routes = {
     analytics: '/dashboard/analytics',
     contact: '/dashboard/contact',
     events: '/dashboard/events',
-    faq: '/dashboard/faq',
     notes: '/dashboard/notes',
     profile: '/dashboard/profile',
     support: '/dashboard/support',
@@ -29,4 +28,5 @@ export const routes = {
   },
   terms: '/terms',
   policy: '/policy',
+  faq: '/faq',
 };

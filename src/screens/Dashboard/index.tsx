@@ -9,7 +9,6 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { useStoreManager } from 'store';
 import { ms, scrollToTop, StyleProps, Styles } from 'styles';
-
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
 import DashboardEventsScreen from './Events';
@@ -60,7 +59,7 @@ export const DashboardScreens: FC<Props> = () => {
       case 'contact':
         return history.push({ pathname: routes.dashboard.contact });
       case 'faq':
-        return history.push({ pathname: routes.dashboard.faq });
+        return history.push({ pathname: routes.faq });
       case 'profile':
         return history.push({ pathname: routes.dashboard.profile });
       case 'support':
@@ -110,9 +109,6 @@ export const DashboardScreens: FC<Props> = () => {
               <Route path={routes.dashboard.contact}>
                 <DashboardContactScreen />
               </Route>
-              <Route path={routes.dashboard.faq}>
-                <DashboardFaqScreen />
-              </Route>
               <Route path={routes.dashboard.profile}>
                 <DashboardProfileScreen />
               </Route>
@@ -127,6 +123,9 @@ export const DashboardScreens: FC<Props> = () => {
               </Route>
               <Route path={routes.policy}>
                 <DashboardPolicyScreen />
+              </Route>
+              <Route path={routes.faq}>
+                <DashboardFaqScreen />
               </Route>
               <OnboardingScreens />
               <Redirect to={routes.dashboard.events} />

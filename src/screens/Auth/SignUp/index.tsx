@@ -199,6 +199,8 @@ export const AuthSignUpScreen: FC<Props> = () => {
         <Grid className={classes.copyright}>
           <AuthCopyrights />
           <View row justifyContent="center">
+            <TextLink href={routes.faq}>{'FAQ'}</TextLink>
+            <VerticalSplitter style={styles.splitter} />
             <TextLink href={routes.terms}>{'Terms of Service'}</TextLink>
             <VerticalSplitter style={styles.splitter} />
             <TextLink href={routes.policy}>{'Privacy Policy'}</TextLink>

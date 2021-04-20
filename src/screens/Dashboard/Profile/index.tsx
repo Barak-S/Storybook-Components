@@ -106,7 +106,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
               { id: 1, title: 'Password', content: <ProfilePassSection /> },
               {
                 id: 2,
-                title: 'Setting',
+                title: 'Settings',
                 content: (
                   <ProfileSettingsSection data={data} processing={processing} onChange={handleChange} onSubmit={handleSubmit} />
                 ),

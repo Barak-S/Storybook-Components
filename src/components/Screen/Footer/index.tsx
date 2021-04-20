@@ -20,7 +20,7 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
   const styles = getStyles(controlTheme);
 
   const navLinks = [
-    { label: 'FAQ', path: routes.dashboard.faq },
+    { label: 'FAQ', path: routes.faq },
     { label: 'Terms of Service', path: routes.terms },
     { label: 'Privacy Policy', path: routes.policy },
   ];
@@ -29,7 +29,7 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
     <View style={ms(styles.container, style)}>
       <Grid container className={classes.copyright}>
         <Grid item sm={12} md={4} className={classes.copyrightWrap}>
-          <AuthCopyrights style={{ color }} />
+          <AuthCopyrights style={{ color }} className={classes.copy} />
         </Grid>
         <Grid item sm={12} md={4} className={classes.socialWrap}>
           <ul className={classes.socialSection}>
@@ -92,7 +92,9 @@ const useStyles = (theme: Theme) =>
       },
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
-        padding: '30px 20px',
+        paddingRight: 30,
+        paddingTop: 29,
+        paddingLeft: 30,
         paddingBottom: 41,
       },
     },
@@ -120,7 +122,13 @@ const useStyles = (theme: Theme) =>
       flexDirection: 'row',
       justifyContent: 'center',
       [theme.breakpoints.down('sm')]: {
-        marginBottom: 34,
+        marginBottom: 25,
+      },
+    },
+    copy: {
+      [theme.breakpoints.down('sm')]: {
+        display: 'block',
+        paddingTop: 12,
       },
     },
     socialBtn: {

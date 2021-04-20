@@ -8,6 +8,7 @@ import AuthSignInScreen from './SignIn';
 import AuthSignUpScreen from './SignUp';
 import AuthTermsScreen from './Terms';
 import AuthPolicyScreen from './Policy';
+import AuthFaqScreen from './FAQ';
 
 export const AuthScreens: FC = () => {
   return (
@@ -29,6 +30,9 @@ export const AuthScreens: FC = () => {
       </Route>
       <Route path={routes.policy}>
         <AuthPolicyScreen />
+      </Route>
+      <Route path={routes.faq}>
+        <AuthFaqScreen />
       </Route>
       <Redirect to={routes.auth.signin} />
     </Switch>
