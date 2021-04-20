@@ -60,6 +60,31 @@ export const DashboardEventRegistration: FC<Props> = ({
     }
   };
 
+  const renderTotalActiveUsers = () => {
+    if (isWaiting) {
+      return 'Will display when event is live.';
+    }
+    if (isActive) {
+      return <span style={ms(styles.boldText, styles.counter)}>{activeUsersCount}</span>;
+    }
+    return 'Registration not currently open.';
+  };
+
+  const renderTotalSubscribed = () => {
+    if (isActive) {
+      return <span style={ms(styles.boldText, styles.counter)}>{subscrUsersCount}</span>;
+    }
+    if (isWaiting && regStartDate) {
+      return (
+        <>
+          {'Registration is set to begin on '}
+          <span style={styles.boldText}>{getFormatedRegStartDate(valToDate(regStartDate))}</span>
+        </>
+      );
+    }
+    return 'Registration not currently open.';
+  };
+
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -118,18 +143,7 @@ export const DashboardEventRegistration: FC<Props> = ({
               <Title type="h5" className={classes.title}>
                 {'total subscribed'}
               </Title>
-              <Text className={classes.text}>
-                {isActive ? (
-                  <span style={ms(styles.boldText, styles.counter)}>{subscrUsersCount}</span>
-                ) : !isWaiting && regStartDate ? (
-                  <>
-                    {'Registration is set to begin on '}
-                    <span style={styles.boldText}>{getFormatedRegStartDate(valToDate(regStartDate))}</span>
-                  </>
-                ) : (
-                  'Registration not currently open'
-                )}
-              </Text>
+              <Text className={classes.text}>{renderTotalSubscribed()}</Text>
             </Grid>
           </Grid>
           <Grid item xs={12} xl={6} className={classes.userGrid}>
@@ -137,13 +151,7 @@ export const DashboardEventRegistration: FC<Props> = ({
               <Title type="h5" className={classes.title}>
                 {'total active users'}
               </Title>
-              <Text className={classes.text}>
-                {isActive ? (
-                  <span style={ms(styles.boldText, styles.counter)}>{activeUsersCount}</span>
-                ) : (
-                  'Will display when event is live.'
-                )}
-              </Text>
+              <Text className={classes.text}>{renderTotalActiveUsers()}</Text>
             </Grid>
           </Grid>
         </Grid>
@@ -257,6 +265,7 @@ const useStyles = (theme: Theme) =>
       opacity: 0.81,
       textTransform: 'none',
       textAlign: 'center',
+      fontWeight: 300,
     },
     regContinue: {
       display: 'flex',

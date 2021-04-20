@@ -53,6 +53,7 @@ EventSetupState.argTypes = { status: { control: false } };
 
 export const RegistrationSetupState: Story<Props> = args => <DashboardEvent {...args} status="registration-setup" />;
 
+RegistrationSetupState.args = { regStartDate: undefined };
 RegistrationSetupState.argTypes = { status: { control: false } };
 
 export const WaitingState: Story<Props> = args => <DashboardEvent {...args} status="waiting" />;
