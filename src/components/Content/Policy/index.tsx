@@ -770,9 +770,9 @@ const useStyles = (theme: Theme) =>
       marginTop: 24,
     },
     indentRightSection: {
-      marginRight: 0,
-      [theme.breakpoints.up('lg')]: {
-        marginRight: 281,
+      maxWidth: 952,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
       },
     },
     tableHeaderCell: {
