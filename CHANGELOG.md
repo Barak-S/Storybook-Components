@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.53] - 2021-04-21
 ### Fixed
 - Dashboard: event view fixes
+- DO-129: Policy Page - margins widths desktop
 
 ## [1.0.52] - 2021-04-20
 ### Fixed
