@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.52] - 2021-04-20
+### Fixed
+- DO-132: Profile Password
+- DO-138: Add FAQ page to Auth and Dash screens
+
 ## [1.0.51] - 2021-04-19
 ### Added
 - Onboarding: event setup added
