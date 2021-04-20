@@ -1,7 +1,7 @@
 import Divider from '@material-ui/core/Divider';
 import { View } from 'components/Common';
 import { FormPasswordInput } from 'components/Form';
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent, useState } from 'react';
 import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
@@ -19,6 +19,8 @@ interface FormData {
 type FormErrs = Partial<Record<keyof FormData, string>> & { form?: string };
 
 export const ProfilePassSectionPasswordChange: FC<Props> = ({ style, data, errs, onChange }) => {
+  const [passVisible, setPassVisible] = useState<boolean>(false);
+
   const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
     if (onChange) {
@@ -37,34 +39,40 @@ export const ProfilePassSectionPasswordChange: FC<Props> = ({ style, data, errs,
       <View style={styles.blockInf}>
         <View style={styles.oldPass}>
           <FormPasswordInput
-            visible
+            visible={passVisible}
             value={data?.curPass || ''}
             error={!!errs?.curPass}
             helperText={errs?.curPass}
             placeholder="Current Password"
+            label="Current Password"
             inputStyle={styles.input}
             onChange={handleTextFieldChanged('curPass')}
+            onChangeVisibleClick={() => setPassVisible(val => !val)}
           />
         </View>
         <View style={styles.newPass}>
           <FormPasswordInput
-            visible
+            visible={passVisible}
             value={data?.newPass || ''}
             error={!!errs?.newPass}
             helperText={errs?.newPass}
             placeholder="Password"
+            label="Password"
             inputStyle={styles.input}
             onChange={handleTextFieldChanged('newPass')}
+            onChangeVisibleClick={() => setPassVisible(val => !val)}
           />
         </View>
         <FormPasswordInput
-          visible
+          visible={passVisible}
           value={data?.confPass || ''}
           error={!!errs?.confPass}
           helperText={errs?.confPass}
           placeholder="Confirm Password"
+          label="Confirm Password"
           inputStyle={styles.input}
           onChange={handleTextFieldChanged('confPass')}
+          onChangeVisibleClick={() => setPassVisible(val => !val)}
         />
       </View>
       <Divider />

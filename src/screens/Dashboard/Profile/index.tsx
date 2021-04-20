@@ -137,6 +137,7 @@ const styles: Styles = {
 const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
+      backgroundColor: colors.whiteTwo,
       minHeight: '100vh',
       [theme.breakpoints.down('sm')]: {
         padding: '27.5px 17px',
@@ -153,10 +154,12 @@ const useStyles = (theme: Theme) =>
         borderTop: `1px solid ${colors.greyish}`,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
+        height: 75,
       },
     },
     title: {
       ...mx.font(50, colors.marineBlue),
+      fontWeight: 500,
       marginBottom: 38,
       [theme.breakpoints.down('sm')]: {
         ...mx.font(30, colors.marineBlue),

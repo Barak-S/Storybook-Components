@@ -1,6 +1,6 @@
-import { makeStyles, Paper, Theme, useTheme, useMediaQuery } from '@material-ui/core';
+import { makeStyles, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Title } from 'components/Common';
-import AccordionSections from 'components/Navigation/AccordionSecions';
+import { AccordionSections } from 'components/Navigation';
 import { ScreenTitle } from 'components/Screen';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';

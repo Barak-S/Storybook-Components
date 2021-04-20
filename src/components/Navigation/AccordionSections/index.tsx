@@ -48,7 +48,6 @@ const styles: Styles = {
     width: '100%',
   },
   heading: {
-    color: colors.marineBlue,
     fontSize: 19,
   },
   content: {
@@ -72,6 +71,7 @@ const useStyles = makeStyles({
     },
   },
   accordion: {
+    color: colors.marineBlue,
     '& .MuiIcon-root': {
       alignItems: 'center',
       transform: 'rotate(-90deg)',
@@ -86,7 +86,7 @@ const useStyles = makeStyles({
       transform: 'rotate(0)',
       alignItems: 'center',
       display: 'flex',
-      color: colors.coolBlueTwo,
+      color: colors.windowsBlue,
       '& .MuiIcon-root': {
         transform: 'rotate(180deg)',
         '&:hover': {

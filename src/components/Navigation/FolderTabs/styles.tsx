@@ -8,7 +8,7 @@ export const useStyles = () =>
       boxShadow: 'none',
     },
     tabs: {
-      backgroundColor: colors.white,
+      backgroundColor: colors.whiteTwo,
     },
     blockContent: {
       padding: '32px',
@@ -18,13 +18,15 @@ export const useStyles = () =>
       height: `44px`,
       padding: `10px 65px`,
       margin: `2px 1px 0 1px`,
-      color: colors.veryLightPinkFour,
+      color: colors.greyish,
       borderRadius: `12px 12px 0 0`,
       backgroundColor: colors.paleGrey,
+      opacity: 1,
     },
     content: {
       display: 'block',
       width: '100%',
       boxShadow: `0 0 10px 0 ${colors.silver}`,
+      backgroundColor: colors.white,
     },
   }))();

@@ -1,7 +1,6 @@
-import { ScreenTitle } from 'components/Screen';
 import { ContentFAQ } from 'components/Content';
 import { BackgroundedContainer } from 'components/Layout';
-import { ScreenFooter } from 'components/Screen';
+import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 

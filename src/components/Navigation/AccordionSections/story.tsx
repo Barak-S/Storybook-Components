@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, StoryMeta } from 'utils';
 
-import AccordionSections, { AccordionSectionsProps as Props } from '.';
+import AccordionSections, { AccordionSectionsProps as Props } from './index';
 
 export default ((): StoryMeta<Props> => ({
   title: 'components/Navigation/AccordionSections',

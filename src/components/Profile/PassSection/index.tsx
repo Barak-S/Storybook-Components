@@ -1,9 +1,8 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
 import React, { FC, useState } from 'react';
-import { Style, Styles } from 'styles';
+import { Style, Styles, colors } from 'styles';
 import { isDictEmpty, validators } from 'utils';
-
 import ProfileSectionFooter from '../SectionFooter';
 import PasswordChange, {
   ProfilePassSectionPasswordChangeData as FormData,
@@ -24,15 +23,11 @@ export const ProfilePassSection: FC<Props> = ({ style }) => {
   };
 
   const getFormErrs = (data: FormData): FormErrs | undefined => {
-    const confirmPassValidatorsErr = validators.getPasswordErr(data.confPass, {
-      required: true,
-      requiredMsg: 'Password confirmation',
-    });
     const passesNotSameErr = data.newPass !== data.confPass ? 'Passwords should be the same' : undefined;
     const errs: FormErrs = {
       curPass: validators.getPasswordErr(data.curPass, { required: true, requiredMsg: 'Password required' }),
       newPass: validators.getPasswordErr(data.newPass, { required: true, requiredMsg: 'New password required' }),
-      confPass: confirmPassValidatorsErr || passesNotSameErr,
+      confPass: passesNotSameErr,
     };
     return !isDictEmpty(errs) ? errs : undefined;
   };
@@ -71,6 +66,9 @@ const useStyles = () =>
       flexDirection: 'column',
       [theme.breakpoints.down('sm')]: {
         display: 'block',
+      },
+      '& .MuiIconButton-root': {
+        color: colors.brownishGrey,
       },
     },
   }))();

@@ -5,7 +5,7 @@ import React, { FC, useState } from 'react';
 import { ContainedButton } from 'components/Buttons';
 import { colors, StyleProps, Styles } from 'styles';
 import { BackgroundedContainer } from 'components/Layout';
-import AccordionSections from 'components/Navigation/AccordionSecions';
+import AccordionSections from 'components/Navigation/AccordionSections';
 import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { LineTabs } from 'components/Navigation/LineTabs';
 import SponsorTab from './SessionTabs/SponsorTab';
