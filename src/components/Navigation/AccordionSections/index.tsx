@@ -63,31 +63,39 @@ const useStyles = makeStyles({
     '&:before': {
       display: 'none',
     },
-    '& .MuiIconButton-root': {
-      color: colors.marineBlue,
-    },
     '& .MuiAccordionSummary-content': {
       alignItems: 'center',
     },
   },
   accordion: {
     color: colors.marineBlue,
+    '&:hover': {
+      '& .MuiIcon-root': {
+        transform: 'rotate(0)',
+      },
+      '& .Mui-expanded': {
+        '& .MuiIcon-root': {
+          transform: 'rotate(180deg)',
+          '&:hover': {
+            transform: 'rotate(180deg)',
+          },
+        },
+      },
+    },
     '& .MuiIcon-root': {
+      color: colors.marineBlue,
       alignItems: 'center',
       transform: 'rotate(-90deg)',
       transition: '0.3s ease',
       display: 'flex',
       margin: '0px 0px',
-      '&:hover': {
-        transform: 'rotate(0)',
-      },
     },
     '& .Mui-expanded': {
       transform: 'rotate(0)',
       alignItems: 'center',
       display: 'flex',
-      color: colors.windowsBlue,
       '& .MuiIcon-root': {
+        color: colors.windowsBlue,
         transform: 'rotate(180deg)',
         '&:hover': {
           transform: 'rotate(180deg)',

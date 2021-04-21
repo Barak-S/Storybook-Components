@@ -176,8 +176,7 @@ const useStyles = (theme: Theme) =>
         background: colors.white,
         border: 'none',
         borderTop: `1px solid ${colors.greyish}`,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
+        borderRadius: 0,
       },
     },
     primaryHeader: {
@@ -212,8 +211,7 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         minHeight: '76px',
       },
-      borderTopRightRadius: 10,
-      borderTopLeftRadius: 10,
+      borderRadius: 10,
       '&:hover': {
         background: colors.paleGrey,
       },

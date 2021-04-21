@@ -142,7 +142,6 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         padding: '27.5px 17px',
       },
-
       '& .MuiAccordionDetails-root': {
         [theme.breakpoints.down('sm')]: {
           padding: '0px 10px',
@@ -150,10 +149,10 @@ const useStyles = (theme: Theme) =>
       },
       '& .MuiAccordionSummary-root.Mui-expanded': {
         background: colors.white,
+        color: colors.windowsBlue,
         border: 'none',
         borderTop: `1px solid ${colors.greyish}`,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
+        borderRadius: 0,
         height: 75,
       },
     },
@@ -168,11 +167,10 @@ const useStyles = (theme: Theme) =>
     },
     accordion: {
       height: 76,
-      borderTopRightRadius: 10,
-      borderTopLeftRadius: 10,
       [theme.breakpoints.down('sm')]: {
         padding: '0px 10px',
       },
+      borderRadius: 10,
       '&:hover': {
         background: colors.paleGrey,
       },

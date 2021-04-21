@@ -451,8 +451,7 @@ export const useStyles = (theme: Theme) =>
         background: colors.white,
         border: 'none',
         borderTop: `1px solid ${colors.greyish}`,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
+        borderRadius: 0,
         height: 75,
       },
     },
@@ -479,8 +478,7 @@ export const useStyles = (theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         height: 76,
       },
-      borderTopRightRadius: 10,
-      borderTopLeftRadius: 10,
+      borderRadius: 10,
       '&:hover': {
         background: colors.paleGrey,
       },
