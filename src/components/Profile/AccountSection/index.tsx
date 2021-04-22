@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
-import { AccountProfile, AccountProfilePatch } from 'core/api';
+import { User, UserUpdate } from 'core/api';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
@@ -11,10 +11,10 @@ import ImageSection from './components/ImageSection';
 import SocialSection from './components/SocialSection';
 
 interface Props extends StyleProps {
-  profile: AccountProfile;
-  data?: AccountProfilePatch;
+  profile: User;
+  data?: UserUpdate;
   processing?: boolean;
-  onChange?: (val: AccountProfilePatch) => void;
+  onChange?: (val: UserUpdate) => void;
   onSubmit?: () => void;
 }
 

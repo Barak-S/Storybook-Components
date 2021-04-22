@@ -17,7 +17,7 @@ interface Props extends StyleProps {
 export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const [tab, setTab] = useState<number>(0);
   const { confirmed } = useAuth();
-  const onboarding = useSelector(s => s.profile.data?.onboarding);
+  const onboarding = useSelector(s => s.user.settings.onboarding);
 
   // Render
 

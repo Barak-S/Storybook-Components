@@ -1,4 +1,4 @@
-import { AccountProfileOnboarding } from 'core/api';
+import { UserSettingsOnboarding } from 'core/api';
 import React, { FC } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
@@ -9,7 +9,7 @@ import DashboardFirstEventSetupView from './view';
 
 type Props = StyleProps;
 
-const onboardingToCurStepIndex = (val: AccountProfileOnboarding): number => {
+const onboardingToCurStepIndex = (val: UserSettingsOnboarding): number => {
   switch (val) {
     case 'profile':
       return 0;
@@ -26,7 +26,7 @@ const onboardingToCurStepIndex = (val: AccountProfileOnboarding): number => {
 
 export const DashboardFirstEventSetup: FC<Props> = ({ style }) => {
   const history = useHistory();
-  const onboarding = useSelector(s => s.profile.data?.onboarding) || 'done';
+  const onboarding = useSelector(s => s.user.settings.onboarding) || 'profile';
   const curStepIndex = onboardingToCurStepIndex(onboarding);
   const steps = ['Profile information', 'Invite team members', 'Select event theme', 'Setup event'];
   const actionBtnTitle = curStepIndex === 0 ? 'Add your first event' : 'Continue Event Setup';

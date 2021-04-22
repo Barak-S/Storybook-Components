@@ -1,16 +1,16 @@
 import { Divider, Grid } from '@material-ui/core';
 import { View } from 'components/Common';
 import { FormDragnDropImage, FormSelect, FormTextInput } from 'components/Form';
-import { AccountProfile, AccountProfilePatch } from 'core/api';
+import { User, UserUpdate } from 'core/api';
 import React, { FC, ChangeEvent } from 'react';
 import { StyleProps, Styles } from 'styles';
 
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {
-  profile: AccountProfile;
-  data?: AccountProfilePatch;
-  onChange?: (val: AccountProfilePatch) => void;
+  profile: User;
+  data?: UserUpdate;
+  onChange?: (val: UserUpdate) => void;
 }
 
 interface UserRole {
@@ -28,7 +28,7 @@ const companytypes: CompanyType[] = [{ value: 'Comercial' }, { value: 'Non profi
 export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, onChange }) => {
   const classes = useStyles();
 
-  const handleTextFieldChanged = (key: keyof AccountProfile) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleTextFieldChanged = (key: keyof UserUpdate) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
     if (onChange) {
       onChange({ [key]: value });
@@ -47,7 +47,7 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
               onChange={handleTextFieldChanged('firstName')}
             />
             <FormTextInput style={styles.rowIndent} label="Last Name" value={data?.lastName || ''} />
-            <FormTextInput style={styles.rowIndent} label="Company" value={data?.company?.name || ''} />
+            <FormTextInput style={styles.rowIndent} label="Company" value="" />
             <FormTextInput style={styles.rowIndent} label="Title" />
             <FormTextInput style={styles.rowIndent} label="Email" disabled value={profile.email || ''} />
           </View>

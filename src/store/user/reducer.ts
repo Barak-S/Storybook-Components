@@ -1,18 +1,19 @@
-import { AccountProfile } from 'core/api';
+import { User, UserSettings } from 'core/api';
 import { StoreAction } from 'store/actions';
 
-export type ProfileState = {
-  data?: AccountProfile;
+export type UserState = {
+  data?: User;
+  settings: UserSettings;
 };
 
-const initial: ProfileState = {};
+const initial: UserState = { settings: {} };
 
-export const reducer = (state: ProfileState = initial, action: StoreAction): ProfileState => {
+export const reducer = (state: UserState = initial, action: StoreAction): UserState => {
   switch (action.type) {
-    case 'profile/Set': {
+    case 'user/data/Set': {
       return { ...state, data: action.data };
     }
-    case 'profile/Modify': {
+    case 'user/data/Modify': {
       return { ...state, data: state.data ? { ...state.data, ...action.data } : undefined };
     }
     case 'auth/SignOut':

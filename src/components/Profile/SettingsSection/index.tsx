@@ -1,5 +1,5 @@
 import { View } from 'components/Common';
-import { AccountProfilePatch } from 'core/api';
+import { UserSettings } from 'core/api';
 import React, { FC } from 'react';
 import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 
@@ -7,9 +7,9 @@ import ProfileSectionFooter from '../SectionFooter';
 import EventActivity from './components/EventActivity';
 
 interface Props extends StyleProps {
-  data?: AccountProfilePatch;
+  data?: UserSettings;
   processing?: boolean;
-  onChange?: (val: AccountProfilePatch) => void;
+  onChange?: (val: UserSettings) => void;
   onSubmit?: () => void;
 }
 

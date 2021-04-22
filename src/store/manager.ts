@@ -1,7 +1,8 @@
 import { getApiWithOpt } from 'core/api';
+
 import { func as auth } from './auth/func';
-import { func as profile } from './profile/func';
-import { useSelector, useDispatch } from './utils';
+import { func as user } from './user/func';
+import { useDispatch, useSelector } from './utils';
 
 export const useStoreManager = () => {
   const dispatch = useDispatch();
@@ -9,6 +10,6 @@ export const useStoreManager = () => {
   const api = getApiWithOpt({ token });
   return {
     auth: auth({ dispatch, api }),
-    profile: profile({ dispatch, api }),
+    user: user({ dispatch, api }),
   };
 };

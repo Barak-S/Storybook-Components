@@ -1,15 +1,15 @@
 import Divider from '@material-ui/core/Divider';
 import { View } from 'components/Common';
 import { FormTextEditor } from 'components/Form';
-import { AccountProfilePatch } from 'core/api';
+import { UserUpdate } from 'core/api';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {
-  data?: AccountProfilePatch;
-  onChange?: (val: AccountProfilePatch) => void;
+  data?: UserUpdate;
+  onChange?: (val: UserUpdate) => void;
 }
 
 export const ProfileAccountBioSection: FC<Props> = ({ style, data, onChange }) => {

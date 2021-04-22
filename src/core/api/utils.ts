@@ -1,4 +1,4 @@
-import { AccountProfile, AccountProfilePatch } from './types';
+import { User, UserUpdate } from './types';
 
 /** API */
 
@@ -6,11 +6,11 @@ export const isStatus200 = (status: number) => status >= 200 && status <= 299;
 
 /** Profile */
 
-export const accountProfileToPatch = (data: AccountProfile | undefined): AccountProfilePatch => {
+export const userToUpdate = (data: User | undefined): UserUpdate => {
   if (!data) {
     return {};
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { uid, email, confirmed, createdAt, updatedAt, ...patchData } = data;
+  const { id, email, confirmed, createdAt, updatedAt, ...patchData } = data;
   return { ...patchData };
 };

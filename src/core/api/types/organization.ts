@@ -8,6 +8,8 @@ export interface TeamMemberInvite {
   message: string;
 }
 
+export const isTeamMemberInvite = (val: unknown): val is TeamMemberInvite => true;
+
 export interface TeamMember {
   firstName: string;
   lastName: string;

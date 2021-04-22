@@ -11,8 +11,8 @@ import {
 } from 'components/Profile';
 import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { Log } from 'core';
-import { AccountProfilePatch, accountProfileToPatch } from 'core/api';
-import React, { FC, useState } from 'react';
+import { UserUpdate, userToUpdate, UserSettings } from 'core/api';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector, useStoreManager } from 'store';
 import { colors, mx, StyleProps, Styles } from 'styles';
 
@@ -22,8 +22,10 @@ const log = Log('screens.DashboardProfile');
 
 export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const manager = useStoreManager();
-  const curProfile = useSelector(s => s.profile.data);
-  const [data, setData] = useState<AccountProfilePatch>(accountProfileToPatch(curProfile));
+  const curData = useSelector(s => s.user.data);
+  const curSettings = useSelector(s => s.user.settings);
+  const [data, setUserData] = useState<UserUpdate>(userToUpdate(curData));
+  const [settings, setSettings] = useState<UserSettings>(curSettings);
 
   const [processing, setProcessing] = useState<boolean>(false);
   const theme = useTheme();
@@ -31,20 +33,32 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const { showSnackbar } = useSnackbar();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  useEffect(() => {
+    manager.user.updateData();
+    manager.user.updateSettings();
+  }, []);
+
   /**
    * Handlers
    */
 
-  const handleChange = (newData: AccountProfilePatch) => {
-    setData({ ...data, ...newData });
+  const handleUserChange = (newData: UserUpdate) => {
+    setUserData({ ...data, ...newData });
+  };
+
+  const handleSettingsChange = (newSettings: UserSettings) => {
+    setSettings({ ...settings, ...newSettings });
   };
 
   const handleSubmit = async () => {
     try {
       setProcessing(true);
-      log.info('submiting data');
-      await manager.profile.modify(data);
-      log.info('submiting data onde');
+      log.info('submiting user data');
+      await manager.user.modifyData(data);
+      log.info('submiting user data onde');
+      log.info('submiting settings data');
+      await manager.user.modifySettings(settings);
+      log.info('submiting settings data onde');
       setProcessing(false);
       showSnackbar('Profile has been updated!', 'success');
     } catch (err: unknown) {
@@ -54,7 +68,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
     }
   };
 
-  if (!curProfile) return null;
+  if (!curData) return null;
 
   return (
     <>
@@ -72,10 +86,10 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                 name: 'Profile',
                 content: (
                   <ProfileAccountSection
-                    profile={curProfile}
+                    profile={curData}
                     data={data}
                     processing={processing}
-                    onChange={handleChange}
+                    onChange={handleUserChange}
                     onSubmit={handleSubmit}
                   />
                 ),
@@ -86,7 +100,12 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                 id: 3,
                 name: 'Settings',
                 content: (
-                  <ProfileSettingsSection data={data} processing={processing} onChange={handleChange} onSubmit={handleSubmit} />
+                  <ProfileSettingsSection
+                    data={settings}
+                    processing={processing}
+                    onChange={handleSettingsChange}
+                    onSubmit={handleSubmit}
+                  />
                 ),
               },
             ]}
@@ -101,10 +120,10 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                 title: 'Profile',
                 content: (
                   <ProfileAccountSection
-                    profile={curProfile}
+                    profile={curData}
                     data={data}
                     processing={processing}
-                    onChange={handleChange}
+                    onChange={handleUserChange}
                     onSubmit={handleSubmit}
                   />
                 ),
@@ -115,7 +134,12 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                 id: 3,
                 title: 'Settings',
                 content: (
-                  <ProfileSettingsSection data={data} processing={processing} onChange={handleChange} onSubmit={handleSubmit} />
+                  <ProfileSettingsSection
+                    data={settings}
+                    processing={processing}
+                    onChange={handleSettingsChange}
+                    onSubmit={handleSubmit}
+                  />
                 ),
               },
             ]}

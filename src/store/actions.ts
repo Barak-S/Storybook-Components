@@ -1,10 +1,12 @@
-import { AccountProfile } from 'core/api';
+import { User, UserSettings } from 'core/api';
 import { Action } from 'redux';
 
 type AuthAction = (Action<'auth/Set'> & { token?: string }) | Action<'auth/SignOut'>;
 
-type ProfileAction =
-  | (Action<'profile/Set'> & { data?: AccountProfile })
-  | (Action<'profile/Modify'> & { data: Partial<AccountProfile> });
+type UserAction =
+  | (Action<'user/data/Set'> & { data?: User })
+  | (Action<'user/data/Modify'> & { data: Partial<User> })
+  | (Action<'user/settings/Set'> & { data?: UserSettings })
+  | (Action<'user/settings/Modify'> & { data: Partial<UserSettings> });
 
-export type StoreAction = AuthAction | ProfileAction;
+export type StoreAction = AuthAction | UserAction;

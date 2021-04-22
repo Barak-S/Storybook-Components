@@ -30,7 +30,7 @@ export const App: FC = () => {
 
   useEffect(() => {
     if (token) {
-      manager.profile.update().catch(err => log.err('profile update err=', err));
+      manager.user.updateData().catch(err => log.err('profile update err=', err));
     }
   }, [token]);
 

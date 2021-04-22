@@ -3,7 +3,17 @@ import appConfig from 'core/configs';
 import { Log } from 'core/log';
 import { secMs } from 'utils';
 
-import { AccountProfile, AccountProfilePatch, ApiOpt, ApiReqOpt, isAccountProfile, isApiErrResp } from './types';
+import {
+  ApiOpt,
+  ApiReqOpt,
+  isApiErrResp,
+  isUserResp,
+  isUserSettingsResp,
+  UserResp,
+  UserSettings,
+  UserSettingsResp,
+  UserUpdate,
+} from './types';
 import { isStatus200 } from './utils';
 
 const log = Log('core.api');
@@ -44,17 +54,22 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     }
   };
 
-  /** Profile */
+  // User
 
-  const getAccountProfile = async (): Promise<AccountProfile> =>
-    apiReq({ auth: true, path: '/account/profile', guard: isAccountProfile });
+  const getUser = async (): Promise<UserResp> => apiReq({ auth: true, path: '/user', guard: isUserResp });
 
-  const modifyAccountProfile = async (data: AccountProfilePatch): Promise<AccountProfile> =>
-    apiReq({ auth: true, path: '/account/profile', method: 'PATCH', data, guard: isAccountProfile });
+  const modifyUser = async (data: UserUpdate): Promise<UserResp> =>
+    apiReq({ auth: true, path: '/user', method: 'PUT', data, guard: isUserResp });
 
-  /** Export */
+  const getUserSettings = async (): Promise<UserSettingsResp> =>
+    apiReq({ auth: true, path: '/user/settings', guard: isUserSettingsResp });
 
-  return { getAccountProfile, modifyAccountProfile };
+  const modifyUserSettings = async (data: UserSettings): Promise<UserSettingsResp> =>
+    apiReq({ auth: true, path: '/user/settings', method: 'PUT', data, guard: isUserSettingsResp });
+
+  // Export
+
+  return { getUser, modifyUser, getUserSettings, modifyUserSettings };
 };
 
 export type Api = ReturnType<typeof getApiWithOpt>;
