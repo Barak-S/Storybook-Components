@@ -14,7 +14,7 @@ export const useStyles = () =>
       padding: '32px',
     },
     tab: {
-      width: `344px`,
+      width: `25%`,
       height: `44px`,
       padding: `10px 65px`,
       margin: `2px 1px 0 1px`,

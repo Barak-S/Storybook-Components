@@ -1,15 +1,20 @@
-import { makeStyles, Theme, useTheme } from '@material-ui/core';
+import { makeStyles, Theme, useTheme, useMediaQuery } from '@material-ui/core';
 import { Title } from 'components/Common';
 import { DashboardScreenContainer } from 'components/Dashboard';
 import { useSnackbar } from 'components/Feedback';
 import { AccordionSections, FolderTabs } from 'components/Navigation';
-import { ProfileAccountSection, ProfilePassSection, ProfileSettingsSection } from 'components/Profile';
+import {
+  ProfileAccountSection,
+  ProfilePassSection,
+  ProfileSettingsSection,
+  ProfileOrganizationSection,
+} from 'components/Profile';
 import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { Log } from 'core';
 import { AccountProfilePatch, accountProfileToPatch } from 'core/api';
 import React, { FC, useState } from 'react';
 import { useSelector, useStoreManager } from 'store';
-import { colors, mx, StyleProps, Styles, useScreenSizes } from 'styles';
+import { colors, mx, StyleProps, Styles } from 'styles';
 
 type Props = StyleProps;
 
@@ -24,7 +29,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const { showSnackbar } = useSnackbar();
-  const { isMobile } = useScreenSizes();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   /**
    * Handlers
@@ -53,10 +58,10 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
 
   return (
     <>
-      <ScreenTitle title="Profile" />
+      <ScreenTitle title="Account" />
       <DashboardScreenContainer style={style} className={classes.container}>
         <Title className={classes.title} type="h1">
-          {'Profile'}
+          {'Account'}
         </Title>
         {!isMobile ? (
           <FolderTabs
@@ -64,7 +69,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
             values={[
               {
                 id: 0,
-                name: 'Account',
+                name: 'Profile',
                 content: (
                   <ProfileAccountSection
                     profile={curProfile}
@@ -75,9 +80,10 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   />
                 ),
               },
-              { id: 1, name: 'Password', content: <ProfilePassSection /> },
+              { id: 1, name: 'Organization', content: <ProfileOrganizationSection /> },
+              { id: 2, name: 'Password', content: <ProfilePassSection /> },
               {
-                id: 2,
+                id: 3,
                 name: 'Settings',
                 content: (
                   <ProfileSettingsSection data={data} processing={processing} onChange={handleChange} onSubmit={handleSubmit} />
@@ -92,7 +98,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
             sections={[
               {
                 id: 0,
-                title: 'Account',
+                title: 'Profile',
                 content: (
                   <ProfileAccountSection
                     profile={curProfile}
@@ -103,9 +109,10 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   />
                 ),
               },
-              { id: 1, title: 'Password', content: <ProfilePassSection /> },
+              { id: 1, title: 'Organization', content: <ProfileOrganizationSection /> },
+              { id: 2, title: 'Password', content: <ProfilePassSection /> },
               {
-                id: 2,
+                id: 3,
                 title: 'Settings',
                 content: (
                   <ProfileSettingsSection data={data} processing={processing} onChange={handleChange} onSubmit={handleSubmit} />
