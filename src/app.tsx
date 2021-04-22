@@ -30,9 +30,18 @@ export const App: FC = () => {
 
   useEffect(() => {
     if (token) {
-      manager.user.updateData().catch(err => log.err('profile update err=', err));
+      updateUserData();
     }
   }, [token]);
+
+  const updateUserData = async () => {
+    try {
+      await manager.user.updateData();
+      await manager.user.updateSettings();
+    } catch (err: unknown) {
+      log.err('profile update err=', err);
+    }
+  };
 
   // Incoming params
 
