@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.55] - 2021-04-22
+### Changed
+- API: app moved to use new api
+
+### Fixed
+- DO-134: Account Profile Desktop and Mobile UI
+- DO-164: Account Organization Desktop and Mobile UI
+
 ## [1.0.54] - 2021-04-21
 ### Fixed
 - DO-128: AccordionSection QA
