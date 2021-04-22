@@ -68,7 +68,7 @@ export const DashboardSetupSession: FC<Props> = () => {
       <BackgroundedContainer style={{ minHeight: '100vh', justifyContent: 'flex-start' }}>
         <Paper className={classes.container} elevation={2}>
           <Grid container>
-            <Grid sm={12} md={3} lg={3} style={styles.headerCol}>
+            <Grid item sm={12} md={3} lg={3} style={styles.headerCol}>
               <Title type="h3" style={styles.primaryHeader}>
                 {'Setup Session'}
               </Title>
@@ -87,7 +87,7 @@ export const DashboardSetupSession: FC<Props> = () => {
                 <p style={styles.title}>{'Please Create Your Session on a Larger Screen'}</p>
               )}
             </Grid>
-            <Grid sm={12} md={9} lg={9}>
+            <Grid item sm={12} md={9} lg={9}>
               {!isMobile && (
                 <>
                   <div style={styles.setupSession}>

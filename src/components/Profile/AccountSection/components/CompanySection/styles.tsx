@@ -22,23 +22,15 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.brownishGrey,
     },
-    contactSection: {
+    inputFull: {
       maxWidth: 526,
-      [theme.breakpoints.down('md')]: {
+      marginBottom: 30,
+      [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
       },
     },
-    inputInf: {
-      marginRight: '40px',
-      [theme.breakpoints.down('md')]: {
-        marginLeft: '15px',
-      },
-      [theme.breakpoints.down('sm')]: {
-        marginRight: '0px',
-        marginLeft: '0px',
-        margin: '0px',
-      },
-    },
+    contactSection: {},
+    inputInf: {},
     selectorInf: {
       marginBottom: '47px',
       width: '100%',

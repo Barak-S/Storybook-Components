@@ -21,12 +21,6 @@ export const useStyles = () =>
       letterSpacing: '0px',
       color: colors.brownishGrey,
     },
-    blockInf: {
-      paddingBottom: '52px',
-      [theme.breakpoints.down('sm')]: {
-        marginRight: '0',
-      },
-    },
     socBlock: {
       display: 'flex',
       alignItems: 'top',
@@ -45,8 +39,15 @@ export const useStyles = () =>
     },
     socSelect: {
       maxWidth: 195,
-      [theme.breakpoints.down('sm')]: {
-        maxWidth: '100%',
+    },
+    selectAdornment: {
+      '&.MuiButtonBase-root': {
+        color: colors.brownishGrey,
+        background: colors.veryLightPinkThree,
       },
+    },
+    selectRoot: {
+      fontSize: 16,
+      textTransform: 'capitalize',
     },
   }))();

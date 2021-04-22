@@ -31,11 +31,11 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
         <Grid container>
           <Grid item xs={12} sm={12} md={6} lg={6} className={classes.contactSection}>
             <View style={{ marginTop: 14.5 }}>
-              <FormTextInput label="Organization Name" value="" required className={classes.inputFull} />
+              <FormTextInput label="Organization Name" required className={classes.inputFull} inputStyle={styles.input} />
             </View>
             <View row className={classes.formRow}>
-              <FormTextInput label="Phone Number" value="" required className={classes.input} />
-              <FormTextInput label="Country" value="" required className={classes.input} />
+              <FormTextInput label="Phone Number" required className={classes.input} inputStyle={styles.input} />
+              <FormTextInput label="Country" required className={classes.input} inputStyle={styles.input} />
             </View>
             <View row className={classes.formRow}>
               <FormSelect
@@ -48,14 +48,14 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 keyExtractor={itm => itm.value}
                 titleExtractor={itm => itm.value}
               />
-              <FormTextInput value="" label="City" required className={classes.input} />
+              <FormTextInput label="City" required className={classes.input} inputStyle={styles.input} />
             </View>
             <View>
               <FormTextInput
                 label="website"
                 className={classes.inputFull}
+                inputStyle={styles.input}
                 adornmentType="transparent"
-                value=""
                 iconStart={<LineAwesomeIcon type="globe" style={{ color: colors.greyish }} />}
               />
             </View>
@@ -90,8 +90,8 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
               <FormTextInput
                 label="email"
                 className={classes.inputFull}
+                inputStyle={styles.input}
                 adornmentType="transparent"
-                value=""
                 iconStart={<LineAwesomeIcon type="envelope-open-text" style={{ color: colors.greyish }} />}
               />
             </View>
@@ -112,7 +112,7 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 value="twitter"
                 iconStart
               />
-              <FormTextInput className={classes.inputText} />
+              <FormTextInput className={classes.inputText} inputStyle={styles.input} />
             </div>
             <div className={classes.socBlock}>
               <FormSocialSelect
@@ -122,7 +122,7 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 value="facebook"
                 iconStart
               />
-              <FormTextInput className={classes.inputText} />
+              <FormTextInput className={classes.inputText} inputStyle={styles.input} />
             </div>
             <div className={classes.socBlock}>
               <FormSocialSelect
@@ -132,7 +132,7 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 value="youtube"
                 iconStart
               />
-              <FormTextInput className={classes.inputText} />
+              <FormTextInput className={classes.inputText} inputStyle={styles.input} />
             </div>
             <div className={classes.socBlock}>
               <FormSocialSelect
@@ -142,7 +142,7 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 value="instagram"
                 iconStart
               />
-              <FormTextInput className={classes.inputText} style={{ marginBottom: 34 }} />
+              <FormTextInput className={classes.inputText} inputStyle={styles.input} style={{ marginBottom: 34 }} />
             </div>
           </Grid>
           <Divider style={styles.divider} />
@@ -157,6 +157,9 @@ const styles: Styles = {
     width: '100%',
     marginTop: 36,
     marginBottom: 36,
+  },
+  input: {
+    fontSize: 16,
   },
 };
 

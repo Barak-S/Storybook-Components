@@ -23,20 +23,20 @@ export const ProfileAccountSection: FC<Props> = ({ style, processing, data, prof
   return (
     <View row style={style} className={classes.contact}>
       <Grid container>
-        <Grid xs={12} sm={12} md={2} lg={2} className={classes.item1}>
+        <Grid item xs={12} sm={12} md={2} lg={2} className={classes.item1}>
           <ImageSection />
         </Grid>
 
-        <Grid xs={12} sm={12} md={10} lg={10} className={classes.item2}>
+        <Grid item xs={12} sm={12} md={10} lg={10} className={classes.item2}>
           <View className={classes.headerSection}>
-            <span className={classes.title}>{'Contact & Company Information'}</span>
+            <span className={classes.title}>{'Contact Information'}</span>
             <span className={classes.subtitle}>
               {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
             </span>
           </View>
         </Grid>
 
-        <Grid xs={12} sm={12} md={10} lg={10} className={classes.item3}>
+        <Grid item xs={12} sm={12} md={10} lg={10} className={classes.item3}>
           <CompanySection data={data} profile={profile} onChange={onChange} />
           <SocialSection />
           <BioSection data={data} onChange={onChange} />
@@ -71,10 +71,10 @@ const useStyles = () =>
     },
     headerSection: {
       [theme.breakpoints.down('md')]: {
-        marginLeft: '15px',
+        paddingLeft: '20px',
       },
       [theme.breakpoints.down('sm')]: {
-        marginLeft: '0px',
+        paddingLeft: '0px',
       },
     },
     title: {
@@ -96,12 +96,13 @@ const useStyles = () =>
     },
     item1: {
       order: 1,
+      justifyContent: 'center',
+      display: 'flex',
       [theme.breakpoints.down('md')]: {
-        transform: 'translateX(-22px)',
+        marginBottom: 35,
       },
       [theme.breakpoints.down('sm')]: {
         order: 2,
-        transform: 'translateX(0px)',
       },
     },
     item2: {
@@ -114,13 +115,16 @@ const useStyles = () =>
     },
     item3: {
       order: 3,
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: 'auto',
-        transform: 'translateY(-90px)',
+      marginLeft: 'auto',
+      marginTop: '-120px',
+      [theme.breakpoints.down('md')]: {
+        marginTop: '-150px',
+        paddingLeft: 20,
       },
       [theme.breakpoints.down('sm')]: {
+        paddingLeft: 0,
         marginLeft: '0px',
-        transform: 'translateY(0px)',
+        marginTop: '0px',
       },
     },
   }))();

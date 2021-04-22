@@ -1,9 +1,10 @@
 import { Divider, Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormDragnDropImage, FormSelect, FormTextInput } from 'components/Form';
+import { FormTextInput } from 'components/Form';
+import { LineAwesomeIcon } from 'components/Icons';
 import { User, UserUpdate } from 'core/api';
-import React, { FC, ChangeEvent } from 'react';
-import { StyleProps, Styles } from 'styles';
+import React, { ChangeEvent, FC } from 'react';
+import { colors, StyleProps, Styles } from 'styles';
 
 import { useStyles } from './styles';
 
@@ -12,18 +13,6 @@ interface Props extends StyleProps {
   data?: UserUpdate;
   onChange?: (val: UserUpdate) => void;
 }
-
-interface UserRole {
-  value: string;
-}
-
-interface CompanyType {
-  value: string;
-}
-
-const userRoles: UserRole[] = [{ value: 'Administrator' }, { value: 'Manager' }];
-
-const companytypes: CompanyType[] = [{ value: 'Comercial' }, { value: 'Non profit' }];
 
 export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, onChange }) => {
   const classes = useStyles();
@@ -38,45 +27,30 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
   return (
     <View style={style} className={classes.contact}>
       <Grid container>
-        <Grid xs={12} sm={12} md={5} lg={5} className={classes.contactSection}>
+        <Grid item xs={12} sm={12} md={12} lg={12} className={classes.contactSection}>
           <View className={classes.inputInf}>
             <FormTextInput
-              style={styles.rowIndent}
+              className={classes.inputFull}
               label="First Name"
+              inputStyle={styles.input}
               value={data?.firstName || ''}
               onChange={handleTextFieldChanged('firstName')}
             />
-            <FormTextInput style={styles.rowIndent} label="Last Name" value={data?.lastName || ''} />
-            <FormTextInput style={styles.rowIndent} label="Company" value="" />
-            <FormTextInput style={styles.rowIndent} label="Title" />
-            <FormTextInput style={styles.rowIndent} label="Email" disabled value={profile.email || ''} />
-          </View>
-        </Grid>
-        <Grid xs={12} sm={12} md={7} lg={7}>
-          <View className={classes.selectorInf}>
-            <FormSelect
-              className={classes.companySelect}
-              fullWidth
-              label="Role"
-              options={userRoles}
-              keyExtractor={itm => itm.value}
-              titleExtractor={itm => itm.value}
+            <FormTextInput
+              className={classes.inputFull}
+              label="Last Name"
+              inputStyle={styles.input}
+              value={data?.lastName || ''}
+              onChange={handleTextFieldChanged('lastName')}
             />
-          </View>
-          <View className={classes.selectorInf}>
-            <FormSelect
-              className={classes.companySelect}
-              fullWidth
-              options={companytypes}
-              label="Company Type"
-              keyExtractor={itm => itm.value}
-              titleExtractor={itm => itm.value}
+            <FormTextInput
+              label="Email"
+              inputStyle={styles.input}
+              className={classes.inputFull}
+              adornmentType="transparent"
+              value={profile.email || ''}
+              iconStart={<LineAwesomeIcon type="envelope-open-text" style={{ color: colors.greyish }} />}
             />
-          </View>
-          <View className={classes.selectorInf}>
-            <span className={classes.title}>{'Company Logo'}</span>
-            <span className={classes.subtitle}>{'Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less'}</span>
-            <FormDragnDropImage className={classes.uploadImg} />
           </View>
         </Grid>
       </Grid>
@@ -86,8 +60,8 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
 };
 
 const styles: Styles = {
-  rowIndent: {
-    marginBottom: 41,
+  input: {
+    fontSize: 16,
   },
 };
 
