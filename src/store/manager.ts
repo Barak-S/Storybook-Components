@@ -11,5 +11,6 @@ export const useStoreManager = () => {
   return {
     auth: auth({ dispatch, api }),
     user: user({ dispatch, api }),
+    api,
   };
 };

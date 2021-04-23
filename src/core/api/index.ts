@@ -6,7 +6,9 @@ import { secMs } from 'utils';
 import {
   ApiOpt,
   ApiReqOpt,
+  AssetsImageResp,
   isApiErrResp,
+  isAssetsImageResp,
   isUserResp,
   isUserSettingsResp,
   UserResp,
@@ -33,7 +35,11 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
       headers['Authorization'] = token;
     }
     if (reqData) {
-      headers['Content-Type'] = 'application/json';
+      if (reqData instanceof FormData) {
+        headers['Content-Type'] = 'multipart/form-data';
+      } else {
+        headers['Content-Type'] = 'application/json';
+      }
     }
     const config = { method, url, headers, params, timeout, data: reqData };
     log.debug('req, config=', config);
@@ -67,9 +73,20 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
   const modifyUserSettings = async (data: UserSettings): Promise<UserSettingsResp> =>
     apiReq({ auth: true, path: '/user/settings', method: 'PUT', data, guard: isUserSettingsResp });
 
+  // Assets
+
+  const uploadImage = async (file: File, folder?: string): Promise<AssetsImageResp> => {
+    const data = new FormData();
+    data.append('file', file);
+    if (folder) {
+      data.append('folder', folder);
+    }
+    return apiReq({ auth: true, path: '/assets/images', method: 'POST', data, timeout: secMs * 30, guard: isAssetsImageResp });
+  };
+
   // Export
 
-  return { getUser, modifyUser, getUserSettings, modifyUserSettings };
+  return { getUser, modifyUser, getUserSettings, modifyUserSettings, uploadImage };
 };
 
 export type Api = ReturnType<typeof getApiWithOpt>;

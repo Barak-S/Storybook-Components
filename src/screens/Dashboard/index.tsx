@@ -7,7 +7,7 @@ import { useAuth } from 'core/auth';
 import React, { FC, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import { useStoreManager } from 'store';
+import { useSelector, useStoreManager } from 'store';
 import { ms, scrollToTop, StyleProps, Styles } from 'styles';
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
@@ -27,6 +27,8 @@ export const DashboardScreens: FC<Props> = () => {
   useEffect(() => {
     scrollToTop();
   }, []);
+
+  const user = useSelector(s => s.user.data);
 
   const [mobileMenuVisible, setMobileMenuVisible] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<DashboardAppBarBtn>('events');
@@ -87,14 +89,17 @@ export const DashboardScreens: FC<Props> = () => {
           className={classes.dashboardWrap}
           style={ms(styles.dashboardWrap, { position: mobileMenuVisible ? 'absolute' : 'initial' })}
         >
-          <DashboardAppBar
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            onLogoClick={() => history.push({ pathname: routes.dashboard.index })}
-            onLogoutClick={handleLogoutClick}
-            onMobileMenuClick={handleToggleMobileMenu}
-            onMenuBtnClick={handleAppBarMenuBtnClick}
-          />
+          {!!user && (
+            <DashboardAppBar
+              user={user}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              onLogoClick={() => history.push({ pathname: routes.dashboard.index })}
+              onLogoutClick={handleLogoutClick}
+              onMobileMenuClick={handleToggleMobileMenu}
+              onMenuBtnClick={handleAppBarMenuBtnClick}
+            />
+          )}
           <View style={styles.dashboardBody} column justifyContent="flex-start" alignItems="center">
             <Switch>
               <Route path={routes.dashboard.events}>

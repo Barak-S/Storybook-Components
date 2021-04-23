@@ -1,6 +1,7 @@
 import { Grid, Hidden, useTheme } from '@material-ui/core';
 import { BrandLogo } from 'components/Brand';
 import { VerticalSplitter } from 'components/Data';
+import { User } from 'core/api';
 import React, { FC, MouseEvent } from 'react';
 import { StyleProps } from 'styles';
 
@@ -10,6 +11,7 @@ import TextBtn from './components/TextBtn';
 import { styles, useStyles } from './styles';
 
 interface Props extends StyleProps {
+  user: User;
   activeTab: DashboardAppBarBtn;
   setActiveTab: (name: DashboardAppBarBtn) => void;
   onLogoClick?: () => void;
@@ -19,6 +21,7 @@ interface Props extends StyleProps {
 }
 
 export const DashboardAppBar: FC<Props> = ({
+  user,
   activeTab,
   setActiveTab,
   onLogoClick,
@@ -69,6 +72,7 @@ export const DashboardAppBar: FC<Props> = ({
           <VerticalSplitter />
         </Hidden>
         <DashboardDropdownMenu
+          user={user}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           onLogoutClick={handleLogoutClick}

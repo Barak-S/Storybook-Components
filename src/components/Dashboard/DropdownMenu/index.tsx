@@ -1,12 +1,14 @@
 import { Avatar, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import profileImg from 'assets/profilePlaceholder.png';
 import { Dropdown } from 'components/Navigation';
+import { User } from 'core/api';
 import React, { FC, MouseEvent, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
 import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from '../AppBar/components/Menu';
 
 interface Props extends StyleProps {
+  user: User;
   activeTab: DashboardAppBarBtn;
   setActiveTab: (name: DashboardAppBarBtn) => void;
   onLogoutClick?: () => void;
@@ -16,6 +18,7 @@ interface Props extends StyleProps {
 
 export const DashboardDropdownMenu: FC<Props> = ({
   activeTab,
+  user,
   setActiveTab,
   onLogoutClick,
   onMenuBtnClick,
@@ -45,7 +48,7 @@ export const DashboardDropdownMenu: FC<Props> = ({
   return (
     <Grid style={styles.container}>
       <a style={styles.thumbWrap} href="#" onClick={isMobile ? handleMobileMenuClick : handleProfileClick}>
-        <Avatar className={classes.thumb} alt="Profile Picture" src={profileImg} />
+        <Avatar className={classes.thumb} alt="Profile Picture" src={user.thumbnail || profileImg} />
       </a>
       <Dropdown
         icon={isMobile ? 'ellipsis-v' : undefined}

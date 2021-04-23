@@ -1,6 +1,13 @@
 import { View } from 'components/Common';
 import { makeStyles, Grid } from '@material-ui/core';
-import { FormSelect, FormTextInput, FormTextArea, FormSocialSelect, FormToggle, FormUploadBtn } from 'components/Form';
+import {
+  FormSelect,
+  FormTextInput,
+  FormTextArea,
+  FormSocialSelect,
+  FormToggle,
+  FormImgFileSelectRoundedBtn,
+} from 'components/Form';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
 
@@ -21,7 +28,7 @@ export const SponsorInfo: FC<Props> = () => {
       <Grid container>
         <Grid item md={2} lg={2}>
           <span style={styles.title}>{'Profile Photo'}</span>
-          <FormUploadBtn />
+          <FormImgFileSelectRoundedBtn />
         </Grid>
         <Grid item md={10} lg={10}>
           <div style={styles.presenterForm}>

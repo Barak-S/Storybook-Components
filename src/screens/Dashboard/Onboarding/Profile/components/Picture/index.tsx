@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { Image } from 'components/Common';
-import { FormUploadBtn } from 'components/Form';
+import { FormImgFileSelectRoundedBtn } from 'components/Form';
 import React, { FC } from 'react';
 import { StyleProps, colors, Styles, mx, ms } from 'styles';
 import { OnboardingFormHeading as Heading } from '../FormHeading';
@@ -15,7 +15,9 @@ export const OnboardingProfilePicture: FC<Props> = ({ picture, style }) => {
   return (
     <Grid style={ms(styles.container, style)}>
       <Heading style={styles.heading} title="profile picture" caption="Lorem ipsum dolor sit." />
-      <Grid style={styles.holder}>{picture ? <Image source={picture} style={styles.picture} /> : <FormUploadBtn />}</Grid>
+      <Grid style={styles.holder}>
+        {picture ? <Image source={picture} style={styles.picture} /> : <FormImgFileSelectRoundedBtn />}
+      </Grid>
     </Grid>
   );
 };

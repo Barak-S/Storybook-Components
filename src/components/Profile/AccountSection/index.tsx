@@ -14,17 +14,28 @@ interface Props extends StyleProps {
   profile: User;
   data?: UserUpdate;
   processing?: boolean;
+  thumbProcessing?: boolean;
   onChange?: (val: UserUpdate) => void;
+  onThumbFileSelect?: (val: File) => void;
   onSubmit?: () => void;
 }
 
-export const ProfileAccountSection: FC<Props> = ({ style, processing, data, profile, onChange, onSubmit }) => {
+export const ProfileAccountSection: FC<Props> = ({
+  style,
+  processing,
+  thumbProcessing,
+  data,
+  profile,
+  onChange,
+  onSubmit,
+  onThumbFileSelect,
+}) => {
   const classes = useStyles();
   return (
     <View row style={style} className={classes.contact}>
       <Grid container>
         <Grid item xs={12} sm={12} md={2} lg={2} className={classes.item1}>
-          <ImageSection />
+          <ImageSection user={profile} processing={thumbProcessing} onFileSelect={onThumbFileSelect} />
         </Grid>
 
         <Grid item xs={12} sm={12} md={10} lg={10} className={classes.item2}>

@@ -1,5 +1,6 @@
 import { isBoolean, isString } from 'lodash';
-import { isUnknowDict } from 'utils';
+import { isStr, isUnknowDict } from 'utils';
+import { AssetsImage, AssetsImageResp } from './assets';
 
 import { User, UserResp, UserSettings, UserSettingsResp } from './user';
 
@@ -19,3 +20,9 @@ export const isUserResp = (val: unknown): val is UserResp => isUD(val) && isUser
 export const isUserSettings = (val: unknown): val is UserSettings => isUD(val);
 
 export const isUserSettingsResp = (val: unknown): val is UserSettingsResp => isUD(val) && isUserSettings(val.settings);
+
+// Assets
+
+export const isAssetsImage = (val: unknown): val is AssetsImage => isUD(val) && isStr(val.url);
+
+export const isAssetsImageResp = (val: unknown): val is AssetsImageResp => isUD(val) && isAssetsImage(val.image);

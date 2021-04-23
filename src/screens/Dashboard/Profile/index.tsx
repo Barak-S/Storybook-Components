@@ -28,6 +28,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const [settings, setSettings] = useState<UserSettings>(curSettings);
 
   const [processing, setProcessing] = useState<boolean>(false);
+  const [thumbProcessing, setThumbProcessing] = useState<boolean>(false);
   const theme = useTheme();
   const classes = useStyles(theme);
   const { showSnackbar } = useSnackbar();
@@ -50,6 +51,26 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
     setSettings({ ...settings, ...newSettings });
   };
 
+  const handleThumbFileSelect = async (file: File) => {
+    log.info('thumb file selected');
+    try {
+      setThumbProcessing(true);
+      log.info('uploading thumb');
+      const res = await manager.api.uploadImage(file, 'profile');
+      log.info('uploading thumb done');
+      log.info('saving user data');
+      await manager.user.modifyData({ ...data, thumbnail: res.image.url });
+      setUserData({ ...data, thumbnail: res.image.url });
+      log.info('submiting user data onde');
+      setThumbProcessing(false);
+      showSnackbar('Profile picture has been updated!', 'success');
+    } catch (err: unknown) {
+      setThumbProcessing(false);
+      log.err('uploading thumb err=', err);
+      showSnackbar('Uploading profile picture error', 'error');
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       setProcessing(true);
@@ -62,7 +83,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
       setProcessing(false);
       showSnackbar('Profile has been updated!', 'success');
     } catch (err: unknown) {
-      log.info('submiting data err=', err);
+      log.err('submiting data err=', err);
       setProcessing(false);
       showSnackbar('Saving data error', 'error');
     }
@@ -89,7 +110,9 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                     profile={curData}
                     data={data}
                     processing={processing}
+                    thumbProcessing={thumbProcessing}
                     onChange={handleUserChange}
+                    onThumbFileSelect={handleThumbFileSelect}
                     onSubmit={handleSubmit}
                   />
                 ),
@@ -123,7 +146,9 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                     profile={curData}
                     data={data}
                     processing={processing}
+                    thumbProcessing={thumbProcessing}
                     onChange={handleUserChange}
+                    onThumbFileSelect={handleThumbFileSelect}
                     onSubmit={handleSubmit}
                   />
                 ),

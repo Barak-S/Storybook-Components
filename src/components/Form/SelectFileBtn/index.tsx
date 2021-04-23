@@ -1,15 +1,14 @@
 import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
-import React, { ChangeEventHandler, DragEvent, FC } from 'react';
+import React, { ChangeEvent, DragEvent, FC } from 'react';
 import { ms, Style, StyleProps, Styles } from 'styles';
-import { dataOrUndef } from 'utils';
 
 interface Props extends StyleProps {
   title?: string;
   accept?: string;
   disabled?: boolean;
   btnStyle?: Style;
-  onFileSelect?: (result?: string | ArrayBuffer) => void;
+  onFileSelect?: (file: File) => void;
 }
 
 export const FormSelectFileBtn: FC<Props> = ({
@@ -25,15 +24,15 @@ export const FormSelectFileBtn: FC<Props> = ({
     return false;
   };
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = () => (importFile: { target: { files: FileList } }) => {
-    const file = importFile.target.files[0];
-    const reg = new RegExp('/image.*/');
-    if (reg.exec(file.type)) {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        onFileSelect && onFileSelect(dataOrUndef(reader.result));
-      });
-      reader.readAsDataURL(file);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+    const file = e.target.files[0];
+    if (/image.*/.exec(file.type)) {
+      if (onFileSelect) {
+        onFileSelect(file);
+      }
     }
   };
 

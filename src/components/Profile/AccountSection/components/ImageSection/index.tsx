@@ -1,30 +1,55 @@
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { View } from 'components/Common';
-import { FormSelectFileBtn, FormUploadBtn } from 'components/Form';
-import React, { FC, useState } from 'react';
+import { FormImgFileSelectRoundedBtn, FormSelectFileBtn } from 'components/Form';
+import { User } from 'core/api';
+import React, { FC } from 'react';
 import { Style } from 'styles';
-import { useStyles } from './styles';
 
 interface Props {
+  user: User;
   style?: Style;
+  processing?: boolean;
+  onFileSelect?: (file: File) => void;
 }
 
-export const ProfileAccountImageSection: FC<Props> = ({ style }) => {
-  const [imageFile, setFile] = useState('');
+export const ProfileAccountImageSection: FC<Props> = ({ style, user, processing, onFileSelect }) => {
   const classes = useStyles();
-
-  const updateData = (file: React.SetStateAction<string>) => {
-    setFile(file);
-  };
-
   return (
     <View style={style} className={classes.avaBlock}>
       <View className={classes.avatar}>
-        <FormUploadBtn isUpload image={imageFile} className={classes.imgBlock} />
+        <FormImgFileSelectRoundedBtn
+          className={classes.imgBlock}
+          src={user.thumbnail}
+          processing={processing}
+          onFileSelect={onFileSelect}
+        />
       </View>
-      <FormSelectFileBtn onFileSelect={() => updateData} title="CHOOSE IMAGE" btnStyle={{ borderRadius: 6 }} />
+      <FormSelectFileBtn title="CHOOSE IMAGE" btnStyle={{ borderRadius: 6 }} onFileSelect={onFileSelect} />
     </View>
   );
 };
+
+const useStyles = () =>
+  makeStyles((theme: Theme) => ({
+    avaBlock: {
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: 212,
+      marginTop: 12,
+      alignItems: 'center',
+      [theme.breakpoints.down('sm')]: {
+        marginTop: 12,
+      },
+    },
+    avatar: {
+      marginBottom: '26px',
+    },
+    imgBlock: {
+      [theme.breakpoints.down('sm')]: {
+        marginTop: '35px',
+      },
+    },
+  }))();
 
 export type ProfileAccountImageSectionProps = Props;
 export default ProfileAccountImageSection;
