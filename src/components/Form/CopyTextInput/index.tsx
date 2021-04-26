@@ -4,15 +4,15 @@ import { colors, mc, mx, StyleProps } from 'styles';
 
 interface CustomProps extends StyleProps {
   url: string;
-  onCopyClick?: (url: string) => void;
+  onCopyClick?: () => void;
 }
 
 type Props = TextFieldProps & CustomProps;
 
-export const FormCopyTextInput: FC<Props> = ({ url, onCopyClick, className, value, ...props }) => {
+export const FormCopyTextInput: FC<Props> = ({ url, onCopyClick, className, ...props }) => {
   const handleCopyClick = () => {
     if (onCopyClick) {
-      onCopyClick(String(value));
+      onCopyClick();
     }
   };
 
