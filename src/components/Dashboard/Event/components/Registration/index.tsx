@@ -16,7 +16,7 @@ interface Props extends StyleProps {
   activeUsersCount?: number;
   onSetupRegistrationClick?: () => void;
   onRegContinueClick?: () => void;
-  onCopyToClipboardClick?: (url: string) => void;
+  onCopyToClipboardClick?: () => void;
 }
 
 export const DashboardEventRegistration: FC<Props> = ({
@@ -56,7 +56,7 @@ export const DashboardEventRegistration: FC<Props> = ({
 
   const handleCopyToClipboardClick = () => {
     if (onCopyToClipboardClick) {
-      onCopyToClipboardClick(regUrl);
+      onCopyToClipboardClick();
     }
   };
 
@@ -199,7 +199,7 @@ const useStyles = (theme: Theme) =>
       fontWeight: 500,
       color: colors.marineBlue,
       marginBottom: 10,
-      letterSpacing: 1.28,
+      letterSpacing: 1.2,
       [theme.breakpoints.up('lg')]: {
         marginBottom: 13,
       },
@@ -292,9 +292,14 @@ const useStyles = (theme: Theme) =>
         width: 'auto',
         paddingRight: 10,
         paddingLeft: 10,
+        letterSpacing: '2.25px',
         '& .MuiButton-label': {
-          paddingRight: 25,
-          paddingLeft: 10,
+          paddingRight: 10,
+          paddingLeft: 5,
+          [theme.breakpoints.up('sm')]: {
+            paddingRight: 25,
+            paddingLeft: 10,
+          },
         },
       },
     },

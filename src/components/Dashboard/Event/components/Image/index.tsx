@@ -10,10 +10,10 @@ interface Props extends StyleProps {
   source: string;
   status: EventStatus;
   onEditClick?: () => void;
-  onCopyClick?: () => void;
+  onUrlClick?: () => void;
 }
 
-export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, onCopyClick }) => {
+export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, onUrlClick }) => {
   const [hover, setHover] = useState<boolean>(false);
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -37,7 +37,7 @@ export const DashboardEventImage: FC<Props> = ({ source, status, onEditClick, on
       )}
       {!isEventSetup && hover && (
         <Grid className={classes.overlay}>
-          <Link component="span" className={classes.copyBtn} onClick={onCopyClick}>
+          <Link component="span" className={classes.copyBtn} onClick={onUrlClick}>
             <LineAwesomeIcon type="external-link-alt" size={64} />
           </Link>
         </Grid>

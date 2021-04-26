@@ -41,6 +41,8 @@ interface Props extends StyleProps {
   onArchiveClick?: () => void;
   onRemoveClick?: () => void;
   onCopyToClipboardClick?: (url: string) => void;
+  /** Click on event url. Should open event at a new tab */
+  onUrlClick?: () => void;
 }
 
 /**
@@ -70,15 +72,16 @@ export const DashboardEvent: FC<Props> = ({
   onArchiveClick,
   onRemoveClick,
   onCopyToClipboardClick,
+  onUrlClick,
 }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const { isMobile, isDesktop, isTablet } = useScreenSizes();
 
-  const handleImageOnCopyClick = () => {
-    if (onCopyToClipboardClick) {
-      onCopyToClipboardClick(url);
+  const handleCopyBtnClick = () => {
+    if (onCopyToClipboardClick && regUrl) {
+      onCopyToClipboardClick(regUrl);
     }
   };
 
@@ -116,7 +119,7 @@ export const DashboardEvent: FC<Props> = ({
               <EventTitle>{title}</EventTitle>
             </Grid>
           )}
-          <EventImage source={image} status={status} onEditClick={onEditClick} onCopyClick={handleImageOnCopyClick} />
+          <EventImage source={image} status={status} onEditClick={onEditClick} onUrlClick={onUrlClick} />
         </Grid>
         <Grid item xs={12} md={4} lg={3} className={classes.middleColumn}>
           {isTablet && !isMobile && (
@@ -146,7 +149,7 @@ export const DashboardEvent: FC<Props> = ({
             activeUsersCount={activeUsersCount}
             onSetupRegistrationClick={onSetupRegistrationClick}
             onRegContinueClick={onRegContinueClick}
-            onCopyToClipboardClick={onCopyToClipboardClick}
+            onCopyToClipboardClick={handleCopyBtnClick}
           />
         </Grid>
       </Grid>
