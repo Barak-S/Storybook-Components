@@ -295,8 +295,6 @@ const styles: Styles = {
   },
   accordion: {
     color: colors.brownishGrey,
-    borderRadius: 10,
-    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
     boxShadow: 'none',
     fontWeight: 400,
     marginBottom: 7.5,
@@ -448,10 +446,10 @@ export const useStyles = (theme: Theme) =>
         padding: '10px 5px',
       },
       '& .MuiAccordionSummary-root.Mui-expanded': {
-        background: colors.white,
         border: 'none',
         borderTop: `1px solid ${colors.greyish}`,
-        borderRadius: 0,
+        borderTopRightRadius: 0,
+        borderTopLeftRadius: 0,
         height: 75,
       },
     },
@@ -478,9 +476,9 @@ export const useStyles = (theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         height: 76,
       },
-      borderRadius: 10,
       '&:hover': {
         background: colors.paleGrey,
+        transition: 'none',
       },
     },
   })();

@@ -179,10 +179,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
 const styles: Styles = {
   tabs: {},
   accordion: {
-    color: colors.brownishGrey,
-    borderRadius: 10,
     minHeight: 76,
-    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
     boxShadow: 'none',
     fontWeight: 400,
     marginBottom: 13,
@@ -204,7 +201,6 @@ const useStyles = (theme: Theme) =>
         },
       },
       '& .MuiAccordionSummary-root.Mui-expanded': {
-        background: colors.white,
         color: colors.windowsBlue,
         border: 'none',
         borderTop: `1px solid ${colors.greyish}`,
@@ -225,10 +221,6 @@ const useStyles = (theme: Theme) =>
       height: 76,
       [theme.breakpoints.down('sm')]: {
         padding: '0px 10px',
-      },
-      borderRadius: 10,
-      '&:hover': {
-        background: colors.paleGrey,
       },
     },
   })();

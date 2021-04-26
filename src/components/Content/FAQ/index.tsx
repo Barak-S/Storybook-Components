@@ -145,9 +145,6 @@ export const ContentFAQ: FC<Props> = () => {
 
 const getStyles = (isMobile: boolean): Styles => ({
   accordion: {
-    color: colors.brownishGrey,
-    borderRadius: 10,
-    background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
     boxShadow: 'none',
     fontWeight: 400,
     marginBottom: isMobile ? 12 : 5,
@@ -173,10 +170,11 @@ const useStyles = (theme: Theme) =>
         padding: '40px 20px',
       },
       '& .MuiAccordionSummary-root.Mui-expanded': {
-        background: colors.white,
         border: 'none',
         borderTop: `1px solid ${colors.greyish}`,
-        borderRadius: 0,
+        borderTopRightRadius: 0,
+        borderTopLeftRadius: 0,
+        height: 75,
       },
     },
     primaryHeader: {
@@ -205,15 +203,13 @@ const useStyles = (theme: Theme) =>
       fontSize: 18,
     },
     accordion: {
-      [theme.breakpoints.up('sm')]: {
-        height: 76,
-      },
+      height: 76,
       [theme.breakpoints.down('sm')]: {
         minHeight: '76px',
       },
-      borderRadius: 10,
       '&:hover': {
         background: colors.paleGrey,
+        transition: 'none',
       },
     },
   })();

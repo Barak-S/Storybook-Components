@@ -60,8 +60,24 @@ const styles: Styles = {
 
 const useStyles = makeStyles({
   root: {
+    borderRadius: 10,
+    background: colors.white,
+    '&.MuiAccordion-rounded:first-child': {
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+    },
+    '&.MuiAccordion-rounded:last-child': {
+      borderBottomRightRadius: 10,
+      borderBottomLeftRadius: 10,
+    },
     '&:before': {
       display: 'none',
+    },
+    '& .MuiAccordionSummary-root': {
+      background: 'linear-gradient(90deg, rgba(242,243,244,1) 0%, rgba(221,223,225,1) 100%)',
+      '&.Mui-expanded': {
+        background: colors.white,
+      },
     },
     '& .MuiAccordionSummary-content': {
       alignItems: 'center',
@@ -69,11 +85,13 @@ const useStyles = makeStyles({
   },
   accordion: {
     color: colors.marineBlue,
+    borderRadius: 10,
     '&:hover': {
       '& .MuiIcon-root': {
         transform: 'rotate(0)',
       },
       '& .Mui-expanded': {
+        borderRadius: 0,
         '& .MuiIcon-root': {
           transform: 'rotate(180deg)',
           '&:hover': {
