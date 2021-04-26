@@ -1,3 +1,5 @@
+import { ApiDataResp } from './api';
+
 export interface AssetsImage {
   id: string;
   url: string;
@@ -7,6 +9,4 @@ export interface AssetsImage {
   etag: string;
 }
 
-export interface AssetsImageResp {
-  image: AssetsImage;
-}
+export type AssetsImageResp = ApiDataResp<AssetsImage>;

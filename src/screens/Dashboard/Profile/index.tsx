@@ -59,8 +59,8 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
       const res = await manager.api.uploadImage(file, 'profile');
       log.info('uploading thumb done');
       log.info('saving user data');
-      await manager.user.modifyData({ ...data, thumbnail: res.image.url });
-      setUserData({ ...data, thumbnail: res.image.url });
+      await manager.user.modifyData({ ...data, thumbnail: res.data.url });
+      setUserData({ ...data, thumbnail: res.data.url });
       log.info('submiting user data onde');
       setThumbProcessing(false);
       showSnackbar('Profile picture has been updated!', 'success');

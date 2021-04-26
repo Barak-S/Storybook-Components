@@ -20,4 +20,6 @@ export interface ApiErrResp {
   message: string;
 }
 
+export type ApiDataResp<T> = { data: T };
+
 export const isApiErrResp = (val: unknown): val is ApiErrResp => isUnknowDict(val) && isString(val.message);

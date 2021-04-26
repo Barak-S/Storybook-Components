@@ -1,3 +1,4 @@
+import { ApiDataResp } from './api';
 import { Social } from './common';
 
 export interface User {
@@ -18,7 +19,7 @@ export interface User {
 
 export type UserCreate = Omit<User, 'createdAt' | 'updatedAt'>;
 export type UserUpdate = Partial<Omit<User, 'id' | 'email' | 'confirmed' | 'createdAt' | 'updatedAt'>>;
-export type UserResp = { user: User };
+export type UserResp = ApiDataResp<User>;
 
 export interface UserSettings {
   onboarding?: UserSettingsOnboarding;
@@ -29,7 +30,7 @@ export interface UserSettings {
   subscrEventsNearMe?: boolean;
 }
 
-export type UserSettingsResp = { settings: UserSettings };
+export type UserSettingsResp = ApiDataResp<UserSettings>;
 
 export type UserSettingsOnboarding = 'profile' | 'team' | 'theme' | 'event' | 'done';
 
