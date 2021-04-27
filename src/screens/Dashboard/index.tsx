@@ -24,8 +24,10 @@ import DashboardSetupSession from './Session';
 type Props = StyleProps;
 
 export const DashboardScreens: FC<Props> = () => {
+  const history = useHistory();
+
   useEffect(() => {
-    scrollToTop();
+    history.listen(() => scrollToTop());
   }, []);
 
   const user = useSelector(s => s.user.data);
@@ -35,7 +37,6 @@ export const DashboardScreens: FC<Props> = () => {
 
   const theme = useTheme();
   const classes = useStyles(theme);
-  const history = useHistory();
   const { signOut } = useAuth();
   const manager = useStoreManager();
 

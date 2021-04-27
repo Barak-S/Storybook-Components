@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
-
+import { scrollToTop } from 'styles';
 import AuthRecoverPassScreen from './RecoverPass';
 import AuthResetPass from './ResetPass';
 import AuthSignInScreen from './SignIn';
@@ -11,6 +11,12 @@ import AuthPolicyScreen from './Policy';
 import AuthFaqScreen from './FAQ';
 
 export const AuthScreens: FC = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    history.listen(() => scrollToTop());
+  }, []);
+
   return (
     <Switch>
       <Route path={routes.auth.signup}>
