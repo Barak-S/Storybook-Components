@@ -1,4 +1,4 @@
-import { makeStyles, TextareaAutosize, TextareaAutosizeProps } from '@material-ui/core';
+import { makeStyles, TextareaAutosize, TextareaAutosizeProps, FormHelperText } from '@material-ui/core';
 import { Text } from 'components/Common';
 import React, { FC, useState } from 'react';
 import { colors, mc, mx, StyleProps } from 'styles';
@@ -7,30 +7,35 @@ import { genId } from 'utils';
 interface CustomProps extends StyleProps {
   value?: string;
   label?: string;
+  error?: boolean;
+  helperText?: string;
   className?: string;
 }
 
 type Props = TextareaAutosizeProps & CustomProps;
 
-export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange, style, ...props }) => {
+export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange, style, error, helperText, ...props }) => {
   const [focus, setFocus] = useState<boolean>(false);
   const classes = useStyles();
   const isActive = focus || Boolean(value);
   const textAreaId = genId();
 
   return (
-    <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea, className)} style={style}>
-      <TextareaAutosize
-        id={textAreaId}
-        {...props}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        onChange={onChange}
-        className={classes.textArea}
-        value={value}
-      />
-      <Text className={mc(classes.label, isActive && classes.focusedLabel)}>{label}</Text>
-    </label>
+    <>
+      <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea, className)} style={style}>
+        <TextareaAutosize
+          id={textAreaId}
+          {...props}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          onChange={onChange}
+          className={classes.textArea}
+          value={value}
+        />
+        <Text className={mc(classes.label, isActive && classes.focusedLabel, error && classes.error)}>{label}</Text>
+      </label>
+      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+    </>
   );
 };
 
@@ -47,10 +52,11 @@ const useStyles = makeStyles({
   textArea: {
     width: '100%',
     minHeight: 116,
-    maxHeight: 116,
-    fontSize: 21,
+    fontSize: 16,
     border: 'none',
     background: 'transparent',
+    resize: 'none',
+    fontFamily: 'inherit',
   },
   focusedArea: {
     background: colors.white,
@@ -73,6 +79,9 @@ const useStyles = makeStyles({
     transform: 'translate(0, -18px) scale(.75)',
     transformOrigin: 'top left',
     color: colors.coolBlueTwo,
+  },
+  error: {
+    color: colors.error,
   },
 });
 

@@ -6,8 +6,8 @@ import { FormTextArea, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { colors, globalStyles, StyleProps } from 'styles';
-import { validators } from 'utils';
+import { colors, StyleProps, Styles } from 'styles';
+import { isDictEmpty, validators } from 'utils';
 
 type Props = StyleProps;
 
@@ -19,7 +19,7 @@ interface FormData {
   message?: string;
 }
 
-type FormErrs = Partial<Record<keyof FormData, string>> & { request?: string };
+type FormErrs = Partial<Record<keyof FormData, string>> & { form?: string };
 
 export const DashboardContactScreen: FC<Props> = () => {
   const [data, setData] = useState<FormData>({ email: '', firstName: '', lastName: '', phoneNumber: '', message: '' });
@@ -36,8 +36,24 @@ export const DashboardContactScreen: FC<Props> = () => {
     setData({ ...data, [key]: event.currentTarget.value });
   };
 
+  const getFormErrs = (data: FormData): FormErrs | undefined => {
+    const errs: FormErrs = {
+      email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'An Email is required' }),
+      firstName: validators.getNameErr(data.firstName, { required: true, requiredMsg: 'A fist name is required' }),
+      lastName: validators.getNameErr(data.lastName, { required: true, requiredMsg: 'A last name is required' }),
+      phoneNumber: validators.getPhoneNumberErr(data.phoneNumber, { required: true, requiredMsg: 'A phone number is required' }),
+      message: validators.getTextAreaErr(data.message, { required: true, requiredMsg: 'A message is required' }),
+    };
+    return !isDictEmpty(errs) ? errs : undefined;
+  };
+
   const submit = () => {
-    setProcessing(true);
+    const curErrs = getFormErrs(data);
+    if (curErrs) {
+      return setErrs(curErrs);
+    } else {
+      setProcessing(true);
+    }
   };
 
   return (
@@ -47,8 +63,8 @@ export const DashboardContactScreen: FC<Props> = () => {
         style={{ minHeight: '100vh', backgroundColor: colors.darkIndigo, alignItems: 'center', padding: 0 }}
       >
         <Paper className={classes.container}>
-          <Grid container justify="space-between" spacing={2}>
-            <Grid sm={12} lg={5}>
+          <Grid container>
+            <Grid item sm={12} lg={5}>
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Title type="h3" className={classes.primaryHeader}>
                   {'Contact Us'}
@@ -85,34 +101,38 @@ export const DashboardContactScreen: FC<Props> = () => {
                   {'Get In Touch'}
                 </Title>
               </Grid>
-              <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <View className={classes.inputItem}>
+              <Grid item xs={12} sm={6} className={classes.inputItem}>
+                <View>
                   <FormTextInput
                     value={firstName || ''}
                     type="text"
                     error={!!errs?.firstName}
                     helperText={errs?.firstName}
                     maxLength={50}
-                    label="FIRST NAME"
+                    className={classes.input}
+                    inputStyle={styles.input}
+                    label="First Name"
                     onChange={handleTextFieldChanged('firstName')}
                   />
                 </View>
               </Grid>
-              <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <View className={classes.inputItem}>
+              <Grid item xs={12} sm={6} className={classes.inputItem}>
+                <View>
                   <FormTextInput
                     value={lastName || ''}
                     type="text"
                     error={!!errs?.lastName}
                     helperText={errs?.lastName}
                     maxLength={50}
-                    label="LAST NAME"
+                    className={classes.input}
+                    inputStyle={styles.input}
+                    label="Last Name"
                     onChange={handleTextFieldChanged('lastName')}
                   />
                 </View>
               </Grid>
-              <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <View className={classes.inputItem}>
+              <Grid item xs={12} sm={6} className={classes.inputItem}>
+                <View>
                   <FormTextInput
                     value={email || ''}
                     type="email"
@@ -120,35 +140,39 @@ export const DashboardContactScreen: FC<Props> = () => {
                     error={!!errs?.email}
                     helperText={errs?.email}
                     maxLength={50}
-                    label="EMAIL"
+                    className={classes.input}
+                    inputStyle={styles.input}
+                    label="Email"
                     onChange={handleTextFieldChanged('email')}
                   />
                 </View>
               </Grid>
-              <Grid item xs={12} sm={6} style={globalStyles.inputItem}>
-                <View className={classes.inputItem}>
+              <Grid item xs={12} sm={6} className={classes.inputItem}>
+                <View>
                   <FormTextInput
                     value={phoneNumber || ''}
                     type="text"
                     error={!!errs?.phoneNumber}
                     helperText={errs?.phoneNumber}
                     maxLength={50}
-                    label="PHONE NUMBER"
+                    className={classes.input}
+                    inputStyle={styles.input}
+                    label="Phone Number"
                     onChange={handleTextFieldChanged('phoneNumber')}
                   />
                 </View>
               </Grid>
-              <Grid item xs={12} style={globalStyles.inputItem}>
-                <View className={classes.textAreaItem}>
+              <Grid item xs={12} className={classes.inputItem}>
+                <View>
                   <FormTextArea
-                    label="A BRIEF MESSAGE"
-                    onChange={handleTextFieldChanged('message')}
+                    label="A Beif Message"
                     value={message || ''}
-                    className={classes.textArea}
+                    error={!!errs?.message}
+                    helperText={errs?.message}
+                    className={classes.textAreaInput}
+                    onChange={handleTextFieldChanged('message')}
                   />
                 </View>
-              </Grid>
-              <Grid item xs={12}>
                 <Title className={classes.errors} type="h3">
                   {'ALL REQUIRED FIELDS (*)'}
                 </Title>
@@ -174,21 +198,22 @@ export const DashboardContactScreen: FC<Props> = () => {
 export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      margin: '124px 124px',
+      margin: '123px 57px',
       padding: '80px 100px',
+      paddingBottom: 79,
+      marginBottom: 169,
       borderRadius: 20,
       position: 'relative',
-      maxWidth: 1599,
+      maxWidth: 1452,
       lineHeight: 1.3,
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.down('lg')]: {
-        borderRadius: 35,
-        margin: '50px 124px',
+        margin: '50px 57px',
       },
       [theme.breakpoints.down('md')]: {
+        borderRadius: 35,
         padding: '44px 20px',
-        margin: '50px 57px',
       },
       [theme.breakpoints.down('sm')]: {
         padding: '34px 20px',
@@ -229,15 +254,7 @@ export const useStyles = (theme: Theme) =>
     contactForm: {
       [theme.breakpoints.down('sm')]: {
         marginTop: 55,
-      },
-    },
-    fields: {
-      width: '100%',
-      maxWidth: '100%',
-      marginBottom: 29,
-
-      [theme.breakpoints.up('sm')]: {
-        maxWidth: 423,
+        padding: '0px !important',
       },
     },
     formTitle: {
@@ -250,29 +267,25 @@ export const useStyles = (theme: Theme) =>
     },
     listText: {
       color: colors.brownishGrey,
-      marginBottom: 81,
-      [theme.breakpoints.down('sm')]: {
-        marginBottom: 31,
+    },
+    input: {
+      maxWidth: 337,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
       },
     },
-    inputItem: {
-      marginRight: 9,
-      marginLeft: 9,
-      marginBottom: 2,
+    textAreaInput: {
+      maxWidth: 700,
+      height: 170,
+      overflowY: 'auto',
+      overflowX: 'hidden',
       [theme.breakpoints.down('md')]: {
-        marginRight: 0,
-        marginLeft: 0,
-        marginBottom: '-10px',
+        maxWidth: '100%',
+        height: 221,
       },
     },
-    textAreaItem: {
-      marginRight: 9,
-      marginLeft: 9,
-      marginBottom: 2,
-      [theme.breakpoints.down('md')]: {
-        marginRight: 0,
-        marginLeft: 0,
-      },
+    resize: {
+      fontSize: 16,
     },
     colRight: {
       display: 'flex',
@@ -281,11 +294,18 @@ export const useStyles = (theme: Theme) =>
       paddingLeft: 6,
     },
     phoneNumber: {
+      paddingTop: 112,
       display: 'flex',
       alignItems: 'center',
       color: colors.coolBlue,
       paddingLeft: 6,
       fontSize: 18,
+      [theme.breakpoints.down('md')]: {
+        paddingTop: 0,
+      },
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: 45,
+      },
     },
     phoneIcon: {
       marginRight: 20,
@@ -307,10 +327,12 @@ export const useStyles = (theme: Theme) =>
       paddingLeft: 6,
       [theme.breakpoints.down('md')]: {
         paddingTop: 4,
+        paddingLeft: 12,
         marginTop: 0,
       },
       [theme.breakpoints.down('sm')]: {
         paddingTop: 13,
+        paddingLeft: 6,
       },
     },
     link: {
@@ -320,7 +342,10 @@ export const useStyles = (theme: Theme) =>
       color: colors.vermillion,
       textAlign: 'right',
       fontWeight: 400,
-      [theme.breakpoints.down('sm')]: {
+      paddingTop: 12,
+      paddingRight: 12,
+      [theme.breakpoints.down('md')]: {
+        paddingRight: 0,
         textAlign: 'center',
       },
     },
@@ -342,7 +367,6 @@ export const useStyles = (theme: Theme) =>
         flexDirection: 'row',
         justifyContent: 'space-between',
         textAlign: 'left',
-
         '& span': {
           marginBottom: 0,
         },
@@ -355,10 +379,12 @@ export const useStyles = (theme: Theme) =>
     btn: {
       background: colors.marineBlue,
       borderRadius: '6px',
-      width: '220px!important',
+      width: '200px!important',
       height: '52px',
       marginTop: 13,
       marginBottom: 30,
+      letterSpacing: 2.25,
+      fontSize: 14,
     },
     textArea: {
       height: 170,
@@ -366,7 +392,19 @@ export const useStyles = (theme: Theme) =>
         height: 221,
       },
     },
+    inputItem: {
+      padding: '15px 8px',
+      [theme.breakpoints.down('xs')]: {
+        padding: '12px 8px',
+      },
+    },
   })();
+
+const styles: Styles = {
+  input: {
+    fontSize: 16,
+  },
+};
 
 export type DashboardContactScreenProps = Props;
 export default DashboardContactScreen;
