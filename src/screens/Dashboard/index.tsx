@@ -27,7 +27,7 @@ export const DashboardScreens: FC<Props> = () => {
   const history = useHistory();
 
   useEffect(() => {
-    history.listen(() => scrollToTop());
+    history.listen(() => scrollToTop('auto'));
   }, []);
 
   const user = useSelector(s => s.user.data);

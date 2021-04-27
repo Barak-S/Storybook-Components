@@ -14,7 +14,7 @@ export const AuthScreens: FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    history.listen(() => scrollToTop());
+    history.listen(() => scrollToTop('auto'));
   }, []);
 
   return (
