@@ -55,6 +55,8 @@ const getStyles = (size: number): Styles => ({
   },
   disabled: {
     color: colors.greyish,
+    cursor: 'not-allowed',
+    textDecoration: 'none',
   },
 });
 
