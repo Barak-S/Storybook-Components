@@ -6,6 +6,16 @@ import { User, UserUpdate } from './types';
 
 export const isStatus200 = (status: number) => status >= 200 && status <= 299;
 
+// Errors
+
+export class ApiError extends Error {
+  public readonly status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 // Profile
 
 export const userToUpdate = (data: User | undefined): UserUpdate =>

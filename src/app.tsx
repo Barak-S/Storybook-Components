@@ -2,8 +2,10 @@ import { Text } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { Log, useAuth } from 'core';
 import { initAmplify } from 'core/amplify';
+import { ApiError } from 'core/api';
 import { appConfig } from 'core/configs';
 import { parseUrlSearchStr } from 'core/navigation';
+import httpStatus from 'http-status';
 import React, { FC, useEffect } from 'react';
 import { Screens } from 'screens';
 import { useSelector, useStoreManager } from 'store';
@@ -24,19 +26,35 @@ export const App: FC = () => {
     processIncomingQsParams();
   }, []);
 
+  // Update token if current user is loggined throw Cognito
   useEffect(() => {
     manager.auth.update().catch(err => log.err('auth update err=', err));
   }, [authUser]);
 
+  // Update user's data if we do have a token at storage.auth.token
   useEffect(() => {
     if (token) {
-      updateUserData();
+      updateUser();
     }
   }, [token]);
 
-  const updateUserData = async () => {
+  const updateUser = async () => {
     try {
       await manager.user.updateData();
+      await manager.user.updateSettings();
+    } catch (err: unknown) {
+      // Init and update user, if it not found at the DB
+      if (err instanceof ApiError && err.status === httpStatus.NOT_FOUND) {
+        updateUserWithInit();
+      } else {
+        log.err('profile update err=', err);
+      }
+    }
+  };
+
+  const updateUserWithInit = async () => {
+    try {
+      await manager.user.init();
       await manager.user.updateSettings();
     } catch (err: unknown) {
       log.err('profile update err=', err);

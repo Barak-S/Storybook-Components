@@ -16,6 +16,12 @@ export const reducer = (state: UserState = initial, action: StoreAction): UserSt
     case 'user/data/Modify': {
       return { ...state, data: state.data ? { ...state.data, ...action.data } : undefined };
     }
+    case 'user/settings/Set': {
+      return { ...state, settings: action.data || {} };
+    }
+    case 'user/settings/Modify': {
+      return { ...state, settings: { ...state.settings, ...action.data } };
+    }
     case 'auth/SignOut':
       return initial;
     default:

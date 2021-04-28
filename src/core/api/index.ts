@@ -16,13 +16,11 @@ import {
   UserSettingsResp,
   UserUpdate,
 } from './types';
-import { isStatus200 } from './utils';
+import { ApiError, isStatus200 } from './utils';
 
 const log = Log('core.api');
 
 export const getApiWithOpt = ({ token }: ApiOpt) => {
-  /** Basic */
-
   const apiReq = async <T>(opt: ApiReqOpt<T>): Promise<T> => {
     const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true, guard } = opt;
     if (auth && !token) {
@@ -41,7 +39,7 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
         headers['Content-Type'] = 'application/json';
       }
     }
-    const config = { method, url, headers, params, timeout, data: reqData };
+    const config = { method, url, headers, params, timeout, data: reqData, validateStatus: () => true };
     log.debug('req, config=', config);
     const { data, status, statusText } = await axios(config);
     log.debug('req done, status=', status, ', statusText=', statusText, ', data=', data);
@@ -54,13 +52,19 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
       }
     }
     if (isApiErrResp(data)) {
-      throw new Error(data.message);
+      throw new ApiError(data.message, status);
     } else {
-      throw new Error(statusText);
+      throw new ApiError(statusText, status);
     }
   };
 
   // User
+
+  const initUser = async (type: string = 'organization'): Promise<UserResp> =>
+    apiReq({ auth: true, method: 'POST', params: { type }, path: '/user/init', guard: isUserResp });
+
+  const confirmUser = async (): Promise<UserResp> =>
+    apiReq({ auth: true, method: 'POST', path: '/user/confirm', guard: isUserResp });
 
   const getUser = async (): Promise<UserResp> => apiReq({ auth: true, path: '/user', guard: isUserResp });
 
@@ -86,7 +90,7 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
 
   // Export
 
-  return { getUser, modifyUser, getUserSettings, modifyUserSettings, uploadImage };
+  return { initUser, confirmUser, getUser, modifyUser, getUserSettings, modifyUserSettings, uploadImage };
 };
 
 export type Api = ReturnType<typeof getApiWithOpt>;

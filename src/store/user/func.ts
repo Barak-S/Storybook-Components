@@ -5,6 +5,18 @@ import { StoreManagerFnOpt } from 'store/utils';
 const log = Log('store.user');
 
 export const func = ({ dispatch, api }: StoreManagerFnOpt) => {
+  const init = async () => {
+    try {
+      log.info('init');
+      const { data } = await api.initUser();
+      log.info('init done, data=', data);
+      dispatch({ type: 'user/data/Set', data });
+    } catch (err: unknown) {
+      log.err('init err=', err);
+      throw err;
+    }
+  };
+
   const updateData = async () => {
     try {
       log.info('updating data');
@@ -13,6 +25,7 @@ export const func = ({ dispatch, api }: StoreManagerFnOpt) => {
       dispatch({ type: 'user/data/Set', data });
     } catch (err: unknown) {
       log.err('updating data err=', err);
+      throw err;
     }
   };
 
@@ -24,6 +37,7 @@ export const func = ({ dispatch, api }: StoreManagerFnOpt) => {
       dispatch({ type: 'user/data/Modify', data });
     } catch (err: unknown) {
       log.err('modify data err=', err);
+      throw err;
     }
   };
 
@@ -35,6 +49,7 @@ export const func = ({ dispatch, api }: StoreManagerFnOpt) => {
       dispatch({ type: 'user/settings/Set', data });
     } catch (err: unknown) {
       log.err('updating settings err=', err);
+      throw err;
     }
   };
 
@@ -46,8 +61,9 @@ export const func = ({ dispatch, api }: StoreManagerFnOpt) => {
       dispatch({ type: 'user/settings/Modify', data });
     } catch (err: unknown) {
       log.err('modify settings err=', err);
+      throw err;
     }
   };
 
-  return { updateData, modifyData, updateSettings, modifySettings };
+  return { init, updateData, modifyData, updateSettings, modifySettings };
 };

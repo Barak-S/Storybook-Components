@@ -15,6 +15,7 @@ export const func = ({ dispatch }: StoreManagerFnOpt) => {
     } catch (err: unknown) {
       log.info('gettin cur session err=', err);
       dispatch({ type: 'auth/Set', token: undefined });
+      throw err;
     }
   };
 
