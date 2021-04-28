@@ -15,7 +15,7 @@ export const useStyles = () =>
       border: `solid 1px ${colors.lightPeriwinkle}`,
       backgroundColor: colors.paleGrey,
       [theme.breakpoints.down('md')]: {
-        padding: '9% 0',
+        padding: '9% 10px',
       },
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',

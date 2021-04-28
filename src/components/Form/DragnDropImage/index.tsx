@@ -63,6 +63,7 @@ const styles: Styles = {
     width: 148,
     height: 34,
     letterSpacing: 2.25,
+    padding: 0,
   },
 };
 
