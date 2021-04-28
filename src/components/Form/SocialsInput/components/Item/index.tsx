@@ -16,6 +16,23 @@ interface Props extends StyleProps {
 const isSocialType = (val: unknown): val is SocialType =>
   isStr(val) && ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'].includes(val);
 
+const socialNameToPlaceholder = (val: string): string => {
+  switch (val) {
+    case 'twitter':
+      return 'https://twitter.com/...';
+    case 'facebook':
+      return 'https://facebook.com/...';
+    case 'instagram':
+      return 'https://instagram.com/...';
+    case 'linkedin':
+      return 'https://linkedin.com/in/...';
+    case 'youtube':
+      return 'https://www.youtube.com/channel/...';
+    default:
+      return 'https://';
+  }
+};
+
 export const FormSocialInput: FC<Props> = ({ item, style, onRemove, onChange }) => {
   const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => onChange({ ...item, url: e.currentTarget.value });
 
@@ -40,7 +57,13 @@ export const FormSocialInput: FC<Props> = ({ item, style, onRemove, onChange }) 
         value={isSocialType(item.name) ? item.name : 'custom'}
         onChange={handleSocialChange}
       />
-      <FormTextInput style={styles.input} fullWidth value={item.url} onChange={handleUrlChange} placeholder="https://" />
+      <FormTextInput
+        style={styles.input}
+        fullWidth
+        value={item.url}
+        onChange={handleUrlChange}
+        placeholder={socialNameToPlaceholder(item.name)}
+      />
       <IconButton size="small" onClick={() => onRemove(item)} style={styles.removeBtn}>
         <LineAwesomeIcon type="times-circle" />
       </IconButton>
