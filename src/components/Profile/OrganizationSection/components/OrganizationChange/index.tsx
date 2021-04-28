@@ -1,15 +1,18 @@
 import { Divider, Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormTextInput, FormSelect, FormDragnDropImage, FormRow, FormSocialSelect } from 'components/Form';
+import { FormControlSection, FormDragnDropImage, FormRow, FormSelect, FormSocialsInput, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC } from 'react';
-import { StyleProps, colors, Styles } from 'styles';
+import { Social } from 'core/api';
+import React, { FC, useState } from 'react';
+import { colors, StyleProps, Styles } from 'styles';
 
 import { useStyles } from './styles';
 
 type Props = StyleProps;
 
 export const ProfileOrganization: FC<Props> = ({ style }) => {
+  const [socials, setSocials] = useState<Social[]>([]);
+
   const classes = useStyles();
 
   const socialSelectClasses = {
@@ -98,48 +101,12 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
           </Grid>
           <Divider style={styles.divider} />
           <Grid item xs={12} sm={12} md={12} lg={12}>
-            <div className={classes.headerSection}>
-              <span className={classes.title}>{'Organization Social Media Accounts'}</span>
-              <span className={classes.subtitle} style={{ marginBottom: 30 }}>
-                {'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}
-              </span>
-            </div>
-            <div className={classes.socBlock}>
-              <FormSocialSelect
-                classes={socialSelectClasses}
-                label="Social Media"
-                className={classes.socSelect}
-                value="twitter"
-              />
-              <FormTextInput className={classes.inputText} inputStyle={styles.input} />
-            </div>
-            <div className={classes.socBlock}>
-              <FormSocialSelect
-                classes={socialSelectClasses}
-                label="Social Media"
-                className={classes.socSelect}
-                value="facebook"
-              />
-              <FormTextInput className={classes.inputText} inputStyle={styles.input} />
-            </div>
-            <div className={classes.socBlock}>
-              <FormSocialSelect
-                classes={socialSelectClasses}
-                label="Social Media"
-                className={classes.socSelect}
-                value="youtube"
-              />
-              <FormTextInput className={classes.inputText} inputStyle={styles.input} />
-            </div>
-            <div className={classes.socBlock}>
-              <FormSocialSelect
-                classes={socialSelectClasses}
-                label="Social Media"
-                className={classes.socSelect}
-                value="instagram"
-              />
-              <FormTextInput className={classes.inputText} inputStyle={styles.input} style={{ marginBottom: 34 }} />
-            </div>
+            <FormControlSection
+              title="Organization Social Media Accounts"
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+            >
+              <FormSocialsInput items={socials} onChange={setSocials} />
+            </FormControlSection>
           </Grid>
           <Divider style={styles.divider} />
         </Grid>

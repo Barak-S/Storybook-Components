@@ -1,5 +1,6 @@
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
+import { FormControlSection, FormSocialsInput } from 'components/Form';
 import { User, UserUpdate } from 'core/api';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
@@ -8,7 +9,6 @@ import ProfileSectionFooter from '../SectionFooter';
 import BioSection from './components/BioSection';
 import CompanySection from './components/CompanySection';
 import ImageSection from './components/ImageSection';
-import SocialSection from './components/SocialSection';
 
 interface Props extends StyleProps {
   profile: User;
@@ -49,7 +49,12 @@ export const ProfileAccountSection: FC<Props> = ({
 
         <Grid item xs={12} sm={12} md={10} lg={10} className={classes.item3}>
           <CompanySection data={data} profile={profile} onChange={onChange} />
-          <SocialSection />
+          <FormControlSection
+            title="Social Media Accounts"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+          >
+            <FormSocialsInput items={data?.socials} onChange={socials => onChange && onChange({ ...data, socials })} />
+          </FormControlSection>
           <BioSection data={data} onChange={onChange} />
           <ProfileSectionFooter processing={processing} disabled={processing} style={styles.btn} onSaveClick={onSubmit} />
         </Grid>
