@@ -1,7 +1,7 @@
 import { TextButton } from 'components/Buttons';
 import { View } from 'components/Common';
 import { Social } from 'core/api';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { ms, StyleProps, Styles } from 'styles';
 import { genId } from 'utils';
 
@@ -9,15 +9,17 @@ import FormSocialsInputItem from './components/Item';
 
 interface Props extends StyleProps {
   items?: Social[];
+  defSocials?: string[];
   onChange?: (items: Social[]) => void;
 }
 
-export const FormSocialsInput: FC<Props> = ({ style, items = [], onChange }) => {
-  const genNewItem = (items: Social[] = []): Social => {
-    if (!items.length) {
-      return { name: 'twitter', id: genId(), url: '' };
-    }
-    const usedSocials = items.map(itm => itm.name);
+export const FormSocialsInput: FC<Props> = ({
+  style,
+  items = [],
+  defSocials = ['facebook', 'twitter', 'instagram'],
+  onChange,
+}) => {
+  const genNewItem = (usedSocials: string[] = []): Social => {
     const unusedSocials = ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'].filter(
       itm => !usedSocials.includes(itm),
     );
@@ -26,8 +28,8 @@ export const FormSocialsInput: FC<Props> = ({ style, items = [], onChange }) => 
 
   const handleItemChange = (newItem: Social) => {
     if (onChange) {
-      if (newItem.id === 'def') {
-        onChange([{ ...newItem, id: genId() }]);
+      if (newItem.id.indexOf('def-') === 0) {
+        onChange([...items, { ...newItem, id: genId() }]);
       } else {
         onChange(items.map(itm => (itm.id !== newItem.id ? itm : { ...itm, ...newItem })));
       }
@@ -40,36 +42,41 @@ export const FormSocialsInput: FC<Props> = ({ style, items = [], onChange }) => 
 
   const handleAddClick = () => {
     if (onChange) {
-      if (items.length) {
-        onChange([...items, genNewItem(items)]);
-      } else {
-        const item = genNewItem();
-        onChange([item, genNewItem([item])]);
-      }
+      const usedSocials = items.map(itm => itm.name);
+      onChange([...items, genNewItem([...defSocials, ...usedSocials])]);
     }
   };
+
+  const renderItems = () => {
+    let curItems: Social[] = items;
+    const nodes: ReactNode[] = [];
+    let index: number = 0;
+    for (const defSocial of defSocials) {
+      const curItem = curItems.find(itm => itm.name === defSocial);
+      if (curItem) {
+        nodes.push(renderItem(curItem, `${index}`));
+        curItems = curItems.filter(itm => itm.id !== curItem.id);
+      } else {
+        nodes.push(renderItem({ name: defSocial, id: `def-${defSocial}`, url: '' }, `${index}`));
+      }
+      index++;
+    }
+    for (const itm of curItems) {
+      nodes.push(renderItem(itm, `${index}`));
+      index++;
+    }
+    return nodes;
+  };
+
+  const renderItem = (itm: Social, key: string) => (
+    <FormSocialsInputItem key={key} style={styles.item} item={itm} onRemove={handleItemRemove} onChange={handleItemChange} />
+  );
 
   const styles = getStyles();
 
   return (
     <View style={ms(styles.container, style)} alignItems="flex-start">
-      {items.map(itm => (
-        <FormSocialsInputItem
-          style={styles.item}
-          key={itm.id}
-          item={itm}
-          onRemove={handleItemRemove}
-          onChange={handleItemChange}
-        />
-      ))}
-      {!items.length && (
-        <FormSocialsInputItem
-          style={styles.item}
-          item={{ name: 'twitter', id: 'def', url: '' }}
-          onRemove={handleItemRemove}
-          onChange={handleItemChange}
-        />
-      )}
+      {renderItems()}
       <TextButton style={styles.addBtn} onClick={handleAddClick} disabled={false}>
         {'+ Add'}
       </TextButton>
