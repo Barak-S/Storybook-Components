@@ -15,6 +15,7 @@ interface CustomProps {
   maxLength?: number;
   forwardRef?: Ref<HTMLDivElement>;
   className?: string;
+  placeholder?: string;
 }
 
 export const FormTextInput: FC<Props> = ({
@@ -27,6 +28,7 @@ export const FormTextInput: FC<Props> = ({
   InputProps,
   forwardRef,
   className,
+  placeholder,
   ...props
 }) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
@@ -41,6 +43,7 @@ export const FormTextInput: FC<Props> = ({
       className={mc(classes.root, className)}
       fullWidth
       {...props}
+      placeholder={placeholder}
       InputProps={{
         inputProps: { style: inputStyle, maxLength },
         startAdornment: iconStart ? startIconProps : undefined,
