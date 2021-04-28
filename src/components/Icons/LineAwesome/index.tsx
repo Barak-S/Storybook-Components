@@ -13,7 +13,7 @@ interface Props extends StyleProps {
 }
 
 const getRootClassName = (val: LineAwesomeIconType): string => {
-  if (['facebook-f', 'google', 'instagram', 'twitter', 'youtube'].includes(val)) {
+  if (['facebook-f', 'google', 'instagram', 'twitter', 'youtube', 'linkedin'].includes(val)) {
     return 'lab';
   }
   return 'las';

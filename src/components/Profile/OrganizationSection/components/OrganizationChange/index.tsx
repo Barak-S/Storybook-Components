@@ -110,7 +110,6 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 label="Social Media"
                 className={classes.socSelect}
                 value="twitter"
-                iconStart
               />
               <FormTextInput className={classes.inputText} inputStyle={styles.input} />
             </div>
@@ -120,7 +119,6 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 label="Social Media"
                 className={classes.socSelect}
                 value="facebook"
-                iconStart
               />
               <FormTextInput className={classes.inputText} inputStyle={styles.input} />
             </div>
@@ -130,7 +128,6 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 label="Social Media"
                 className={classes.socSelect}
                 value="youtube"
-                iconStart
               />
               <FormTextInput className={classes.inputText} inputStyle={styles.input} />
             </div>
@@ -140,7 +137,6 @@ export const ProfileOrganization: FC<Props> = ({ style }) => {
                 label="Social Media"
                 className={classes.socSelect}
                 value="instagram"
-                iconStart
               />
               <FormTextInput className={classes.inputText} inputStyle={styles.input} style={{ marginBottom: 34 }} />
             </div>

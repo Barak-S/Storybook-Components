@@ -26,14 +26,14 @@ export interface FormSelectStyledOption {
   value: unknown;
 }
 
-export const FormSelectStyled: FC<Props> = ({ label, className, options, disabled, classes, iconStart, ...props }) => {
+export const FormSelectStyled: FC<Props> = ({ style, label, className, options, disabled, classes, iconStart, ...props }) => {
   const [open, setOpen] = useState<boolean>(false);
   const localClasses = useStyles(Boolean(iconStart));
   const selectId = useMemo(() => genId(), []);
   const iconType = open ? 'chevron-circle-up' : 'chevron-circle-down';
 
   return (
-    <FormControl className={mc(localClasses.container, className)}>
+    <FormControl style={style} className={mc(localClasses.container, className)}>
       {!!label && (
         <InputLabel className={classes?.label} id={selectId}>
           {label}
@@ -52,9 +52,9 @@ export const FormSelectStyled: FC<Props> = ({ label, className, options, disable
           root: mc(localClasses.selectRoot, classes?.root),
         }}
       >
-        {options.map(({ value }) => (
+        {options.map(({ name, value }) => (
           <MenuItem key={String(value)} value={String(value)}>
-            {String(value)}
+            {name}
           </MenuItem>
         ))}
       </Select>

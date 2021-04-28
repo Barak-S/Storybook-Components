@@ -16,7 +16,7 @@ interface Props<T> extends StyleProps, ClassNameProps {
   required?: boolean;
   disabled?: boolean;
   classes?: FormSelectStyledProps['classes'];
-  iconStart?: boolean;
+  iconStartVisisble?: boolean;
   iconExtractor?: (v: T) => LineAwesomeIconType | undefined;
   keyExtractor: (v: T) => string;
   titleExtractor: (v: T) => string;
@@ -57,7 +57,7 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
       name,
       placeholder,
       classes,
-      iconStart,
+      iconStartVisisble,
     } = this.props;
     return (
       <FormSelectStyled
@@ -73,7 +73,7 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
         placeholder={placeholder}
         options={options.map(itm => ({ name: titleExtractor(itm), value: keyExtractor(itm) }))}
         value={value ? keyExtractor(value) : ''}
-        iconStart={iconStart && value ? iconExtractor && iconExtractor(value) : undefined}
+        iconStart={iconStartVisisble && value ? iconExtractor && iconExtractor(value) : undefined}
         onChange={this.handleChange}
       />
     );

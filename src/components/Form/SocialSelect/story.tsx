@@ -1,8 +1,9 @@
 import { action } from '@storybook/addon-actions';
+import { SocialType } from 'core/api';
 import React, { FC, useState } from 'react';
 import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
-import FormSocialSelect, { FormSocialSelectNetworkType, FormSocialSelectProps as Props } from '.';
+import FormSocialSelect, { FormSocialSelectProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
   title: 'components/Form/SocialSelect',
@@ -18,8 +19,8 @@ export default ((): StoryMeta<Props> => ({
 }))();
 
 const FormSocialSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = args => {
-  const [value, setValue] = useState<FormSocialSelectNetworkType | undefined>(undefined);
-  const handleChange = (val: FormSocialSelectNetworkType | undefined) => {
+  const [value, setValue] = useState<SocialType | undefined>(undefined);
+  const handleChange = (val: SocialType | undefined) => {
     setValue(val);
     action('onChange')(val);
   };

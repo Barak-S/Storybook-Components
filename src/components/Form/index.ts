@@ -16,6 +16,7 @@ export * from './Row';
 export * from './Row';
 export * from './Select';
 export * from './SelectFileBtn';
+export * from './SocialsInput';
 export * from './SocialSelect';
 export * from './TextArea';
 export * from './TextArea';

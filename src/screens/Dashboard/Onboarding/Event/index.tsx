@@ -1,23 +1,25 @@
 import { Grid, makeStyles } from '@material-ui/core';
+import { Text } from 'components/Common';
 import {
   FormChipInput,
   FormControlSection,
   FormDateInput,
   FormNumberInput,
   FormSelect,
+  FormSocialsInput,
   FormTextArea,
   FormTextInput,
   FormTimeZoneInput,
   FormToggle,
 } from 'components/Form';
-import { Text } from 'components/Common';
+import SelectFileBtn from 'components/Form/SelectFileBtn';
 import { LineAwesomeIcon } from 'components/Icons';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupStep } from 'components/Setup';
-import React, { FC } from 'react';
+import { Social } from 'core/api';
+import React, { FC, useState } from 'react';
 import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
-import SelectFileBtn from 'components/Form/SelectFileBtn';
-import SocialMediaAccounts from './components/SocialMediaAccounts';
+
 import EventColorPalette from './components/ColorPalette';
 
 interface Props extends StyleProps {
@@ -42,6 +44,8 @@ interface StyleConfig {
 }
 
 export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClick, onChange }) => {
+  const [socialItems, setSocialItems] = useState<Social[]>([]);
+
   const { eventType } = data;
 
   const eventTypes: EventType[] = [
@@ -159,7 +163,12 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClic
               <FormTextInput label="Email" />
             </Grid>
           </FormControlSection>
-          <SocialMediaAccounts />
+          <FormControlSection
+            title="Social Media Accounts"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+          >
+            <FormSocialsInput items={socialItems} onChange={setSocialItems} />
+          </FormControlSection>
           <FormControlSection
             title="Assign SEO Event Tags"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
