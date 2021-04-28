@@ -24,7 +24,7 @@ export const ProfileAccountImageSection: FC<Props> = ({ style, user, processing,
           onFileSelect={onFileSelect}
         />
       </View>
-      <FormSelectFileBtn title="CHOOSE IMAGE" btnStyle={{ borderRadius: 6 }} onFileSelect={onFileSelect} />
+      <FormSelectFileBtn title="CHOOSE IMAGE" btnStyle={{ borderRadius: 6, padding: 0 }} onFileSelect={onFileSelect} />
     </View>
   );
 };

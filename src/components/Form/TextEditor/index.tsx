@@ -13,11 +13,11 @@ export const FormTextEditor: FC<Props> = ({ style, value, onChange }) => {
     <View style={style}>
       <Editor
         value={value || ''}
-        init={{
-          mobile: {
-            theme: 'mobile',
-          },
-        }}
+        // init={{
+        //   mobile: {
+        //     theme: 'mobile',
+        //   },
+        // }}
         onChange={e => onChange && onChange(e.target.getContent())}
       />
     </View>

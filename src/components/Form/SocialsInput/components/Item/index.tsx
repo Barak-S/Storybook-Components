@@ -19,15 +19,15 @@ const isSocialType = (val: unknown): val is SocialType =>
 const socialNameToPlaceholder = (val: string): string => {
   switch (val) {
     case 'twitter':
-      return 'https://twitter.com/...';
+      return 'twitter.com/username';
     case 'facebook':
-      return 'https://facebook.com/...';
+      return 'facebook.com/username';
     case 'instagram':
-      return 'https://instagram.com/...';
+      return 'instagram.com/username';
     case 'linkedin':
-      return 'https://linkedin.com/in/...';
+      return 'linkedin.com/in/username';
     case 'youtube':
-      return 'https://www.youtube.com/channel/...';
+      return 'www.youtube.com/channel/username';
     default:
       return 'https://';
   }
@@ -59,6 +59,7 @@ export const FormSocialInput: FC<Props> = ({ item, style, onRemove, onChange }) 
       />
       <FormTextInput
         style={styles.input}
+        inputStyle={styles.input}
         fullWidth
         value={item.url}
         onChange={handleUrlChange}
@@ -82,6 +83,7 @@ const getStyles = (isMobile: boolean): Styles => ({
   input: {
     marginRight: isMobile ? 0 : 20,
     marginBottom: isMobile ? 20 : 0,
+    fontSize: 16,
   },
   removeBtn: {
     ...mx.square(24),

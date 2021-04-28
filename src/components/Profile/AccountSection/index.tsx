@@ -32,32 +32,35 @@ export const ProfileAccountSection: FC<Props> = ({
 }) => {
   const classes = useStyles();
   return (
-    <View row style={style} className={classes.contact}>
-      <Grid container>
-        <Grid item xs={12} sm={12} md={2} lg={2} className={classes.item1}>
-          <ImageSection user={profile} processing={thumbProcessing} onFileSelect={onThumbFileSelect} />
-        </Grid>
+    <View style={style} className={classes.contact}>
+      <Grid container className={classes.container}>
+        <div className={classes.mobileDirection}>
+          <div className={classes.imgSection}>
+            <ImageSection user={profile} processing={thumbProcessing} onFileSelect={onThumbFileSelect} />
+          </div>
 
-        <Grid item xs={12} sm={12} md={10} lg={10} className={classes.item2}>
-          <View className={classes.headerSection}>
-            <span className={classes.title}>{'Contact Information'}</span>
-            <span className={classes.subtitle}>
-              {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
-            </span>
-          </View>
-        </Grid>
+          <div className={classes.headerSection}>
+            <View className={classes.heading}>
+              <span className={classes.title}>{'Contact Information'}</span>
+              <span className={classes.subtitle}>
+                {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
+              </span>
+            </View>
+          </div>
+        </div>
 
-        <Grid item xs={12} sm={12} md={10} lg={10} className={classes.item3}>
+        <div className={classes.profileSection}>
           <CompanySection data={data} profile={profile} onChange={onChange} />
           <FormControlSection
-            title="Social Media Accounts"
+            title="Social Media Profiles"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+            borderTop={false}
           >
             <FormSocialsInput items={data?.socials} onChange={socials => onChange && onChange({ ...data, socials })} />
           </FormControlSection>
           <BioSection data={data} onChange={onChange} />
           <ProfileSectionFooter processing={processing} disabled={processing} style={styles.btn} onSaveClick={onSubmit} />
-        </Grid>
+        </div>
       </Grid>
     </View>
   );
@@ -72,25 +75,18 @@ const styles: Styles = {
 const useStyles = () =>
   makeStyles((theme: Theme) => ({
     container: {
-      marginBottom: '37px',
-      [theme.breakpoints.down('sm')]: {
-        display: 'block',
-      },
+      display: 'flex',
     },
     contact: {
       width: '-webkit-fill-available',
-      display: 'flex',
-      flexDirection: 'column',
       [theme.breakpoints.down('sm')]: {
         display: 'block',
       },
     },
-    headerSection: {
-      [theme.breakpoints.down('md')]: {
-        paddingLeft: '20px',
-      },
+    heading: {
+      paddingLeft: 10,
       [theme.breakpoints.down('sm')]: {
-        paddingLeft: '0px',
+        paddingLeft: 0,
       },
     },
     title: {
@@ -110,37 +106,50 @@ const useStyles = () =>
         marginLeft: 'auto',
       },
     },
-    item1: {
-      order: 1,
-      justifyContent: 'center',
+    imgSection: {
+      marginLeft: 10,
+      width: 212,
+      minWidth: 212,
+      minHeight: '100%',
       display: 'flex',
       [theme.breakpoints.down('md')]: {
-        marginBottom: 35,
+        marginBottom: 55,
+        paddingLeft: 0,
       },
       [theme.breakpoints.down('sm')]: {
-        order: 2,
+        marginLeft: 0,
+        width: '100%',
+        minWidth: '100%',
+        justifyContent: 'center',
       },
     },
-    item2: {
+    headerSection: {
+      maxWidth: 744,
       height: 55,
-      order: 2,
       paddingTop: 6,
-      [theme.breakpoints.down('sm')]: {
-        order: 1,
-      },
     },
-    item3: {
-      order: 3,
-      marginLeft: 'auto',
-      marginTop: '-120px',
+    profileSection: {
+      width: '100%',
+      marginLeft: 222,
+      marginTop: '-100px',
+      paddingLeft: 10,
+      paddingRight: 20,
       [theme.breakpoints.down('md')]: {
-        marginTop: '-150px',
-        paddingLeft: 20,
+        marginTop: '-130px',
+        paddingRight: 0,
       },
       [theme.breakpoints.down('sm')]: {
         paddingLeft: 0,
-        marginLeft: '0px',
-        marginTop: '0px',
+        marginLeft: 0,
+        marginTop: 0,
+      },
+    },
+    mobileDirection: {
+      display: 'flex',
+      width: '100%',
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column-reverse',
+        marginTop: 'auto',
       },
     },
   }))();
