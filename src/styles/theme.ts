@@ -138,6 +138,14 @@ export const muiTheme = createMuiTheme({
       root: {
         pointerEvents: 'none',
       },
+      asterisk: {
+        color: colors.rustyRed,
+        transform: 'translateX(-3px)',
+        display: 'inline-flex',
+        '&$error': {
+          color: colors.error,
+        },
+      },
       filled: {
         color: colors.link,
         '& + .MuiInputBase-root > .MuiInputBase-input': {

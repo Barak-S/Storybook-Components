@@ -41,8 +41,8 @@ export const useStyles = () =>
       },
     },
     socBlock: {
+      maxWidth: 616,
       display: 'flex',
-      alignItems: 'top',
       marginTop: '21px',
       flexDirection: 'row',
       [theme.breakpoints.down('sm')]: {
@@ -55,9 +55,20 @@ export const useStyles = () =>
     },
     input: {
       maxWidth: 276,
+      marginBottom: 'auto',
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
         marginBottom: 27,
+      },
+    },
+    input2: {
+      maxWidth: 276,
+      marginBottom: 'auto',
+      marginRight: 10,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+        marginBottom: 27,
+        marginRight: 0,
       },
     },
     inputText: {
@@ -74,9 +85,11 @@ export const useStyles = () =>
     },
     formSelect: {
       maxWidth: 266,
+      marginRight: 10,
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
         marginBottom: 27,
+        marginRight: 0,
       },
     },
     blockInf: {
@@ -95,6 +108,7 @@ export const useStyles = () =>
     },
     socSelect: {
       maxWidth: 195,
+      width: '100%',
     },
     selectAdornment: {
       '&.MuiButtonBase-root': {
@@ -126,5 +140,6 @@ export const useStyles = () =>
       maxHeight: 154,
       maxWidth: 631,
       marginTop: 18,
+      paddingRight: 25,
     },
   }))();

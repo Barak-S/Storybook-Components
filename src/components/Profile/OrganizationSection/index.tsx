@@ -1,21 +1,58 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Style, Styles } from 'styles';
 import ProfileSectionFooter from '../SectionFooter';
-import ProfileOrganization from './components/OrganizationChange';
+import { isDictEmpty, validators } from 'utils';
+import ProfileOrganization, {
+  OrganizationChangeData as FormData,
+  OrganizationChangeErrs as FormErrs,
+} from './components/OrganizationChange';
 
 interface Props {
   style?: Style;
 }
 
 export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
+  const [disabled, setDisablled] = useState(true);
+  const [processing, setProcessing] = useState(false);
+
+  const [data, setData] = useState<FormData>({});
+  const [errs, setErrs] = useState<FormErrs | undefined>();
+
+  const handleFormChange = (newData: Partial<FormData>) => {
+    setErrs(undefined);
+    setDisablled(false);
+    setData({ ...data, ...newData });
+  };
+
+  const getFormErrs = (data: FormData): FormErrs | undefined => {
+    const errs: FormErrs = {
+      orgName: !data.orgName || data.orgName === '' ? 'An Organization Name is required' : undefined,
+      country: !data.country || data.country === '' ? 'A valid Country is required' : undefined,
+      state: !data.state || data.state === '' ? 'A valid State is required' : undefined,
+      city: !data.city || data.city === '' ? 'A valid State is required' : undefined,
+      email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'An Email is required' }),
+      phoneNumber: validators.getPhoneNumberErr(data.phoneNumber, { required: true, requiredMsg: 'A phone number is required' }),
+    };
+    return !isDictEmpty(errs) ? errs : undefined;
+  };
+
+  const handleSubmitClick = () => {
+    const curErrs = getFormErrs(data);
+    if (curErrs) {
+      return setErrs(curErrs);
+    } else {
+      setProcessing(true);
+    }
+  };
+
   const classes = useStyles();
 
   return (
     <View style={style} className={classes.container}>
-      <ProfileOrganization />
-      <ProfileSectionFooter style={styles.btn} />
+      <ProfileOrganization data={data} errs={errs} onChange={handleFormChange} />
+      <ProfileSectionFooter style={styles.btn} processing={processing} disabled={disabled} onSaveClick={handleSubmitClick} />
     </View>
   );
 };
