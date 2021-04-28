@@ -14,6 +14,8 @@ interface Props<T> extends StyleProps, ClassNameProps {
   placeholder?: string;
   fullWidth?: boolean;
   required?: boolean;
+  error?: boolean;
+  helperText?: string;
   disabled?: boolean;
   classes?: FormSelectStyledProps['classes'];
   iconStartVisisble?: boolean;
@@ -52,6 +54,8 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
       iconExtractor,
       fullWidth,
       required,
+      error,
+      helperText,
       disabled,
       title,
       name,
@@ -68,6 +72,8 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
         disabled={disabled}
         fullWidth={fullWidth}
         required={required}
+        helperText={helperText}
+        error={error}
         title={title}
         name={name}
         placeholder={placeholder}

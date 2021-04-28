@@ -1,4 +1,4 @@
-import { FormControl, IconButton, InputLabel, MenuItem, Select, SelectProps } from '@material-ui/core';
+import { FormControl, IconButton, InputLabel, MenuItem, Select, SelectProps, FormHelperText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC, useMemo, useState } from 'react';
@@ -12,6 +12,8 @@ interface CustomProps extends SelectProps {
   options: FormSelectStyledOption[];
   className?: string;
   disabled?: boolean;
+  error?: boolean;
+  helperText?: string;
   classes?: {
     root?: string;
     label?: string;
@@ -19,6 +21,7 @@ interface CustomProps extends SelectProps {
     iconBtn?: string;
   };
   iconStart?: LineAwesomeIconType;
+  required?: boolean;
 }
 
 export interface FormSelectStyledOption {
@@ -26,7 +29,19 @@ export interface FormSelectStyledOption {
   value: unknown;
 }
 
-export const FormSelectStyled: FC<Props> = ({ style, label, className, options, disabled, classes, iconStart, ...props }) => {
+export const FormSelectStyled: FC<Props> = ({
+  style,
+  label,
+  className,
+  options,
+  disabled,
+  required,
+  error,
+  helperText,
+  classes,
+  iconStart,
+  ...props
+}) => {
   const [open, setOpen] = useState<boolean>(false);
   const localClasses = useStyles(Boolean(iconStart));
   const selectId = useMemo(() => genId(), []);
@@ -35,7 +50,7 @@ export const FormSelectStyled: FC<Props> = ({ style, label, className, options, 
   return (
     <FormControl style={style} className={mc(localClasses.container, className)}>
       {!!label && (
-        <InputLabel className={classes?.label} id={selectId}>
+        <InputLabel className={mc(classes?.label, error && localClasses.error)} id={selectId} required={required}>
           {label}
         </InputLabel>
       )}
@@ -61,6 +76,7 @@ export const FormSelectStyled: FC<Props> = ({ style, label, className, options, 
       <IconButton className={mc(localClasses.iconBtn, classes?.iconBtn)}>
         <LineAwesomeIcon type={iconType} size={24} className={mc(localClasses.icon, classes?.icon)} />
       </IconButton>
+      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
     </FormControl>
   );
 };
@@ -87,6 +103,11 @@ export const useStyles = (iconStart: boolean) =>
       },
       '&:focus': {
         borderRadius: 12,
+      },
+      '& .MuiFormLabel-asterisk': {
+        color: colors.rustyRed,
+        transform: 'translateX(-3px)',
+        display: 'inline-flex',
       },
     },
     nativeIcon: {
@@ -117,6 +138,9 @@ export const useStyles = (iconStart: boolean) =>
       pointerEvents: 'none',
       ...mx.zIndex.overBase,
       color: colors.brownishGrey,
+    },
+    error: {
+      color: colors.error,
     },
   })();
 
