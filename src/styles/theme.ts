@@ -220,5 +220,21 @@ export const muiTheme = createMuiTheme({
         position: 'relative',
       },
     },
+    MuiMenuItem: {
+      root: {
+        '&$selected': {
+          color: colors.white,
+          backgroundColor: colors.coolBlue,
+          '&:hover': {
+            color: colors.white,
+            backgroundColor: colors.coolBlue,
+          },
+        },
+        '&:hover': {
+          color: colors.white,
+          backgroundColor: colors.coolBlue,
+        },
+      },
+    },
   },
 });

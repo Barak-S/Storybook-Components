@@ -66,6 +66,13 @@ export const FormSelectStyled: FC<Props> = ({
           icon: localClasses.nativeIcon,
           root: mc(localClasses.selectRoot, classes?.root),
         }}
+        MenuProps={{
+          getContentAnchorEl: null,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+        }}
       >
         {options.map(({ name, value }) => (
           <MenuItem key={String(value)} value={String(value)}>

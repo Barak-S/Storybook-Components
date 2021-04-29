@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Theme } from '@material-ui/core';
+import { Grid, makeStyles, Theme, Divider } from '@material-ui/core';
 import { View } from 'components/Common';
 import { FormControlSection, FormSocialsInput } from 'components/Form';
 import { User, UserUpdate } from 'core/api';
@@ -58,6 +58,7 @@ export const ProfileAccountSection: FC<Props> = ({
           >
             <FormSocialsInput items={data?.socials} onChange={socials => onChange && onChange({ ...data, socials })} />
           </FormControlSection>
+          <Divider style={{ marginTop: 10, marginBottom: 40 }} />
           <BioSection data={data} onChange={onChange} />
           <ProfileSectionFooter processing={processing} disabled={processing} style={styles.btn} onSaveClick={onSubmit} />
         </div>

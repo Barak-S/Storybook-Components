@@ -87,6 +87,9 @@ const getStyles = (isMobile: boolean): Styles => ({
   },
   removeBtn: {
     ...mx.square(24),
+    position: isMobile ? 'absolute' : 'relative',
+    top: isMobile ? 14 : 0,
+    right: isMobile ? 15 : 0,
   },
 });
 
