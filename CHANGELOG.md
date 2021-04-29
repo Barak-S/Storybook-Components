@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.62] - 2021-04-29
+### Added
+- Onboarding: filling organization information functionality added
+
+### Changed
+- FormSelect menu & menu items styling
+
+### Fixed
+- DO-164: QA Organization Tab
+- DO-131: Profile Tab QA
+
 ## [1.0.61] - 2021-04-28
 ### Added
 - Changing social media accounts at profile functionality added
