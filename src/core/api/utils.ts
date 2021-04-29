@@ -1,6 +1,6 @@
 import { omit } from 'lodash';
 
-import { User, UserUpdate } from './types';
+import { Organization, OrganizationUpdate, User, UserUpdate } from './types';
 
 // API
 
@@ -20,3 +20,8 @@ export class ApiError extends Error {
 
 export const userToUpdate = (data: User | undefined): UserUpdate =>
   data ? omit(data, ['id', 'email', 'confirmed', 'createdAt', 'updatedAt']) : {};
+
+// Organizations
+
+export const orgItemToUpdate = (item: Organization | undefined): OrganizationUpdate =>
+  item ? omit(item, ['id', 'createdAt', 'updatedAt']) : {};

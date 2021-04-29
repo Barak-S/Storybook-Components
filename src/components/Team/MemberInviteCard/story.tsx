@@ -8,13 +8,15 @@ export default ((): StoryMeta<Props> => ({
   component: TeamMemberInviteCard,
   args: {
     data: {
+      id: '1',
       firstName: 'Eddie',
       lastName: 'Hunt',
-      companyName: 'Some company name',
       email: 'eddie.hunt@example.com',
-      userGroup: 'Admins',
-      companyType: 'Iris inc.',
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      role: 'manager',
+      status: 'pending',
+      createdAt: new Date(0).toISOString(),
+      updatedAt: new Date(0).toISOString(),
     },
   },
   argTypes: {},

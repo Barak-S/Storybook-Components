@@ -1,5 +1,5 @@
 import { List, ListItem, makeStyles, useTheme } from '@material-ui/core';
-import { TeamMemberInvite } from 'core/api';
+import { OrganizationInvite } from 'core/api';
 import React, { FC } from 'react';
 import { mc, StyleProps } from 'styles';
 
@@ -7,7 +7,7 @@ import TeamMemberCard from '../MemberInviteCard';
 
 interface Props extends StyleProps {
   className: string;
-  items: TeamMemberInvite[];
+  items: OrganizationInvite[];
 }
 
 export const TeamMemberInvitesList: FC<Props> = ({ style, className, items }) => {

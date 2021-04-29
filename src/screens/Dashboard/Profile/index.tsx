@@ -56,7 +56,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
     try {
       setThumbProcessing(true);
       log.info('uploading thumb');
-      const res = await manager.api.uploadImage(file, 'profile');
+      const res = await manager.api.assets.uploadImage(file, 'profile');
       log.info('uploading thumb done');
       log.info('saving user data');
       await manager.user.modifyData({ ...data, thumbnail: res.data.url });

@@ -86,5 +86,6 @@ export const mx = {
   square,
   overlay,
   centeredContent,
+  w100: { width: '100%' },
   zIndex: zIndexMap,
 };

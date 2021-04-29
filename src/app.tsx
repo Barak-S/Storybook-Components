@@ -42,6 +42,7 @@ export const App: FC = () => {
     try {
       await manager.user.updateData();
       await manager.user.updateSettings();
+      await manager.orgs.updateAndCheckCurrent();
     } catch (err: unknown) {
       // Init and update user, if it not found at the DB
       if (err instanceof ApiError && err.status === httpStatus.NOT_FOUND) {
@@ -56,6 +57,7 @@ export const App: FC = () => {
     try {
       await manager.user.init();
       await manager.user.updateSettings();
+      await manager.orgs.updateAndCheckCurrent();
     } catch (err: unknown) {
       log.err('profile update err=', err);
     }

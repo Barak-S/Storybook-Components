@@ -1,6 +1,7 @@
-// Socials
+import Joi from 'joi';
+import { idMaxSize, nameMaxSize, urlMaxSize } from 'utils';
 
-import { isStr } from 'utils';
+// Socials
 
 export interface Social {
   id: string;
@@ -8,14 +9,19 @@ export interface Social {
   url: string;
 }
 
+export const SocialSchema = Joi.object({
+  id: Joi.string().max(idMaxSize).required(),
+  name: Joi.string().max(nameMaxSize).required(),
+  url: Joi.string().uri().max(urlMaxSize).required(),
+});
+
+export const isSocial = (val: unknown): val is Social => SocialSchema.validate(val).error === undefined;
+
 export type SocialType = 'facebook' | 'twitter' | 'linkedin' | 'instagram' | 'google' | 'youtube' | 'custom';
 
 export const socialTypeArr: SocialType[] = ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'];
 
 export const isSocialType = (val: unknown): val is SocialType =>
-  isStr(val) && ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'].includes(val);
-
-export interface Props {
-  items: Social[];
-  onChange?: (newItems: Social[]) => void;
-}
+  Joi.string()
+    .valid(...socialTypeArr)
+    .validate(val).error === undefined;

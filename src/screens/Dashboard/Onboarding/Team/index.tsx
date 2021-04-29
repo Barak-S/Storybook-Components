@@ -1,12 +1,12 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ScreenTitle } from 'components/Screen';
-import { SetupContainer, SetupStep } from 'components/Setup';
+import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { TeamMemberInvitesList } from 'components/Team';
-import { isTeamMemberInvite, TeamMemberInvite } from 'core/api';
+import { isOrganizationInvite, OrganizationInvite } from 'core/api';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
-import { scrollToTop, StyleProps } from 'styles';
+import { StyleProps } from 'styles';
 
 import OnboardingTeamScreenForm, { OnboardingTeamScreenFormData as FormData } from './components/Form';
 
@@ -16,7 +16,7 @@ interface Props extends StyleProps {
 }
 
 export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
-  const [invites, setInvites] = useState<TeamMemberInvite[]>([]);
+  const [invites, setInvites] = useState<OrganizationInvite[]>([]);
   const [data, setData] = useState<FormData | undefined>();
   const history = useHistory();
 
@@ -25,15 +25,16 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
   };
 
   const handleFormSubmit = () => {
-    if (isTeamMemberInvite(data)) {
+    if (isOrganizationInvite(data)) {
       setInvites([...invites, data]);
     }
     setData(undefined);
   };
 
-  const handleFooterBtnClick = () => {
-    history.push(routes.dashboard.onboarding.theme);
-    scrollToTop();
+  const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
+    if (btn.id === 'back') {
+      history.push(routes.dashboard.onboarding.profile);
+    }
   };
 
   const theme = useTheme();

@@ -1,9 +1,11 @@
+import { onboardignSetupSteps } from 'components/Setup';
 import { UserSettingsOnboarding } from 'core/api';
 import React, { FC } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { useSelector } from 'store';
 import { StyleProps } from 'styles';
+import { isStr } from 'utils';
 
 import DashboardFirstEventSetupView from './view';
 
@@ -28,7 +30,7 @@ export const DashboardFirstEventSetup: FC<Props> = ({ style }) => {
   const history = useHistory();
   const onboarding = useSelector(s => s.user.settings.onboarding) || 'profile';
   const curStepIndex = onboardingToCurStepIndex(onboarding);
-  const steps = ['Profile information', 'Invite team members', 'Select event theme', 'Setup event'];
+  const steps = onboardignSetupSteps.map(itm => (isStr(itm.title) ? itm.title : itm.title.short));
   const actionBtnTitle = curStepIndex === 0 ? 'Add your first event' : 'Continue Event Setup';
 
   const handleGoToStepClick = () => {

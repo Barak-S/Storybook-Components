@@ -22,3 +22,4 @@ export { StoreAction } from './actions';
 export { StoreState } from './reducers';
 export * from './manager';
 export * from './utils';
+export * from './orgs/selectors';

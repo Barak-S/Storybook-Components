@@ -1,12 +1,12 @@
 import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { TextButton } from 'components/Buttons';
 import { Text } from 'components/Common';
-import { TeamMemberInvite } from 'core/api';
+import { OrganizationInvite } from 'core/api';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  data: TeamMemberInvite;
+  data: OrganizationInvite;
   onResendClick?: () => void;
 }
 
@@ -14,7 +14,7 @@ export const TeamMemberInviteCard: FC<Props> = ({ data, onResendClick }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const { firstName, lastName, email, userGroup, companyType, companyName } = data;
+  const { firstName, lastName, email, role, title } = data;
 
   return (
     <Paper className={classes.container} elevation={3}>
@@ -23,22 +23,19 @@ export const TeamMemberInviteCard: FC<Props> = ({ data, onResendClick }) => {
           <Text className={classes.topText}>
             {firstName} {lastName}
           </Text>
-          <Text className={classes.topText}>{companyName}</Text>
           <Text className={classes.topText}>{email}</Text>
         </Grid>
         <Text className={classes.topLabel}>{'Invite Sent'}</Text>
       </Grid>
       <Grid className={classes.middleBlock}>
-        {userGroup && (
+        <Grid className={classes.middleData}>
+          <Text className={classes.middleLabel}>{'Role:'}</Text>
+          <Text className={classes.middleText}>{`"${role}"`}</Text>
+        </Grid>
+        {title && (
           <Grid className={classes.middleData}>
-            <Text className={classes.middleLabel}>{'User Group:'}</Text>
-            <Text className={classes.middleText}>{`"${userGroup}"`}</Text>
-          </Grid>
-        )}
-        {companyType && (
-          <Grid className={classes.middleData}>
-            <Text className={classes.middleLabel}>{'Company Type:'}</Text>
-            <Text className={classes.middleText}>{`"${companyType}"`}</Text>
+            <Text className={classes.middleLabel}>{'Title:'}</Text>
+            <Text className={classes.middleText}>{`"${title}"`}</Text>
           </Grid>
         )}
       </Grid>

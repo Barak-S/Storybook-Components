@@ -1,71 +1,153 @@
-import { useMediaQuery, useTheme } from '@material-ui/core';
-import { View } from 'components/Common';
+import { CircularProgress } from '@material-ui/core';
+import { Text, View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, useState } from 'react';
-import { colors, mc, StyleProps, Styles } from 'styles';
+import React, { ChangeEvent, DragEvent, FC } from 'react';
+import { buildStyles, ClassNameProps, colors, mx, StyleProps } from 'styles';
 
 import { FormSelectFileBtn } from '../SelectFileBtn';
-import { useStyles } from './styles';
 
-interface Props extends StyleProps {
-  className?: string;
+interface Props extends StyleProps, ClassNameProps {
+  src?: string;
+  processing?: boolean;
+  disabled?: boolean;
+  border?: boolean;
+  fullWidth?: boolean;
+  onFileSelect?: (file: File) => void;
 }
 
-export const FormDragnDropImage: FC<Props> = ({ style, className }) => {
-  const classes = useStyles();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const [imageFile, setFile] = useState('');
-
-  const handleClick = (e: React.DragEvent<HTMLInputElement>) => {
+export const FormDragnDropImage: FC<Props> = ({
+  style,
+  className,
+  src,
+  fullWidth,
+  border = true,
+  processing,
+  disabled,
+  onFileSelect,
+}) => {
+  const handleClick = (e: DragEvent<HTMLInputElement>) => {
     e.preventDefault();
     return false;
   };
 
-  const handleChange = (importFile: { target: { files: FileList } }) => {
-    const file = importFile.target.files[0];
-    const reg = new RegExp('/image.*/');
-    if (reg.exec(file.type)) {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        setFile(String(reader.result));
-      });
-      reader.readAsDataURL(file);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+    if (onFileSelect) {
+      const file = e.target.files[0];
+      if (/image.*/.exec(file.type)) {
+        onFileSelect(file);
+      }
     }
   };
-  const updateData = (file: React.SetStateAction<string>) => {
-    setFile(file);
-  };
+
+  const styles = useStyles();
 
   return (
-    <View className={mc(classes.container, className)} style={style} row>
-      <input onClick={handleClick} type="file" className={classes.inputFile} onChange={() => handleChange} />
-      {imageFile && <img src={imageFile} className={classes.imagePrev} />}
-      {!isMobile && (
-        <>
-          <View column className={classes.blockImage}>
-            <View className={classes.icon}>
-              <LineAwesomeIcon size={62} type="image" color={colors.coolBlueTwo} />
+    <View
+      className={className}
+      style={[
+        styles.container,
+        fullWidth && mx.w100,
+        !!src && { backgroundImage: `url(${src})` },
+        border && !src && mx.border(3, 'dashed', colors.silverTwo),
+        style,
+      ]}
+      row
+    >
+      <input style={styles.input} onClick={handleClick} type="file" onChange={handleChange} />
+      {!processing && (
+        <View style={styles.content} row alignItems="center" justifyContent="center">
+          {!src && (
+            <View column style={styles.iconWrap}>
+              <LineAwesomeIcon
+                style={styles.icon}
+                size={62}
+                type="image"
+                color={!disabled ? colors.coolBlueTwo : colors.veryLightPinkTwo}
+              />
+              <Text style={[styles.iconText, disabled && { color: colors.veryLightPinkTwo }]} block>
+                {'Drag an image here'}
+              </Text>
             </View>
-            <span className={classes.titleInput}>{'Drag an image here'}</span>
-          </View>
-          <span className={classes.blockCenter}>{'Or'}</span>
-        </>
+          )}
+          {!src && <Text style={[styles.orText, disabled && { color: colors.veryLightPinkTwo }]}>{'Or'}</Text>}
+          <FormSelectFileBtn style={styles.btnWrap} disabled={disabled} btnStyle={styles.btn} onFileSelect={onFileSelect} />
+        </View>
       )}
-      {!imageFile && <FormSelectFileBtn onFileSelect={() => updateData} btnStyle={styles.btn} />}
+      {processing && (
+        <View style={styles.content} alignItems="center" justifyContent="center">
+          <CircularProgress />
+        </View>
+      )}
     </View>
   );
 };
 
-const styles: Styles = {
+const useStyles = buildStyles(({ isMobile, whenMobile }) => ({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 200,
+    height: 200,
+    borderRadius: 12,
+    border: `solid 1px ${colors.lightPeriwinkle}`,
+    backgroundColor: colors.paleGrey,
+    padding: isMobile ? '9% 10px' : '0 20%',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    boxSizing: 'border-box',
+  },
+  input: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    opacity: '0',
+  },
+  content: {
+    flex: 1,
+    marginLeft: 10,
+    marginRight: 10,
+    justifyContent: 'center',
+  },
+  iconWrap: {
+    display: whenMobile('none') || 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    marginBottom: 3,
+    display: 'block',
+  },
+  iconText: {
+    fontSize: '15px',
+    textAlign: 'center',
+    fontWeight: 500,
+    width: 140,
+    color: colors.brownishGrey,
+  },
+  orText: {
+    display: whenMobile('none') || 'block',
+    fontSize: '17px',
+    fontWeight: 300,
+    marginLeft: 29,
+    marginRight: 37,
+  },
+  btnWrap: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   btn: {
     width: 148,
     height: 34,
     letterSpacing: 2.25,
     padding: 0,
   },
-};
+}));
 
 export type FormDragnDropImageProps = Props;
 export default FormDragnDropImage;

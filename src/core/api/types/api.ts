@@ -1,5 +1,5 @@
 import { Method } from 'axios';
-import { isString } from 'lodash';
+import { isArray, isString } from 'lodash';
 import { isUnknowDict, TypeGuard } from 'utils';
 
 export interface ApiOpt {
@@ -13,13 +13,21 @@ export interface ApiReqOpt<T> {
   params?: Record<string, string | number>;
   timeout?: number;
   auth?: boolean;
-  guard: TypeGuard<T>;
+  guard?: TypeGuard<T>;
 }
+
+export type ApiReqHandler = <T>(opt: ApiReqOpt<T>) => Promise<T>;
 
 export interface ApiErrResp {
   message: string;
 }
 
 export type ApiDataResp<T> = { data: T };
+
+export const getRespGuard = <T>(guard: TypeGuard<T>): TypeGuard<ApiDataResp<T>> => (val: unknown): val is ApiDataResp<T> =>
+  isUnknowDict(val) && guard(val.data);
+
+export const getArrGuard = <T>(guard: TypeGuard<T>): TypeGuard<T[]> => (val: unknown): val is T[] =>
+  isArray(val) && val.reduce((memo, itm) => memo && guard(itm), true);
 
 export const isApiErrResp = (val: unknown): val is ApiErrResp => isUnknowDict(val) && isString(val.message);

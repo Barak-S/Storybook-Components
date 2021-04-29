@@ -84,3 +84,7 @@ export const isNum = isNumber;
 export { isDate } from 'lodash';
 
 export const lastIndex = (itms: unknown[]) => itms.length - 1;
+
+export type FormErrors<T> = Partial<Record<keyof T, string>>;
+
+export type FormProcessing<T> = Partial<Record<keyof T, boolean>>;

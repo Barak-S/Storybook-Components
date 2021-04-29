@@ -13,18 +13,20 @@ export interface SetupContainerFooterBtnItem {
   type?: 'contained' | 'text';
   title: string;
   disabled?: boolean;
+  processing?: boolean;
   startIcon?: LineAwesomeIconType;
   endIcon?: LineAwesomeIconType;
 }
 
 export const SetupContainerFooterBtn: FC<Props> = ({ style, item, onClick }) => {
-  const { title, disabled, startIcon, endIcon } = item;
+  const { title, disabled, startIcon, endIcon, processing } = item;
   return item.type === 'contained' ? (
     <ContainedButton
       style={ms(styles.container, style)}
       size="medium"
       disabled={disabled}
       startIcon={startIcon}
+      processing={processing}
       endIcon={endIcon}
       onClick={() => onClick && onClick(item)}
     >

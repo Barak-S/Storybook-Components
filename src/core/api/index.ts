@@ -3,19 +3,9 @@ import appConfig from 'core/configs';
 import { Log } from 'core/log';
 import { secMs } from 'utils';
 
-import {
-  ApiOpt,
-  ApiReqOpt,
-  AssetsImageResp,
-  isApiErrResp,
-  isAssetsImageResp,
-  isUserResp,
-  isUserSettingsResp,
-  UserResp,
-  UserSettings,
-  UserSettingsResp,
-  UserUpdate,
-} from './types';
+import { getUserRequests, getAssetsRequests } from './requests';
+import { getOrgsRequests } from './requests/organization';
+import { ApiOpt, ApiReqOpt, isApiErrResp } from './types';
 import { ApiError, isStatus200 } from './utils';
 
 const log = Log('core.api');
@@ -44,11 +34,16 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     const { data, status, statusText } = await axios(config);
     log.debug('req done, status=', status, ', statusText=', statusText, ', data=', data);
     if (isStatus200(status)) {
-      if (guard(data)) {
-        return data;
+      if (guard) {
+        if (guard(data)) {
+          return data;
+        } else {
+          log.err(`wrong resp data format, data=${JSON.stringify(data)}`);
+          throw new Error(`Wrong response data format`);
+        }
       } else {
-        log.err(`wrong resp data format, data=${JSON.stringify(data)}`);
-        throw new Error(`Wrong response data format`);
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        return (data as unknown) as T;
       }
     }
     if (isApiErrResp(data)) {
@@ -58,39 +53,7 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     }
   };
 
-  // User
-
-  const initUser = async (type: string = 'organization'): Promise<UserResp> =>
-    apiReq({ auth: true, method: 'POST', params: { type }, path: '/user/init', guard: isUserResp });
-
-  const confirmUser = async (): Promise<UserResp> =>
-    apiReq({ auth: true, method: 'POST', path: '/user/confirm', guard: isUserResp });
-
-  const getUser = async (): Promise<UserResp> => apiReq({ auth: true, path: '/user', guard: isUserResp });
-
-  const modifyUser = async (data: UserUpdate): Promise<UserResp> =>
-    apiReq({ auth: true, path: '/user', method: 'PUT', data, guard: isUserResp });
-
-  const getUserSettings = async (): Promise<UserSettingsResp> =>
-    apiReq({ auth: true, path: '/user/settings', guard: isUserSettingsResp });
-
-  const modifyUserSettings = async (data: UserSettings): Promise<UserSettingsResp> =>
-    apiReq({ auth: true, path: '/user/settings', method: 'PUT', data, guard: isUserSettingsResp });
-
-  // Assets
-
-  const uploadImage = async (file: File, folder?: string): Promise<AssetsImageResp> => {
-    const data = new FormData();
-    data.append('file', file);
-    if (folder) {
-      data.append('folder', folder);
-    }
-    return apiReq({ auth: true, path: '/assets/images', method: 'POST', data, timeout: secMs * 30, guard: isAssetsImageResp });
-  };
-
-  // Export
-
-  return { initUser, confirmUser, getUser, modifyUser, getUserSettings, modifyUserSettings, uploadImage };
+  return { user: getUserRequests(apiReq), orgs: getOrgsRequests(apiReq), assets: getAssetsRequests(apiReq) };
 };
 
 export type Api = ReturnType<typeof getApiWithOpt>;

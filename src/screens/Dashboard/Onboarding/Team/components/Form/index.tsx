@@ -1,7 +1,7 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { FormRow, FormSelect, FormTextArea, FormTextInput as TextInput } from 'components/Form';
-import { TeamMemberInvite } from 'core/api';
+import { OrganizationInviteCreate, OrganizationRole, orgRoleArr } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
 import { mc, StyleProps } from 'styles';
 
@@ -11,52 +11,22 @@ interface Props extends StyleProps {
   onSubmit?: () => void;
 }
 
-type FormData = Partial<TeamMemberInvite>;
-
-interface UserGroup {
-  value: string;
-}
-
-interface CompanyType {
-  value: string;
-}
+type FormData = Partial<OrganizationInviteCreate>;
 
 export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit, onChange }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const { firstName, lastName, companyName, email, userGroup, companyType, message } = data;
+  const { firstName, lastName, email, role, title, message } = data;
 
-  const submitDisabled = !email || !firstName || !lastName || !companyName || !userGroup || !companyType;
-
-  const userGroups: UserGroup[] = [
-    {
-      value: 'Presenter',
-    },
-    {
-      value: 'Listener',
-    },
-  ];
-
-  const companyTypes: CompanyType[] = [
-    {
-      value: 'Sponsor',
-    },
-    {
-      value: 'Beggar',
-    },
-  ];
+  const submitDisabled = !email || !firstName || !lastName || !role;
 
   const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange && onChange({ ...data, [key]: event.currentTarget.value });
   };
 
-  const handleUserGroupChange = (key: keyof FormData) => (val: UserGroup) => {
-    onChange && onChange({ ...data, [key]: val.value });
-  };
-
-  const handleCompanyTypeChange = (key: keyof FormData) => (val: CompanyType) => {
-    onChange && onChange({ ...data, [key]: val.value });
+  const handleRoleChange = (key: keyof FormData) => (val: OrganizationRole) => {
+    onChange && onChange({ ...data, [key]: val });
   };
 
   return (
@@ -76,32 +46,20 @@ export const OnboardingTeamScreenForm: FC<Props> = ({ style, data = {}, onSubmit
         />
       </FormRow>
       <FormRow>
-        <TextInput label="company name" value={companyName || ''} onChange={handleTextFieldChanged('companyName')} />
-      </FormRow>
-      <FormRow>
         <TextInput label="email" value={email || ''} onChange={handleTextFieldChanged('email')} />
       </FormRow>
       <FormRow>
-        <FormSelect<UserGroup>
-          className={mc(classes.half)}
-          label="user group"
-          options={userGroups}
-          name="userGroup"
-          value={userGroup ? userGroups.find(itm => itm.value === userGroup) : undefined}
-          keyExtractor={itm => itm.value}
-          titleExtractor={itm => itm.value}
-          onChange={handleUserGroupChange('userGroup')}
+        <FormSelect<OrganizationRole>
+          label="role"
+          options={orgRoleArr}
+          value={role}
+          keyExtractor={itm => itm}
+          titleExtractor={itm => itm}
+          onChange={handleRoleChange('role')}
         />
-        <FormSelect<CompanyType>
-          className={mc(classes.half)}
-          label="company type"
-          options={companyTypes}
-          name="companyType"
-          value={companyType ? companyTypes.find(itm => itm.value === companyType) : undefined}
-          keyExtractor={itm => itm.value}
-          titleExtractor={itm => itm.value}
-          onChange={handleCompanyTypeChange('companyType')}
-        />
+      </FormRow>
+      <FormRow>
+        <TextInput label="title" value={title || ''} onChange={handleTextFieldChanged('title')} />
       </FormRow>
       <FormRow>
         <FormTextArea label="Invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />

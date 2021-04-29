@@ -2,8 +2,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { View } from 'components/Common';
 import { FormImgFileSelectRoundedBtn, FormSelectFileBtn } from 'components/Form';
 import { User } from 'core/api';
+import { modCloudinaryUrl } from 'core/cloudinary';
 import React, { FC } from 'react';
-import { Style } from 'styles';
+import { Style, withDensity } from 'styles';
 
 interface Props {
   user: User;
@@ -14,12 +15,15 @@ interface Props {
 
 export const ProfileAccountImageSection: FC<Props> = ({ style, user, processing, onFileSelect }) => {
   const classes = useStyles();
+  const thumbnail = user.thumbnail
+    ? modCloudinaryUrl(user.thumbnail, { transform: { width: withDensity(132), height: withDensity(132), crop: 'fill' } })
+    : undefined;
   return (
     <View style={style} className={classes.avaBlock}>
       <View className={classes.avatar}>
         <FormImgFileSelectRoundedBtn
           className={classes.imgBlock}
-          src={user.thumbnail}
+          src={thumbnail}
           processing={processing}
           onFileSelect={onFileSelect}
         />

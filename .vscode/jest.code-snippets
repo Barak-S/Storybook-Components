@@ -1,0 +1,46 @@
+{
+  "tstic": {
+    "prefix": [
+      "tstic"
+    ],
+    "body": [
+      "/* istanbul ignore file */"
+    ],
+    "description": "Ignore file coverage",
+    "scope": "typescript,typescriptreact"
+  },
+  "tstd": {
+    "prefix": [
+      "tstd"
+    ],
+    "body": [
+      "describe('$1', () => {",
+      "  $0",
+      "});"
+    ],
+    "description": "Add describe definition",
+    "scope": "typescript,typescriptreact"
+  },
+  "tstt": {
+    "prefix": [
+      "tstt"
+    ],
+    "body": [
+      "test('$1', () => {",
+      "  $0",
+      "});"
+    ],
+    "description": "Add test definition",
+    "scope": "typescript,typescriptreact"
+  },
+  "tste": {
+    "prefix": [
+      "tste"
+    ],
+    "body": [
+      "expect($0)"
+    ],
+    "description": "Add expect definition",
+    "scope": "typescript,typescriptreact"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "joio": {
+    "prefix": [
+      "joio"
+    ],
+    "body": [
+      "Joi.object($0)"
+    ],
+    "description": "Add Joi object assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "jois": {
+    "prefix": [
+      "jois"
+    ],
+    "body": [
+      "Joi.string()"
+    ],
+    "description": "Add Joi string assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joisr": {
+    "prefix": [
+      "joisr"
+    ],
+    "body": [
+      "Joi.string().required()"
+    ],
+    "description": "Add Joi string required assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joib": {
+    "prefix": [
+      "joib"
+    ],
+    "body": [
+      "Joi.bool()"
+    ],
+    "description": "Add Joi bool assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joibr": {
+    "prefix": [
+      "joibr"
+    ],
+    "body": [
+      "Joi.bool().required()"
+    ],
+    "description": "Add Joi bool required assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joia": {
+    "prefix": [
+      "joia"
+    ],
+    "body": [
+      "Joi.array()"
+    ],
+    "description": "Add Joi array assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "join": {
+    "prefix": [
+      "join"
+    ],
+    "body": [
+      "Joi.number()"
+    ],
+    "description": "Add Joi number assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joinr": {
+    "prefix": [
+      "joinr"
+    ],
+    "body": [
+      "Joi.number().required()"
+    ],
+    "description": "Add Joi number required assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joim": {
+    "prefix": [
+      "joim"
+    ],
+    "body": [
+      ".max($1)$0"
+    ],
+    "description": "Add Joi max assert",
+    "scope": "typescript,typescriptreact"
+  },
+  "joig": {
+    "prefix": [
+      "joig"
+    ],
+    "body": [
+      "export const is$1 = (val: unknown): val is $1 => $1Schema.validate(val).error === undefined;"
+    ],
+    "description": "Add Joi guard",
+    "scope": "typescript,typescriptreact"
+  }
+}

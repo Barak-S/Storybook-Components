@@ -15,9 +15,11 @@ import {
 import SelectFileBtn from 'components/Form/SelectFileBtn';
 import { LineAwesomeIcon } from 'components/Icons';
 import { ScreenTitle } from 'components/Screen';
-import { SetupContainer, SetupStep } from 'components/Setup';
+import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { Social } from 'core/api';
 import React, { FC, useState } from 'react';
+import { useHistory } from 'react-router';
+import { routes } from 'screens/consts';
 import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 
 import EventColorPalette from './components/ColorPalette';
@@ -46,6 +48,8 @@ interface StyleConfig {
 export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClick, onChange }) => {
   const [socialItems, setSocialItems] = useState<Social[]>([]);
 
+  const history = useHistory();
+
   const { eventType } = data;
 
   const eventTypes: EventType[] = [
@@ -61,6 +65,12 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClic
     onChange && onChange({ ...data, [key]: val.value });
   };
 
+  const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
+    if (btn.id === 'back') {
+      history.push(routes.dashboard.onboarding.theme);
+    }
+  };
+
   const { isDesktop } = useScreenSizes();
 
   const styleConfig: StyleConfig = {
@@ -73,7 +83,13 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClic
   return (
     <>
       <ScreenTitle title="Onboarding Event" />
-      <SetupContainer title="Setup your awesome event" steps={steps} curStepIndex={3} onCloseClick={onCloseClick}>
+      <SetupContainer
+        title="Setup your awesome event"
+        steps={steps}
+        curStepIndex={3}
+        onCloseClick={onCloseClick}
+        onFooterBtnClick={handleFooterBtnClick}
+      >
         <Grid component="form">
           <FormControlSection
             title="Event Type"

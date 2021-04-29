@@ -4,7 +4,7 @@ import { StoreManagerFnOpt } from 'store/utils';
 
 const log = Log('store.auth');
 
-export const func = ({ dispatch }: StoreManagerFnOpt) => {
+export const useFunc = ({ dispatch }: StoreManagerFnOpt) => {
   const update = async () => {
     try {
       log.info('update cur session');

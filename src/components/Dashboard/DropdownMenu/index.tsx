@@ -2,8 +2,9 @@ import { Avatar, Grid, makeStyles, Theme, useMediaQuery, useTheme } from '@mater
 import profileImg from 'assets/profilePlaceholder.png';
 import { Dropdown } from 'components/Navigation';
 import { User } from 'core/api';
+import { modCloudinaryUrl } from 'core/cloudinary';
 import React, { FC, MouseEvent, useState } from 'react';
-import { colors, StyleProps, Styles } from 'styles';
+import { colors, StyleProps, Styles, withDensity } from 'styles';
 
 import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from '../AppBar/components/Menu';
 
@@ -45,10 +46,14 @@ export const DashboardDropdownMenu: FC<Props> = ({
 
   const classes = useStyles(theme);
 
+  const thumb = user.thumbnail
+    ? modCloudinaryUrl(user.thumbnail, { transform: { width: withDensity(55), height: withDensity(55), crop: 'fill' } })
+    : profileImg;
+
   return (
     <Grid style={styles.container}>
       <a style={styles.thumbWrap} href="#" onClick={isMobile ? handleMobileMenuClick : handleProfileClick}>
-        <Avatar className={classes.thumb} alt="Profile Picture" src={user.thumbnail || profileImg} />
+        <Avatar className={classes.thumb} alt="Profile Picture" src={thumb} />
       </a>
       <Dropdown
         icon={isMobile ? 'ellipsis-v' : undefined}

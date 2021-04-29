@@ -1,10 +1,11 @@
 import { Grid } from '@material-ui/core';
 import { ScreenTitle } from 'components/Screen';
-import { SetupContainer, SetupStep } from 'components/Setup';
+import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import React, { FC } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
-import { scrollToTop, StyleProps, Styles } from 'styles';
+import { StyleProps, Styles } from 'styles';
+
 import ThemeAccordion from './components/ThemeAccordion';
 
 interface Props extends StyleProps {
@@ -81,9 +82,10 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const history = useHistory();
   // const [formData, setformData] = useState<FormData[]>(initialFormData);
 
-  const handleFooterBtnClick = () => {
-    history.push(routes.dashboard.onboarding.event);
-    scrollToTop();
+  const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
+    if (btn.id === 'back') {
+      history.push(routes.dashboard.onboarding.team);
+    }
   };
 
   return (
