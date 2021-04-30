@@ -8,6 +8,7 @@ import {
   ProfilePassSection,
   ProfileSettingsSection,
   ProfileOrganizationSection,
+  ProfileUsersSection,
 } from 'components/Profile';
 import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { Log } from 'core';
@@ -131,6 +132,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   />
                 ),
               },
+              { id: 4, name: 'Users', content: <ProfileUsersSection /> },
             ]}
           />
         ) : (
@@ -167,6 +169,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   />
                 ),
               },
+              { id: 4, title: 'Users', content: <ProfileUsersSection /> },
             ]}
           />
         )}

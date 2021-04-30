@@ -5,6 +5,7 @@ import { colors, StyleProps } from 'styles';
 interface Props extends StyleProps {
   headers?: Headers[];
   data?: Data[];
+  className?: string;
 }
 
 interface Headers {
@@ -16,11 +17,11 @@ interface Data {
   id?: number;
 }
 
-export const DataTable: FC<Props> = ({ headers, data, style }) => {
+export const DataTable: FC<Props> = ({ headers, data, style, className, children }) => {
   const classes = useStyles();
   return (
-    <TableContainer style={style}>
-      <Table className={classes.container} aria-label="simple table">
+    <TableContainer className={className} style={style}>
+      <Table className={classes.container}>
         <TableHead>
           <TableRow className={classes.headerRow}>
             {headers &&
@@ -42,6 +43,7 @@ export const DataTable: FC<Props> = ({ headers, data, style }) => {
                 ))}
               </TableRow>
             ))}
+          {children}
         </TableBody>
       </Table>
     </TableContainer>
@@ -60,18 +62,11 @@ export const useStyles = () =>
     headerCell: {
       color: colors.coolBlue,
       textTransform: 'uppercase',
-      textAlign: 'center',
       fontSize: 19,
     },
     dataCell: {
-      textAlign: 'center',
-      backgroundColor: colors.whiteTwo,
-      borderLeft: '3px solid white',
-      borderRight: '3px solid white',
-      borderTop: '6px solid white',
-      borderBottom: '6px solid white',
+      backgroundColor: colors.white,
       color: colors.brownishGrey,
-      padding: '30px 15px',
     },
   })();
 

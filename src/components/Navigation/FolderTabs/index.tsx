@@ -69,7 +69,7 @@ const theme = createMuiTheme({
         fontSize: 20,
         letterSpacing: 3,
         fontWeight: 600,
-        maxWidth: '25%',
+        maxWidth: '20%',
 
         '&.Mui-selected': {
           background: `${colors.white}`,

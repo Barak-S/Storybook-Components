@@ -116,8 +116,8 @@ export const muiTheme = createMuiTheme({
       formControl: {
         transform: 'translate(15px, 20px) scale(1)',
         textTransform: 'capitalize',
+        zIndex: 1,
         fontSize: 16,
-        ...mx.zIndex.base,
       },
       root: {
         '&.Mui-focused:not(.Mui-error)': {
