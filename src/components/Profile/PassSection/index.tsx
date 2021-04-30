@@ -1,19 +1,21 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { View } from 'components/Common';
 import React, { FC, useState } from 'react';
-import { Style, Styles, colors } from 'styles';
+import { colors, StyleProps, Styles } from 'styles';
 import { isDictEmpty, validators } from 'utils';
+
 import ProfileSectionFooter from '../SectionFooter';
 import PasswordChange, {
   ProfilePassSectionPasswordChangeData as FormData,
   ProfilePassSectionPasswordChangeErrs as FormErrs,
 } from './components/PasswordChange';
 
-interface Props {
-  style?: Style;
+interface Props extends StyleProps {
+  processing?: boolean;
+  onSubmit?: (data: FormData) => void;
 }
 
-export const ProfilePassSection: FC<Props> = ({ style }) => {
+export const ProfilePassSection: FC<Props> = ({ style, processing, onSubmit }) => {
   const [data, setData] = useState<FormData>({});
   const [errs, setErrs] = useState<FormErrs | undefined>();
 
@@ -37,6 +39,9 @@ export const ProfilePassSection: FC<Props> = ({ style }) => {
     if (curErrs) {
       return setErrs(curErrs);
     }
+    if (onSubmit) {
+      onSubmit(data);
+    }
   };
 
   const classes = useStyles();
@@ -46,7 +51,7 @@ export const ProfilePassSection: FC<Props> = ({ style }) => {
   return (
     <View style={style} className={classes.container}>
       <PasswordChange data={data} errs={errs} onChange={handleFormChange} />
-      <ProfileSectionFooter style={styles.btn} onSaveClick={handleSubmitClick} disabled={disabled} />
+      <ProfileSectionFooter style={styles.btn} processing={processing} onSaveClick={handleSubmitClick} disabled={disabled} />
     </View>
   );
 };

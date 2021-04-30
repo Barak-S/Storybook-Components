@@ -25,6 +25,9 @@ export const errToStr = (err: unknown): string | undefined => {
   if (isNumber(err)) {
     return `${err}`;
   }
+  if (isUnknowDict(err) && isString(err.message)) {
+    return err.message;
+  }
   // Rule disabled cos this is an edge case
   // eslint-disable-next-line @typescript-eslint/unbound-method
   if (isUnknowDict(err) && isFunction(err.toString)) {

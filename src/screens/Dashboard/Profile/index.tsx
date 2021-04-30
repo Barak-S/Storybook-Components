@@ -1,21 +1,23 @@
-import { makeStyles, Theme, useTheme, useMediaQuery } from '@material-ui/core';
+import { makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { Title } from 'components/Common';
 import { DashboardScreenContainer } from 'components/Dashboard';
 import { useSnackbar } from 'components/Feedback';
 import { AccordionSections, FolderTabs } from 'components/Navigation';
 import {
   ProfileAccountSection,
+  ProfileOrganizationSection,
   ProfilePassSection,
   ProfileSettingsSection,
-  ProfileOrganizationSection,
   ProfileUsersSection,
 } from 'components/Profile';
-import { ScreenTitle, ScreenFooter } from 'components/Screen';
-import { Log } from 'core';
-import { UserUpdate, userToUpdate, UserSettings } from 'core/api';
+import { ProfilePassSectionPasswordChangeData } from 'components/Profile/PassSection/components/PasswordChange';
+import { ScreenFooter, ScreenTitle } from 'components/Screen';
+import { Log, useAuth } from 'core';
+import { UserSettings, userToUpdate, UserUpdate } from 'core/api';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector, useStoreManager } from 'store';
 import { colors, mx, StyleProps, Styles } from 'styles';
+import { errToStr } from 'utils';
 
 type Props = StyleProps;
 
@@ -27,9 +29,11 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const curSettings = useSelector(s => s.user.settings);
   const [data, setUserData] = useState<UserUpdate>(userToUpdate(curData));
   const [settings, setSettings] = useState<UserSettings>(curSettings);
+  const { changePassword } = useAuth();
 
   const [processing, setProcessing] = useState<boolean>(false);
   const [thumbProcessing, setThumbProcessing] = useState<boolean>(false);
+  const [passProcessing, setPassProcessing] = useState<boolean>(false);
   const theme = useTheme();
   const classes = useStyles(theme);
   const { showSnackbar } = useSnackbar();
@@ -72,7 +76,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleUserSubmit = async () => {
     try {
       setProcessing(true);
       log.info('submiting user data');
@@ -87,6 +91,24 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
       log.err('submiting data err=', err);
       setProcessing(false);
       showSnackbar('Saving data error', 'error');
+    }
+  };
+
+  const handlePasswordChangeSubmit = async ({ curPass, newPass }: ProfilePassSectionPasswordChangeData) => {
+    if (!curPass || !newPass) {
+      return;
+    }
+    try {
+      log.info('changing user pass');
+      setPassProcessing(true);
+      const res = await changePassword(curPass, newPass);
+      setPassProcessing(false);
+      log.info('changing user pass done, data=', res);
+      showSnackbar('Password changed successfully', 'success');
+    } catch (err: unknown) {
+      setPassProcessing(false);
+      log.err('changing user pass err=', err);
+      showSnackbar(`Changing password error: ${errToStr(err)}`, 'error');
     }
   };
 
@@ -114,12 +136,16 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                     thumbProcessing={thumbProcessing}
                     onChange={handleUserChange}
                     onThumbFileSelect={handleThumbFileSelect}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleUserSubmit}
                   />
                 ),
               },
               { id: 1, name: 'Organization', content: <ProfileOrganizationSection /> },
-              { id: 2, name: 'Password', content: <ProfilePassSection /> },
+              {
+                id: 2,
+                name: 'Password',
+                content: <ProfilePassSection processing={passProcessing} onSubmit={handlePasswordChangeSubmit} />,
+              },
               {
                 id: 3,
                 name: 'Settings',
@@ -128,7 +154,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                     data={settings}
                     processing={processing}
                     onChange={handleSettingsChange}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleUserSubmit}
                   />
                 ),
               },
@@ -151,12 +177,16 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                     thumbProcessing={thumbProcessing}
                     onChange={handleUserChange}
                     onThumbFileSelect={handleThumbFileSelect}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleUserSubmit}
                   />
                 ),
               },
               { id: 1, title: 'Organization', content: <ProfileOrganizationSection /> },
-              { id: 2, title: 'Password', content: <ProfilePassSection /> },
+              {
+                id: 2,
+                title: 'Password',
+                content: <ProfilePassSection processing={passProcessing} onSubmit={handlePasswordChangeSubmit} />,
+              },
               {
                 id: 3,
                 title: 'Settings',
@@ -165,7 +195,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                     data={settings}
                     processing={processing}
                     onChange={handleSettingsChange}
-                    onSubmit={handleSubmit}
+                    onSubmit={handleUserSubmit}
                   />
                 ),
               },

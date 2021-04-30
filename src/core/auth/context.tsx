@@ -23,6 +23,7 @@ interface AuthContext {
   forgotPassowrd: (email: string) => Promise<void>;
   forgotPasswordSubmit: (username: string, code: string, pass: string) => Promise<void>;
   resendEmailConfirmation: () => Promise<void>;
+  changePassword: (oldPass: string, newPass: string) => Promise<unknown>;
   signOut: () => void;
 }
 
@@ -43,6 +44,7 @@ export const useAuth = (): AuthContext => {
     forgotPasswordSubmit: mockFn,
     resendEmailConfirmation: mockFn,
     signOut: () => undefined,
+    changePassword: mockFn,
   };
   return val ? val : mockData;
 };
@@ -114,6 +116,16 @@ export const AuthProvider: FC = ({ children }) => {
     return verifyCognitoEmail(user);
   };
 
+  // Change password
+
+  const changePassword = async (oldPass: string, newPass: string) =>
+    new Promise((resolve, reject) => {
+      if (!user) {
+        return reject(new Error('Trying to change password while user is empty'));
+      }
+      user.changePassword(oldPass, newPass, (err, res) => (err ? reject(err) : resolve(res)));
+    });
+
   // Sign out
 
   const signOut = () => {
@@ -155,6 +167,7 @@ export const AuthProvider: FC = ({ children }) => {
       forgotPassowrd,
       forgotPasswordSubmit,
       resendEmailConfirmation,
+      changePassword,
     }),
     [loaded, user, confirmed],
   );
