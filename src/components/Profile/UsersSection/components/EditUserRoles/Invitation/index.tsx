@@ -111,7 +111,9 @@ const useStyles = (theme: Theme) =>
       background: '#082341',
       boxShadow: 'none',
       transform: 'translateX(34px)',
+      marginTop: 98,
       [theme.breakpoints.down('sm')]: {
+        marginTop: 30,
         flexDirection: 'column-reverse',
         transform: 'translateX(0px)',
       },
@@ -150,21 +152,33 @@ const useStyles = (theme: Theme) =>
     },
     input: {
       maxWidth: 320,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
     },
     input2: {
       maxWidth: 320,
       [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
+      [theme.breakpoints.down('xs')]: {
         marginTop: 30,
       },
     },
     inputFull: {
       maxWidth: 675,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
     },
     textAreaInput: {
       maxWidth: 675,
       height: 175,
       overflowY: 'auto',
       overflowX: 'hidden',
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+      },
     },
     stepRequired: {
       display: 'block',
