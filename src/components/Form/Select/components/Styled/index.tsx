@@ -141,9 +141,9 @@ export const useStyles = (iconStart: boolean) =>
     startIcon: {
       position: 'absolute',
       top: '50%',
+      zIndex: 1,
       transform: 'translate(13px, -50%)',
       pointerEvents: 'none',
-      ...mx.zIndex.overBase,
       color: colors.brownishGrey,
     },
     error: {

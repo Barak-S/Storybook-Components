@@ -14,10 +14,9 @@ export const useStyles = () =>
       padding: '32px',
     },
     tab: {
-      width: `19.5%`,
+      minWidth: 'fit-content',
+      width: '100%',
       height: `44px`,
-      padding: `10px 65px`,
-      margin: `2px 1px 0 1px`,
       color: colors.greyish,
       borderRadius: `12px 12px 0 0`,
       backgroundColor: colors.paleGrey,

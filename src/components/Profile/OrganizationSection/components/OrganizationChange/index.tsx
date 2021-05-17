@@ -219,7 +219,6 @@ const styles: Styles = {
     fontSize: 16,
   },
   dragField: {
-    // height: 140,
     ...mx.border(3, 'dashed', colors.silverTwo),
   },
 };

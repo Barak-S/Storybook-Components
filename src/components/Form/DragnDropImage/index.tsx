@@ -58,7 +58,7 @@ export const FormDragnDropImage: FC<Props> = ({
     >
       <input style={styles.input} onClick={handleClick} type="file" onChange={handleChange} />
       {!processing && (
-        <View style={styles.content} row alignItems="center" justifyContent="center">
+        <View style={styles.content} row alignItems="center">
           {!src && (
             <View column style={styles.iconWrap}>
               <LineAwesomeIcon
@@ -94,7 +94,7 @@ const useStyles = buildStyles(({ isMobile, whenMobile }) => ({
     borderRadius: 12,
     border: `solid 1px ${colors.lightPeriwinkle}`,
     backgroundColor: colors.paleGrey,
-    padding: isMobile ? '9% 10px' : '0 20%',
+    padding: isMobile ? '9% 10px' : '0px',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -110,9 +110,8 @@ const useStyles = buildStyles(({ isMobile, whenMobile }) => ({
   },
   content: {
     flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    justifyContent: 'center',
+    padding: '0 16%',
+    justifyContent: 'space-around',
   },
   iconWrap: {
     display: whenMobile('none') || 'flex',
@@ -134,8 +133,7 @@ const useStyles = buildStyles(({ isMobile, whenMobile }) => ({
     display: whenMobile('none') || 'block',
     fontSize: '17px',
     fontWeight: 300,
-    marginLeft: 29,
-    marginRight: 37,
+    marginRight: 12,
   },
   btnWrap: {
     justifyContent: 'center',
