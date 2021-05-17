@@ -149,6 +149,7 @@ const useStyles = () =>
         paddingLeft: 0,
         marginLeft: 0,
         marginTop: 0,
+        marginBottom: 37,
       },
     },
     mobileDirection: {

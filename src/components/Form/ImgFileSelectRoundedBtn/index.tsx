@@ -47,12 +47,10 @@ export const FormImgFileSelectRoundedBtn: FC<Props> = ({
           disabled={processing || disabled}
           aria-label={placeholder}
           component="span"
-          style={{
+          style={ms(styles.preview, {
             backgroundImage: src ? `url(${src})` : undefined,
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-          }}
+            border: !src ? `dashed 2px ${colors.lightPeriwinkle}` : undefined,
+          })}
         >
           {!src && !processing && <LineAwesomeIcon size={48} type="plus" color={colors.marineBlue} />}
           {processing && <CircularProgress size={36} color="secondary" />}
@@ -75,13 +73,12 @@ const styles: Styles = {
   },
   label: {},
   preview: {
-    position: 'absolute',
-    width: '100%',
-    height: '-webkit-fill-available',
-    borderRadius: '100px',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    height: 132,
+    width: 132,
+    borderRadius: 100,
   },
 };
 
@@ -91,7 +88,6 @@ const useStyles = () =>
       position: 'relative',
       width: `132px`,
       height: `132px`,
-      border: `dashed 2px ${colors.lightPeriwinkle}`,
       backgroundColor: colors.paleGrey,
       '&:hover': {
         background: colors.paleGreyTwo,
