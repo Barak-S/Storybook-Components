@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.71] - 2021-05-16
+### Fixed
+- DO-166: QA
+
+## [1.0.70] - 2021-05-12
+### Fixed
+- QA fixes
+
+## [1.0.69] - 2021-05-10
+### Added
+- Ability to add socials on frontend to companies socials, with form prcessing disabling logic
+
+## [1.0.68] - 2021-05-07
+### Added
+- Users tab
+- Remove user from organization modal
+
+### Fixed
+- Account tabs spacing and shadows
+
 ## [1.0.67] - 2021-05-03
 ### Fixed
 - DO-127: QA
