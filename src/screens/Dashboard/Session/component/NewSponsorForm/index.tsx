@@ -40,7 +40,7 @@ export const SponsorInfo: FC<Props> = () => {
         />
       </View>
       <View style={styles.textArea}>
-        <FormTextArea label="About" />
+        <FormTextArea label="About" className={classes.textAreaInput} />
       </View>
       <FormTextInput className={classes.inputFull} label="Website" />
       <div style={styles.headerSection}>
@@ -180,7 +180,6 @@ const styles: Styles = {
   textArea: {
     marginTop: 18,
     marginBottom: 25,
-    maxWidth: 575,
   },
 };
 
@@ -214,6 +213,10 @@ export const useStyles = () =>
     inputText: {
       maxWidth: 386,
       margin: '0 35px',
+    },
+    textAreaInput: {
+      height: 170,
+      maxWidth: 575,
     },
     socSelect: {
       maxWidth: 195,

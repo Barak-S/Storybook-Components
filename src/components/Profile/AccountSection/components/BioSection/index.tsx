@@ -4,7 +4,6 @@ import { FormTextEditor } from 'components/Form';
 import { UserUpdate } from 'core/api';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
-
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {

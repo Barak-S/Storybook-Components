@@ -34,22 +34,22 @@ const font = (
 
 const zIndexMap = {
   base: {
-    zIndex: 3000,
+    zIndex: 1200,
   },
   underBase: {
-    zIndex: 3000,
+    zIndex: 1200,
   },
   overBase: {
-    zIndex: 3000,
+    zIndex: 1200,
   },
   mobileTabs: {
-    zIndex: 3000,
+    zIndex: 1200,
   },
   mobileMenu: {
-    zIndex: 3000,
+    zIndex: 1200,
   },
   appbar: {
-    zIndex: 3000,
+    zIndex: 1200,
   },
 };
 

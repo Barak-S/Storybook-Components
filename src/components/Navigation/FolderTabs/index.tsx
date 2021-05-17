@@ -1,9 +1,9 @@
 import AppBar from '@material-ui/core/AppBar';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, useTheme } from '@material-ui/core';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import { View } from 'components/Common';
-import React, { ChangeEvent, FC, ReactNode, useState } from 'react';
+import React, { ChangeEvent, FC, ReactNode } from 'react';
 import { colors, StyleProps } from 'styles';
 
 import TabPanel from './components/TabPanel';
@@ -11,6 +11,8 @@ import { useStyles } from './styles';
 
 interface Props extends StyleProps {
   values: TabValue[];
+  currentTab?: number | undefined;
+  onChange?: (newVal: number) => void;
 }
 
 interface TabValue {
@@ -19,11 +21,11 @@ interface TabValue {
   content: ReactNode;
 }
 
-export const FolderTabs: FC<Props> = ({ values, style }) => {
-  const [value, setValue] = useState<number>(0);
-
+export const FolderTabs: FC<Props> = ({ values, currentTab, onChange, style }) => {
   const handleChange = (_event: ChangeEvent<unknown>, newValue: number) => {
-    setValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
   };
 
   const getA11yProps = (index: number) => {
@@ -32,17 +34,18 @@ export const FolderTabs: FC<Props> = ({ values, style }) => {
       'aria-controls': `folder-tabpanel-${index}`,
     };
   };
-
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <View style={style}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={overrides}>
         <AppBar className={classes.container} position="static">
           <Tabs
+            classes={{ root: classes.root }}
             TabIndicatorProps={{ style: { background: colors.white } }}
             className={classes.tabs}
-            value={value}
+            value={currentTab}
             onChange={handleChange}
           >
             {values.map(el => (
@@ -53,7 +56,7 @@ export const FolderTabs: FC<Props> = ({ values, style }) => {
       </ThemeProvider>
       <div className={classes.content}>
         {values.map(el => (
-          <TabPanel key={el.id} value={value} index={el.id}>
+          <TabPanel key={el.id} value={currentTab || 0} index={el.id}>
             <div className={classes.blockContent}>{el.content}</div>
           </TabPanel>
         ))}
@@ -62,11 +65,15 @@ export const FolderTabs: FC<Props> = ({ values, style }) => {
   );
 };
 
-const theme = createMuiTheme({
+const overrides = createMuiTheme({
   overrides: {
+    MuiTabs: {
+      root: {
+        overflow: 'visible',
+      },
+    },
     MuiTab: {
       root: {
-        fontSize: 20,
         letterSpacing: 3,
         fontWeight: 600,
         maxWidth: '20%',
@@ -74,7 +81,13 @@ const theme = createMuiTheme({
         '&.Mui-selected': {
           background: `${colors.white}`,
           color: `${colors.coolBlueTwo}`,
-          boxShadow: `0 0 10px 0 ${colors.silver};`,
+          boxShadow: `0 -3px 4px -1px ${colors.silver};`,
+          '&:first-child': {
+            boxShadow: ` -1.5px -3px 4px -1px ${colors.silver};`,
+          },
+          '&:last-child': {
+            boxShadow: ` 1.5px -3px 4px -1px ${colors.silver};`,
+          },
         },
       },
     },

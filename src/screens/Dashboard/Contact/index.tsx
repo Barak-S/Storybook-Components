@@ -39,7 +39,7 @@ export const DashboardContactScreen: FC<Props> = () => {
   const getFormErrs = (data: FormData): FormErrs | undefined => {
     const errs: FormErrs = {
       email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'An Email is required' }),
-      firstName: validators.getNameErr(data.firstName, { required: true, requiredMsg: 'A fist name is required' }),
+      firstName: validators.getNameErr(data.firstName, { required: true, requiredMsg: 'A first name is required' }),
       lastName: validators.getNameErr(data.lastName, { required: true, requiredMsg: 'A last name is required' }),
       phoneNumber: validators.getPhoneNumberErr(data.phoneNumber, { required: true, requiredMsg: 'A phone number is required' }),
       message: validators.getTextAreaErr(data.message, { required: true, requiredMsg: 'A message is required' }),
@@ -165,7 +165,7 @@ export const DashboardContactScreen: FC<Props> = () => {
               <Grid item xs={12} className={classes.inputItem}>
                 <View>
                   <FormTextArea
-                    label="A Beif Message"
+                    label="A Brief Message"
                     value={message || ''}
                     error={!!errs?.message}
                     helperText={errs?.message}
@@ -242,7 +242,7 @@ export const useStyles = (theme: Theme) =>
       },
     },
     secondaryHeader: {
-      paddingLeft: 16,
+      paddingLeft: 8,
       fontWeight: 500,
       color: colors.marineBlue,
       fontSize: 16,
@@ -277,8 +277,6 @@ export const useStyles = (theme: Theme) =>
     textAreaInput: {
       maxWidth: 700,
       height: 170,
-      overflowY: 'auto',
-      overflowX: 'hidden',
       [theme.breakpoints.down('md')]: {
         maxWidth: '100%',
         height: 221,
@@ -317,8 +315,12 @@ export const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('lg')]: {
         transform: 'translateY(-15px) !important',
       },
+      [theme.breakpoints.down('md')]: {
+        paddingLeft: 6,
+      },
       [theme.breakpoints.down('sm')]: {
         transform: 'translateY(0px)',
+        paddingLeft: 0,
       },
     },
     subText: {
@@ -337,6 +339,7 @@ export const useStyles = (theme: Theme) =>
     },
     link: {
       color: colors.marineBlue,
+      display: 'inline-block',
     },
     errors: {
       color: colors.vermillion,

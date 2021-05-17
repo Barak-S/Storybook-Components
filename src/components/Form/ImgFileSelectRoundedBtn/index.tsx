@@ -42,9 +42,19 @@ export const FormImgFileSelectRoundedBtn: FC<Props> = ({
     <div style={ms(styles.container, style)} className={className}>
       <input style={styles.input} onChange={handleChange} accept="image/*" id={id} type="file" />
       <label style={styles.label} htmlFor={id}>
-        <IconButton className={classes.iconBtn} disabled={processing || disabled} aria-label={placeholder} component="span">
-          {src && <div style={ms(styles.preview, { backgroundImage: `url(${src})` })} />}
-          {!processing && <LineAwesomeIcon size={48} type="plus" color={colors.marineBlue} />}
+        <IconButton
+          className={classes.iconBtn}
+          disabled={processing || disabled}
+          aria-label={placeholder}
+          component="span"
+          style={{
+            backgroundImage: src ? `url(${src})` : undefined,
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}
+        >
+          {!src && !processing && <LineAwesomeIcon size={48} type="plus" color={colors.marineBlue} />}
           {processing && <CircularProgress size={36} color="secondary" />}
         </IconButton>
       </label>

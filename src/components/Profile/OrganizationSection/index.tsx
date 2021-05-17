@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react';
 import { Style, Styles } from 'styles';
 import ProfileSectionFooter from '../SectionFooter';
 import { isDictEmpty, validators } from 'utils';
+import { Social } from 'core/api';
 import ProfileOrganization, {
   OrganizationChangeData as FormData,
   OrganizationChangeErrs as FormErrs,
@@ -16,9 +17,15 @@ interface Props {
 export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
   const [disabled, setDisablled] = useState(true);
   const [processing, setProcessing] = useState(false);
-
   const [data, setData] = useState<FormData>({});
+  const [socialItems, setSocialItems] = useState<Social[]>([]);
   const [errs, setErrs] = useState<FormErrs | undefined>();
+
+  const handleSocialChange = (items: Social[]) => {
+    setErrs(undefined);
+    setDisablled(false);
+    setSocialItems(items);
+  };
 
   const handleFormChange = (newData: Partial<FormData>) => {
     setErrs(undefined);
@@ -31,7 +38,7 @@ export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
       orgName: !data.orgName || data.orgName === '' ? 'An Organization Name is required' : undefined,
       country: !data.country || data.country === '' ? 'A valid Country is required' : undefined,
       state: !data.state || data.state === '' ? 'A valid State is required' : undefined,
-      city: !data.city || data.city === '' ? 'A valid State is required' : undefined,
+      city: !data.city || data.city === '' ? 'A valid City is required' : undefined,
       email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'An Email is required' }),
       phoneNumber: validators.getPhoneNumberErr(data.phoneNumber, { required: true, requiredMsg: 'A phone number is required' }),
     };
@@ -41,7 +48,9 @@ export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
   const handleSubmitClick = () => {
     const curErrs = getFormErrs(data);
     if (curErrs) {
-      return setErrs(curErrs);
+      setErrs(curErrs);
+      setProcessing(false);
+      setDisablled(true);
     } else {
       setProcessing(true);
     }
@@ -51,7 +60,13 @@ export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
 
   return (
     <View style={style} className={classes.container}>
-      <ProfileOrganization data={data} errs={errs} onChange={handleFormChange} />
+      <ProfileOrganization
+        data={data}
+        errs={errs}
+        socials={socialItems}
+        onChange={handleFormChange}
+        handleSocialChange={handleSocialChange}
+      />
       <ProfileSectionFooter style={styles.btn} processing={processing} disabled={disabled} onSaveClick={handleSubmitClick} />
     </View>
   );

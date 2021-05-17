@@ -5,7 +5,7 @@ import { FormTextInput, FormNumberInput, FormSelect, FormTextArea } from 'compon
 import { LineTabs } from 'components/Navigation/LineTabs';
 import React, { FC, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
-import NewSponsorForm from '../component/NewSponsorForm';
+import NewSponsorForm from '../../component/NewSponsorForm';
 import { DashboardTabPanel } from 'components/Dashboard';
 
 type Props = StyleProps;
@@ -84,7 +84,7 @@ export const SponsorTab: FC<Props> = () => {
         />
       </View>
       <View style={styles.textArea}>
-        <FormTextArea label="Invitation Message" />
+        <FormTextArea label="Invitation Message" className={classes.textAreaInput} />
       </View>
 
       <View style={styles.inviteMoreSection}>
@@ -151,7 +151,6 @@ const styles: Styles = {
   textArea: {
     marginTop: 18,
     marginBottom: 38,
-    maxWidth: 602,
   },
   saveSection: {
     marginTop: 33,
@@ -208,6 +207,10 @@ export const useStyles = () =>
     inviteBtn: {
       height: 34,
       width: '277px !important',
+    },
+    textAreaInput: {
+      height: 170,
+      maxWidth: 602,
     },
   })();
 

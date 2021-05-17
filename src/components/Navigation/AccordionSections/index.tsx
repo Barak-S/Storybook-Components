@@ -2,16 +2,18 @@ import { Accordion, AccordionDetails, AccordionSummary, makeStyles } from '@mate
 import { FormToggle } from 'components/Form';
 import { View, Text } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, ChangeEvent } from 'react';
 import { colors, mc, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   sections: Section[];
   className?: string;
+  currentTab?: number | undefined;
+  onChange?: (newVal: number | undefined) => void;
 }
 
 interface Section {
-  id: number | string;
+  id: number;
   title: string;
   content: ReactNode;
   toggle?: {
@@ -20,13 +22,31 @@ interface Section {
   };
 }
 
-export const AccordionSections: FC<Props> = ({ style, className, sections }) => {
+export const AccordionSections: FC<Props> = ({ style, currentTab, onChange, className, sections }) => {
   const classes = useStyles();
+
+  const handleChange = (_event: ChangeEvent<unknown>, newValue: number | undefined) => {
+    if (onChange) {
+      onChange(newValue);
+    }
+  };
 
   return (
     <View style={styles.container}>
       {sections.map(({ id, title, content, toggle }) => (
-        <Accordion style={style} key={id} classes={{ root: classes.root }}>
+        <Accordion
+          style={style}
+          key={id}
+          expanded={currentTab && currentTab === id ? true : undefined}
+          classes={{ root: classes.root }}
+          onChange={(e, expanded) => {
+            if (expanded && onChange) {
+              handleChange(e, id);
+            } else if (!expanded && onChange) {
+              handleChange(e, undefined);
+            }
+          }}
+        >
           <AccordionSummary
             classes={{ root: mc(classes.accordion, className) }}
             expandIcon={<LineAwesomeIcon type="chevron-circle-down" />}
@@ -35,7 +55,7 @@ export const AccordionSections: FC<Props> = ({ style, className, sections }) => 
             <Text style={styles.heading}>{title}</Text>
           </AccordionSummary>
           <AccordionDetails style={styles.content}>
-            <View>{content}</View>
+            <View style={{ width: '100%' }}>{content}</View>
           </AccordionDetails>
         </Accordion>
       ))}

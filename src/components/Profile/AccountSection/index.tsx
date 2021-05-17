@@ -4,16 +4,18 @@ import { FormControlSection, FormSocialsInput } from 'components/Form';
 import { User, UserUpdate } from 'core/api';
 import React, { FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
-
 import ProfileSectionFooter from '../SectionFooter';
 import BioSection from './components/BioSection';
 import CompanySection from './components/CompanySection';
 import ImageSection from './components/ImageSection';
+import { UserUpdateFormErrs as FormErrs } from 'screens/Dashboard/Profile';
 
 interface Props extends StyleProps {
   profile: User;
   data?: UserUpdate;
+  errors?: FormErrs;
   processing?: boolean;
+  disabled?: boolean;
   thumbProcessing?: boolean;
   onChange?: (val: UserUpdate) => void;
   onThumbFileSelect?: (val: File) => void;
@@ -23,14 +25,17 @@ interface Props extends StyleProps {
 export const ProfileAccountSection: FC<Props> = ({
   style,
   processing,
+  disabled,
   thumbProcessing,
   data,
   profile,
+  errors,
   onChange,
   onSubmit,
   onThumbFileSelect,
 }) => {
   const classes = useStyles();
+
   return (
     <View style={style} className={classes.contact}>
       <Grid container className={classes.container}>
@@ -50,7 +55,7 @@ export const ProfileAccountSection: FC<Props> = ({
         </div>
 
         <div className={classes.profileSection}>
-          <CompanySection data={data} profile={profile} onChange={onChange} />
+          <CompanySection data={data} errors={errors} profile={profile} onChange={onChange} />
           <FormControlSection
             title="Social Media Profiles"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
@@ -60,7 +65,7 @@ export const ProfileAccountSection: FC<Props> = ({
           </FormControlSection>
           <Divider style={{ marginTop: 10, marginBottom: 40 }} />
           <BioSection data={data} onChange={onChange} />
-          <ProfileSectionFooter processing={processing} disabled={processing} style={styles.btn} onSaveClick={onSubmit} />
+          <ProfileSectionFooter processing={processing} disabled={disabled} style={styles.btn} onSaveClick={onSubmit} />
         </div>
       </Grid>
     </View>
@@ -114,7 +119,8 @@ const useStyles = () =>
       minHeight: '100%',
       display: 'flex',
       [theme.breakpoints.down('md')]: {
-        marginBottom: 55,
+        marginBottom: 25,
+        marginTop: 15,
         paddingLeft: 0,
       },
       [theme.breakpoints.down('sm')]: {

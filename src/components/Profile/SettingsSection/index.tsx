@@ -9,16 +9,17 @@ import EventActivity from './components/EventActivity';
 interface Props extends StyleProps {
   data?: UserSettings;
   processing?: boolean;
+  disabled?: boolean;
   onChange?: (val: UserSettings) => void;
   onSubmit?: () => void;
 }
 
-export const ProfileSettingsSection: FC<Props> = ({ style, data, processing, onChange, onSubmit }) => {
+export const ProfileSettingsSection: FC<Props> = ({ style, data, processing, disabled, onChange, onSubmit }) => {
   const { isMobile } = useScreenSizes();
   return (
     <View style={ms(styles.container, isMobile && styles.containerSM, style)}>
       <EventActivity data={data} onChange={onChange} />
-      <ProfileSectionFooter processing={processing} disabled={processing} style={styles.footer} onSaveClick={onSubmit} />
+      <ProfileSectionFooter processing={processing} disabled={disabled} style={styles.footer} onSaveClick={onSubmit} />
     </View>
   );
 };

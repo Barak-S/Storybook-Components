@@ -57,7 +57,7 @@ export const FormSocialsInput: FC<Props> = ({
         nodes.push(renderItem(curItem, `${index}`));
         curItems = curItems.filter(itm => itm.id !== curItem.id);
       } else {
-        nodes.push(renderItem({ name: defSocial, id: `def-${defSocial}`, url: '' }, `${index}`));
+        nodes.push(renderItem({ name: defSocial, id: `def-${defSocial}`, url: '' }, `${index}`, true));
       }
       index++;
     }
@@ -68,8 +68,15 @@ export const FormSocialsInput: FC<Props> = ({
     return nodes;
   };
 
-  const renderItem = (itm: Social, key: string) => (
-    <FormSocialsInputItem key={key} style={styles.item} item={itm} onRemove={handleItemRemove} onChange={handleItemChange} />
+  const renderItem = (itm: Social, key: string, defItem?: boolean) => (
+    <FormSocialsInputItem
+      key={key}
+      style={styles.item}
+      item={itm}
+      defItem={defItem}
+      onRemove={handleItemRemove}
+      onChange={handleItemChange}
+    />
   );
 
   const styles = getStyles();
@@ -77,9 +84,11 @@ export const FormSocialsInput: FC<Props> = ({
   return (
     <View style={ms(styles.container, style)} alignItems="flex-start">
       {renderItems()}
-      <TextButton style={styles.addBtn} onClick={handleAddClick} disabled={false}>
-        {'+ Add'}
-      </TextButton>
+      {items.length < 5 && (
+        <TextButton style={styles.addBtn} onClick={handleAddClick} disabled={false}>
+          {'+ Add'}
+        </TextButton>
+      )}
     </View>
   );
 };

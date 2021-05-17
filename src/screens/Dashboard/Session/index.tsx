@@ -114,7 +114,7 @@ export const DashboardSetupSession: FC<Props> = () => {
                       <span style={styles.title}>{'Session Description'}</span>
                       <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
                       <View style={styles.textArea}>
-                        <FormTextArea label="Write a session description" />
+                        <FormTextArea label="Write a session description" className={classes.textAreaInput} />
                       </View>
                       <Divider style={styles.divider} />
                     </View>
@@ -443,6 +443,7 @@ export const useStyles = (theme: Theme) =>
       position: 'relative',
       maxWidth: '82.5%',
       '& .MuiAccordionDetails-root': {
+        width: '100%',
         padding: '10px 5px',
       },
       '& .MuiAccordionSummary-root.Mui-expanded': {
@@ -452,6 +453,9 @@ export const useStyles = (theme: Theme) =>
         borderTopLeftRadius: 0,
         height: 75,
       },
+    },
+    textAreaInput: {
+      height: 170,
     },
     select: {
       maxWidth: 266,

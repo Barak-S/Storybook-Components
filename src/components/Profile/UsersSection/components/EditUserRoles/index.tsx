@@ -4,16 +4,17 @@ import { StyleProps, Styles, colors } from 'styles';
 import { ContainedButton } from 'components/Buttons';
 import { ProfileAcceptedUser } from './AcceptedUser';
 import { ProfilePendingUser, ProfileSelectedUser as SelectedUser } from './PendingUser';
-import { OrganizationInvitation } from './Invitation';
+import { ResendOrganizationInvitation, NewOrganizationInvitation } from './Invitations';
 
 type Props = StyleProps;
 
 export const ProfileUserRoles: FC<Props> = ({ style }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [showInvitation, setShowInvitation] = useState<boolean>(false);
+  const [showResendInvitation, setShowResendInvitation] = useState<boolean>(false);
+  const [showNewInvitation, setShowNewInvitation] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<SelectedUser>({});
 
   return (
@@ -26,25 +27,30 @@ export const ProfileUserRoles: FC<Props> = ({ style }) => {
               {'Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetud.elitsed.'}
             </span>
           </div>
-          <ContainedButton style={styles.inviteBtn} className={classes.inviteBtn} size="medium" endIcon="envelope-open-text">
+          <ContainedButton
+            style={styles.inviteBtn}
+            className={classes.inviteBtn}
+            size="medium"
+            endIcon="envelope-open-text"
+            onClick={() => setShowNewInvitation(true)}
+          >
             {'INVITE TEAM MEMBER'}
           </ContainedButton>
         </div>
         <div className={classes.userContainer}>
           <div className={classes.tableContainer}>
+            {!isMobile && (
+              <div className={classes.tableHeadRow}>
+                <div className={classes.userCol}>{'NAME'}</div>
+                <div className={classes.userCol}>{'EMAIL'}</div>
+                <div className={classes.actionCol}>{'ACCOUNT ROLE'}</div>
+              </div>
+            )}
             <div className={classes.usersTable}>
-              {!isMobile && (
-                <div className={classes.tableHeadRow}>
-                  <div className={classes.userCol}>{'NAME'}</div>
-                  <div className={classes.userCol}>{'EMAIL'}</div>
-                  <div className={classes.actionCol}>{'ACCOUNT ROLE'}</div>
-                </div>
-              )}
-
               <ProfilePendingUser
                 user={{ firstName: 'Barak', lastName: 'Saidoff', email: 'name@domain.com', status: 'Invite Sent' }}
-                open={showInvitation}
-                handleClick={setShowInvitation}
+                open={showResendInvitation}
+                handleClick={setShowResendInvitation}
                 setSelectedUser={setSelectedUser}
               />
               <ProfileAcceptedUser
@@ -54,12 +60,16 @@ export const ProfileUserRoles: FC<Props> = ({ style }) => {
                 user={{ firstName: 'Theresa', lastName: 'Saunders', email: 'name@domain.com', role: 'Admin' }}
               />
               <ProfileAcceptedUser user={{ firstName: 'Helen', lastName: 'Slavko', email: 'name@domain.com', role: 'Editor' }} />
+              <ProfileAcceptedUser user={{ firstName: 'Joe', lastName: 'Arcuri', email: 'name@domain.com', role: 'Manager' }} />
             </div>
           </div>
         </div>
         {!isMobile && <Divider />}
       </div>
-      {showInvitation && <OrganizationInvitation user={selectedUser} open={showInvitation} handleClick={setShowInvitation} />}
+      {showResendInvitation && (
+        <ResendOrganizationInvitation user={selectedUser} open={showResendInvitation} handleClick={setShowResendInvitation} />
+      )}
+      {showNewInvitation && <NewOrganizationInvitation open={showNewInvitation} handleClick={setShowNewInvitation} />}
     </>
   );
 };
@@ -124,6 +134,8 @@ const useStyles = (theme: Theme) =>
       paddingLeft: 25,
       paddingRight: 15,
       backgroundColor: colors.paleGrey,
+      border: `1px solid ${colors.greyish}`,
+      borderBottom: 'none',
       color: colors.coolBlue,
       fontWeight: 500,
       letterSpacing: 2,
@@ -164,7 +176,8 @@ const styles: Styles = {
     fontSize: 16,
   },
   inviteBtn: {
-    width: 245,
+    maxWidth: 245,
+    width: '100%',
     height: 35,
     letterSpacing: 2.25,
     padding: 0,

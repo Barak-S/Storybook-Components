@@ -56,6 +56,7 @@ export const ProfileSettingsSectionEventActivity: FC<Props> = ({ style, data, on
             title="Product update"
             value={data?.subscrProductUpdate || false}
             onChange={val => handleChange({ subscrProductUpdate: val })}
+            style={{ minWidth: 296 }}
           />
         </div>
         <div className={classes.switch}>

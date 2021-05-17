@@ -5,7 +5,7 @@ import { FormTextInput, FormNumberInput, FormSelect, FormTextArea } from 'compon
 import { LineTabs } from 'components/Navigation/LineTabs';
 import React, { FC, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
-import NewPresenterForm from '../component/NewPresenterForm';
+import NewPresenterForm from '../../component/NewPrsesnterForm';
 import { DashboardTabPanel } from 'components/Dashboard';
 
 type Props = StyleProps;
@@ -95,7 +95,7 @@ export const PresenterTab: FC<Props> = () => {
             />
           </View>
           <View style={styles.textArea}>
-            <FormTextArea label="Invitation Message" />
+            <FormTextArea label="Invitation Message" className={classes.textAreaInput} />
           </View>
 
           <View style={styles.inviteMoreSection}>
@@ -154,7 +154,6 @@ const styles: Styles = {
   textArea: {
     marginTop: 25,
     marginBottom: 38,
-    maxWidth: 574,
   },
   saveSection: {
     marginTop: 33,
@@ -212,6 +211,10 @@ export const useStyles = () =>
     inviteBtn: {
       height: 34,
       width: '162px !important',
+    },
+    textAreaInput: {
+      height: 170,
+      maxWidth: 574,
     },
   })();
 

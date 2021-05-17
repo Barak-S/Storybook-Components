@@ -8,13 +8,24 @@ interface CustomProps extends StyleProps {
   value?: string;
   label?: string;
   error?: boolean;
+  resize?: boolean;
   helperText?: string;
   className?: string;
 }
 
 type Props = TextareaAutosizeProps & CustomProps;
 
-export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange, style, error, helperText, ...props }) => {
+export const FormTextArea: FC<Props> = ({
+  value = '',
+  label,
+  className,
+  onChange,
+  style,
+  error,
+  helperText,
+  resize,
+  ...props
+}) => {
   const [focus, setFocus] = useState<boolean>(false);
   const classes = useStyles();
   const isActive = focus || Boolean(value);
@@ -31,6 +42,7 @@ export const FormTextArea: FC<Props> = ({ value = '', label, className, onChange
           onChange={onChange}
           className={classes.textArea}
           value={value}
+          style={{ overflow: 'auto', resize: resize ? 'vertical' : 'none' }}
         />
         <Text className={mc(classes.label, isActive && classes.focusedLabel, error && classes.error)}>{label}</Text>
       </label>
@@ -51,11 +63,12 @@ const useStyles = makeStyles({
   },
   textArea: {
     width: '100%',
-    minHeight: 116,
+    minHeight: 97,
+    maxHeight: 255,
+    height: '100%',
     fontSize: 16,
     border: 'none',
     background: 'transparent',
-    resize: 'none',
     fontFamily: 'inherit',
   },
   focusedArea: {
@@ -68,7 +81,7 @@ const useStyles = makeStyles({
     ...mx.zIndex.overBase,
     position: 'absolute',
     fontSize: 16,
-    transform: 'translate(15px, 20px) scale(1)',
+    transform: 'translate(15px, 18px) scale(1)',
     textTransform: 'capitalize',
     color: colors.withAlpha(colors.black, 0.54),
     transition: 'color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
@@ -76,7 +89,7 @@ const useStyles = makeStyles({
     userSelect: 'none',
   },
   focusedLabel: {
-    transform: 'translate(0, -18px) scale(.75)',
+    transform: 'translate(0, -20px) scale(.75)',
     transformOrigin: 'top left',
     color: colors.coolBlueTwo,
   },

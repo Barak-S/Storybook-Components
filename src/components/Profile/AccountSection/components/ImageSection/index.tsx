@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { View } from 'components/Common';
 import { FormImgFileSelectRoundedBtn, FormSelectFileBtn } from 'components/Form';
 import { User } from 'core/api';
@@ -14,9 +14,12 @@ interface Props {
 }
 
 export const ProfileAccountImageSection: FC<Props> = ({ style, user, processing, onFileSelect }) => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const classes = useStyles(theme);
+
   const thumbnail = user.thumbnail
-    ? modCloudinaryUrl(user.thumbnail, { transform: { width: withDensity(132), height: withDensity(132), crop: 'fill' } })
+    ? modCloudinaryUrl(user.thumbnail, { transform: { width: 100, height: 100, crop: 'fill' } })
     : undefined;
   return (
     <View style={style} className={classes.avaBlock}>
@@ -28,13 +31,19 @@ export const ProfileAccountImageSection: FC<Props> = ({ style, user, processing,
           onFileSelect={onFileSelect}
         />
       </View>
-      <FormSelectFileBtn title="CHOOSE IMAGE" btnStyle={{ borderRadius: 6, padding: 0 }} onFileSelect={onFileSelect} />
+      {!isMobile && (
+        <FormSelectFileBtn
+          title="CHOOSE IMAGE"
+          btnStyle={{ borderRadius: 6, padding: 0, letterSpacing: 1.04 }}
+          onFileSelect={onFileSelect}
+        />
+      )}
     </View>
   );
 };
 
-const useStyles = () =>
-  makeStyles((theme: Theme) => ({
+const useStyles = (theme: Theme) =>
+  makeStyles({
     avaBlock: {
       display: 'flex',
       flexDirection: 'column',
@@ -53,7 +62,7 @@ const useStyles = () =>
         marginTop: '35px',
       },
     },
-  }))();
+  })();
 
 export type ProfileAccountImageSectionProps = Props;
 export default ProfileAccountImageSection;

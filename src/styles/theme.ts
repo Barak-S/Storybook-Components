@@ -137,6 +137,13 @@ export const muiTheme = createMuiTheme({
     MuiFormLabel: {
       root: {
         pointerEvents: 'none',
+        '&.MuiInputLabel-formControl': {
+          transform: 'translate(15px, 18px) scale(1)',
+        },
+        '&.MuiInputLabel-shrink': {
+          transform: 'translate(0, -18px) scale(.75)',
+          transformOrigin: 'top left',
+        },
       },
       asterisk: {
         color: colors.rustyRed,

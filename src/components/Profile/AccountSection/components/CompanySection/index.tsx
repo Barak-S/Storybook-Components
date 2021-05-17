@@ -5,16 +5,17 @@ import { LineAwesomeIcon } from 'components/Icons';
 import { User, UserUpdate } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
-
 import { useStyles } from './styles';
+import { UserUpdateFormErrs as FormErrs } from 'screens/Dashboard/Profile';
 
 interface Props extends StyleProps {
   profile: User;
   data?: UserUpdate;
+  errors?: FormErrs;
   onChange?: (val: UserUpdate) => void;
 }
 
-export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, onChange }) => {
+export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, errors, onChange }) => {
   const classes = useStyles();
 
   const handleTextFieldChanged = (key: keyof UserUpdate) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,6 +33,8 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
             <FormTextInput
               className={classes.inputFull}
               label="First Name"
+              error={!!errors?.firstName}
+              helperText={errors?.firstName}
               inputStyle={styles.input}
               value={data?.firstName || ''}
               onChange={handleTextFieldChanged('firstName')}
@@ -39,6 +42,8 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
             <FormTextInput
               className={classes.inputFull}
               label="Last Name"
+              error={!!errors?.lastName}
+              helperText={errors?.lastName}
               inputStyle={styles.input}
               value={data?.lastName || ''}
               onChange={handleTextFieldChanged('lastName')}

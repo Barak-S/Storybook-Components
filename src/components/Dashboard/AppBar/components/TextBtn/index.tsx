@@ -1,31 +1,24 @@
 import { makeStyles } from '@material-ui/core';
 import React, { FC, MouseEvent } from 'react';
 import { colors, ms, StyleProps, Styles } from 'styles';
+import { NavLink } from 'react-router-dom';
 
 interface Props extends StyleProps {
-  href?: string;
-  active?: boolean;
-  onClick?: () => void;
+  href: string;
 }
 
-export const DashboardAppBarTextBtn: FC<Props> = ({ style, children, active, href, onClick }) => {
-  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (!href && onClick) {
-      e.preventDefault();
-      onClick();
-    }
-  };
+export const DashboardAppBarTextBtn: FC<Props> = ({ style, children, href }) => {
   const classes = useStyles();
 
   return (
-    <a
+    <NavLink
+      style={ms([styles.container, style])}
       className={classes.container}
-      style={ms([styles.container, style, active && styles.active])}
-      href={href}
-      onClick={handleClick}
+      activeStyle={{ color: colors.marineBlue }}
+      to={href}
     >
       {children}
-    </a>
+    </NavLink>
   );
 };
 
@@ -42,10 +35,6 @@ const styles: Styles = {
     whiteSpace: 'nowrap',
     fontSize: 'inherit',
     transition: 'all .3s ease-in-out',
-  },
-  active: {
-    backgroundColor: colors.white,
-    color: colors.marineBlue,
   },
 };
 

@@ -17,9 +17,11 @@ import { UserSettings, userToUpdate, UserUpdate } from 'core/api';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector, useStoreManager } from 'store';
 import { colors, mx, StyleProps, Styles } from 'styles';
-import { errToStr } from 'utils';
+import { errToStr, isDictEmpty, validators } from 'utils';
 
 type Props = StyleProps;
+
+type ProfileFormErrs = Partial<Record<keyof UserUpdate, string>> & { form?: string };
 
 const log = Log('screens.DashboardProfile');
 
@@ -27,8 +29,14 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const manager = useStoreManager();
   const curData = useSelector(s => s.user.data);
   const curSettings = useSelector(s => s.user.settings);
+
   const [data, setUserData] = useState<UserUpdate>(userToUpdate(curData));
+  const [profileErrs, setProfileErrs] = useState<ProfileFormErrs | undefined>();
+
   const [settings, setSettings] = useState<UserSettings>(curSettings);
+  const [settingsDisabled, setSettingsDisabled] = useState<boolean>(true);
+  const [profileDisabled, setProfileDisabled] = useState<boolean>(true);
+
   const { changePassword } = useAuth();
 
   const [processing, setProcessing] = useState<boolean>(false);
@@ -38,6 +46,8 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   const classes = useStyles(theme);
   const { showSnackbar } = useSnackbar();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [currentTab, setCurrentTab] = useState<number | undefined>(0);
 
   useEffect(() => {
     manager.user.updateData();
@@ -49,11 +59,22 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
    */
 
   const handleUserChange = (newData: UserUpdate) => {
+    setProfileErrs(undefined);
+    setProfileDisabled(false);
     setUserData({ ...data, ...newData });
   };
 
   const handleSettingsChange = (newSettings: UserSettings) => {
+    setSettingsDisabled(false);
     setSettings({ ...settings, ...newSettings });
+  };
+
+  const getProfileFormErrs = (data: UserUpdate): ProfileFormErrs | undefined => {
+    const errs: ProfileFormErrs = {
+      firstName: validators.getNameErr(data.firstName, { required: true, requiredMsg: 'A first name is required' }),
+      lastName: validators.getNameErr(data.lastName, { required: true, requiredMsg: 'A last name is required' }),
+    };
+    return !isDictEmpty(errs) ? errs : undefined;
   };
 
   const handleThumbFileSelect = async (file: File) => {
@@ -77,20 +98,26 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
   };
 
   const handleUserSubmit = async () => {
-    try {
-      setProcessing(true);
-      log.info('submiting user data');
-      await manager.user.modifyData(data);
-      log.info('submiting user data onde');
-      log.info('submiting settings data');
-      await manager.user.modifySettings(settings);
-      log.info('submiting settings data onde');
-      setProcessing(false);
-      showSnackbar('Profile has been updated!', 'success');
-    } catch (err: unknown) {
-      log.err('submiting data err=', err);
-      setProcessing(false);
-      showSnackbar('Saving data error', 'error');
+    const profileErrs = getProfileFormErrs(data);
+    if (profileErrs) {
+      setProfileErrs(profileErrs);
+      setProfileDisabled(true);
+    } else {
+      try {
+        setProcessing(true);
+        log.info('submiting user data');
+        await manager.user.modifyData(data);
+        log.info('submiting user data onde');
+        log.info('submiting settings data');
+        await manager.user.modifySettings(settings);
+        log.info('submiting settings data onde');
+        setProcessing(false);
+        showSnackbar('Profile has been updated!', 'success');
+      } catch (err: unknown) {
+        log.err('submiting data err=', err);
+        setProcessing(false);
+        showSnackbar('Saving data error', 'error');
+      }
     }
   };
 
@@ -124,6 +151,8 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
         {!isMobile ? (
           <FolderTabs
             style={styles.tabs}
+            currentTab={currentTab === undefined ? 0 : currentTab}
+            onChange={setCurrentTab}
             values={[
               {
                 id: 0,
@@ -132,7 +161,9 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   <ProfileAccountSection
                     profile={curData}
                     data={data}
+                    errors={profileErrs}
                     processing={processing}
+                    disabled={profileDisabled}
                     thumbProcessing={thumbProcessing}
                     onChange={handleUserChange}
                     onThumbFileSelect={handleThumbFileSelect}
@@ -153,6 +184,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   <ProfileSettingsSection
                     data={settings}
                     processing={processing}
+                    disabled={settingsDisabled}
                     onChange={handleSettingsChange}
                     onSubmit={handleUserSubmit}
                   />
@@ -164,6 +196,8 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
         ) : (
           <AccordionSections
             style={styles.accordion}
+            currentTab={currentTab}
+            onChange={setCurrentTab}
             className={classes.accordion}
             sections={[
               {
@@ -173,6 +207,7 @@ export const DashboardProfileScreen: FC<Props> = ({ style }) => {
                   <ProfileAccountSection
                     profile={curData}
                     data={data}
+                    errors={profileErrs}
                     processing={processing}
                     thumbProcessing={thumbProcessing}
                     onChange={handleUserChange}
@@ -244,7 +279,7 @@ const useStyles = (theme: Theme) =>
     title: {
       ...mx.font(50, colors.marineBlue),
       fontWeight: 500,
-      marginBottom: 38,
+      marginBottom: 35,
       [theme.breakpoints.down('sm')]: {
         ...mx.font(30, colors.marineBlue),
         marginBottom: 12,
@@ -259,4 +294,5 @@ const useStyles = (theme: Theme) =>
   })();
 
 export type DashboardProfileScreenProps = Props;
+export type UserUpdateFormErrs = ProfileFormErrs;
 export default DashboardProfileScreen;

@@ -10,6 +10,7 @@ interface Props extends StyleProps {
   size?: number;
   className?: string;
   forwardRef?: Ref<HTMLDivElement>;
+  handleClick?: (value: boolean | string) => void;
 }
 
 const getRootClassName = (val: LineAwesomeIconType): string => {
@@ -19,9 +20,23 @@ const getRootClassName = (val: LineAwesomeIconType): string => {
   return 'las';
 };
 
-export const LineAwesomeIcon: FC<Props> = ({ style, type, color, size, className, forwardRef }) => {
+export const LineAwesomeIcon: FC<Props> = ({ style, type, color, size, className, forwardRef, handleClick }) => {
   const containerStyle = ms(!!color && { color }, !!size && { fontSize: `${size}px` }, style);
-  return <Icon ref={forwardRef} style={containerStyle} className={mc(`${getRootClassName(type)} la-${type}`, className)} />;
+
+  const handleClickButton = () => {
+    if (handleClick) {
+      handleClick(false);
+    }
+  };
+
+  return (
+    <Icon
+      onClick={handleClickButton}
+      ref={forwardRef}
+      style={containerStyle}
+      className={mc(`${getRootClassName(type)} la-${type}`, className)}
+    />
+  );
 };
 
 export { LineAwesomeIconType } from './types';

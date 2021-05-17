@@ -1,8 +1,7 @@
 import { LineAwesomeIconType } from 'components/Icons';
 import { isString } from 'lodash';
-import React, { ChangeEvent, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { ClassNameProps, StyleProps } from 'styles';
-
 import FormSelectStyled, { FormSelectStyledProps } from './components/Styled';
 
 interface Props<T> extends StyleProps, ClassNameProps {
@@ -30,9 +29,9 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
-  private handleChange(e: ChangeEvent<{ name?: string; value: unknown }>) {
+
+  private handleChange(value: string | undefined) {
     const { options, keyExtractor, onChange } = this.props;
-    const { value } = e.target;
     if (!isString(value)) {
       return;
     }
@@ -52,7 +51,6 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
       keyExtractor,
       titleExtractor,
       iconExtractor,
-      fullWidth,
       required,
       error,
       helperText,
@@ -70,11 +68,9 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
         style={style}
         label={label}
         disabled={disabled}
-        fullWidth={fullWidth}
         required={required}
         helperText={helperText}
         error={error}
-        title={title}
         name={name}
         placeholder={placeholder}
         options={options.map(itm => ({ name: titleExtractor(itm), value: keyExtractor(itm) }))}

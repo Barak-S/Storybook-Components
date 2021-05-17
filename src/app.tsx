@@ -102,7 +102,7 @@ export const App: FC = () => {
 
   return (
     <>
-      {authLoaded && <Screens logedIn={!!authUser} />}
+      {authLoaded && <Screens loggedIn={!!authUser} />}
       {appConfig.env !== 'prd' && <Text style={styles.envLabel} block>{`v${appConfig.version} (${appConfig.env})`}</Text>}
     </>
   );

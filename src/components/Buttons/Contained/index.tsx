@@ -1,4 +1,4 @@
-import { Button, CircularProgress, makeStyles } from '@material-ui/core';
+import { Button, CircularProgress, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, mc, ms, StyleProps, Styles, useHover } from 'styles';
@@ -17,7 +17,7 @@ interface Props extends StyleProps {
 }
 
 type Color = 'inherit' | 'primary' | 'secondary' | 'default' | 'red';
-type Size = 'medium' | 'large';
+type Size = 'small' | 'medium' | 'large';
 
 export const ContainedButton: FC<Props> = ({
   className,
@@ -32,7 +32,6 @@ export const ContainedButton: FC<Props> = ({
   children,
   onClick,
 }) => {
-  const classes = useStyles();
   const mainColor = select(color, {
     default: undefined,
     inherit: undefined,
@@ -47,11 +46,20 @@ export const ContainedButton: FC<Props> = ({
     secondary: undefined,
     red: colors.withAlpha(colors.rustyRed, 0.7),
   });
-  const styles = getStyles(mainColor, hoverColor, shadow);
+  const theme = useTheme();
+  const classes = useStyles(theme);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const styles = getStyles(mainColor, hoverColor, shadow, isMobile);
   const { hover, hoverProps } = useHover();
   return (
     <Button
-      className={mc(size === 'medium' && classes.containerMedium, size === 'large' && classes.containerLarge, className)}
+      className={mc(
+        size === 'small' && classes.containerSmall,
+        size === 'medium' && classes.containerMedium,
+        size === 'large' && classes.containerLarge,
+        className,
+      )}
       style={ms(styles.container, hover && styles.hover, style)}
       variant="contained"
       color={color !== 'red' ? color : undefined}
@@ -66,7 +74,12 @@ export const ContainedButton: FC<Props> = ({
   );
 };
 
-const getStyles = (mainColor: string | undefined, hoverColor: string | undefined, shadow: boolean): Styles => ({
+const getStyles = (
+  mainColor: string | undefined,
+  hoverColor: string | undefined,
+  shadow: boolean,
+  isMobile: boolean,
+): Styles => ({
   container: {
     width: '100%',
     color: colors.white,
@@ -78,7 +91,7 @@ const getStyles = (mainColor: string | undefined, hoverColor: string | undefined
     backgroundColor: mainColor,
   },
   hover: {
-    backgroundColor: hoverColor,
+    backgroundColor: !isMobile ? hoverColor : undefined,
   },
 });
 
@@ -94,6 +107,19 @@ const useStyles = makeStyles({
   containerMedium: {
     height: 34,
     fontSize: 13,
+    '& .MuiButton-label': {
+      display: 'flex',
+      alignItems: 'center',
+      height: '100%',
+    },
+    '& .MuiIcon-root': {
+      fontSize: 'inherit',
+    },
+  },
+  containerSmall: {
+    height: 34,
+    fontSize: 11,
+    fontWeight: 400,
     '& .MuiButton-label': {
       display: 'flex',
       alignItems: 'center',

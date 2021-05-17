@@ -52,8 +52,9 @@ export const useStyles = () =>
       },
     },
     switch: {
-      maxWidth: 'fit-content;',
-      marginRight: '60px',
+      maxWidth: '296px',
+      minWidth: 'fit-content;',
+      width: '100%',
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
         margin: 0,

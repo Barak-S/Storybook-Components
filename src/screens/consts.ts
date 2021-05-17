@@ -26,6 +26,9 @@ export const routes = {
       event: '/dashboard/onboarding/event',
     },
   },
+  register: {
+    subscribe: '/register/subscribe',
+  },
   terms: '/terms',
   policy: '/policy',
   faq: '/faq',

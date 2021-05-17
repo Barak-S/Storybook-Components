@@ -64,7 +64,7 @@ export const SponsorInfo: FC<Props> = () => {
             </View>
 
             <View style={styles.textArea}>
-              <FormTextArea label="Bio" />
+              <FormTextArea label="Bio" className={classes.textAreaInput} />
             </View>
 
             <div style={styles.headerSection}>
@@ -181,7 +181,6 @@ const styles: Styles = {
   textArea: {
     marginTop: 18,
     marginBottom: 25,
-    maxWidth: 575,
   },
   nameSection: {
     marginTop: 4,
@@ -197,12 +196,14 @@ export const useStyles = () =>
     select1: {
       maxWidth: 266,
       marginTop: 18,
-      // marginBottom: 27,
       marginRight: 44,
     },
     select2: {
       maxWidth: 275,
-      // marginBottom: 27,
+    },
+    textAreaInput: {
+      height: 170,
+      maxWidth: 575,
     },
     select3: {
       maxWidth: 354,
@@ -215,7 +216,6 @@ export const useStyles = () =>
     },
     input2: {
       maxWidth: 275,
-      // marginBottom: 33,
     },
     inputFull: {
       maxWidth: 576,

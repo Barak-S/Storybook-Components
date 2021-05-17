@@ -9,6 +9,7 @@ import { isStr } from 'utils';
 
 interface Props extends StyleProps {
   item: Social;
+  defItem?: boolean;
   onChange: (newItem: Social) => void;
   onRemove: (item: Social) => void;
 }
@@ -33,7 +34,7 @@ const socialNameToPlaceholder = (val: string): string => {
   }
 };
 
-export const FormSocialInput: FC<Props> = ({ item, style, onRemove, onChange }) => {
+export const FormSocialInput: FC<Props> = ({ item, style, defItem, onRemove, onChange }) => {
   const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => onChange({ ...item, url: e.currentTarget.value });
 
   const handleSocialChange = (val: SocialType | undefined) => {
@@ -65,9 +66,11 @@ export const FormSocialInput: FC<Props> = ({ item, style, onRemove, onChange }) 
         onChange={handleUrlChange}
         placeholder={socialNameToPlaceholder(item.name)}
       />
-      <IconButton size="small" onClick={() => onRemove(item)} style={styles.removeBtn}>
-        <LineAwesomeIcon type="times-circle" />
-      </IconButton>
+      {!defItem && (
+        <IconButton size="small" onClick={() => onRemove(item)} style={styles.removeBtn}>
+          <LineAwesomeIcon type="times-circle" />
+        </IconButton>
+      )}
     </View>
   );
 };
@@ -81,6 +84,7 @@ const getStyles = (isMobile: boolean): Styles => ({
     marginBottom: isMobile ? 20 : 0,
   },
   input: {
+    maxWidth: isMobile ? '100%' : 386,
     marginRight: isMobile ? 0 : 20,
     marginBottom: isMobile ? 20 : 0,
     fontSize: 16,

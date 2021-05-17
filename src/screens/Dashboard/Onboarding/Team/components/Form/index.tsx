@@ -3,7 +3,7 @@ import { ContainedButton } from 'components/Buttons';
 import { FormRow, FormSelect, FormTextArea, FormTextInput as TextInput } from 'components/Form';
 import { OrganizationInviteCreate, OrganizationRole, orgRoleArr } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
-import { mc, StyleProps } from 'styles';
+import { StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   data?: FormData;

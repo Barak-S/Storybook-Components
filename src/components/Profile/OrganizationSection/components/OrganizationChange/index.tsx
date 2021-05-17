@@ -3,15 +3,17 @@ import { View } from 'components/Common';
 import { FormControlSection, FormDragnDropImage, FormRow, FormSelect, FormSocialsInput, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
 import { Social } from 'core/api';
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { colors, mx, StyleProps, Styles } from 'styles';
 
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {
   data?: FormData;
+  socials?: Social[];
   errs?: FormErrs;
   onChange?: (data: Partial<FormData>) => void;
+  handleSocialChange?: (items: Social[]) => void;
 }
 
 interface FormData {
@@ -34,8 +36,7 @@ interface CompanyType {
 
 type FormErrs = Partial<Record<keyof FormData, string>> & { form?: string };
 
-export const ProfileOrganization: FC<Props> = ({ style, data, errs, onChange }) => {
-  const [socials, setSocials] = useState<Social[]>([]);
+export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSocialChange, errs, onChange }) => {
   const classes = useStyles();
 
   const socialSelectClasses = {
@@ -53,10 +54,7 @@ export const ProfileOrganization: FC<Props> = ({ style, data, errs, onChange }) 
     }
   };
 
-  const handleCompanyTypeChange = (key: keyof FormData) => (val: CompanyType) => {
-    onChange && onChange({ ...data, [key]: val.value });
-  };
-  const handleLocationStateChange = (key: keyof FormData) => (val: LocationState) => {
+  const handleSelectChange = (key: keyof FormData) => (val: CompanyType | LocationState) => {
     onChange && onChange({ ...data, [key]: val.value });
   };
 
@@ -119,7 +117,7 @@ export const ProfileOrganization: FC<Props> = ({ style, data, errs, onChange }) 
                 options={locationState}
                 name="companyType"
                 value={data?.state ? locationState.find(itm => itm.value === data.state) : undefined}
-                onChange={handleLocationStateChange('state')}
+                onChange={handleSelectChange('state')}
               />
               <FormTextInput
                 label="City"
@@ -154,7 +152,7 @@ export const ProfileOrganization: FC<Props> = ({ style, data, errs, onChange }) 
                 options={companyTypes}
                 name="companyType"
                 value={data?.companyType ? companyTypes.find(itm => itm.value === data.companyType) : undefined}
-                onChange={handleCompanyTypeChange('companyType')}
+                onChange={handleSelectChange('companyType')}
               />
             </FormRow>
           </Grid>
@@ -199,7 +197,7 @@ export const ProfileOrganization: FC<Props> = ({ style, data, errs, onChange }) 
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
               borderTop={false}
             >
-              <FormSocialsInput items={socials} onChange={setSocials} />
+              <FormSocialsInput items={socials} onChange={handleSocialChange} />
             </FormControlSection>
           </Grid>
           <Divider style={styles.divider} />

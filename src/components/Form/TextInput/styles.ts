@@ -25,7 +25,7 @@ export const useStyles = ({ value, isStartIcon, valid, adornmentType, inputStyle
         },
         ...(adornmentType === 'transparent' && {
           '&[class*="-shrink"]:not([class*="-focused"])': {
-            transform: isStartIcon && !value ? 'translate3D(45px, 20px, 0) scale(1)' : 'translate(0, -18px) scale(.75)',
+            transform: isStartIcon && !value ? 'translate3D(45px, 19px, 0) scale(1)' : 'translate(0, -18px) scale(.75)',
           },
         }),
         ...(isStartIcon && {
