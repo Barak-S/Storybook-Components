@@ -5,6 +5,11 @@ export const stateToCurOrgData = (s: StoreState) => {
   return item ? item.data : undefined;
 };
 
+export const stateToCurOrgInvites = (s: StoreState) => {
+  const item = stateToCurOrgItem(s);
+  return item ? item.invites : undefined;
+};
+
 const stateToCurOrgItem = (s: StoreState) => {
   const cur = s.orgs.cur;
   if (!cur) {

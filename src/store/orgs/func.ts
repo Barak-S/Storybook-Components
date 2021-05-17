@@ -1,5 +1,5 @@
 import { Log } from 'core';
-import { OrganizationUpdate } from 'core/api';
+import { OrganizationInviteCreate, OrganizationUpdate } from 'core/api';
 import { StoreManagerFnOpt, useSelector } from 'store/utils';
 import { stateToCurOrgId } from './selectors';
 
@@ -28,8 +28,6 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     }
   };
 
-  // Current organization
-
   const setCurrent = (id: string) => dispatch({ type: 'orgs/cur/Set', id });
 
   const modify = async (orgId: string, newData: OrganizationUpdate) => {
@@ -46,5 +44,27 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     return modify(curOrgId, newData);
   };
 
-  return { update, updateAndCheckCurrent, setCurrent, modify, modifyCurrent };
+  // Invites
+
+  const updateInvites = async () => {
+    if (!curOrgId) {
+      throw new Error('Trying to modify current organization when it is empty');
+    }
+    log.info('updating invites');
+    const { data } = await api.orgs.invites.list(curOrgId);
+    log.info('updating invites done');
+    dispatch({ type: 'orgs/items/invites/Set', id: curOrgId, data });
+  };
+
+  const createInvite = async (newData: OrganizationInviteCreate) => {
+    if (!curOrgId) {
+      throw new Error('Trying to modify current organization when it is empty');
+    }
+    log.info('create invite');
+    const { data } = await api.orgs.invites.create(curOrgId, newData);
+    log.info('create invite done');
+    dispatch({ type: 'orgs/items/invites/Add', id: curOrgId, data });
+  };
+
+  return { update, updateAndCheckCurrent, setCurrent, modify, modifyCurrent, updateInvites, createInvite };
 };

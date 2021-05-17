@@ -1,4 +1,4 @@
-import { Organization, User, UserSettings } from 'core/api';
+import { Organization, OrganizationInvite, User, UserSettings } from 'core/api';
 import { Action } from 'redux';
 
 type AuthAction = (Action<'auth/Set'> & { token?: string }) | Action<'auth/SignOut'>;
@@ -13,6 +13,9 @@ type OrgsAction =
   | (Action<'orgs/cur/Set'> & { id?: string })
   | (Action<'orgs/items/Set'> & { data?: Organization[] })
   | (Action<'orgs/items/Remove'> & { id: string })
-  | (Action<'orgs/items/data/Modify'> & { data: Partial<Organization>; id: string });
+  | (Action<'orgs/items/data/Modify'> & { id: string; data: Partial<Organization> })
+  | (Action<'orgs/items/invites/Set'> & { id: string; data: OrganizationInvite[] })
+  | (Action<'orgs/items/invites/Add'> & { id: string; data: OrganizationInvite })
+  | (Action<'orgs/items/invites/Remove'> & { id: string; inviteId: string });
 
 export type StoreAction = AuthAction | UserAction | OrgsAction;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Organization, OrganizationInvite, OrganizationMember } from 'core/api';
 import { keys, pick } from 'lodash';
 import { StoreAction } from 'store/actions';
@@ -34,13 +35,35 @@ export const reducer = (state: OrgsState = initial, action: StoreAction): OrgsSt
     case 'orgs/items/data/Modify': {
       const { id, data: newData } = action;
       const curItem = state.items[id];
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!curItem) {
         return state;
       }
       const data = { ...curItem.data, ...newData };
       const items = { ...state.items, [id]: { ...curItem, data } };
       return { ...state, items };
+    }
+    case 'orgs/items/invites/Set': {
+      const { id, data: invites } = action;
+      const curItem = state.items[id];
+      return curItem ? { ...state, items: { ...state.items, [id]: { ...curItem, invites } } } : state;
+    }
+    case 'orgs/items/invites/Add': {
+      const { id, data: invite } = action;
+      const curItem = state.items[id];
+      if (!curItem) {
+        return state;
+      }
+      const invites = [...curItem.invites, invite];
+      return { ...state, items: { ...state.items, [id]: { ...curItem, invites } } };
+    }
+    case 'orgs/items/invites/Remove': {
+      const { id, inviteId } = action;
+      const curItem = state.items[id];
+      if (!curItem) {
+        return state;
+      }
+      const invites = curItem.invites.filter(itm => itm.id !== inviteId);
+      return { ...state, items: { ...state.items, [id]: { ...curItem, invites } } };
     }
     case 'auth/SignOut':
       return initial;
