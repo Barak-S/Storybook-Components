@@ -2,34 +2,37 @@ import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { Title, View } from 'components/Common';
 import { DashboardScreenContainer } from 'components/Dashboard';
+import { useSnackbar } from 'components/Feedback';
 import { FormTextArea, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
+import { Log } from 'core';
+import { SupportContactRequest } from 'core/api';
+import { getRecaptchaChallangeToken } from 'core/recaptcha';
 import React, { ChangeEvent, FC, useState } from 'react';
+import { useStoreManager } from 'store';
 import { colors, StyleProps, Styles } from 'styles';
-import { isDictEmpty, validators } from 'utils';
+import { errToStr, isDictEmpty, validators } from 'utils';
+
+const log = Log('screens.DashboardContact');
 
 type Props = StyleProps;
 
-interface FormData {
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-  message?: string;
-}
+type FormData = Omit<Partial<SupportContactRequest>, 'token'>;
 
 type FormErrs = Partial<Record<keyof FormData, string>> & { form?: string };
 
 export const DashboardContactScreen: FC<Props> = () => {
-  const [data, setData] = useState<FormData>({ email: '', firstName: '', lastName: '', phoneNumber: '', message: '' });
+  const [data, setData] = useState<FormData>({});
   const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
 
-  const { email, firstName, lastName, phoneNumber, message } = data;
+  const { email, firstName, lastName, phone, message } = data;
 
   const theme = useTheme();
   const classes = useStyles(theme);
+  const manager = useStoreManager();
+  const { showSnackbar } = useSnackbar();
 
   const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setErrs(undefined);
@@ -41,18 +44,37 @@ export const DashboardContactScreen: FC<Props> = () => {
       email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'An Email is required' }),
       firstName: validators.getNameErr(data.firstName, { required: true, requiredMsg: 'A first name is required' }),
       lastName: validators.getNameErr(data.lastName, { required: true, requiredMsg: 'A last name is required' }),
-      phoneNumber: validators.getPhoneNumberErr(data.phoneNumber, { required: true, requiredMsg: 'A phone number is required' }),
+      phone: validators.getPhoneNumberErr(data.phone, { required: true, requiredMsg: 'A phone number is required' }),
       message: validators.getTextAreaErr(data.message, { required: true, requiredMsg: 'A message is required' }),
     };
     return !isDictEmpty(errs) ? errs : undefined;
   };
 
-  const submit = () => {
+  const handleSubmit = async () => {
+    log.debug('handle submit');
     const curErrs = getFormErrs(data);
     if (curErrs) {
       return setErrs(curErrs);
-    } else {
+    }
+    if (!firstName || !lastName || !email || !phone || !message) {
+      return;
+    }
+    try {
       setProcessing(true);
+      log.debug('showing recaptcha challange');
+      const token = await getRecaptchaChallangeToken();
+      log.debug('showing recaptcha challange done');
+      log.trace(token);
+      log.debug('making contact req');
+      await manager.api.support.contact({ firstName, lastName, email, phone, message, token });
+      log.debug('making contact req done');
+      setData({});
+      setProcessing(false);
+      showSnackbar('A message has been sent. We will contact you soon', 'success');
+    } catch (err: unknown) {
+      log.err(err);
+      setProcessing(false);
+      showSnackbar(errToStr(err) || 'Sending request error', 'error');
     }
   };
 
@@ -150,15 +172,15 @@ export const DashboardContactScreen: FC<Props> = () => {
               <Grid item xs={12} sm={6} className={classes.inputItem}>
                 <View>
                   <FormTextInput
-                    value={phoneNumber || ''}
+                    value={phone || ''}
                     type="text"
-                    error={!!errs?.phoneNumber}
-                    helperText={errs?.phoneNumber}
+                    error={!!errs?.phone}
+                    helperText={errs?.phone}
                     maxLength={50}
                     className={classes.input}
                     inputStyle={styles.input}
                     label="Phone Number"
-                    onChange={handleTextFieldChanged('phoneNumber')}
+                    onChange={handleTextFieldChanged('phone')}
                   />
                 </View>
               </Grid>
@@ -180,7 +202,7 @@ export const DashboardContactScreen: FC<Props> = () => {
               <Grid container justify="center" spacing={2}>
                 <Grid item xs={12} sm={12}>
                   <View row className={classes.wrapBtn}>
-                    <ContainedButton className={classes.btn} processing={processing} disabled={processing} onClick={submit}>
+                    <ContainedButton className={classes.btn} processing={processing} disabled={processing} onClick={handleSubmit}>
                       {'SEND MESSAGE'}
                     </ContainedButton>
                   </View>

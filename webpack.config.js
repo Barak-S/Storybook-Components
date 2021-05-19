@@ -120,6 +120,7 @@ module.exports = (env = {}) => {
         COGNITO_WEB_CLIENT_ID: JSON.stringify(process.env.COGNITO_WEB_CLIENT_ID || ''),
         COGNITO_REGION: JSON.stringify(process.env.COGNITO_REGION || ''),
         COGNITO_DOMAIN: JSON.stringify(process.env.COGNITO_DOMAIN || ''),
+        RECAPTCHA_PUBLIC: JSON.stringify(process.env.RECAPTCHA_PUBLIC || ''),
       }),
     ],
     devServer: {

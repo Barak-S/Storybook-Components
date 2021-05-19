@@ -4,6 +4,7 @@ import { ms, MergeStyleVal, Style, Styles } from 'styles';
 
 interface Props {
   divRef?: Ref<HTMLDivElement> | RefObject<HTMLDivElement> | LegacyRef<HTMLDivElement>;
+  id?: string;
   style?: Style | MergeStyleVal[];
   children?: ReactNode;
   className?: string;
@@ -23,6 +24,7 @@ interface Props {
 export const View: FC<Props> = ({
   className,
   style,
+  id,
   children,
   row,
   column,
@@ -51,6 +53,7 @@ export const View: FC<Props> = ({
   return (
     <div
       ref={divRef}
+      id={id}
       className={className}
       style={cStyle}
       onClick={onClick}

@@ -49,3 +49,5 @@ select {
 svg {
     overflow: visible;
 }
+
+.grecaptcha-badge { visibility: hidden; }

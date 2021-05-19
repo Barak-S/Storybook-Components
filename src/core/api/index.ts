@@ -3,7 +3,7 @@ import appConfig from 'core/configs';
 import { Log } from 'core/log';
 import { secMs } from 'utils';
 
-import { getUserRequests, getAssetsRequests } from './requests';
+import { getUserRequests, getAssetsRequests, getSupportRequests } from './requests';
 import { getOrgsRequests } from './requests/organization';
 import { ApiOpt, ApiReqOpt, isApiErrResp } from './types';
 import { ApiError, isStatus200 } from './utils';
@@ -53,7 +53,12 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     }
   };
 
-  return { user: getUserRequests(apiReq), orgs: getOrgsRequests(apiReq), assets: getAssetsRequests(apiReq) };
+  return {
+    user: getUserRequests(apiReq),
+    orgs: getOrgsRequests(apiReq),
+    assets: getAssetsRequests(apiReq),
+    support: getSupportRequests(apiReq),
+  };
 };
 
 export type Api = ReturnType<typeof getApiWithOpt>;

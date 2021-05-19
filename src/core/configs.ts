@@ -19,6 +19,9 @@ interface AppConfig {
     userPoolWebClientId: string;
     domain: string;
   };
+  recaptcha: {
+    public: string;
+  };
   features: AppConfigFeatures;
 }
 
@@ -42,6 +45,9 @@ const getAppConfig = (): AppConfig => ({
     userPoolId: getStringOrThrow(COGNITO_USER_POOL_ID, 'COGNITO_USER_POOL_ID'),
     userPoolWebClientId: getStringOrThrow(COGNITO_WEB_CLIENT_ID, 'COGNITO_WEB_CLIENT_ID'),
     domain: getStringOrThrow(COGNITO_DOMAIN, 'COGNITO_DOMAIN'),
+  },
+  recaptcha: {
+    public: getStringOrThrow(RECAPTCHA_PUBLIC, 'RECAPTCHA_PUBLIC'),
   },
   features: getFeatures(),
 });
@@ -80,3 +86,9 @@ export const appConfig = getAppConfig();
 log.debug(JSON.stringify(appConfig));
 
 export default appConfig;
+
+// Window
+
+export interface AppWindow extends Window {
+  onRecaptchaLoad?: boolean;
+}
