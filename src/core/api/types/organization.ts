@@ -117,9 +117,9 @@ export const OrganizationMemberUpdateSchema = Joi.object<OrganizationMemberUpdat
  * Invites
  */
 
-export type OrganizationInviteStatus = 'pending' | 'error' | 'done';
+export type OrganizationInviteStatus = 'pending' | 'error' | 'accepted' | 'rejected';
 
-export const orgInviteStatusArr: OrganizationInviteStatus[] = ['pending', 'error', 'done'];
+export const orgInviteStatusArr: OrganizationInviteStatus[] = ['pending', 'error', 'accepted', 'rejected'];
 
 export const OrganizationInviteStatusSchema = Joi.string().valid(...orgInviteStatusArr);
 
