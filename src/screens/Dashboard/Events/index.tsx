@@ -10,6 +10,8 @@ import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';
 import DashboardEventsListScene from './scenes/List';
 
+import DashboardEventCommandCenter from './scenes/EventCommandCenter';
+
 interface Props extends StyleProps {
   handleUseNavBtnClick?: (btn: DashboardUserNavBtnType) => void;
 }
@@ -26,11 +28,11 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const tabs: LineTab[] = [
     {
       index: 0,
-      label: 'Upcoming',
+      label: 'Hosted',
     },
     {
       index: 1,
-      label: 'Archive',
+      label: 'Attending',
       disabled: !confirmed,
       visible: !isMobile,
     },
@@ -42,6 +44,11 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
     {
       index: 3,
       label: 'Liked',
+      disabled: !confirmed,
+    },
+    {
+      index: 4,
+      label: 'Past',
       disabled: !confirmed,
     },
   ];
@@ -63,14 +70,20 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
         <Hidden smDown>{renderTabs()}</Hidden>
         <Grid>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
-            {!confirmed ? <DashboardEmailConfirmScene /> : onboarding !== 'done' ? <FirstEventSetup /> : null}
+            {!confirmed ? (
+              <DashboardEmailConfirmScene />
+            ) : onboarding !== 'done' ? (
+              <FirstEventSetup />
+            ) : (
+              <DashboardEventCommandCenter />
+            )}
             {onboarding === 'done' && <DashboardEventsListScene />}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!confirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={1}>
-            {tabs[1].label}
+            <DashboardEventCommandCenter />
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={2}>
             {tabs[2].label}

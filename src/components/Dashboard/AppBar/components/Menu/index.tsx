@@ -4,9 +4,9 @@ import React, { FC } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
-  activeTab: DashboardAppBarBtn;
-  setActiveTab: (name: DashboardAppBarBtn) => void;
-  onMenuBtnClick: (name: DashboardAppBarBtn) => void;
+  activeTab?: DashboardAppBarBtn;
+  setActiveTab?: (name: DashboardAppBarBtn) => void;
+  onMenuBtnClick?: (name: DashboardAppBarBtn) => void;
   onClick?: () => void;
   onLogoutClick?: () => void;
   hiddenBtns?: DashboardAppBarBtn[];
@@ -64,8 +64,8 @@ export const AppBarMenu: FC<Props> = ({
   ];
 
   const handleMenuButtonClick = (name: DashboardAppBarBtn) => () => {
-    onMenuBtnClick(name);
-    setActiveTab(name);
+    onMenuBtnClick && onMenuBtnClick(name);
+    setActiveTab && setActiveTab(name);
   };
 
   const isBtnHidden = (name: DashboardAppBarBtn) => Boolean(hiddenBtns && hiddenBtns.find(itm => itm === name));
