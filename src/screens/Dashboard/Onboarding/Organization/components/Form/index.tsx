@@ -5,15 +5,18 @@ import { OrganizationUpdate } from 'core/api';
 import { modCloudinaryUrl } from 'core/cloudinary';
 import React, { ChangeEvent, FC } from 'react';
 import { buildStyles, colors, ms, StyleProps, withDensity } from 'styles';
-import { FormErrors, FormProcessing } from 'utils';
+import { GenericFormErrors, GenericFormProcessing } from 'utils';
 
 interface Props extends StyleProps {
   data?: OrganizationUpdate;
-  errors?: FormErrors<OrganizationUpdate>;
-  processing?: FormProcessing<OrganizationUpdate>;
+  errors?: FormErrors;
+  processing?: FormProcessing;
   onChange?: (data: OrganizationUpdate) => void;
   onLogoFileSelect?: (file: File) => void;
 }
+
+type FormErrors = GenericFormErrors<OrganizationUpdate>;
+type FormProcessing = GenericFormProcessing<OrganizationUpdate>;
 
 export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
   const styles = useStyles();
@@ -45,6 +48,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             label="Name"
             value={data?.name || ''}
             error={!!errors?.name}
+            helperText={errors?.name}
             onChange={handleTextFieldChanged('name')}
           />
         </FormRow>
@@ -55,6 +59,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             label="phone number"
             value={data?.phone || ''}
             error={!!errors?.phone}
+            helperText={errors?.phone}
             onChange={handleTextFieldChanged('phone')}
           />
           <FormTextInput
@@ -63,6 +68,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             label="country"
             value={data?.country || ''}
             error={!!errors?.country}
+            helperText={errors?.country}
             onChange={handleTextFieldChanged('country')}
           />
         </FormRow>
@@ -73,6 +79,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             label="state"
             value={data?.state || ''}
             error={!!errors?.state}
+            helperText={errors?.state}
             onChange={handleTextFieldChanged('state')}
           />
           <FormTextInput
@@ -81,6 +88,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             label="city"
             value={data?.city || ''}
             error={!!errors?.city}
+            helperText={errors?.city}
             onChange={handleTextFieldChanged('city')}
           />
         </FormRow>
@@ -90,6 +98,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             adornmentType="transparent"
             value={data?.website || ''}
             error={!!errors?.website}
+            helperText={errors?.website}
             iconStart={<LineAwesomeIcon type="globe" style={{ color: colors.greyish }} />}
             onChange={handleTextFieldChanged('website')}
           />
@@ -100,6 +109,7 @@ export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, error
             adornmentType="transparent"
             value={data?.email || ''}
             error={!!errors?.email}
+            helperText={errors?.email}
             iconStart={<LineAwesomeIcon type="envelope-open-text" style={{ color: colors.greyish }} />}
             onChange={handleTextFieldChanged('email')}
           />

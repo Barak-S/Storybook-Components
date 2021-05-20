@@ -2,13 +2,13 @@ import { useSnackbar } from 'components/Feedback';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { Log } from 'core';
-import { OrganizationUpdate, orgItemToUpdate } from 'core/api';
+import { OrganizationUpdate, OrganizationUpdateSchema, orgItemToUpdate } from 'core/api';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { stateToCurOrgData, useSelector, useStoreManager } from 'store';
 import { StyleProps, Styles } from 'styles';
-import { FormErrors, FormProcessing } from 'utils';
+import { GenericFormData, GenericFormErrors, GenericFormProcessing, getFromErrsCheckerWithSchema } from 'utils';
 
 import OnboardingOrganizationScreenForm from './components/Form';
 
@@ -19,14 +19,20 @@ interface Props extends StyleProps {
   onCloseClick?: () => void;
 }
 
+type FormData = GenericFormData<OrganizationUpdate>;
+type FormProcessing = GenericFormProcessing<OrganizationUpdate>;
+type FormErrors = GenericFormErrors<OrganizationUpdate>;
+
+const getFormErrors = getFromErrsCheckerWithSchema<OrganizationUpdate>(OrganizationUpdateSchema);
+
 export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const curOrg = useSelector(stateToCurOrgData);
   const manager = useStoreManager();
   const { showSnackbar } = useSnackbar();
 
-  const [data, setData] = useState<OrganizationUpdate>(orgItemToUpdate(curOrg));
-  const [dataProcessing, setDataProcessing] = useState<FormProcessing<OrganizationUpdate>>({});
-  const [errors, setErrors] = useState<FormErrors<OrganizationUpdate>>({});
+  const [data, setData] = useState<FormData>(orgItemToUpdate(curOrg));
+  const [dataProcessing, setDataProcessing] = useState<FormProcessing>({});
+  const [errors, setErrors] = useState<FormErrors | undefined>();
   const [updateProcessing, setUpdateProcessing] = useState<boolean>(false);
 
   const history = useHistory();
@@ -64,6 +70,10 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
   };
 
   const handleContinueClick = async () => {
+    const curErrs = getFormErrors(data);
+    if (curErrs) {
+      return setErrors(curErrs);
+    }
     try {
       log.info('updating data');
       setUpdateProcessing(true);

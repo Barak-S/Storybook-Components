@@ -1,4 +1,8 @@
-import Joi from 'joi';
+import Joi, { ObjectSchema } from 'joi';
+import { upperFirst } from 'lodash';
+import { GenericFormErrors } from './types';
+
+// Data
 
 interface ValidatorOpt {
   required?: boolean;
@@ -59,4 +63,32 @@ export const validators = {
     }
     return undefined;
   },
+};
+
+// Forms
+
+export const getFromErrsCheckerWithSchema = <T>(schema: ObjectSchema<T>) => {
+  type FormErrors = GenericFormErrors<T>;
+
+  return (data: T): FormErrors | undefined => {
+    const { error } = schema.validate(data);
+    if (error && error.details.length) {
+      const errs: FormErrors = {};
+      for (const itm of error.details) {
+        if (itm.context && itm.context.key) {
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          const key = itm.context.key as keyof FormErrors;
+          errs[key] = prettyfyJoiErrMessage(itm.message, itm.context.key);
+        }
+      }
+      return errs;
+    }
+    return undefined;
+  };
+};
+
+const prettyfyJoiErrMessage = (rawVal: string, key: string): string => {
+  let val = rawVal;
+  val = val.replace(`"${key}"`, '');
+  return upperFirst(val.trim());
 };
