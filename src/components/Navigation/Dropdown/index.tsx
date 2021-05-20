@@ -35,7 +35,7 @@ const useEventsAwayDropdown = (ref: MutableRefObject<ReactNode>, handleClick: ()
   }, [ref]);
 };
 
-export const Dropdown: FC<Props> = ({ icon, anchor = undefined, open, onClose, onToggle, classes, children }) => {
+export const Dropdown: FC<Props> = ({ style, icon, anchor = undefined, open, onClose, onToggle, classes, children }) => {
   const styleClasses = useStyles();
   const iconType: LineAwesomeIconType = !!anchor ? 'angle-up' : 'angle-down';
   const menuRef = useRef(null);
@@ -43,7 +43,7 @@ export const Dropdown: FC<Props> = ({ icon, anchor = undefined, open, onClose, o
   useEventsAwayDropdown(menuRef, onClose);
 
   return (
-    <Grid className={mc(styleClasses.container, classes?.container)}>
+    <Grid style={style} className={mc(styleClasses.container, classes?.container)}>
       <a ref={menuRef} href="#" onClick={onToggle} className={mc(styleClasses.anchor, classes?.anchor)}>
         <LineAwesomeIcon type={icon || iconType} className={classes?.icon} />
       </a>

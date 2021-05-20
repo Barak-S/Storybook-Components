@@ -72,6 +72,7 @@ export const DashboardEventMenu: FC<Props> = ({ onEditClick, onCloneClick, onArc
   return (
     <Grid style={styles.container}>
       <Dropdown
+        style={styles.dropdown}
         anchor={anchorEl}
         open={!!anchorEl}
         onToggle={handleMenuToggle}
@@ -98,6 +99,9 @@ const styles: Styles = {
   container: {
     marginLeft: 10,
     transform: 'translateY(2px)',
+  },
+  dropdown: {
+    width: 20,
   },
 };
 
