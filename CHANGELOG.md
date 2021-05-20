@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - API: bio text size changed to 5000
 
-
 ## [1.0.71] - 2021-05-16
 ### Fixed
 - DO-166: QA
