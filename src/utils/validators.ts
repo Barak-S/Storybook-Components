@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 interface ValidatorOpt {
   required?: boolean;
   requiredMsg?: string;
@@ -22,27 +24,20 @@ export const validators = {
     if (!val && required) {
       return requiredMsg || 'Phone number is required';
     }
-    if (val && val.length !== 10) {
-      return 'Please enter a valid phone number';
-    }
-    // eslint-disable-next-line
-    const regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    if (val && !regex.test(val)) {
-      return 'Please enter a valid phone number';
-    }
-    return undefined;
+    const { error } = Joi.string()
+      .regex(/[+\d()-\s)]+/)
+      .validate(val);
+    return error ? 'Please enter a valid phone number' : undefined;
   },
   getEmailErr: (val: string | undefined, opt?: ValidatorOpt): undefined | string => {
     const { required, requiredMsg } = opt || { required: true };
     if (!val && required) {
       return requiredMsg || 'Email is required';
     }
-    // eslint-disable-next-line max-len
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-    if (val && !regex.test(val)) {
-      return 'Wrong email format';
-    }
-    return undefined;
+    const { error } = Joi.string()
+      .email({ tlds: { allow: false } })
+      .validate(val);
+    return error ? 'Wrong email format' : undefined;
   },
   getTextAreaErr: (val: string | undefined, opt?: ValidatorOpt): undefined | string => {
     const { required, requiredMsg } = opt || { required: true };
