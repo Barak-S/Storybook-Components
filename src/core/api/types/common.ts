@@ -1,27 +1,8 @@
 import Joi from 'joi';
-import { idMaxSize, nameMaxSize, urlMaxSize } from 'utils';
 
-// Socials
+export const UrlSchema = Joi.alternatives().try(
+  Joi.string().regex(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/),
+  Joi.string().regex(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/),
+);
 
-export interface Social {
-  id: string;
-  name: string;
-  url: string;
-}
-
-export const SocialSchema = Joi.object({
-  id: Joi.string().max(idMaxSize).required(),
-  name: Joi.string().max(nameMaxSize).required(),
-  url: Joi.string().uri().max(urlMaxSize).required(),
-});
-
-export const isSocial = (val: unknown): val is Social => SocialSchema.validate(val).error === undefined;
-
-export type SocialType = 'facebook' | 'twitter' | 'linkedin' | 'instagram' | 'google' | 'youtube' | 'custom';
-
-export const socialTypeArr: SocialType[] = ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'];
-
-export const isSocialType = (val: unknown): val is SocialType =>
-  Joi.string()
-    .valid(...socialTypeArr)
-    .validate(val).error === undefined;
+export const PhoneSchema = Joi.string().regex(/[+\d()-\s)]+/);

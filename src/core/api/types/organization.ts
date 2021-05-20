@@ -1,7 +1,8 @@
 import Joi from 'joi';
 import { emailMaxSize, firstNameMaxSize, lastNameMaxSize, memberTitleMaxSize, shortTextMaxSize } from 'utils';
 
-import { Social, SocialSchema } from './common';
+import { PhoneSchema, UrlSchema } from './common';
+import { Social, SocialSchema } from './social';
 import { User } from './user';
 
 // Organization
@@ -30,12 +31,12 @@ export const OrganizationSchema = Joi.object<Organization>({
   name: Joi.string().required(),
   type: Joi.string().required(),
   email: Joi.string(),
-  phone: Joi.string(),
+  phone: PhoneSchema,
   country: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
   postcode: Joi.string(),
-  website: Joi.string(),
+  website: UrlSchema,
   logo: Joi.string(),
   socials: Joi.array().items(SocialSchema),
   createdAt: Joi.string().required(),
@@ -58,12 +59,12 @@ export const OrganizationCreateSchema = Joi.object<Organization>({
     .valid(...orgTypeArr)
     .required(),
   email: Joi.string().email({ tlds: { allow: false } }),
-  phone: Joi.string(),
+  phone: PhoneSchema,
   country: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
   postcode: Joi.string(),
-  website: Joi.string().uri(),
+  website: UrlSchema,
   logo: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),
 });
@@ -72,12 +73,12 @@ export const OrganizationUpdateSchema = Joi.object<Organization>({
   name: Joi.string(),
   type: Joi.string().valid(...orgTypeArr),
   email: Joi.string().email({ tlds: { allow: false } }),
-  phone: Joi.string(),
+  phone: PhoneSchema,
   country: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
   postcode: Joi.string(),
-  website: Joi.string().uri(),
+  website: UrlSchema,
   logo: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),
 });

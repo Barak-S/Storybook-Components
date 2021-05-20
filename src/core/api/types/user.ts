@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { firstNameMaxSize, lastNameMaxSize, longTextMaxSize, urlMaxSize } from 'utils';
+import { firstNameMaxSize, lastNameMaxSize, longTextMaxSize } from 'utils';
 
-import { Social, SocialSchema } from './common';
+import { Social, SocialSchema } from './social';
 
 // Settings
 
@@ -29,7 +29,7 @@ export const UserSettingsSchema = Joi.object<UserSettings>({
 
 export const isUserSettings = (val: unknown): val is UserSettings => UserSettingsSchema.validate(val).error === undefined;
 
-// Data
+// User
 
 export interface User {
   id: string;
@@ -52,13 +52,19 @@ export const UserSchema = Joi.object<User>({
   id: Joi.string().required(),
   firstName: Joi.string().max(firstNameMaxSize).required(),
   lastName: Joi.string().max(lastNameMaxSize).required(),
-  email: Joi.string().required(),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required(),
   confirmed: Joi.bool().required(),
   bio: Joi.string().max(longTextMaxSize),
-  thumbnail: Joi.string().max(urlMaxSize).uri(),
-  socials: Joi.array().items(SocialSchema),
+  thumbnail: Joi.string().uri(),
   settings: UserSettingsSchema,
+  socials: Joi.array().items(SocialSchema),
+  createdAt: Joi.string(),
+  updatedAt: Joi.string(),
 });
+
+export const isUser = (val: unknown): val is User => UserSchema.validate(val).error === undefined;
 
 export type UserCreate = Omit<User, 'createdAt' | 'updatedAt'>;
 export type UserUpdate = Partial<Omit<User, 'id' | 'email' | 'confirmed' | 'createdAt' | 'updatedAt'>>;
@@ -67,8 +73,9 @@ export const UserUpdateSchema = Joi.object({
   firstName: Joi.string().max(firstNameMaxSize),
   lastName: Joi.string().max(lastNameMaxSize),
   bio: Joi.string().max(longTextMaxSize),
-  thumbnail: Joi.string().max(urlMaxSize).uri(),
+  thumbnail: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),
+  settings: UserSettingsSchema,
 });
 
 export const isUserUpdate = (val: unknown): val is UserUpdate => UserUpdateSchema.validate(val).error === undefined;
