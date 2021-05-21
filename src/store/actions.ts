@@ -1,4 +1,4 @@
-import { Organization, OrganizationInvite, User, UserSettings } from 'core/api';
+import { Organization, OrganizationInvite, StripeProduct, User, UserSettings } from 'core/api';
 import { Action } from 'redux';
 
 type AuthAction = (Action<'auth/Set'> & { token?: string }) | Action<'auth/SignOut'>;
@@ -18,4 +18,6 @@ type OrgsAction =
   | (Action<'orgs/items/invites/Add'> & { id: string; data: OrganizationInvite })
   | (Action<'orgs/items/invites/Remove'> & { id: string; inviteId: string });
 
-export type StoreAction = AuthAction | UserAction | OrgsAction;
+type PaywallAction = Action<'paywall/prodcuts/Set'> & { data: StripeProduct[] };
+
+export type StoreAction = AuthAction | UserAction | OrgsAction | PaywallAction;

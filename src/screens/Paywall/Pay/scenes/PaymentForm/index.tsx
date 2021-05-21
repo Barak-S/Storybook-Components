@@ -1,18 +1,20 @@
-import { makeStyles, Theme, Typography, useTheme } from '@material-ui/core';
+import { makeStyles, Theme, useTheme } from '@material-ui/core';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { PaymentMethod, StripeCardElementChangeEvent, StripeCardElementOptions, StripeError } from '@stripe/stripe-js';
+import { PaymentMethod, StripeCardElementChangeEvent, StripeCardElementOptions } from '@stripe/stripe-js';
 import { ContainedButton } from 'components/Buttons';
-import { Text } from 'components/Common';
+import { Text, View } from 'components/Common';
 import { FormTextInput } from 'components/Form';
-import { Log } from 'core';
-import { User } from 'core/api';
+import { appConfig, Log } from 'core';
+import { StripeProduct, User } from 'core/api';
 import React, { FC, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
+import { errToStr } from 'utils';
 
 const log = Log('components.PaywallPayPaymentFormScene');
 
 interface Props extends StyleProps {
   user: User;
+  product: StripeProduct;
 }
 
 const options: StripeCardElementOptions = {
@@ -34,31 +36,20 @@ const options: StripeCardElementOptions = {
   },
 };
 
-interface PMDProps {
-  // eslint-disable-next-line react/require-default-props
-  paymentMethod?: PaymentMethod;
+interface BillingDetails {
+  email: string;
+  name: string;
 }
 
-const PaymentMethodDisplay = ({ paymentMethod }: PMDProps) => {
-  log.debug('METHOD', paymentMethod);
-  if (!paymentMethod) {
-    return <div />;
-  }
-  return <Typography style={{ maxWidth: 500 }}>{JSON.stringify(paymentMethod)}</Typography>;
-};
-
 export const PaywallPayPaymentFormScene: FC<Props> = ({ style, user }) => {
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
-  const [billingDetails, setBillingDetails] = useState({
+  const [details, setDetails] = useState<BillingDetails>({
     email: user.email,
-    name: '',
+    name: `${user.firstName} ${user.lastName}`,
   });
 
-  const [cardComplete, setCardComplete] = useState(false);
+  const [complete, setComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [error, setError] = useState<StripeError>();
+  const [error, setError] = useState<string | undefined>();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>();
 
   const stripe = useStripe();
@@ -66,16 +57,16 @@ export const PaywallPayPaymentFormScene: FC<Props> = ({ style, user }) => {
 
   const handleCardChange = (e: StripeCardElementChangeEvent) => {
     if (e.error) {
-      setError(e.error);
+      setError(e.error.message);
     } else {
       setError(undefined);
     }
-    setCardComplete(e.complete);
+    setComplete(e.complete);
   };
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = e =>
-    setBillingDetails({
-      ...billingDetails,
+    setDetails({
+      ...details,
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
@@ -83,33 +74,36 @@ export const PaywallPayPaymentFormScene: FC<Props> = ({ style, user }) => {
     if (error || !stripe || !elements) {
       return;
     }
-    if (cardComplete) {
+    setError(undefined);
+    setPaymentMethod(undefined);
+    try {
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        return log.err('Card element not found');
+      }
       setProcessing(true);
-    }
-
-    const cardElement = elements.getElement(CardElement);
-
-    if (cardElement) {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
         card: cardElement,
-        billing_details: billingDetails,
+        billing_details: details,
       });
+      setProcessing(false);
 
       if (error) {
-        setError(error);
-        setPaymentMethod(undefined);
+        setError(error.message);
         log.err(error);
       } else {
-        setError(undefined);
         setPaymentMethod(paymentMethod);
-        log.debug('[PaymentMethod]', paymentMethod);
+        log.debug('payment method selected', paymentMethod);
       }
-    } else {
-      log.err('Card element not found');
+    } catch (err: unknown) {
+      log.err(err);
+      setError(errToStr(err));
     }
-    setProcessing(false);
   };
+
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <form style={style}>
@@ -118,7 +112,7 @@ export const PaywallPayPaymentFormScene: FC<Props> = ({ style, user }) => {
         inputStyle={styles.input}
         label="Your email"
         name="email"
-        value={billingDetails.email}
+        value={details.email}
         onChange={handleInputChange}
         required
       />
@@ -127,51 +121,44 @@ export const PaywallPayPaymentFormScene: FC<Props> = ({ style, user }) => {
         inputStyle={styles.input}
         label="Name on card"
         name="name"
-        value={billingDetails.name}
+        value={details.name}
         onChange={handleInputChange}
         required
       />
-      <div style={{ margin: '8px 0' }}>
-        <a href="https://stripe.com/docs/testing#cards" target="_blank" rel="noopener noreferrer">
-          {'Stripe test cards'}
-        </a>
-        {', e.g.'}{' '}
-        <div className="card-number">
-          {'4242'}
-          <span />
-          {'4242'}
-          <span />
-          {'4242'}
-          <span />
-          {'4242'}
-        </div>
-      </div>
-      <div
+      <View
         style={{
           marginBottom: 24,
           padding: 16,
-          backgroundColor: '#FFF',
+          backgroundColor: colors.white,
           borderRadius: 12,
           border: `solid 1px ${colors.coolBlue}`,
         }}
       >
         <CardElement options={options} onChange={handleCardChange} />
-      </div>
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      </View>
+      {appConfig.env !== 'prd' && (
+        <View style={styles.devHint}>
+          <Text block>
+            <a href="https://stripe.com/docs/testing#cards" target="_blank" rel="noopener noreferrer">
+              {'Stripe test cards'}
+            </a>
+            {', e.g.'}{' '}
+          </Text>
+          <Text block>{'4242 4242 4242 4242'}</Text>
+        </View>
+      )}
+      <View style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <ContainedButton
           style={{ padding: '0 24px', width: 'auto' }}
           size="small"
           processing={processing}
           onClick={handleSubmit}
-          disabled={!billingDetails.name || !stripe}
+          disabled={!details.name || !stripe}
         >
           {'Purchase'}
         </ContainedButton>
-      </div>
-      <div style={{ marginTop: 8 }}>
-        <Text color={colors.error}>{error && error.message}</Text>
-      </div>
-      <PaymentMethodDisplay paymentMethod={paymentMethod} />
+      </View>
+      <View style={{ marginTop: 8 }}>{!!error && <Text color={colors.error}>{error}</Text>}</View>
     </form>
   );
 };
@@ -179,6 +166,11 @@ export const PaywallPayPaymentFormScene: FC<Props> = ({ style, user }) => {
 const styles: Styles = {
   input: {
     fontSize: 16,
+  },
+  devHint: {
+    margin: '8px 0',
+    fontSize: '12px',
+    textAlign: 'center',
   },
 };
 

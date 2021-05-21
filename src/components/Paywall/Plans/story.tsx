@@ -1,11 +1,11 @@
 import React from 'react';
 import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 
-import ContentPlans, { ContentPlansProps as Props } from '.';
+import PaywallPlans, { PaywallPlansProps as Props } from '.';
 
 export default ((): StoryMeta<Props> => ({
-  title: 'components/Content/Plans',
-  component: ContentPlans,
+  title: 'components/Paywall/Plans',
+  component: PaywallPlans,
   args: {},
   argTypes: {},
   parameters: {
@@ -13,4 +13,4 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-export const Basic: Story<Props> = args => <ContentPlans {...args} />;
+export const Basic: Story<Props> = args => <PaywallPlans {...args} />;

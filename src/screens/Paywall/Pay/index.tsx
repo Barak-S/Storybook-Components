@@ -1,31 +1,40 @@
-import { ScreenTitle } from 'components/Screen';
-import { useQuery } from 'core/navigation';
-import { Log } from 'core';
-import React, { FC } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { colors, Styles, StyleProps, sizes } from 'styles';
+import { AuthFormContainer } from 'components/Auth';
+import { TextButton } from 'components/Buttons';
 import { Text } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
-import { TextButton } from 'components/Buttons';
+import { ScreenTitle } from 'components/Screen';
+import { Log } from 'core';
+import { useQuery } from 'core/navigation';
+import React, { FC, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector, useStoreManager } from 'store';
+import { colors, sizes, StyleProps, Styles } from 'styles';
+
 import PaymentFormScene from './scenes/PaymentForm';
-import { useSelector } from 'store';
-import { AuthFormContainer } from 'components/Auth';
-import { StripeProduct } from 'core/api';
 
 const log = Log('screens.Paywall.Pay');
 
 type Props = StyleProps;
 
 interface LocationState {
-  product?: StripeProduct;
+  product?: string;
 }
 
 export const PaywallPayScreen: FC<Props> = () => {
   const history = useHistory();
   const location = useLocation<LocationState | undefined>();
+  const query = useQuery();
+  const manager = useStoreManager();
+
+  const products = useSelector(s => s.paywall.products);
   const user = useSelector(s => s.user.data);
 
-  const { product } = location.state || {};
+  useEffect(() => {
+    manager.paywall.updateProducts();
+  }, []);
+
+  const productId: string | undefined = location.state?.product || query.product;
+  const product = products.find(itm => itm.id === productId);
 
   return (
     <>
@@ -38,7 +47,7 @@ export const PaywallPayScreen: FC<Props> = () => {
           }
         </Text>
         <AuthFormContainer style={styles.content}>
-          {!!user && <PaymentFormScene style={styles.form} user={user} />}
+          {!!user && !!product && <PaymentFormScene style={styles.form} user={user} product={product} />}
         </AuthFormContainer>
       </div>
       <div style={{ position: 'fixed', top: 160, left: 80 }}>

@@ -1,13 +1,12 @@
-import { CircularProgress } from '@material-ui/core';
 import { Text } from 'components/Common';
-import { ContentPlans } from 'components/Content';
+import { PaywallPlans } from 'components/Paywall';
 import { ScreenTitle } from 'components/Screen';
 import { Log } from 'core';
 import { StripeProduct } from 'core/api';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import { useStoreManager } from 'store';
+import { useSelector, useStoreManager } from 'store';
 import { colors, sizes, StyleProps, Styles } from 'styles';
 
 const log = Log('screens.Paywall.Plans');
@@ -16,31 +15,15 @@ type Props = StyleProps;
 export const PaywallPlansScreen: FC<Props> = () => {
   const history = useHistory();
   const manager = useStoreManager();
-  const [products, setProducts] = useState<StripeProduct[]>([]);
-  const [processing, setProcessing] = useState<boolean>(false);
+  const products = useSelector(s => s.paywall.products);
 
   useEffect(() => {
-    updateData();
+    manager.paywall.updateProducts();
   }, []);
-
-  const updateData = async () => {
-    try {
-      log.debug('updating products list');
-      setProcessing(true);
-      const { data } = await manager.api.paywall.products();
-      setProcessing(false);
-      log.debug('updating products list done');
-      log.trace(products);
-      setProducts(data);
-    } catch (err: unknown) {
-      setProcessing(false);
-      log.err('updating products err=', err);
-    }
-  };
 
   const handleSelection = (product: StripeProduct) => {
     log.debug('handle product select=', product);
-    history.push({ pathname: routes.paywall.pay, state: { product } });
+    history.push({ pathname: routes.paywall.pay, state: { product: product.id } });
   };
 
   const handleContactClick = () => {
@@ -57,11 +40,7 @@ export const PaywallPlansScreen: FC<Props> = () => {
             'Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Nostrum, vero, modi. Reprehenderit, nihil. Ab praesentium ipsum doloremque maxime, adipisci, obcaecati!'
           }
         </Text>
-        {processing ? (
-          <CircularProgress size="big" />
-        ) : (
-          <ContentPlans products={products} onSelect={handleSelection} onContactClick={handleContactClick} />
-        )}
+        <PaywallPlans products={products} onSelect={handleSelection} onContactClick={handleContactClick} />
       </div>
     </>
   );

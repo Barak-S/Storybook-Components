@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import AuthScreens from './Auth';
 import DashboardScreens from './Dashboard';
-import PaywallScreens from './Paywall';
+// import PaywallScreens from './Paywall';
 
 interface Props {
   loggedIn: boolean;
@@ -22,8 +22,8 @@ export const Screens: FC<Props> = ({ loggedIn }) => {
         <AuthScreens />
       ) : (
         // ) : user?.org?.subscriptions?.length === 0 ? ( // something like this.... i'm guessing.
-        <PaywallScreens />
-        // <DashboardScreens />
+        // <PaywallScreens />
+        <DashboardScreens />
       )}
     </Router>
   );

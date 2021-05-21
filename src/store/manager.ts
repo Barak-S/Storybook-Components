@@ -1,6 +1,7 @@
 import { useFunc as useAuthFunc } from './auth/func';
 import { useFunc as useOrgsFunc } from './orgs/func';
 import { useFunc as useUserFunc } from './user/func';
+import { useFunc as usePaywallFunc } from './paywall/func';
 import { useApi, useDispatch } from './utils';
 
 export const useStoreManager = () => {
@@ -10,6 +11,7 @@ export const useStoreManager = () => {
     auth: useAuthFunc({ dispatch, api }),
     user: useUserFunc({ dispatch, api }),
     orgs: useOrgsFunc({ dispatch, api }),
+    paywall: usePaywallFunc({ dispatch, api }),
     api,
   };
 };

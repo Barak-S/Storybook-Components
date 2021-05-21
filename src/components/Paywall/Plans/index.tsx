@@ -43,7 +43,7 @@ const sortProducts = (items: StripeProduct[]) =>
     return 3;
   });
 
-export const ContentPlans: FC<Props> = ({ products: rawProducts, onSelect, onContactClick }) => {
+export const PaywallPlans: FC<Props> = ({ products: rawProducts, onSelect, onContactClick }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -306,5 +306,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type ContentPlansProps = Props;
-export default ContentPlans;
+export type PaywallPlansProps = Props;
+export default PaywallPlans;
