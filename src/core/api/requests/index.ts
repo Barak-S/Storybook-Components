@@ -2,3 +2,4 @@
 export * from './user';
 export * from './assets';
 export * from './support';
+export * from './paywall';

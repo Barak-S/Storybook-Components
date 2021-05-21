@@ -16,10 +16,10 @@ export const validators = {
       return requiredMsg || 'Name is required';
     }
     if (val && val.length < 2) {
-      return 'Name could not be shorter than two symbols';
+      return 'Name could not be shorter than two characters';
     }
     if (val && val.length > 35) {
-      return 'Name could not be longer than 35 symbols';
+      return 'Name could not be longer than 35 characters';
     }
     return undefined;
   },

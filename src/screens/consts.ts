@@ -26,8 +26,9 @@ export const routes = {
       event: '/dashboard/onboarding/event',
     },
   },
-  register: {
-    subscribe: '/register/subscribe',
+  paywall: {
+    plans: '/paywall/plans',
+    pay: '/paywall/pay',
   },
   terms: '/terms',
   policy: '/policy',

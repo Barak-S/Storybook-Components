@@ -19,6 +19,9 @@ interface AppConfig {
     userPoolWebClientId: string;
     domain: string;
   };
+  stripe: {
+    key: string;
+  };
   recaptcha: {
     public: string;
   };
@@ -45,6 +48,9 @@ const getAppConfig = (): AppConfig => ({
     userPoolId: getStringOrThrow(COGNITO_USER_POOL_ID, 'COGNITO_USER_POOL_ID'),
     userPoolWebClientId: getStringOrThrow(COGNITO_WEB_CLIENT_ID, 'COGNITO_WEB_CLIENT_ID'),
     domain: getStringOrThrow(COGNITO_DOMAIN, 'COGNITO_DOMAIN'),
+  },
+  stripe: {
+    key: getStringOrThrow(STRIPE_KEY, 'STRIPE_KEY'),
   },
   recaptcha: {
     public: getStringOrThrow(RECAPTCHA_PUBLIC, 'RECAPTCHA_PUBLIC'),

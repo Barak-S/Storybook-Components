@@ -1,8 +1,7 @@
 import React, { FC, MouseEvent } from 'react';
-import { colors, ms, StyleProps, Styles, useHover } from 'styles';
+import { colors, ms, ClassNameProps, StyleProps, Styles, useHover } from 'styles';
 
-interface Props extends StyleProps {
-  className?: string;
+interface Props extends StyleProps, ClassNameProps {
   size?: number;
   href?: string;
   disabled?: boolean;

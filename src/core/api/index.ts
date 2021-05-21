@@ -3,7 +3,7 @@ import appConfig from 'core/configs';
 import { Log } from 'core/log';
 import { secMs } from 'utils';
 
-import { getUserRequests, getAssetsRequests, getSupportRequests } from './requests';
+import { getUserRequests, getAssetsRequests, getSupportRequests, getPaywallRequests } from './requests';
 import { getOrgsRequests } from './requests/organization';
 import { ApiOpt, ApiReqOpt, isApiErrResp } from './types';
 import { ApiError, isStatus200 } from './utils';
@@ -12,9 +12,9 @@ const log = Log('core.api');
 
 export const getApiWithOpt = ({ token }: ApiOpt) => {
   const apiReq = async <T>(opt: ApiReqOpt<T>): Promise<T> => {
-    const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true, guard } = opt;
+    const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true, guard, schema } = opt;
     if (auth && !token) {
-      log.err(`Trying to call "${path}" without a token`);
+      log.err(`trying to call "${path}" without a token`);
       throw new Error(`Trying to call "${path}" without a token`);
     }
     const url = `${appConfig.api.url}${path}`;
@@ -41,10 +41,15 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
           log.err(`wrong resp data format, data=${JSON.stringify(data)}`);
           throw new Error(`Wrong response data format`);
         }
-      } else {
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        return (data as unknown) as T;
       }
+      if (schema) {
+        const { error } = schema.validate(data);
+        if (error) {
+          log.err(`wrong resp data format, err=`, error);
+        }
+      }
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      return (data as unknown) as T;
     }
     if (isApiErrResp(data)) {
       throw new ApiError(data.message, status);
@@ -58,6 +63,7 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     orgs: getOrgsRequests(apiReq),
     assets: getAssetsRequests(apiReq),
     support: getSupportRequests(apiReq),
+    paywall: getPaywallRequests(apiReq),
   };
 };
 

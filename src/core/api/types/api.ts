@@ -1,4 +1,5 @@
 import { Method } from 'axios';
+import { Schema } from 'joi';
 import { isArray, isString } from 'lodash';
 import { isUnknowDict, TypeGuard } from 'utils';
 
@@ -14,6 +15,7 @@ export interface ApiReqOpt<T> {
   timeout?: number;
   auth?: boolean;
   guard?: TypeGuard<T>;
+  schema?: Schema<T>;
 }
 
 export type ApiReqHandler = <T>(opt: ApiReqOpt<T>) => Promise<T>;

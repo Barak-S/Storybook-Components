@@ -120,11 +120,12 @@ module.exports = (env = {}) => {
         COGNITO_WEB_CLIENT_ID: JSON.stringify(process.env.COGNITO_WEB_CLIENT_ID || ''),
         COGNITO_REGION: JSON.stringify(process.env.COGNITO_REGION || ''),
         COGNITO_DOMAIN: JSON.stringify(process.env.COGNITO_DOMAIN || ''),
+        STRIPE_KEY: JSON.stringify(process.env.STRIPE_KEY || ''),
         RECAPTCHA_PUBLIC: JSON.stringify(process.env.RECAPTCHA_PUBLIC || ''),
       }),
     ],
     devServer: {
-      host: '0.0.0.0',
+      host: 'localhost',
       port: process.env.PORT || process.env.APP_PORT || 7000,
       historyApiFallback: true,
       headers: {
