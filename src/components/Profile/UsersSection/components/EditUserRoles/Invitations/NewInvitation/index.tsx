@@ -314,8 +314,7 @@ const useStyles = (theme: Theme) =>
       boxShadow: 'none',
       transform: 'translateX(34px)',
       [theme.breakpoints.down('md')]: {
-        margin: '0 15px',
-        flexDirection: 'column-reverse',
+        minHeight: '100vh',
         transform: 'translateX(0px)',
       },
     },
@@ -352,8 +351,12 @@ const useStyles = (theme: Theme) =>
       borderRadius: 30,
       [theme.breakpoints.down('md')]: {
         maxWidth: '100%',
+        marginTop: 61,
+        marginBottom: 42,
       },
       [theme.breakpoints.down('sm')]: {
+        marginLeft: 15,
+        marginRight: 15,
         paddingLeft: 15,
         paddingRight: 15,
         borderRadius: 20,
@@ -391,7 +394,7 @@ const useStyles = (theme: Theme) =>
     input: {
       maxWidth: 275,
       marginBottom: 'auto',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         maxWidth: '100%',
         marginRight: 10,
       },
@@ -460,6 +463,12 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('md')]: {
         marginLeft: 'auto',
         marginBottom: 12,
+        position: 'absolute',
+        right: 0,
+        top: 15,
+      },
+      [theme.breakpoints.down('sm')]: {
+        right: 15,
       },
     },
     inviteCard: {

@@ -206,9 +206,8 @@ const useStyles = (theme: Theme) =>
       background: '#082341',
       boxShadow: 'none',
       transform: 'translateX(34px)',
-      [theme.breakpoints.down('sm')]: {
-        margin: '0 15px',
-        flexDirection: 'column-reverse',
+      [theme.breakpoints.down('md')]: {
+        minHeight: '100vh',
         transform: 'translateX(0px)',
       },
     },
@@ -225,7 +224,14 @@ const useStyles = (theme: Theme) =>
       paddingRight: 60,
       paddingBottom: 42,
       borderRadius: 30,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
+        marginTop: 61,
+        marginBottom: 42,
+      },
       [theme.breakpoints.down('sm')]: {
+        marginLeft: 15,
+        marginRight: 15,
         paddingLeft: 15,
         paddingRight: 15,
         borderRadius: 20,
@@ -235,6 +241,10 @@ const useStyles = (theme: Theme) =>
       margin: '16px 0',
       flexDirection: 'row',
       justifyContent: 'space-between',
+      maxWidth: 675,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
+      },
     },
     primaryHeader: {
       color: colors.marineBlue,
@@ -312,6 +322,12 @@ const useStyles = (theme: Theme) =>
       [theme.breakpoints.down('md')]: {
         marginLeft: 'auto',
         marginBottom: 12,
+        position: 'absolute',
+        right: 0,
+        top: 15,
+      },
+      [theme.breakpoints.down('sm')]: {
+        right: 15,
       },
     },
     description: {
