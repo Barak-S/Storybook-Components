@@ -1,7 +1,7 @@
 import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
-import React, { FC } from 'react';
-import { mc, StyleProps, colors } from 'styles';
 import { Title } from 'components/Common';
+import React, { FC } from 'react';
+import { colors, mc, StyleProps } from 'styles';
 
 interface Props extends StyleProps {
   eventData?: string;

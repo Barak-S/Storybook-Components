@@ -3,7 +3,9 @@ import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC, useState } from 'react';
 import { mc, ms, StyleProps, colors } from 'styles';
 import { Title, View } from 'components/Common';
-import EventBadgeStatus from '../EventBadgeStatus';
+import EventBadgeStatus from '../BadgeStatus';
+import { useHistory } from 'react-router';
+import { routes } from 'screens/consts';
 
 interface Props extends StyleProps {
   title?: string;
@@ -17,7 +19,7 @@ interface Props extends StyleProps {
 export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, linkTo, children, style, className }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-
+  const history = useHistory();
   const [hover, setHover] = useState<boolean>(false);
 
   return (
@@ -26,6 +28,7 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       style={ms({ background: hover ? 'rgba(255,255,255,0.6)' : colors.white }, style)}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onClick={() => history.push(`${routes.dashboard.events.list}/:id/edit/${linkTo}`)}
     >
       <View row style={{ justifyContent: 'space-between' }}>
         <LineAwesomeIcon

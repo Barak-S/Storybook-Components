@@ -9,9 +9,11 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import { useSelector, useStoreManager } from 'store';
 import { ms, scrollToTop, StyleProps, Styles } from 'styles';
+
 import DashboardAnalyticsScreen from './Analytics';
 import DashboardContactScreen from './Contact';
-import DashboardEventsScreen from './Events';
+import DashboardEventsEditScreen from './Events/Edit';
+import DashboardEventsListScreen from './Events/List';
 import DashboardFaqScreen from './Faq';
 import OnboardingScreens from './Onboarding';
 import DashboardPolicyScreen from './Policy';
@@ -19,7 +21,6 @@ import DashboardProfileScreen from './Profile';
 import DashboardSupportScreen from './Support';
 import DashboardTermsScreen from './Terms';
 import DashboardUserManagementScreen from './UserManagement';
-import DashboardSetupSession from './Session';
 
 type Props = StyleProps;
 
@@ -50,8 +51,23 @@ export const DashboardScreens: FC<Props> = () => {
     setMobileMenuVisible(mobileMenuVisible => !mobileMenuVisible);
   };
 
+  const barBtnToRoute = (name: DashboardAppBarBtn) => {
+    switch (name) {
+      case 'events':
+        return routes.dashboard.events.list;
+      case 'analytics':
+        return routes.dashboard.analytics;
+      case 'users':
+        return routes.dashboard.users;
+      case 'profile':
+        return routes.dashboard.profile;
+      case 'notes':
+        return routes.dashboard.notes;
+    }
+  };
+
   const handleAppBarMenuBtnClick = (name: DashboardAppBarBtn) => {
-    history.push({ pathname: routes.dashboard[name] });
+    history.push({ pathname: barBtnToRoute(name) });
   };
 
   const log = Log('screens.DashboardEvents');
@@ -103,8 +119,11 @@ export const DashboardScreens: FC<Props> = () => {
           )}
           <View style={styles.dashboardBody} column justifyContent="flex-start" alignItems="center">
             <Switch>
-              <Route path={routes.dashboard.events}>
-                <DashboardEventsScreen handleUseNavBtnClick={handleUseNavBtnClick} />
+              <Route path={routes.dashboard.events.edit}>
+                <DashboardEventsEditScreen />
+              </Route>
+              <Route path={routes.dashboard.events.list}>
+                <DashboardEventsListScreen handleUseNavBtnClick={handleUseNavBtnClick} />
               </Route>
               <Route path={routes.dashboard.analytics}>
                 <DashboardAnalyticsScreen />
@@ -117,9 +136,6 @@ export const DashboardScreens: FC<Props> = () => {
               </Route>
               <Route path={routes.dashboard.profile}>
                 <DashboardProfileScreen />
-              </Route>
-              <Route path={routes.dashboard.setupSession}>
-                <DashboardSetupSession />
               </Route>
               <Route path={routes.dashboard.support}>
                 <DashboardSupportScreen />
@@ -134,7 +150,7 @@ export const DashboardScreens: FC<Props> = () => {
                 <DashboardFaqScreen />
               </Route>
               <OnboardingScreens />
-              <Redirect to={routes.dashboard.events} />
+              <Redirect to={routes.dashboard.events.list} />
             </Switch>
           </View>
         </Grid>

@@ -18,7 +18,7 @@ export const OnboardingScreens: FC<Props> = () => {
   const classes = useStyles(theme);
   const history = useHistory();
 
-  const handleCloseClick = () => history.push(routes.dashboard.events);
+  const handleCloseClick = () => history.push(routes.dashboard.events.list);
 
   return (
     <BackgroundedContainer className={classes.container}>
@@ -36,7 +36,7 @@ export const OnboardingScreens: FC<Props> = () => {
           <Route path={routes.dashboard.onboarding.event}>
             <OnboardingEventScreen steps={steps} onCloseClick={handleCloseClick} />
           </Route>
-          <Redirect to={routes.dashboard.events} />
+          <Redirect to={routes.dashboard.events.list} />
         </Switch>
       </Grid>
     </BackgroundedContainer>

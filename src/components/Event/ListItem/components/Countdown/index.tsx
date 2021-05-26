@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useMemo } from 'react';
 import differenceInSeconds from 'date-fns/differenceInSeconds';
-import EventDataTile from '../EventDataTile';
+import DataTile from '../DataTile';
 import { pad } from 'utils';
 
 interface Props {
@@ -48,7 +48,7 @@ export const EventCountdown: FC<Props> = ({ deadline }) => {
   }, []);
 
   return (
-    <EventDataTile
+    <DataTile
       eventData={`${countdown.days}:${pad(countdown.hours, 2)}:${pad(countdown.minutes, 2)}:${pad(countdown.seconds, 2)}`}
       title="EVENT COUNTDOWN"
       style={{ paddingLeft: 0, paddingRight: 0 }}

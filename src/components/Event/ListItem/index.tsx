@@ -1,19 +1,20 @@
-import { makeStyles, Paper, Theme, useMediaQuery, useTheme, MenuItem } from '@material-ui/core';
-import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
+import { makeStyles, MenuItem, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { ContainedButton } from 'components/Buttons';
 import { Title, View } from 'components/Common';
-import React, { FC, useState, MouseEvent, useEffect } from 'react';
-import { colors, StyleProps } from 'styles';
-import { FormToggle } from 'components/Form';
-import { Dropdown } from 'components/Navigation';
 import { DashboardAppBarBtn } from 'components/Dashboard/AppBar/components/Menu';
 import { VerticalSplitter } from 'components/Data';
-import EventBadgeStatus from '../../components/EventBadgeStatus';
-import EventImageTile from '../../components/EventImageTile';
-import EventDataTile from '../../components/EventDataTile';
-import EditEventTile from '../../components/EditEventTile';
-import EventCountdown from '../../components/EventCountdown';
+import { FormToggle } from 'components/Form';
+import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import backgroundImg from 'components/Layout/BackgroundedContainer/assets/background.png';
-import { ContainedButton } from 'components/Buttons';
+import { Dropdown } from 'components/Navigation';
+import React, { FC, MouseEvent, useEffect, useState } from 'react';
+import { colors, StyleProps } from 'styles';
+
+import BadgeStatus from './components/BadgeStatus';
+import Countdown from './components/Countdown';
+import DataTile from './components/DataTile';
+import ImageTile from './components/ImageTile';
+import Tile from './components/Tile';
 
 type Props = StyleProps;
 
@@ -23,7 +24,7 @@ interface BtnData {
   label: string;
 }
 
-export const DashboardEventCommandCenterView: FC<Props> = () => {
+export const EventsListItem: FC<Props> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -35,6 +36,7 @@ export const DashboardEventCommandCenterView: FC<Props> = () => {
     e.preventDefault();
     setAnchorEl(e.currentTarget);
   };
+
   const handleMenuClose = () => {
     setAnchorEl(undefined);
   };
@@ -73,7 +75,7 @@ export const DashboardEventCommandCenterView: FC<Props> = () => {
     >
       <View row className={classes.eventSummary}>
         <div className={classes.eventHeader}>
-          <EventBadgeStatus label="PUBLIC EVENT" />
+          <BadgeStatus label="PUBLIC EVENT" />
           <Title type="h5" className={classes.eventDate}>
             {'June 9-12 • 2021'}
           </Title>
@@ -99,14 +101,12 @@ export const DashboardEventCommandCenterView: FC<Props> = () => {
               icon: classes.dropdownIcon,
             }}
           >
-            {buttons.map(({ name, icon, label }) => {
-              return (
-                <MenuItem key={name} component="button">
-                  {<LineAwesomeIcon type={icon} />}
-                  {label}
-                </MenuItem>
-              );
-            })}
+            {buttons.map(({ name, icon, label }) => (
+              <MenuItem key={name} component="button">
+                {<LineAwesomeIcon type={icon} />}
+                {label}
+              </MenuItem>
+            ))}
           </Dropdown>
         </View>
       </View>
@@ -118,18 +118,18 @@ export const DashboardEventCommandCenterView: FC<Props> = () => {
           className={classes.eventContainer}
           style={{ transform: editDash ? 'translateX(-100%)' : 'translateX(0%)', transition: '0.3s ease all' }}
         >
-          <EventImageTile />
+          <ImageTile />
           <div className={classes.eventDataCol}>
-            <EventCountdown deadline={new Date(2021, 5, 9)} />
-            <EventDataTile eventData="12.3k" title="TOTAL REVENUE" />
+            <Countdown deadline={new Date(2021, 5, 9)} />
+            <DataTile eventData="12.3k" title="TOTAL REVENUE" />
           </div>
           <div className={classes.eventDataCol}>
-            <EventDataTile eventData="547" title="TOTAL SUBSCRIBED" />
-            <EventDataTile subTitle="Will display when event is live." title="EVENT REGISTRATION" />
+            <DataTile eventData="547" title="TOTAL SUBSCRIBED" />
+            <DataTile subTitle="Will display when event is live." title="EVENT REGISTRATION" />
           </div>
           <div className={classes.eventDataCol}>
-            <EventDataTile subTitle="Will display when registration is set up." title="TOTAL SUBSCRIBED" />
-            <EventDataTile subTitle="Will display when event is live." title="TOTAL IN-PERSON ATTENDEES" />
+            <DataTile subTitle="Will display when registration is set up." title="TOTAL SUBSCRIBED" />
+            <DataTile subTitle="Will display when event is live." title="TOTAL IN-PERSON ATTENDEES" />
           </div>
         </div>
         <div
@@ -140,61 +140,61 @@ export const DashboardEventCommandCenterView: FC<Props> = () => {
             style={{ display: !editDash ? 'none' : 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}
           >
             <div className={classes.eventDataRow}>
-              <EditEventTile
+              <Tile
                 title="EVENT PROFILE"
                 description="Lorem ipsum dolor sit amet, consectetur adipi scing elitsed. Lorem ipsum dolors consect etur adipiscing elitsed."
-                icon="clipboard-list"
-                linkTo="Profile"
+                icon="passport"
+                linkTo="profile"
                 style={{ height: 201 }}
               />
-              <EditEventTile
+              <Tile
                 title="EVENT SETTINGS"
                 description="Lorem ipsum dolor sit amet, consectetur adipi scing elitsed. Lorem ipsum dolors consect etur adipiscing elitsed."
                 icon="cog"
-                linkTo="Settings"
+                linkTo="settings"
                 style={{ height: 201 }}
               />
             </div>
             <div className={classes.eventDataRow}>
-              <EditEventTile
+              <Tile
                 title="ATTENDEE REGISTRATION"
                 description="This is where your attendees will learn about and register for your event."
                 icon="clipboard-list"
-                linkTo="Registration"
+                linkTo="registration"
                 style={{ height: 201 }}
                 disabled
               />
-              <EditEventTile
+              <Tile
                 title="EVENT TEAM"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="users"
-                linkTo="Manage Users"
+                linkTo="manage-users"
                 style={{ height: 201 }}
                 disabled
               />
             </div>
             <div className={classes.eventDataRow}>
-              <EditEventTile
+              <Tile
                 title="EVENT SESSION"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="calendar-plus"
-                linkTo="Sessions"
+                linkTo="sessions"
                 style={{ height: 425 }}
                 disabled
               />
             </div>
             <div className={classes.eventDataRow}>
-              <EditEventTile
+              <Tile
                 title="EVENT SPONSORS"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="thumbs-up"
-                linkTo="Sponsors"
+                linkTo="sponsors"
                 style={{ height: 425 }}
                 disabled
               />
             </div>
             <div className={classes.eventDataRow}>
-              <EditEventTile
+              <Tile
                 title="EVENT APPEARANCE"
                 description="Brand your selected event theme and add in messaging to your attendees."
                 icon="edit"
@@ -381,5 +381,5 @@ const useStyles = (theme: Theme) =>
     },
   })();
 
-export type DashboardEventCommandCenterViewProps = Props;
-export default DashboardEventCommandCenterView;
+export type EventsListItemProps = Props;
+export default EventsListItem;

@@ -5,3 +5,4 @@ export * from './Dropdown';
 export * from './FolderTabs';
 export * from './Stepper';
 export * from './LineTabs';
+export * from './SidebarTabs';

@@ -75,6 +75,7 @@ const getStyles = (theme: SceenFooterTheme): Styles => ({
     color: theme === 'dark' ? colors.white : colors.darkIndigo,
     backgroundColor: theme === 'dark' ? colors.darkIndigo : colors.white,
     borderTop: theme === 'dark' ? `2px solid ${colors.white}` : `2px solid ${colors.greyish}`,
+    zIndex: 99,
   },
 });
 

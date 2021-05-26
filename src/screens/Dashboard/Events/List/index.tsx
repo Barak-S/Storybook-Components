@@ -1,22 +1,22 @@
 import { Grid, Hidden } from '@material-ui/core';
-import { ScreenTitle, ScreenFooter } from 'components/Screen';
 import { DashboardScreenContainer, DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
+import { EventsListItem } from 'components/Event';
 import { LineTab, LineTabs } from 'components/Navigation';
+import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import { useAuth } from 'core';
 import React, { FC, useState } from 'react';
 import { useSelector } from 'store';
 import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
+
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';
 import DashboardEventsListScene from './scenes/List';
-
-import DashboardEventCommandCenter from './scenes/EventCommandCenter';
 
 interface Props extends StyleProps {
   handleUseNavBtnClick?: (btn: DashboardUserNavBtnType) => void;
 }
 
-export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
+export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const [tab, setTab] = useState<number>(0);
   const { confirmed } = useAuth();
   const onboarding = useSelector(s => s.user.settings.onboarding);
@@ -70,20 +70,14 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
         <Hidden smDown>{renderTabs()}</Hidden>
         <Grid>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
-            {!confirmed ? (
-              <DashboardEmailConfirmScene />
-            ) : onboarding !== 'done' ? (
-              <FirstEventSetup />
-            ) : (
-              <DashboardEventCommandCenter />
-            )}
+            {!confirmed ? <DashboardEmailConfirmScene /> : onboarding !== 'done' ? <FirstEventSetup /> : <EventsListItem />}
             {onboarding === 'done' && <DashboardEventsListScene />}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!confirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={1}>
-            <DashboardEventCommandCenter />
+            <EventsListItem />
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={2}>
             {tabs[2].label}
@@ -96,6 +90,7 @@ export const DashboardEventsScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
           <Grid style={styles.mobileTabsWrap}>{renderTabs()}</Grid>
         </Hidden>
       </DashboardScreenContainer>
+
       <ScreenFooter theme="light" />
     </>
   );
@@ -121,4 +116,4 @@ const styles: Styles = {
   },
 };
 
-export default DashboardEventsScreen;
+export default DashboardEventsListScreen;

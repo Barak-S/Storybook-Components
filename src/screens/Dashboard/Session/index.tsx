@@ -3,17 +3,10 @@ import { makeStyles, Paper, Theme, useTheme, Grid, Divider, useMediaQuery } from
 import { FormSelect, FormTextInput, FormTextArea } from 'components/Form';
 import React, { FC, useState } from 'react';
 import { ContainedButton } from 'components/Buttons';
-import { colors, StyleProps, Styles } from 'styles';
-import { BackgroundedContainer } from 'components/Layout';
-import AccordionSections from 'components/Navigation/AccordionSections';
-import { ScreenTitle, ScreenFooter } from 'components/Screen';
+import { colors, StyleProps, Styles, ms } from 'styles';
+import { ScreenTitle } from 'components/Screen';
 import { LineTabs } from 'components/Navigation/LineTabs';
-import SponsorTab from './SessionTabs/SponsorTab';
 import PresenterTab from './SessionTabs/PresenterTab';
-import AgendaTab from './SessionTabs/AgendaTab';
-import AttendeeTab from './SessionTabs/AttendeeTab';
-import PollingTab from './SessionTabs/PollingTab';
-import QaTab from './SessionTabs/QaTab';
 
 type Props = StyleProps;
 
@@ -30,6 +23,14 @@ export const DashboardSetupSession: FC<Props> = () => {
     { value: '(GMT-05:00) Central Standard Time' },
     { value: '(GMT-06:00) Mountain Standard Time' },
     { value: '(GMT-07:00) Pacific Standard Time' },
+  ];
+
+  const AudienceSize = [
+    { value: '1-100' },
+    { value: '101-250' },
+    { value: '251-500' },
+    { value: '501-750' },
+    { value: '751-1000' },
   ];
 
   const bannerImages = [
@@ -65,226 +66,180 @@ export const DashboardSetupSession: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Setup Session" />
-      <BackgroundedContainer style={{ minHeight: '100vh', justifyContent: 'flex-start' }}>
-        <Paper className={classes.container} elevation={2}>
-          <Grid container>
-            <Grid item sm={12} md={3} lg={3} style={styles.headerCol}>
-              <Title type="h3" style={styles.primaryHeader}>
-                {'Setup Session'}
-              </Title>
-              {!isMobile ? (
-                <>
-                  <p style={styles.secondaryText}>
-                    {
-                      'Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eius mod tempor incididunt ut labore et dolore magna.'
-                    }
-                  </p>
-                  <p style={styles.secondaryText}>
-                    {'Lorem ipsum dolor sit ametnstur adipiscing elit, sed do eiusmod tempor incididunt ut labore,'}
-                  </p>
-                </>
-              ) : (
-                <p style={styles.title}>{'Please Create Your Session on a Larger Screen'}</p>
-              )}
-            </Grid>
-            <Grid item sm={12} md={9} lg={9}>
-              {!isMobile && (
-                <>
-                  <div style={styles.setupSession}>
-                    <View>
-                      <span style={styles.title}>{'Session Type'}</span>
-                      <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
+      <Paper className={classes.container} elevation={2}>
+        <Grid container>
+          <Grid item sm={12} md={3} lg={3} style={styles.headerCol}>
+            <Title type="h3" style={styles.primaryHeader}>
+              {'Add Session'}
+            </Title>
+            {!isMobile ? (
+              <p style={styles.secondaryText}>
+                {
+                  'This is where the client will initially set up their session type, date and time, Title and Description and presenter invites.'
+                }
+              </p>
+            ) : (
+              <p style={styles.title}>{'Please Create Your Session on a Larger Screen'}</p>
+            )}
+          </Grid>
+          <Grid item sm={12} md={9} lg={9}>
+            {!isMobile && (
+              <>
+                <div style={styles.setupSession}>
+                  <View>
+                    <span style={styles.title}>{'Session Type'}</span>
+                    <span style={styles.subtitle}>
+                      {'Select from the below font listing and choose the font that is closest to your events branding'}
+                    </span>
+                    <FormSelect
+                      className={classes.select}
+                      fullWidth
+                      options={userRoles}
+                      label="Keynote"
+                      keyExtractor={itm => itm.value}
+                      titleExtractor={itm => itm.value}
+                    />
+                    <Divider style={styles.divider} />
+                  </View>
+                  <View>
+                    <span style={styles.title}>{'Session Date and Time'}</span>
+                    <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
+                    <FormSelect
+                      className={classes.select}
+                      fullWidth
+                      options={userRoles}
+                      label="Select Session Date"
+                      keyExtractor={itm => itm.value}
+                      titleExtractor={itm => itm.value}
+                    />
+                    <View row style={styles.selectTimeRow}>
                       <FormSelect
-                        className={classes.select}
+                        className={classes.select2}
                         fullWidth
                         options={userRoles}
-                        label="Keynote"
+                        label="Start Time"
                         keyExtractor={itm => itm.value}
                         titleExtractor={itm => itm.value}
                       />
-                      <Divider style={styles.divider} />
+
+                      <span style={styles.timeTo}>{'to'}</span>
+
+                      <FormSelect
+                        className={classes.select2}
+                        fullWidth
+                        options={userRoles}
+                        label="End Time"
+                        keyExtractor={itm => itm.value}
+                        titleExtractor={itm => itm.value}
+                      />
+                      <FormSelect
+                        className={classes.select3}
+                        fullWidth
+                        options={timeZones}
+                        label="Time Zone"
+                        keyExtractor={itm => itm.value}
+                        titleExtractor={itm => itm.value}
+                      />
                     </View>
+                    <Divider style={styles.divider} />
                     <View>
-                      <span style={styles.title}>{'Session Title'}</span>
+                      <span style={styles.title}>{'Session Title & Description'}</span>
                       <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
                       <FormTextInput style={styles.input} label="Session Title" />
-                      <Divider style={styles.divider} />
-                    </View>
-                    <View>
-                      <span style={styles.title}>{'Session Description'}</span>
-                      <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
                       <View style={styles.textArea}>
                         <FormTextArea label="Write a session description" className={classes.textAreaInput} />
                       </View>
                       <Divider style={styles.divider} />
                     </View>
-
                     <View>
-                      <span style={styles.title}>{'Session Date and Time'}</span>
-                      <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
-                      <FormSelect
-                        className={classes.select}
-                        fullWidth
-                        options={userRoles}
-                        label="Select Session Date"
-                        keyExtractor={itm => itm.value}
-                        titleExtractor={itm => itm.value}
-                      />
-                      <View row style={styles.selectTimeRow}>
+                      <View row style={{ marginBottom: 28 }}>
+                        <div>
+                          <span style={styles.title}>{'Audience Size'}</span>
+                          <span style={ms(styles.subtitle, { paddingRight: 43 })}>
+                            {'Set the amount of attendees that can elect or register for this event.'}
+                          </span>
+                        </div>
                         <FormSelect
-                          className={classes.select2}
+                          className={classes.select4}
                           fullWidth
-                          options={userRoles}
-                          label="Start Time"
-                          keyExtractor={itm => itm.value}
-                          titleExtractor={itm => itm.value}
-                        />
-
-                        <span style={styles.timeTo}>{'to'}</span>
-
-                        <FormSelect
-                          className={classes.select2}
-                          fullWidth
-                          options={userRoles}
-                          label="End Time"
-                          keyExtractor={itm => itm.value}
-                          titleExtractor={itm => itm.value}
-                        />
-                        <FormSelect
-                          className={classes.select3}
-                          fullWidth
-                          options={timeZones}
-                          label="Time Zone"
+                          options={AudienceSize}
+                          label="1-100"
                           keyExtractor={itm => itm.value}
                           titleExtractor={itm => itm.value}
                         />
                       </View>
                       <Divider style={styles.divider} />
                     </View>
-                    <View>
-                      <span style={styles.title}>{'AUDIENCE ENGAGEMENT MODULES'}</span>
-                      <span style={styles.subtitle}>
-                        {
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'
-                        }
-                      </span>
-                      <View style={styles.accordionSection}>
-                        <AccordionSections
-                          style={styles.accordion}
-                          className={classes.accordion}
-                          sections={[
-                            {
-                              id: 0,
-                              title: 'Sponsor Information',
-                              toggle: { visible: true, value: true },
-                              content: <SponsorTab />,
-                            },
-                            {
-                              id: 1,
-                              title: 'Presenter Info',
-                              toggle: { visible: true, value: true },
-                              content: <PresenterTab />,
-                            },
-                            {
-                              id: 2,
-                              title: 'Agenda',
-                              toggle: { visible: true, value: true },
-                              content: <AgendaTab />,
-                            },
-                            {
-                              id: 3,
-                              title: 'Attendees',
-                              toggle: { visible: true, value: true },
-                              content: <AttendeeTab />,
-                            },
-                            {
-                              id: 4,
-                              title: 'Chat',
-                              toggle: { visible: true, value: true },
-                              content: '',
-                            },
-                            {
-                              id: 5,
-                              title: 'Downloads',
-                              toggle: { visible: true, value: true },
-                              content: '',
-                            },
-                            {
-                              id: 6,
-                              title: 'Notes',
-                              toggle: { visible: true, value: true },
-                              content: '',
-                            },
-                            {
-                              id: 7,
-                              title: 'Polling',
-                              toggle: { visible: true, value: true },
-                              content: <PollingTab />,
-                            },
-                            {
-                              id: 8,
-                              title: 'Q&A',
-                              toggle: { visible: true, value: true },
-                              content: <QaTab />,
-                            },
-                          ]}
-                        />
-                      </View>
-                      <Divider style={styles.divider} />
-                    </View>
-                  </div>
-                  <div style={styles.artworkSection}>
-                    <View>
-                      <span style={styles.title}>{'Session Artwork'}</span>
-                      <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
+                  </View>
+                  <View>
+                    <span style={styles.title}>{'Presenter Information'}</span>
+                    <span style={styles.subtitle}>
+                      {
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'
+                      }
+                    </span>
+                    <PresenterTab />
+                  </View>
+                </div>
+                <div style={styles.artworkSection}>
+                  <View>
+                    <span style={styles.title}>{'Session Artwork'}</span>
+                    <span style={styles.subtitle}>
+                      {'You can add imagery to support the session content here or later in the appearance section.'}
+                    </span>
 
-                      <span style={styles.title2}>{'Banner Image'}</span>
-                      <span style={styles.subtitle}>{'Choose your session banner image or upload a custom image.'}</span>
-                      <View row style={styles.bannerSection}>
-                        {bannerImages.map(img => (
-                          <img key={img.url} src={img.url} style={styles.bannerImg} />
-                        ))}
-                      </View>
-                      <span style={styles.subText}>{'Optimal dimensions 1920 x 1080px and 2MB or less'}</span>
-                      <ContainedButton style={styles.addImgBtn} size="large" endIcon="plus-circle">
-                        {'ADD IMAGE'}
-                      </ContainedButton>
-                      <Divider />
-                    </View>
-                    <span style={styles.title2}>{'Player Background Image'}</span>
-                    <span style={styles.subtitle}>{'Choose and image or color as your player background.'}</span>
-                    <LineTabs
-                      className={classes.colorTabs}
-                      tab={tab}
-                      tabs={[
-                        { index: 0, label: 'Image' },
-                        { index: 1, label: 'Color' },
-                      ]}
-                      onChange={(_e, val) => setTab(val)}
-                    />
-                    <View row style={styles.backgroundSelection}>
-                      {bgImages.map(img => (
-                        <img key={img.url} src={img.url} style={styles.artworkImg} />
+                    <span style={styles.title2}>{'Banner Image'}</span>
+                    <span style={styles.subtitle}>{'Choose your session banner image or upload a custom image.'}</span>
+                    <View row style={styles.bannerSection}>
+                      {bannerImages.map(img => (
+                        <img key={img.url} src={img.url} style={styles.bannerImg} />
                       ))}
                     </View>
                     <span style={styles.subText}>{'Optimal dimensions 1920 x 1080px and 2MB or less'}</span>
-                    <ContainedButton style={styles.addImgBtn} size="large" endIcon="plus-circle">
-                      {'ADD IMAGE'}
+                    <ContainedButton style={ms(styles.addImgBtn, { marginBottom: 43 })} size="large" endIcon="plus-circle">
+                      {'ADD CUSTOM IMAGE'}
                     </ContainedButton>
-                    <Divider />
-                    <View row style={styles.createSession}>
-                      <ContainedButton style={styles.createSessionBtn} size="large" endIcon="arrow-right">
-                        {'CREATE SESSION'}
-                      </ContainedButton>
-                    </View>
-                  </div>
-                </>
-              )}
-            </Grid>
+                    <Divider style={{ marginRight: 18 }} />
+                  </View>
+                  <span style={styles.title2}>{'Player Background Image'}</span>
+                  <span style={styles.subtitle}>{'Choose an image or color as your player background.'}</span>
+                  <LineTabs
+                    className={classes.colorTabs}
+                    tab={tab}
+                    tabs={[
+                      { index: 0, label: 'Background Image' },
+                      { index: 1, label: 'Background Color' },
+                    ]}
+                    onChange={(_e, val) => setTab(val)}
+                  />
+                  <View row style={styles.backgroundSelection}>
+                    {bgImages.map(img => (
+                      <img key={img.url} src={img.url} style={styles.artworkImg} />
+                    ))}
+                  </View>
+                  <span style={styles.subText}>{'Optimal dimensions 1920 x 1080px and 2MB or less'}</span>
+                  <ContainedButton style={styles.addImgBtn} size="large" endIcon="plus-circle">
+                    {'ADD CUSTOM IMAGE'}
+                  </ContainedButton>
+                </div>
+                <Divider style={{ marginRight: 37 }} />
+                <View row style={styles.createSession}>
+                  <ContainedButton
+                    style={ms(styles.createSessionBtn, { width: 187, marginRight: 22 })}
+                    size="large"
+                    endIcon="arrow-right"
+                  >
+                    {'SAVE'}
+                  </ContainedButton>
+                  <ContainedButton style={ms(styles.createSessionBtn, { width: 313 })} size="large" endIcon="arrow-right">
+                    {'Save & Edit Appearance'}
+                  </ContainedButton>
+                </View>
+              </>
+            )}
           </Grid>
-        </Paper>
-      </BackgroundedContainer>
-      <ScreenFooter theme="light" style={{ marginTop: 25 }} />
+        </Grid>
+      </Paper>
     </>
   );
 };
@@ -310,11 +265,10 @@ const styles: Styles = {
   },
   input: {
     marginTop: 18,
-    marginBottom: 35,
+    marginBottom: 20,
   },
   textArea: {
-    marginTop: 18,
-    marginBottom: 30,
+    marginBottom: 33,
   },
   selectTimeRow: {
     display: 'flex',
@@ -358,9 +312,9 @@ const styles: Styles = {
     fontSize: 18,
   },
   headerCol: {
-    paddingRight: 32,
-    paddingLeft: 64,
-    paddingTop: 57,
+    paddingRight: 37,
+    paddingLeft: 41,
+    paddingTop: 33,
   },
   accordionSection: {
     marginTop: 20,
@@ -370,18 +324,17 @@ const styles: Styles = {
     fontWeight: 500,
     color: colors.warmPurple,
     fontSize: 30,
-    marginBottom: 5,
+    marginBottom: 11,
   },
   secondaryText: {
     color: colors.brownishGrey,
-    paddingTop: 15,
-    fontSize: 18,
+    fontSize: 16,
   },
   setupSession: {
     borderLeft: `1px solid ${colors.greyish}`,
-    paddingLeft: 55,
-    paddingTop: 64,
-    paddingRight: 64,
+    paddingLeft: 35,
+    paddingTop: 33,
+    paddingRight: 43,
     paddingBottom: 0,
   },
   artworkSection: {
@@ -395,6 +348,7 @@ const styles: Styles = {
     display: 'block',
     paddingBottom: 7,
     fontWeight: 500,
+    fontSize: 16,
   },
   title2: {
     textTransform: 'uppercase',
@@ -404,44 +358,46 @@ const styles: Styles = {
     paddingTop: 35,
     paddingBottom: 7,
     fontWeight: 500,
+    fontSize: 14,
   },
   subtitle: {
     display: 'block',
     letterSpacing: '0px',
     color: colors.brownishGrey,
+    fontSize: 16,
   },
   subText: {
     fontSize: 14,
     color: colors.brownishGrey,
   },
   addImgBtn: {
-    width: 175,
+    width: 230,
     height: 52,
     letterSpacing: 2.25,
     fontSize: 13,
     marginTop: 10,
-    marginBottom: 43,
+    padding: 0,
   },
   createSession: {
-    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    marginBottom: 45,
   },
   createSessionBtn: {
-    width: 243,
     height: 52,
-    marginTop: 18,
-    marginRight: 55,
+    marginTop: 30,
+    padding: 0,
   },
 };
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
     container: {
-      margin: '55px 35px',
-      borderRadius: 20,
+      borderRadius: 30,
+      maxWidth: 1380,
       width: '100%',
       alignItems: 'center',
       position: 'relative',
-      maxWidth: '82.5%',
+      boxShadow: '0px 0px 30px #AAAAAA41',
       '& .MuiAccordionDetails-root': {
         width: '100%',
         padding: '10px 5px',
@@ -460,7 +416,7 @@ export const useStyles = (theme: Theme) =>
     select: {
       maxWidth: 266,
       marginTop: 21,
-      marginBottom: 35,
+      marginBottom: 30,
     },
     select2: {
       maxWidth: 145,
@@ -472,6 +428,9 @@ export const useStyles = (theme: Theme) =>
       maxWidth: 354,
       marginTop: 8,
       marginBottom: 44,
+    },
+    select4: {
+      maxWidth: 137,
     },
     colorTabs: {
       marginTop: 26,

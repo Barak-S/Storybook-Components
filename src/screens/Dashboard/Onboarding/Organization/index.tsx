@@ -62,10 +62,10 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
       handleContinueClick();
     }
     if (btn.id === 'back') {
-      history.push(routes.dashboard.events);
+      history.push(routes.dashboard.events.list);
     }
     if (btn.id === 'save') {
-      history.push(routes.dashboard.events);
+      history.push(routes.dashboard.events.list);
     }
   };
 

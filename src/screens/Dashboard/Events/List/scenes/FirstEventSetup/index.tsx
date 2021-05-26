@@ -44,7 +44,7 @@ export const DashboardFirstEventSetup: FC<Props> = ({ style }) => {
       case 'event':
         return history.push(routes.dashboard.onboarding.event);
       case 'done':
-        return history.push(routes.dashboard.events);
+        return history.push(routes.dashboard.events.list);
     }
   };
 
