@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.74] - 2021-05-26
+### Added
+- Events: items, themes api and store added
+- DO-186: Edit Event - Sidebar component and routes
+- Paywall: plans and pay screens added
+- DO-183: New Dashboard Edit screens after fist event setup
+
+### Fixed
+- DO-166: Users Tab invite modal QA
+- Paywall: storing products functionality changed
+
 ## [1.0.73] - 2021-05-20
 ### Added
 - Onboarding: organization form validation added
