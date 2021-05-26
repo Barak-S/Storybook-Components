@@ -1,5 +1,7 @@
 /* istanbul ignore file */
-export * from './user';
 export * from './assets';
-export * from './support';
+export * from './events';
 export * from './paywall';
+export * from './support';
+export * from './themes';
+export * from './user';

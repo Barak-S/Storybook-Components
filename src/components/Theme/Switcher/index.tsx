@@ -2,28 +2,30 @@ import { Grid } from '@material-ui/core';
 import { FormToggle, FormTooltip } from 'components/Form';
 import { Image } from 'components/Common';
 import React, { FC } from 'react';
-import { StyleProps, Styles, useScreenSizes, colors } from 'styles';
+import { StyleProps, Styles, useScreenSizes, colors, ms } from 'styles';
+import { EventTheme } from 'core/api';
 
 interface Props extends StyleProps {
-  active: boolean;
-  picture: string;
+  selected: boolean;
+  item: EventTheme;
+  onSelectedChange?: (val: boolean) => void;
 }
 
-export const OnboardingThemeSwitcher: FC<Props> = ({ active, picture, children }) => {
+export const ThemeSwitcher: FC<Props> = ({ style, selected, item, onSelectedChange }) => {
   const { isDesktop } = useScreenSizes();
   const styles = getStyles(isDesktop);
 
   return (
-    <Grid style={styles.container}>
+    <Grid style={ms(styles.container, style)}>
       <Grid style={styles.description}>
-        {children}
+        {item.description}
         <Grid style={styles.toggleWrapper}>
-          <FormToggle title="Assign Theme" value={active} />
+          <FormToggle title="Assign Theme" value={selected} onChange={onSelectedChange} />
           <FormTooltip title="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptatum." />
         </Grid>
       </Grid>
       <Grid style={styles.imageHolder}>
-        <Image style={styles.image} source={picture} />
+        <Image style={styles.image} source={item.thumbnail} />
       </Grid>
     </Grid>
   );
@@ -67,4 +69,4 @@ const getStyles = (isDesktop: boolean): Styles => ({
   },
 });
 
-export default OnboardingThemeSwitcher;
+export default ThemeSwitcher;

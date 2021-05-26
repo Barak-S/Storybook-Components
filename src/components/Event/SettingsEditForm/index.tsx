@@ -26,7 +26,7 @@ interface RegistrationType {
   value: string;
 }
 
-export const OnboardingThemeForm: FC<Props> = ({ data = {}, onChange }) => {
+export const EventSettingsEditForm: FC<Props> = ({ data = {}, onChange }) => {
   const { isDesktop } = useScreenSizes();
   const styles = getStyles(isDesktop);
   const { registrationType } = data;
@@ -151,4 +151,4 @@ const getStyles = (isDesktop: boolean): Styles => ({
   },
 });
 
-export default OnboardingThemeForm;
+export default EventSettingsEditForm;

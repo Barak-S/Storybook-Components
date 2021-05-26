@@ -1,4 +1,4 @@
-import { Organization, OrganizationInvite, StripeProduct, User, UserSettings } from 'core/api';
+import { Organization, OrganizationInvite, StripeProduct, User, UserSettings, Event, EventTheme } from 'core/api';
 import { Action } from 'redux';
 
 type AuthAction = (Action<'auth/Set'> & { token?: string }) | Action<'auth/SignOut'>;
@@ -20,4 +20,14 @@ type OrgsAction =
 
 type PaywallAction = Action<'paywall/prodcuts/Set'> & { data: StripeProduct[] };
 
-export type StoreAction = AuthAction | UserAction | OrgsAction | PaywallAction;
+type EventsAction =
+  | (Action<'events/items/Set'> & { data: Event[] })
+  | (Action<'events/items/Add'> & { data: Event })
+  | (Action<'events/items/Modify'> & { id: string; data: Event })
+  | (Action<'events/items/Remove'> & { id: string })
+  | (Action<'events/themes/Set'> & { data: EventTheme[] })
+  | (Action<'events/themes/Add'> & { data: EventTheme })
+  | (Action<'events/themes/Modify'> & { id: string; data: EventTheme })
+  | (Action<'events/themes/Remove'> & { id: string });
+
+export type StoreAction = AuthAction | UserAction | OrgsAction | PaywallAction | EventsAction;

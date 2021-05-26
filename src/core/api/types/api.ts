@@ -1,5 +1,5 @@
 import { Method } from 'axios';
-import { Schema } from 'joi';
+import Joi, { Schema } from 'joi';
 import { isArray, isString } from 'lodash';
 import { isUnknowDict, TypeGuard } from 'utils';
 
@@ -33,3 +33,7 @@ export const getArrGuard = <T>(guard: TypeGuard<T>): TypeGuard<T[]> => (val: unk
   isArray(val) && val.reduce((memo, itm) => memo && guard(itm), true);
 
 export const isApiErrResp = (val: unknown): val is ApiErrResp => isUnknowDict(val) && isString(val.message);
+
+export const getRespSchema = (val: Schema) => Joi.object({ data: val });
+
+export const getRespArrSchema = (val: Schema) => Joi.object({ data: Joi.array().items(val) });

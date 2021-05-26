@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { emailMaxSize, firstNameMaxSize, lastNameMaxSize, memberTitleMaxSize, shortTextMaxSize } from 'utils';
 
-import { PhoneSchema, UrlSchema } from './common';
+import { phoneValidatorFn, urlValidatorFn } from './common';
 import { Social, SocialSchema } from './social';
 import { User } from './user';
 
@@ -30,13 +30,13 @@ export const OrganizationSchema = Joi.object<Organization>({
   id: Joi.string().required(),
   name: Joi.string().required(),
   type: Joi.string().required(),
-  email: Joi.string(),
-  phone: PhoneSchema,
+  email: Joi.string().email({ tlds: { allow: false } }),
+  phone: Joi.string().custom(phoneValidatorFn),
   country: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
   postcode: Joi.string(),
-  website: UrlSchema,
+  website: Joi.string().custom(urlValidatorFn),
   logo: Joi.string(),
   socials: Joi.array().items(SocialSchema),
   createdAt: Joi.string().required(),
@@ -59,12 +59,12 @@ export const OrganizationCreateSchema = Joi.object<Organization>({
     .valid(...orgTypeArr)
     .required(),
   email: Joi.string().email({ tlds: { allow: false } }),
-  phone: PhoneSchema,
+  phone: Joi.string().custom(phoneValidatorFn),
   country: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
   postcode: Joi.string(),
-  website: UrlSchema,
+  website: Joi.string().custom(urlValidatorFn),
   logo: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),
 });
@@ -73,12 +73,12 @@ export const OrganizationUpdateSchema = Joi.object<Organization>({
   name: Joi.string(),
   type: Joi.string().valid(...orgTypeArr),
   email: Joi.string().email({ tlds: { allow: false } }),
-  phone: PhoneSchema,
+  phone: Joi.string().custom(phoneValidatorFn),
   country: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
   postcode: Joi.string(),
-  website: UrlSchema,
+  website: Joi.string().custom(urlValidatorFn),
   logo: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),
 });

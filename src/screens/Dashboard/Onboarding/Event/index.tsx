@@ -22,8 +22,6 @@ import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 
-import EventColorPalette from './components/ColorPalette';
-
 interface Props extends StyleProps {
   steps: SetupStep[];
   onCloseClick?: () => void;
@@ -151,9 +149,6 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, data = {}, onCloseClic
                 <FormNumberInput />
               </Grid>
             </Grid>
-          </FormControlSection>
-          <FormControlSection title="Color Palette" description="Adjust the below colors to align to your event branding.">
-            <EventColorPalette />
           </FormControlSection>
           <FormControlSection
             title="Fonts"

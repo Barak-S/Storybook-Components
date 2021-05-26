@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { firstNameMaxSize, lastNameMaxSize, longTextMaxSize } from 'utils';
 
-import { PhoneSchema } from './common';
+import { phoneValidatorFn } from './common';
 
 export interface SupportContactRequest {
   firstName: string;
@@ -18,7 +18,7 @@ export const SupportContactRequestSchema = Joi.object<SupportContactRequest>({
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),
-  phone: PhoneSchema,
+  phone: Joi.string().custom(phoneValidatorFn),
   message: Joi.string().max(longTextMaxSize).required(),
   token: Joi.string().required(),
 });
