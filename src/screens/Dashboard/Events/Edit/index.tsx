@@ -66,7 +66,7 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
             <div className={classes.content}>
               <Switch>
                 <Route path={routes.dashboard.events.getEditProfile(eventId)} render={() => <div>{'Edit Profile Page'}</div>} />
-                <Route path={routes.dashboard.events.getEditSessions(eventId)} render={() => <div>{'Edit Settings Page'}</div>} />
+                <Route path={routes.dashboard.events.getEditSettings(eventId)} render={() => <div>{'Edit Settings Page'}</div>} />
                 <Route
                   path={routes.dashboard.events.getEditRegistration(eventId)}
                   render={() => <div>{'Edit Registration Page'}</div>}

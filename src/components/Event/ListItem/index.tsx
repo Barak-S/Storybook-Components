@@ -8,6 +8,7 @@ import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import backgroundImg from 'components/Layout/BackgroundedContainer/assets/background.png';
 import { Dropdown } from 'components/Navigation';
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
+import { routes } from 'screens/consts';
 import { colors, StyleProps } from 'styles';
 
 import BadgeStatus from './components/BadgeStatus';
@@ -16,7 +17,9 @@ import DataTile from './components/DataTile';
 import ImageTile from './components/ImageTile';
 import Tile from './components/Tile';
 
-type Props = StyleProps;
+interface Props extends StyleProps {
+  id: string;
+}
 
 interface BtnData {
   name: DashboardAppBarBtn;
@@ -24,7 +27,7 @@ interface BtnData {
   label: string;
 }
 
-export const EventsListItem: FC<Props> = () => {
+export const EventsListItem: FC<Props> = ({ id }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -144,14 +147,14 @@ export const EventsListItem: FC<Props> = () => {
                 title="EVENT PROFILE"
                 description="Lorem ipsum dolor sit amet, consectetur adipi scing elitsed. Lorem ipsum dolors consect etur adipiscing elitsed."
                 icon="passport"
-                linkTo="profile"
+                linkTo={routes.dashboard.events.getEditProfile(id)}
                 style={{ height: 201 }}
               />
               <Tile
                 title="EVENT SETTINGS"
                 description="Lorem ipsum dolor sit amet, consectetur adipi scing elitsed. Lorem ipsum dolors consect etur adipiscing elitsed."
                 icon="cog"
-                linkTo="settings"
+                linkTo={routes.dashboard.events.getEditSettings(id)}
                 style={{ height: 201 }}
               />
             </div>
@@ -160,7 +163,7 @@ export const EventsListItem: FC<Props> = () => {
                 title="ATTENDEE REGISTRATION"
                 description="This is where your attendees will learn about and register for your event."
                 icon="clipboard-list"
-                linkTo="registration"
+                linkTo={routes.dashboard.events.getEditRegistration(id)}
                 style={{ height: 201 }}
                 disabled
               />
@@ -178,7 +181,7 @@ export const EventsListItem: FC<Props> = () => {
                 title="EVENT SESSION"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="calendar-plus"
-                linkTo="sessions"
+                linkTo={routes.dashboard.events.getEditSessions(id)}
                 style={{ height: 425 }}
                 disabled
               />
@@ -188,7 +191,6 @@ export const EventsListItem: FC<Props> = () => {
                 title="EVENT SPONSORS"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="thumbs-up"
-                linkTo="sponsors"
                 style={{ height: 425 }}
                 disabled
               />

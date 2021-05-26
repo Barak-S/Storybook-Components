@@ -75,14 +75,20 @@ export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) =
         <Hidden smDown>{renderTabs()}</Hidden>
         <Grid>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
-            {!confirmed ? <DashboardEmailConfirmScene /> : onboarding !== 'done' ? <FirstEventSetup /> : <EventsListItem />}
+            {!confirmed ? (
+              <DashboardEmailConfirmScene />
+            ) : onboarding !== 'done' ? (
+              <FirstEventSetup />
+            ) : (
+              <EventsListItem id="OfJJswdGKjRw" />
+            )}
             {onboarding === 'done' && <DashboardEventsListScene />}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!confirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={1}>
-            <EventsListItem />
+            <EventsListItem id="OfJJswdGKjRw" />
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={2}>
             {tabs[2].label}

@@ -1,11 +1,11 @@
 import { makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { Title, View } from 'components/Common';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC, useState } from 'react';
-import { mc, ms, StyleProps, colors } from 'styles';
-import { Title, View } from 'components/Common';
-import EventBadgeStatus from '../BadgeStatus';
 import { useHistory } from 'react-router';
-import { routes } from 'screens/consts';
+import { colors, mc, ms, StyleProps } from 'styles';
+
+import EventBadgeStatus from '../BadgeStatus';
 
 interface Props extends StyleProps {
   title?: string;
@@ -28,7 +28,7 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       style={ms({ background: hover ? 'rgba(255,255,255,0.6)' : colors.white }, style)}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => history.push(`${routes.dashboard.events.list}/:id/edit/${linkTo}`)}
+      onClick={() => (linkTo ? history.push(linkTo) : undefined)}
     >
       <View row style={{ justifyContent: 'space-between' }}>
         <LineAwesomeIcon
@@ -58,10 +58,10 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       </Title>
       <span className={classes.description}>{description}</span>
       {children}
-      {linkTo && (
+      {title && (
         <div className={classes.linkTo}>
           <span className={classes.linktoText} style={{ color: hover ? colors.link : '#afafaf' }}>
-            {linkTo}
+            {title}
           </span>
           <LineAwesomeIcon type="arrow-right" size={13} color={hover ? colors.link : '#afafaf'} />
         </div>
