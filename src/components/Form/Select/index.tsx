@@ -4,10 +4,8 @@ import React, { PureComponent } from 'react';
 import { ClassNameProps, StyleProps } from 'styles';
 import FormSelectStyled, { FormSelectStyledProps } from './components/Styled';
 
-interface Props<T> extends StyleProps, ClassNameProps {
+interface CommonProps extends StyleProps, ClassNameProps {
   label?: string;
-  options: T[];
-  value?: T;
   title?: string;
   name?: string;
   placeholder?: string;
@@ -18,6 +16,11 @@ interface Props<T> extends StyleProps, ClassNameProps {
   disabled?: boolean;
   classes?: FormSelectStyledProps['classes'];
   iconStartVisisble?: boolean;
+}
+
+interface Props<T> extends CommonProps {
+  options: T[];
+  value?: T;
   iconExtractor?: (v: T) => LineAwesomeIconType | undefined;
   keyExtractor: (v: T) => string;
   titleExtractor: (v: T) => string;
@@ -83,4 +86,5 @@ export class FormSelect<T> extends PureComponent<Props<T>> {
 }
 
 export type FormSelectProps<T> = Props<T>;
+export type FormSelectCommonProps = CommonProps;
 export default FormSelect;

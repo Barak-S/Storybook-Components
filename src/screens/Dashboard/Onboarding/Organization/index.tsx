@@ -1,4 +1,10 @@
 import { useSnackbar } from 'components/Feedback';
+import {
+  OrganizationEditForm,
+  OrganizationEditFormData as FormData,
+  OrganizationEditFormErrors as FormErrors,
+  OrganizationEditFormProcessing as FormProcessing,
+} from 'components/Organization';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { Log } from 'core';
@@ -8,20 +14,14 @@ import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { stateToCurOrgData, useSelector, useStoreManager } from 'store';
 import { StyleProps, Styles } from 'styles';
-import { GenericFormData, GenericFormErrors, GenericFormProcessing, getFromErrsCheckerWithSchema } from 'utils';
+import { getFromErrsCheckerWithSchema } from 'utils';
 
-import OnboardingOrganizationScreenForm from './components/Form';
-
-const log = Log('screens.OnboardingOrganization');
+const log = Log('screens.Dashboard.Onboarding.Organization');
 
 interface Props extends StyleProps {
   steps: SetupStep[];
   onCloseClick?: () => void;
 }
-
-type FormData = GenericFormData<OrganizationUpdate>;
-type FormProcessing = GenericFormProcessing<OrganizationUpdate>;
-type FormErrors = GenericFormErrors<OrganizationUpdate>;
 
 const getFormErrors = getFromErrsCheckerWithSchema<OrganizationUpdate>(OrganizationUpdateSchema);
 
@@ -31,8 +31,8 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
   const { showSnackbar } = useSnackbar();
 
   const [data, setData] = useState<FormData>(orgItemToUpdate(curOrg));
-  const [dataProcessing, setDataProcessing] = useState<FormProcessing>({});
   const [errors, setErrors] = useState<FormErrors | undefined>();
+  const [dataProcessing, setDataProcessing] = useState<FormProcessing>({});
   const [updateProcessing, setUpdateProcessing] = useState<boolean>(false);
 
   const history = useHistory();
@@ -127,7 +127,7 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
         onCloseClick={onCloseClick}
         onFooterBtnClick={handleFooterBtnClick}
       >
-        <OnboardingOrganizationScreenForm
+        <OrganizationEditForm
           style={styles.form}
           data={data}
           errors={errors}

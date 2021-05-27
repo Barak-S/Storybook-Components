@@ -1,11 +1,10 @@
 import { Grid, Hidden } from '@material-ui/core';
 import { DashboardScreenContainer, DashboardTabPanel, DashboardUserNav, DashboardUserNavBtnType } from 'components/Dashboard';
-import { EventsListItem } from 'components/Event';
 import { LineTab, LineTabs } from 'components/Navigation';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import { useAuth } from 'core';
-import React, { FC, useEffect, useState } from 'react';
-import { useSelector, useStoreManager } from 'store';
+import React, { FC, useState } from 'react';
+import { useSelector } from 'store';
 import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
 
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
@@ -19,12 +18,7 @@ interface Props extends StyleProps {
 export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) => {
   const [tab, setTab] = useState<number>(0);
   const { confirmed } = useAuth();
-  const manager = useStoreManager();
-  const onboarding = useSelector(s => s.user.settings.onboarding);
-
-  useEffect(() => {
-    manager.events.updateItems();
-  }, []);
+  const onboardingStatus = useSelector(s => s.user.settings.onboarding);
 
   // Render
 
@@ -77,18 +71,17 @@ export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) =
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
             {!confirmed ? (
               <DashboardEmailConfirmScene />
-            ) : onboarding !== 'done' ? (
+            ) : onboardingStatus !== 'done' ? (
               <FirstEventSetup />
             ) : (
-              <EventsListItem id="OfJJswdGKjRw" />
+              <DashboardEventsListScene />
             )}
-            {onboarding === 'done' && <DashboardEventsListScene />}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!confirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={1}>
-            <EventsListItem id="OfJJswdGKjRw" />
+            {tabs[1].label}
           </DashboardTabPanel>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={2}>
             {tabs[2].label}

@@ -63,6 +63,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
       history.push(routes.dashboard.onboarding.profile);
     }
     if (btn.id === 'continue') {
+      manager.user.modifySettings({ onboarding: 'theme' });
       history.push(routes.dashboard.onboarding.theme);
     }
     if (btn.id === 'save') {

@@ -1,4 +1,5 @@
 import { Organization, OrganizationInvite, StripeProduct, User, UserSettings, Event, EventTheme } from 'core/api';
+import { StoredForms } from 'core/types';
 import { Action } from 'redux';
 
 type AuthAction = (Action<'auth/Set'> & { token?: string }) | Action<'auth/SignOut'>;
@@ -30,4 +31,9 @@ type EventsAction =
   | (Action<'events/themes/Modify'> & { id: string; data: EventTheme })
   | (Action<'events/themes/Remove'> & { id: string });
 
-export type StoreAction = AuthAction | UserAction | OrgsAction | PaywallAction | EventsAction;
+type FormsAction =
+  | (Action<'forms/Set'> & { name: keyof StoredForms; data: StoredForms[keyof StoredForms] })
+  | (Action<'forms/Modify'> & { name: keyof StoredForms; data: Partial<StoredForms[keyof StoredForms]> })
+  | (Action<'forms/Reset'> & { name: keyof StoredForms });
+
+export type StoreAction = AuthAction | UserAction | OrgsAction | PaywallAction | EventsAction | FormsAction;

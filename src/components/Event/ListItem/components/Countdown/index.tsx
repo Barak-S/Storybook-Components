@@ -4,7 +4,7 @@ import DataTile from '../DataTile';
 import { pad } from 'utils';
 
 interface Props {
-  deadline: number | Date;
+  deadline: string;
 }
 
 export const EventCountdown: FC<Props> = ({ deadline }) => {
@@ -13,7 +13,7 @@ export const EventCountdown: FC<Props> = ({ deadline }) => {
   const ONE_MINUTE = 60;
   const [currentTime, setCurrentTime] = useState<number>(new Date().getTime());
 
-  const diffInSeconds = differenceInSeconds(deadline, currentTime);
+  const diffInSeconds = differenceInSeconds(new Date(deadline), currentTime);
 
   const getCoundown = () => {
     if (diffInSeconds <= 1) {

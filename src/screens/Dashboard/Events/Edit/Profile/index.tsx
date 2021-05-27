@@ -1,11 +1,11 @@
-import { makeStyles, Theme, useTheme, Paper, Divider } from '@material-ui/core';
+import { Divider, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
-import { View, Title } from 'components/Common';
-import React, { FC } from 'react';
-import { colors, StyleProps, Styles, ms } from 'styles';
-import { ScreenTitle } from 'components/Screen';
+import { View } from 'components/Common';
+import { FormControlSection, FormDragnDropImage, FormRow, FormSelect, FormSocialsInput, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
-import { FormSelect, FormTextInput, FormRow, FormControlSection, FormSocialsInput, FormDragnDropImage } from 'components/Form';
+import { ScreenTitle } from 'components/Screen';
+import React, { FC } from 'react';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 type Props = StyleProps;
 

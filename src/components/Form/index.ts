@@ -25,3 +25,5 @@ export * from './TextInput';
 export * from './TimeZoneInput';
 export * from './Toggle';
 export * from './Tooltip';
+export * from './EventTypeSelect';
+export * from './StartEndDatesInput';

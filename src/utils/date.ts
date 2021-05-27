@@ -30,3 +30,7 @@ export const dateToMonthName = (val: Date): string => {
   ];
   return map[val.getMonth()];
 };
+
+export const isSameMonth = (a: Date, b: Date) => a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear();
+
+export const isSameYear = (a: Date, b: Date) => a.getFullYear() === b.getFullYear();

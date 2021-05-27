@@ -17,8 +17,8 @@ export const EventImageTile: FC<Props> = ({
   const theme = useTheme();
   const classes = useStyles(theme);
   return (
-    <Paper className={mc(classes.container, className)}>
-      <img style={ms(styles.img, style)} src={src} alt={title || ''} />
+    <Paper style={ms(styles.container, style)} className={mc(classes.container, className)}>
+      <img style={ms(styles.img)} src={src} alt={title || ''} />
     </Paper>
   );
 };

@@ -7,7 +7,7 @@ import { reducers, StoreState } from './reducers';
 
 const persistConfig: PersistConfig<StoreState> = {
   key: 'store:v1',
-  version: 4,
+  version: 5,
   migrate: async (persistedState, curVersion) => (persistedState?._persist.version !== curVersion ? undefined : persistedState),
   storage,
 };
@@ -17,6 +17,7 @@ const persistedReducer = persistCombineReducers<StoreState>(persistConfig, reduc
 
 export const store = createStore(persistedReducer, composeWithDevTools());
 export const persistor = persistStore(store);
+// persistor.purge();
 
 export { StoreAction } from './actions';
 export { StoreState } from './reducers';

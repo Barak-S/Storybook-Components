@@ -7,18 +7,27 @@ import React, { ChangeEvent, FC } from 'react';
 import { buildStyles, colors, ms, StyleProps, withDensity } from 'styles';
 import { GenericFormErrors, GenericFormProcessing } from 'utils';
 
+type FormData = OrganizationUpdate;
+type FormErrors = GenericFormErrors<FormData>;
+type FormProcessing = GenericFormProcessing<FormData>;
+
 interface Props extends StyleProps {
-  data?: OrganizationUpdate;
+  data?: FormData;
   errors?: FormErrors;
   processing?: FormProcessing;
   onChange?: (data: OrganizationUpdate) => void;
   onLogoFileSelect?: (file: File) => void;
 }
 
-type FormErrors = GenericFormErrors<OrganizationUpdate>;
-type FormProcessing = GenericFormProcessing<OrganizationUpdate>;
+interface Props extends StyleProps {
+  data?: OrganizationUpdate;
+  errors?: GenericFormErrors<OrganizationUpdate>;
+  processing?: GenericFormProcessing<OrganizationUpdate>;
+  onChange?: (data: OrganizationUpdate) => void;
+  onLogoFileSelect?: (file: File) => void;
+}
 
-export const OnboardingOrganizationScreenForm: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
+export const OrganizationEditForm: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
   const styles = useStyles();
 
   const handleTextFieldChanged = (key: keyof OrganizationUpdate) => (
@@ -137,4 +146,7 @@ const useStyles = buildStyles(({ isMobile }) => ({
   },
 }));
 
-export default OnboardingOrganizationScreenForm;
+export type OrganizationEditFormData = FormData;
+export type OrganizationEditFormErrors = FormErrors;
+export type OrganizationEditFormProcessing = FormProcessing;
+export default OrganizationEditForm;

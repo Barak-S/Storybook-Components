@@ -10,10 +10,28 @@ import FormTextInput from '../TextInput';
 
 interface Props extends StyleProps {
   value?: Date;
+  minDate?: Date;
+  minDateMessage?: string;
+  required?: boolean;
+  disabled?: boolean;
+  maxDate?: Date;
+  maxDateMessage?: string;
+  label?: string;
   onChange?: (newValue?: Date) => void;
 }
 
-export const FormDateInput: FC<Props> = ({ style, value = new Date(), onChange }) => {
+export const FormDateInput: FC<Props> = ({
+  style,
+  label,
+  value,
+  required,
+  disabled,
+  minDate,
+  minDateMessage,
+  maxDate,
+  maxDateMessage,
+  onChange,
+}) => {
   const [valid, setValid] = useState<boolean>(true);
 
   const handleDatePickerChange = (newVal: unknown) => {
@@ -45,6 +63,13 @@ export const FormDateInput: FC<Props> = ({ style, value = new Date(), onChange }
         autoOk
         value={value}
         disableToolbar
+        label={label}
+        required={required}
+        disabled={disabled}
+        minDate={minDate}
+        minDateMessage={minDateMessage}
+        maxDate={maxDate}
+        maxDateMessage={maxDateMessage}
         variant="inline"
         format="MM/dd/yyyy"
         margin="normal"

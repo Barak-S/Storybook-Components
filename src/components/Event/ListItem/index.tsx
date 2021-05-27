@@ -7,9 +7,11 @@ import { FormToggle } from 'components/Form';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import backgroundImg from 'components/Layout/BackgroundedContainer/assets/background.png';
 import { Dropdown } from 'components/Navigation';
+import { Event, EventTheme, EventType } from 'core/api';
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { routes } from 'screens/consts';
 import { colors, StyleProps } from 'styles';
+import { isSameMonth, isSameYear, dateToMonthName } from 'utils';
 
 import BadgeStatus from './components/BadgeStatus';
 import Countdown from './components/Countdown';
@@ -18,7 +20,8 @@ import ImageTile from './components/ImageTile';
 import Tile from './components/Tile';
 
 interface Props extends StyleProps {
-  id: string;
+  item: Event;
+  theme?: EventTheme;
 }
 
 interface BtnData {
@@ -27,7 +30,37 @@ interface BtnData {
   label: string;
 }
 
-export const EventsListItem: FC<Props> = ({ id }) => {
+const eventTypeToStr = (val: EventType): string => {
+  switch (val) {
+    case 'public':
+      return 'PUBLIC';
+    case 'public-with-registration':
+      return 'PUBLIC WITH REGISTRATION';
+    case 'private-with-registration':
+      return 'PRIVATE WITH REGISTRATION';
+  }
+};
+
+const eventToDateStr = (item: Event): string => {
+  const { start, end } = item;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const sDay = startDate.getDate();
+  const sMonth = dateToMonthName(startDate);
+  const sYear = startDate.getFullYear();
+  const eDay = endDate.getDate();
+  const eMonth = dateToMonthName(endDate);
+  const eYear = endDate.getFullYear();
+  if (isSameMonth(startDate, endDate)) {
+    return `${sMonth} ${sDay}-${eDay} • ${sYear}`;
+  }
+  if (isSameYear(startDate, endDate)) {
+    return `${sMonth} ${sDay} - ${eMonth} ${eDay} • ${sYear}`;
+  }
+  return `${sMonth} ${sDay} ${sYear} - ${eMonth} ${eDay} ${eYear}`;
+};
+
+export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -66,6 +99,8 @@ export const EventsListItem: FC<Props> = ({ id }) => {
     },
   ];
 
+  const { id } = item;
+
   return (
     <Paper
       className={classes.container}
@@ -78,9 +113,9 @@ export const EventsListItem: FC<Props> = ({ id }) => {
     >
       <View row className={classes.eventSummary}>
         <div className={classes.eventHeader}>
-          <BadgeStatus label="PUBLIC EVENT" />
+          <BadgeStatus label={eventTypeToStr(item.type)} />
           <Title type="h5" className={classes.eventDate}>
-            {'June 9-12 • 2021'}
+            {eventToDateStr(item)}
           </Title>
         </div>
         <View row style={{ alignItems: 'center', display: isTablet ? 'none' : 'flex' }}>
@@ -114,16 +149,16 @@ export const EventsListItem: FC<Props> = ({ id }) => {
         </View>
       </View>
       <Title type="h2" className={classes.eventTitle}>
-        {'2021 VR/AR Discovery Conference'}
+        {item.name}
       </Title>
       <View row style={{ width: '200%' }}>
         <div
           className={classes.eventContainer}
           style={{ transform: editDash ? 'translateX(-100%)' : 'translateX(0%)', transition: '0.3s ease all' }}
         >
-          <ImageTile />
+          <ImageTile src={eventTheme?.thumbnail} />
           <div className={classes.eventDataCol}>
-            <Countdown deadline={new Date(2021, 5, 9)} />
+            <Countdown deadline={item.start} />
             <DataTile eventData="12.3k" title="TOTAL REVENUE" />
           </div>
           <div className={classes.eventDataCol}>
@@ -149,6 +184,7 @@ export const EventsListItem: FC<Props> = ({ id }) => {
                 icon="passport"
                 linkTo={routes.dashboard.events.getEditProfile(id)}
                 style={{ height: 201 }}
+                disabled={!item.profile}
               />
               <Tile
                 title="EVENT SETTINGS"
@@ -156,6 +192,7 @@ export const EventsListItem: FC<Props> = ({ id }) => {
                 icon="cog"
                 linkTo={routes.dashboard.events.getEditSettings(id)}
                 style={{ height: 201 }}
+                disabled={!item.settings}
               />
             </div>
             <div className={classes.eventDataRow}>
@@ -165,7 +202,7 @@ export const EventsListItem: FC<Props> = ({ id }) => {
                 icon="clipboard-list"
                 linkTo={routes.dashboard.events.getEditRegistration(id)}
                 style={{ height: 201 }}
-                disabled
+                disabled={!item.registration}
               />
               <Tile
                 title="EVENT TEAM"

@@ -4,7 +4,8 @@ import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { ThemesAccordion } from 'components/Theme';
 import { Log } from 'core';
-import { eventThemeToUpdate, EventThemeUpdate } from 'core/api';
+import { EventTheme, eventThemeToUpdate, EventThemeUpdate } from 'core/api';
+import { sortBy } from 'lodash';
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
@@ -19,18 +20,20 @@ interface Props extends StyleProps {
   onCloseClick?: () => void;
 }
 
+const sortThemes = (itms: EventTheme[]): EventTheme[] => sortBy(itms, itm => itm.name);
+
 export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const styles = getStyles();
   const history = useHistory();
   const { showSnackbar } = useSnackbar();
 
-  const [expanded, setExpanded] = useState<string | undefined>();
-  const [selected, setSelected] = useState<string | undefined>();
+  const items = sortThemes(useSelector(s => s.events.themes));
+  const manager = useStoreManager();
+  const selected = useSelector(s => s.forms.onboarding.theme?.id);
+
+  const [expanded, setExpanded] = useState<string | undefined>(selected);
   const [editForm, setEditForm] = useState<EventThemeUpdate | undefined>();
   const [processing, setProcessing] = useState<boolean | undefined>();
-
-  const items = useSelector(s => s.events.themes);
-  const manager = useStoreManager();
 
   useEffect(() => {
     updateData();
@@ -41,16 +44,17 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
       log.debug('updating themes');
       const newItems = await manager.events.updateThemes();
       log.debug('updating themes done');
-      if (newItems.length) {
-        setExpanded(newItems[0].id);
+      if (newItems.length && !expanded) {
+        setExpanded(sortThemes(newItems)[0].id);
       }
     } catch (err: unknown) {
       log.err(err);
+      showSnackbar('Updating data error', 'error');
     }
   };
 
   const handleSelectedChange = (id?: string) => {
-    setSelected(id);
+    manager.forms.modify('onboarding', { theme: { id } });
     if (id) {
       const curItem = items.find(itm => itm.id === id);
       if (curItem) {
@@ -71,6 +75,7 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   };
 
   const handleSubmit = async () => {
+    manager.user.modifySettings({ onboarding: 'event' });
     if (!editForm) {
       return history.push(routes.dashboard.onboarding.event);
     }

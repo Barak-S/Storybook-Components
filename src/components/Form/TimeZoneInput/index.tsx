@@ -1,22 +1,19 @@
 import { makeStyles } from '@material-ui/core';
 import React, { FC } from 'react';
 import { mc, StyleProps } from 'styles';
-import { FormSelect } from '..';
+import { FormSelect, FormSelectCommonProps } from '..';
 import { FormSelectStyledProps } from '../Select/components/Styled';
 import { timeZones, TimeZoneData } from './data';
 
-interface Props extends StyleProps {
+interface Props extends StyleProps, FormSelectCommonProps {
   classes?: FormSelectStyledProps['classes'];
   value?: TimeZoneData;
-  label?: string;
-  name?: string;
-  disabled?: boolean;
   onChange?: (newValue: TimeZoneData) => void;
 }
 
 const defTimeZone = timeZones[0];
 
-export const FormTimeZoneInput: FC<Props> = ({ style, classes, value = defTimeZone, label, name, disabled, onChange }) => {
+export const FormTimeZoneInput: FC<Props> = ({ style, classes, value = defTimeZone, onChange, ...commonProps }) => {
   const localClasses = useStyles();
   return (
     <FormSelect<TimeZoneData>
@@ -25,14 +22,12 @@ export const FormTimeZoneInput: FC<Props> = ({ style, classes, value = defTimeZo
         ...classes,
         root: mc(classes?.root, localClasses.container),
       }}
-      label={label}
       options={timeZones}
-      name={name}
       value={value}
-      disabled={disabled}
       keyExtractor={itm => itm.name}
       titleExtractor={itm => itm.name}
       onChange={onChange}
+      {...commonProps}
     />
   );
 };

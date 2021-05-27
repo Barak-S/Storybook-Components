@@ -221,6 +221,8 @@ export const EventCreateSchema = EventSchema.keys({
   updatedAt: Joi.forbidden(),
 });
 
+export const isEventCreate = (val: unknown): val is EventCreate => EventCreateSchema.validate(val).error === undefined;
+
 export type EventUpdate = Partial<Omit<Event, 'id' | 'orgId' | 'url' | 'createdAt' | 'updatedAt'>>;
 
 export const EventUpdateSchema = EventSchema.keys({
@@ -235,3 +237,5 @@ export const EventUpdateSchema = EventSchema.keys({
   start: Joi.string().isoDate(),
   end: Joi.string().isoDate(),
 });
+
+export const isEventUpdate = (val: unknown): val is EventUpdate => EventUpdateSchema.validate(val).error === undefined;
