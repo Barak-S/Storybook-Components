@@ -49,7 +49,7 @@ export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, children }) => {
             {tab.icon && (
               <LineAwesomeIcon type={tab.icon} size={24} color={activeLink === tab.index ? colors.warmPurple : colors.greyish} />
             )}
-            <ListItemText primary={tab.label} style={{ fontSize: 16, paddingLeft: 7 }} />
+            <ListItemText primary={tab.label} className={classes.sidebarLinkLabel} />
           </NavLink>
         ))}
       </List>
@@ -119,6 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.down('sm')]: {
         top: 61,
+        width: 65,
       },
     },
     content: {
@@ -129,6 +130,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       [theme.breakpoints.down('md')]: {
         width: `calc(100% - 206px)`,
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: `calc(100% - 61px)`,
       },
       [theme.breakpoints.down('xs')]: {
         marginLeft: 0,
@@ -142,6 +146,16 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       height: 64,
       paddingLeft: 24,
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: 19,
+      },
+    },
+    sidebarLinkLabel: {
+      fontSize: 16,
+      paddingLeft: 7,
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
     },
   }),
 );
