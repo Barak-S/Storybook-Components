@@ -3,11 +3,12 @@ import { VerticalSplitter } from 'components/Data';
 import { SidebarTabs, SideTab } from 'components/Navigation/SidebarTabs';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import React, { FC } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import SetupSession from 'screens/Dashboard/Session';
-import EventProfile from './Profile';
 import { colors, StyleProps } from 'styles';
+
+import EventProfile from './Profile';
 
 type Props = StyleProps;
 
@@ -48,7 +49,7 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
     },
   ];
 
-  const eventId = 'OfJJswdGKjRw';
+  const { id: eventId } = useParams<{ id: string }>();
 
   return (
     <>
