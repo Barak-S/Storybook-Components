@@ -41,7 +41,7 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, onChange }
         <FormTextInput label="State" value={data?.state || ''} onChange={handleTextInputChnage('state')} />
       </View>
       <View style={styles.rowTopIndent}>
-        <FormTextInput label="City" value={data?.email || ''} onChange={handleTextInputChnage('city')} />
+        <FormTextInput label="City" value={data?.city || ''} onChange={handleTextInputChnage('city')} />
       </View>
       <View style={styles.rowTopIndent}>
         <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChnage('phone')} />
