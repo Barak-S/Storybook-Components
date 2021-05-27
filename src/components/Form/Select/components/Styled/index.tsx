@@ -49,7 +49,7 @@ export const FormSelectStyled: FC<Props> = ({
   const localClasses = useStyles(Boolean(iconStart));
   const selectId = useMemo(() => genId(), []);
   const iconType = open ? 'chevron-circle-up' : 'chevron-circle-down';
-
+  const curOpt = options.find(itm => itm.value === props.value);
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <FormControl className={mc(localClasses.container, className)} style={style} onClick={() => !disabled && setOpen(!open)}>
@@ -62,7 +62,7 @@ export const FormSelectStyled: FC<Props> = ({
           error={error}
           autoComplete="off"
           // eslint-disable-next-line
-          value={props.value ? props.value : ''}
+          value={curOpt && curOpt.name ? curOpt.name : ''}
           InputProps={{
             readOnly: Boolean(true),
             inputProps: { style: styles.input },
