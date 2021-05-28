@@ -6,9 +6,9 @@ import React, { FC } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import SetupSession from 'screens/Dashboard/Session';
-import { colors, StyleProps } from 'styles';
-
 import EventProfile from './Profile';
+import EventSettings from './Settings';
+import { colors, StyleProps } from 'styles';
 
 type Props = StyleProps;
 
@@ -68,7 +68,7 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
             <div className={classes.content}>
               <Switch>
                 <Route path={routes.dashboard.events.getEditProfile(eventId)} render={() => <EventProfile />} />
-                <Route path={routes.dashboard.events.getEditSettings(eventId)} render={() => <div>{'Edit Settings Page'}</div>} />
+                <Route path={routes.dashboard.events.getEditSettings(eventId)} render={() => <EventSettings />} />
                 <Route
                   path={routes.dashboard.events.getEditRegistration(eventId)}
                   render={() => <div>{'Edit Registration Page'}</div>}
