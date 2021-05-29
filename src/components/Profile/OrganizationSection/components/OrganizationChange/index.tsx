@@ -5,7 +5,7 @@ import { LineAwesomeIcon } from 'components/Icons';
 import { Social } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
 import { colors, mx, StyleProps, Styles } from 'styles';
-
+import { OrganizationEditFormData as FormData, OrganizationEditFormErrors as FormErrs } from 'components/Organization';
 import { useStyles } from './styles';
 
 interface Props extends StyleProps {
@@ -16,25 +16,13 @@ interface Props extends StyleProps {
   handleSocialChange?: (items: Social[]) => void;
 }
 
-interface FormData {
-  orgName?: string;
-  phoneNumber?: string;
-  email?: string;
-  country?: string;
-  state?: string;
-  city?: string;
-  website?: string;
-  companyType?: string;
-}
-
 interface LocationState {
   value: string;
 }
 interface CompanyType {
+  name: string;
   value: string;
 }
-
-type FormErrs = Partial<Record<keyof FormData, string>> & { form?: string };
 
 export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSocialChange, errs, onChange }) => {
   const classes = useStyles();
@@ -44,8 +32,11 @@ export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSoc
     root: classes.selectRoot,
   };
 
-  const locationState: CompanyType[] = [{ value: 'New York' }, { value: 'Pennsylvania' }, { value: 'New Hampshire' }];
-  const companyTypes: CompanyType[] = [{ value: 'Comercial' }, { value: 'Non profit' }];
+  const companyTypes: CompanyType[] = [
+    { name: 'Company', value: 'company' },
+    { name: 'Nonprofit', value: 'non-profit' },
+    { name: 'Individual', value: 'individual' },
+  ];
 
   const handleTextFieldChanged = (key: keyof FormData) => (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
@@ -73,24 +64,24 @@ export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSoc
               <FormTextInput
                 label="Organization Name"
                 required
-                value={data?.orgName || ''}
-                error={!!errs?.orgName}
-                helperText={errs?.orgName}
+                value={data?.name || ''}
+                error={!!errs?.name}
+                helperText={errs?.name}
                 className={classes.inputFull}
                 inputStyle={styles.input}
-                onChange={handleTextFieldChanged('orgName')}
+                onChange={handleTextFieldChanged('name')}
               />
             </View>
             <View row className={classes.formRow}>
               <FormTextInput
                 label="Phone Number"
                 required
-                value={data?.phoneNumber || ''}
-                error={!!errs?.phoneNumber}
-                helperText={errs?.phoneNumber}
+                value={data?.phone || ''}
+                error={!!errs?.phone}
+                helperText={errs?.phone}
                 className={classes.input2}
                 inputStyle={styles.input}
-                onChange={handleTextFieldChanged('phoneNumber')}
+                onChange={handleTextFieldChanged('phone')}
               />
               <FormTextInput
                 label="Country"
@@ -104,20 +95,15 @@ export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSoc
               />
             </View>
             <View row className={classes.formRow}>
-              <FormSelect
-                className={classes.formSelect}
-                classes={socialSelectClasses}
+              <FormTextInput
+                label="State"
                 required
+                value={data?.state || ''}
                 error={!!errs?.state}
                 helperText={errs?.state}
-                fullWidth
-                label="State"
-                keyExtractor={itm => itm.value}
-                titleExtractor={itm => itm.value}
-                options={locationState}
-                name="companyType"
-                value={data?.state ? locationState.find(itm => itm.value === data.state) : undefined}
-                onChange={handleSelectChange('state')}
+                className={classes.input2}
+                inputStyle={styles.input}
+                onChange={handleTextFieldChanged('state')}
               />
               <FormTextInput
                 label="City"
@@ -147,12 +133,12 @@ export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSoc
                 classes={socialSelectClasses}
                 fullWidth
                 label="Company Type"
-                keyExtractor={itm => itm.value}
-                titleExtractor={itm => itm.value}
+                keyExtractor={itm => itm.name}
+                titleExtractor={itm => itm.name}
                 options={companyTypes}
-                name="companyType"
-                value={data?.companyType ? companyTypes.find(itm => itm.value === data.companyType) : undefined}
-                onChange={handleSelectChange('companyType')}
+                name="type"
+                value={data?.type ? companyTypes.find(itm => itm.value === data.type) : undefined}
+                onChange={handleSelectChange('type')}
               />
             </FormRow>
           </Grid>

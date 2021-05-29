@@ -5,19 +5,28 @@ import { Style, Styles } from 'styles';
 import ProfileSectionFooter from '../SectionFooter';
 import { isDictEmpty, validators } from 'utils';
 import { Social } from 'core/api';
-import ProfileOrganization, {
-  OrganizationChangeData as FormData,
-  OrganizationChangeErrs as FormErrs,
-} from './components/OrganizationChange';
+import ProfileOrganization from './components/OrganizationChange';
+import { OrganizationEditFormData as FormData, OrganizationEditFormErrors as FormErrs } from 'components/Organization';
+import { Log } from 'core';
+import { stateToCurOrgData, useSelector, useStoreManager } from 'store';
+import { orgItemToUpdate } from 'core/api';
+import { useSnackbar } from 'components/Feedback';
+
+const log = Log('screens.Dashboard.profile');
 
 interface Props {
   style?: Style;
 }
 
 export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
+  const curOrg = useSelector(stateToCurOrgData);
+  const manager = useStoreManager();
+  const { showSnackbar } = useSnackbar();
+
   const [disabled, setDisablled] = useState(true);
-  const [processing, setProcessing] = useState(false);
-  const [data, setData] = useState<FormData>({});
+  const [updateProcessing, setUpdateProcessing] = useState(false);
+  const [data, setData] = useState<FormData>(orgItemToUpdate(curOrg));
+
   const [socialItems, setSocialItems] = useState<Social[]>([]);
   const [errs, setErrs] = useState<FormErrs | undefined>();
 
@@ -35,24 +44,36 @@ export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
 
   const getFormErrs = (data: FormData): FormErrs | undefined => {
     const errs: FormErrs = {
-      orgName: !data.orgName || data.orgName === '' ? 'An Organization Name is required' : undefined,
+      name: !data.name || data.name === '' ? 'An Organization Name is required' : undefined,
       country: !data.country || data.country === '' ? 'A valid Country is required' : undefined,
       state: !data.state || data.state === '' ? 'A valid State is required' : undefined,
       city: !data.city || data.city === '' ? 'A valid City is required' : undefined,
       email: validators.getEmailErr(data.email, { required: true, requiredMsg: 'An Email is required' }),
-      phoneNumber: validators.getPhoneNumberErr(data.phoneNumber, { required: true, requiredMsg: 'A phone number is required' }),
+      phone: validators.getPhoneNumberErr(data.phone, { required: true, requiredMsg: 'A phone number is required' }),
     };
     return !isDictEmpty(errs) ? errs : undefined;
   };
 
-  const handleSubmitClick = () => {
+  const handleSubmitClick = async () => {
     const curErrs = getFormErrs(data);
     if (curErrs) {
       setErrs(curErrs);
-      setProcessing(false);
+      setUpdateProcessing(false);
       setDisablled(true);
     } else {
-      setProcessing(true);
+      try {
+        log.info('updating data');
+        setUpdateProcessing(true);
+        await manager.orgs.modifyCurrent(data);
+        setUpdateProcessing(false);
+        log.info('updating data done');
+        showSnackbar('Updating Information Success', 'success');
+      } catch (err: unknown) {
+        log.err('updating data err=', err);
+        setUpdateProcessing(false);
+        setDisablled(true);
+        showSnackbar('Updating Information Error', 'error');
+      }
     }
   };
 
@@ -67,7 +88,12 @@ export const ProfileOrganizationSection: FC<Props> = ({ style }) => {
         onChange={handleFormChange}
         handleSocialChange={handleSocialChange}
       />
-      <ProfileSectionFooter style={styles.btn} processing={processing} disabled={disabled} onSaveClick={handleSubmitClick} />
+      <ProfileSectionFooter
+        style={styles.btn}
+        processing={updateProcessing}
+        disabled={disabled}
+        onSaveClick={handleSubmitClick}
+      />
     </View>
   );
 };
