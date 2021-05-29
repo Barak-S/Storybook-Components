@@ -14,7 +14,10 @@ export const onboardignSetupSteps: SetupStep[] = [
   },
   {
     index: 1,
-    title: 'Invite Team Members',
+    title: {
+      long: 'Invite Team Members',
+      short: 'Invite Team Members',
+    },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
@@ -29,7 +32,7 @@ export const onboardignSetupSteps: SetupStep[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: true,
-    skippable: true,
+    skippable: false,
   },
   {
     index: 3,
@@ -40,6 +43,6 @@ export const onboardignSetupSteps: SetupStep[] = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
     required: false,
-    skippable: true,
+    skippable: false,
   },
 ];

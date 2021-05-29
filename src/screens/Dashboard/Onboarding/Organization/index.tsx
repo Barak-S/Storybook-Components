@@ -30,7 +30,8 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
   const manager = useStoreManager();
   const { showSnackbar } = useSnackbar();
 
-  const [data, setData] = useState<FormData>(orgItemToUpdate(curOrg));
+  const storedData = useSelector(s => s.forms.onboarding.org);
+  const [data, setData] = useState<FormData>(storedData || orgItemToUpdate(curOrg));
   const [errors, setErrors] = useState<FormErrors | undefined>();
   const [dataProcessing, setDataProcessing] = useState<FormProcessing>({});
   const [updateProcessing, setUpdateProcessing] = useState<boolean>(false);
@@ -58,14 +59,15 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
   };
 
   const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
-    if (btn.id === 'continue') {
-      handleContinueClick();
-    }
     if (btn.id === 'back') {
-      history.push(routes.dashboard.events.list);
+      return history.push(routes.dashboard.events.list);
     }
     if (btn.id === 'save') {
-      history.push(routes.dashboard.events.list);
+      manager.forms.modify('onboarding', { org: data });
+      return history.push(routes.dashboard.events.list);
+    }
+    if (btn.id === 'continue') {
+      return handleContinueClick();
     }
   };
 
@@ -89,7 +91,7 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
     }
   };
 
-  const saveAllowed = Boolean(data.name && data.phone && data.country && data.state && data.city);
+  const continueAllowed = Boolean(data.name && data.phone && data.country && data.state && data.city);
 
   const leftBtns: SetupContainerFooterBtnItem[] = [
     {
@@ -110,19 +112,21 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
       id: 'continue',
       type: 'contained',
       title: 'continue',
-      disabled: !saveAllowed,
+      disabled: !continueAllowed,
       processing: updateProcessing,
       endIcon: 'chevron-circle-right',
     },
   ];
 
+  const curStepIndex = 0;
+
   return (
     <>
-      <ScreenTitle title="Organization information" />
+      <ScreenTitle title={steps[curStepIndex].title.short} />
       <SetupContainer
         title="Add your organization information"
         steps={steps}
-        curStepIndex={0}
+        curStepIndex={curStepIndex}
         footer={{ leftBtns, rightBtns }}
         onCloseClick={onCloseClick}
         onFooterBtnClick={handleFooterBtnClick}

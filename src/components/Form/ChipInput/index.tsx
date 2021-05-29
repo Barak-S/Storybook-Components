@@ -6,9 +6,12 @@ import { StyleProps, Styles, colors, mx, ms } from 'styles';
 
 import { FormTextInput } from '../TextInput';
 
-interface Props extends StyleProps {
+interface CommonProps extends StyleProps {
   label?: string;
   disabled?: boolean;
+}
+
+interface Props extends CommonProps {
   items?: Item[];
   onChange?: (items: Item[]) => void;
 }
@@ -167,4 +170,5 @@ const getStyles = (focused: boolean, inputWidth: number): Styles => ({
 
 export type FormChipInputItem = Item;
 export type FormChipInputProps = Props;
+export type FormChipInputCommonProps = CommonProps;
 export default FormChipInput;

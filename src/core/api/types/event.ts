@@ -102,13 +102,7 @@ export const EventThemeUpdateSchema = EventThemeSchema.keys({
   settings: EventThemeSettingsSchema,
 });
 
-// Item
-
-export type EventType = 'public' | 'public-with-registration' | 'private-with-registration';
-
-export const EventTypeArr: EventType[] = ['public', 'public-with-registration', 'private-with-registration'];
-
-export const EventTypeSchema = Joi.string().valid(...EventTypeArr);
+// Event profile
 
 export interface EventProfile {
   phone?: string;
@@ -132,6 +126,27 @@ export const EventProfileSchema = Joi.object<EventProfile>({
   logo: Joi.string().custom(urlValidatorFn),
 });
 
+export type EventProfileUpdate = Partial<EventProfile>;
+
+export const EventProfileUpdateSchema = EventProfileSchema;
+
+// Event settings
+
+export type EventSettingsPassRequirement =
+  | 'one-letter'
+  | 'one-capital-letter'
+  | 'one-number'
+  | 'one-special-character'
+  | 'not-same-as-account-name';
+
+export const EventSettingsPassRequirementArr: EventSettingsPassRequirement[] = [
+  'one-letter',
+  'one-capital-letter',
+  'one-number',
+  'one-special-character',
+  'not-same-as-account-name',
+];
+
 export interface EventSettings {
   title?: string;
   description?: string;
@@ -140,6 +155,7 @@ export interface EventSettings {
   allowedEmailDomains?: string[];
   emailValidation?: boolean;
   seoTags?: string[];
+  passRequirements?: EventSettingsPassRequirement[];
 }
 
 export const EventSettingsSchema = Joi.object<EventSettings>({
@@ -150,7 +166,14 @@ export const EventSettingsSchema = Joi.object<EventSettings>({
   allowedEmailDomains: Joi.array().items(Joi.string()),
   emailValidation: Joi.bool(),
   seoTags: Joi.array().items(Joi.string()),
+  passRequirements: Joi.array().items(Joi.string().valid(...EventSettingsPassRequirementArr)),
 });
+
+export type EventSettingsUpdate = Partial<EventSettings>;
+
+export const EventSettingsUpdateSchema = EventSettingsSchema;
+
+// Event registration
 
 export interface EventRegistration {
   start: string;
@@ -165,8 +188,8 @@ export interface EventRegistration {
 }
 
 export const EventRegistrationSchema = Joi.object<EventRegistration>({
-  start: Joi.string().required(),
-  end: Joi.string().required(),
+  start: Joi.date().iso().required(),
+  end: Joi.date().iso().greater(Joi.ref('start')).required(),
   description: Joi.string(),
   form: Joi.object({
     headline: Joi.string(),
@@ -175,6 +198,23 @@ export const EventRegistrationSchema = Joi.object<EventRegistration>({
   termsAndConditions: Joi.string(),
   marketingStatement: Joi.string(),
 });
+
+export type EventRegistrationUpdate = Partial<EventRegistration>;
+
+export const EventRegistrationUpdateSchema = EventRegistrationSchema.keys({
+  start: Joi.date().iso(),
+  end: Joi.date().iso(),
+});
+
+// Event type
+
+export type EventType = 'public' | 'public-with-registration' | 'private-with-registration';
+
+export const EventTypeArr: EventType[] = ['public', 'public-with-registration', 'private-with-registration'];
+
+export const EventTypeSchema = Joi.string().valid(...EventTypeArr);
+
+// Event
 
 export interface Event {
   id: string;
@@ -200,8 +240,8 @@ export const EventSchema = Joi.object<Event>({
   orgId: Joi.string().required(),
   name: Joi.string().required(),
   type: EventTypeSchema.required(),
-  start: Joi.string().isoDate().required(),
-  end: Joi.string().isoDate().required(),
+  start: Joi.date().iso().required(),
+  end: Joi.date().iso().greater(Joi.ref('start')).required(),
   url: Joi.string().custom(urlValidatorFn).required(),
   themeId: Joi.string(),
   profile: EventProfileSchema,
@@ -234,8 +274,8 @@ export const EventUpdateSchema = EventSchema.keys({
 
   name: Joi.string(),
   type: EventTypeSchema,
-  start: Joi.string().isoDate(),
-  end: Joi.string().isoDate(),
+  start: Joi.date().iso(),
+  end: Joi.date().iso(),
 });
 
 export const isEventUpdate = (val: unknown): val is EventUpdate => EventUpdateSchema.validate(val).error === undefined;

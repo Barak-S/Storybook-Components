@@ -2,6 +2,7 @@ import {
   EventBasicCreateFrom,
   EventBasicCreateFromData as FormData,
   EventBasicCreateFromErrors as FormErrors,
+  EventBasicCreateFromProcessing as FormProcessing,
 } from 'components/Event';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
@@ -25,13 +26,15 @@ interface Props extends StyleProps {
 export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const history = useHistory();
 
-  const [data, setData] = useState<FormData>({});
-  const [errors, setErrors] = useState<FormErrors | undefined>();
-  const [processing, setProcessing] = useState<boolean>(false);
-  const { showSnackbar } = useSnackbar();
-
   const manager = useStoreManager();
   const themeId = useSelector(s => s.forms.onboarding.theme?.id);
+  const storedData = useSelector(s => s.forms.onboarding.event);
+
+  const [data, setData] = useState<FormData>(storedData || {});
+  const [errors, setErrors] = useState<FormErrors | undefined>();
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [formProcessing, setFormProcessing] = useState<FormProcessing | undefined>();
+  const { showSnackbar } = useSnackbar();
 
   const handleDataChane = (newData: Partial<FormData>) => {
     setErrors(undefined);
@@ -40,10 +43,30 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
 
   const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
     if (btn.id === 'back') {
-      history.push(routes.dashboard.onboarding.theme);
+      return history.push(routes.dashboard.onboarding.theme);
+    }
+    if (btn.id === 'save') {
+      manager.forms.modify('onboarding', { event: data });
+      return history.push(routes.dashboard.events.list);
     }
     if (btn.id === 'complete') {
-      handleSubmit();
+      return handleSubmit();
+    }
+  };
+
+  const handleLogoFileSelect = async (file: File) => {
+    try {
+      log.info('uploading logo');
+      setFormProcessing({ profile: { logo: true } });
+      const { data: imgData } = await manager.api.assets.uploadImage(file);
+      setFormProcessing({ profile: { logo: false } });
+      log.info('uploading logo done');
+      const profile = data.profile ? { ...data.profile, logo: imgData.url } : { logo: imgData.url };
+      setData(v => ({ ...v, profile }));
+    } catch (err: unknown) {
+      setFormProcessing({ profile: { logo: false } });
+      log.err('uploading logo err=', err);
+      showSnackbar('Uploading logo error', 'error');
     }
   };
 
@@ -79,11 +102,11 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   ];
 
   const rightBtns: SetupContainerFooterBtnItem[] = [
-    // {
-    //   id: 'save',
-    //   type: 'text',
-    //   title: 'Save & Continue Later',
-    // },
+    {
+      id: 'save',
+      type: 'text',
+      title: 'Save & Continue Later',
+    },
     {
       id: 'complete',
       type: 'contained',
@@ -94,18 +117,26 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
     },
   ];
 
+  const curStepIndex = 3;
+
   return (
     <>
-      <ScreenTitle title="Setup Event" />
+      <ScreenTitle title={steps[curStepIndex].title.short} />
       <SetupContainer
         title="Setup your awesome event"
         steps={steps}
-        curStepIndex={3}
+        curStepIndex={curStepIndex}
         footer={{ leftBtns, rightBtns }}
         onCloseClick={onCloseClick}
         onFooterBtnClick={handleFooterBtnClick}
       >
-        <EventBasicCreateFrom data={data} errors={errors} onChange={handleDataChane} />
+        <EventBasicCreateFrom
+          data={data}
+          errors={errors}
+          processing={formProcessing}
+          onLogoFileSelect={handleLogoFileSelect}
+          onChange={handleDataChane}
+        />
       </SetupContainer>
     </>
   );

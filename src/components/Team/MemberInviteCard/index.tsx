@@ -1,7 +1,7 @@
 import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { TextButton } from 'components/Buttons';
 import { Text } from 'components/Common';
-import { OrganizationInvite } from 'core/api';
+import { OrganizationInvite, organizationRoleToName } from 'core/api';
 import React, { FC } from 'react';
 import { colors, mx, StyleProps } from 'styles';
 
@@ -30,12 +30,12 @@ export const TeamMemberInviteCard: FC<Props> = ({ data, onResendClick }) => {
       <Grid className={classes.middleBlock}>
         <Grid className={classes.middleData}>
           <Text className={classes.middleLabel}>{'Role:'}</Text>
-          <Text className={classes.middleText}>{`"${role}"`}</Text>
+          <Text className={classes.middleText}>{organizationRoleToName(role)}</Text>
         </Grid>
         {title && (
           <Grid className={classes.middleData}>
             <Text className={classes.middleLabel}>{'Title:'}</Text>
-            <Text className={classes.middleText}>{`"${title}"`}</Text>
+            <Text className={classes.middleText}>{`${title}`}</Text>
           </Grid>
         )}
       </Grid>
@@ -108,6 +108,7 @@ const useStyles = (theme: Theme) =>
     },
     middleText: {
       color: colors.brownishGrey,
+      fontWeight: 'bold',
     },
     button: {
       color: colors.coolBlue,

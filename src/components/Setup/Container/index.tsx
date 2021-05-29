@@ -29,7 +29,7 @@ export interface SetupStep {
   skippable?: boolean;
 }
 
-type SetupStepTitle = string | { short: string; long: string };
+type SetupStepTitle = { short: string; long: string };
 
 const getShortTitle = (val: SetupStepTitle): string => (typeof val === 'string' ? val : val.short);
 

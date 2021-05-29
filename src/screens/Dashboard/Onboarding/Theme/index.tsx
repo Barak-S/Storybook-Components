@@ -121,13 +121,15 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
     },
   ];
 
+  const curStepIndex = 2;
+
   return (
     <>
-      <ScreenTitle title="Select Theme" />
+      <ScreenTitle title={steps[curStepIndex].title.short} />
       <SetupContainer
         title="Add theme of your event"
         steps={steps}
-        curStepIndex={2}
+        curStepIndex={curStepIndex}
         onCloseClick={onCloseClick}
         footer={{ leftBtns, rightBtns }}
         onFooterBtnClick={handleFooterBtnClick}

@@ -27,7 +27,8 @@
       "export type $1Props = Props;",
       "export default $1;"
     ],
-    "description": "Create functional component"
+    "description": "Create functional component",
+    "scope": "typescript,typescriptreact"
   },
   "pep": {
     "prefix": [
@@ -36,6 +37,21 @@
     "body": [
       "export type $1Props = Props;"
     ],
-    "description": "Export props"
+    "description": "Export props",
+    "scope": "typescript,typescriptreact"
+  },
+  "pst": {
+    "prefix": [
+      "pst"
+    ],
+    "body": [
+      "const styles: Styles = {",
+      "  container: {",
+      "    $0",
+      "  },",
+      "};"
+    ],
+    "description": "Create styles",
+    "scope": "typescript,typescriptreact"
   }
 }

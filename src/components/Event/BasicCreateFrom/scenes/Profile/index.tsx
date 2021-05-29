@@ -1,8 +1,10 @@
+import { Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormControlSection, FormSocialsInput, FormTextInput } from 'components/Form';
+import { FormControlSection, FormDragnDropImage, FormSocialsInput, FormTextInput } from 'components/Form';
 import { EventProfile } from 'core/api';
+import { modCloudinaryUrl } from 'core/cloudinary';
 import React, { ChangeEvent, FC } from 'react';
-import { ms, StyleProps, Styles } from 'styles';
+import { ms, StyleProps, Styles, withDensity } from 'styles';
 import { GenericFormData, GenericFormErrors, GenericFormProcessing } from 'utils';
 
 type FormData = GenericFormData<EventProfile>;
@@ -13,10 +15,11 @@ interface Props extends StyleProps {
   data?: FormData;
   errors?: FormErrors;
   processing?: FormProcessing;
+  onLogoFileSelect?: (file: File) => void;
   onChange?: (data: FormData) => void;
 }
 
-export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, onChange }) => {
+export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing, onLogoFileSelect, onChange }) => {
   const handleTextInputChnage = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value;
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
@@ -27,44 +30,64 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, onChange }
   };
 
   return (
-    <FormControlSection
-      style={ms(styles.container, style)}
-      title="Profile"
-      hint="Lorem ipsum dolor sit amet."
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed"
-      borderTop={false}
-    >
-      <View style={styles.rowTopIndent}>
-        <FormTextInput label="Country" value={data?.country || ''} onChange={handleTextInputChnage('country')} />
-      </View>
-      <View style={styles.rowTopIndent}>
-        <FormTextInput label="State" value={data?.state || ''} onChange={handleTextInputChnage('state')} />
-      </View>
-      <View style={styles.rowTopIndent}>
-        <FormTextInput label="City" value={data?.city || ''} onChange={handleTextInputChnage('city')} />
-      </View>
-      <View style={styles.rowTopIndent}>
-        <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChnage('phone')} />
-      </View>
-      <View style={styles.rowTopIndent}>
-        <FormTextInput label="Contact Email" value={data?.email || ''} onChange={handleTextInputChnage('email')} />
-      </View>
-      <View style={styles.rowTopIndent}>
-        <FormTextInput label="Website" value={data?.website || ''} onChange={handleTextInputChnage('website')} />
-      </View>
-      <View style={styles.rowTopIndent}>
-        <FormSocialsInput items={data?.socials} onChange={handleDataChnage('socials')} />
-      </View>
-    </FormControlSection>
+    <View style={ms(styles.container, style)}>
+      <FormControlSection
+        title="Profile"
+        hint="Lorem ipsum dolor sit amet."
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed"
+      >
+        <Grid style={styles.rowBottomIndent} container spacing={2}>
+          <Grid item md>
+            <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChnage('phone')} />
+          </Grid>
+          <Grid item md>
+            <FormTextInput label="Country" value={data?.country || ''} onChange={handleTextInputChnage('country')} />
+          </Grid>
+        </Grid>
+        <Grid style={styles.rowBottomIndent} container spacing={2}>
+          <Grid item md>
+            <FormTextInput label="State" value={data?.state || ''} onChange={handleTextInputChnage('state')} />
+          </Grid>
+          <Grid item md>
+            <FormTextInput label="City" value={data?.city || ''} onChange={handleTextInputChnage('city')} />
+          </Grid>
+        </Grid>
+        <Grid style={styles.rowBottomIndent} container>
+          <FormTextInput label="Contact Email" value={data?.email || ''} onChange={handleTextInputChnage('email')} />
+        </Grid>
+        <Grid style={styles.rowBottomIndent} container>
+          <FormTextInput label="Website" value={data?.website || ''} onChange={handleTextInputChnage('website')} />
+        </Grid>
+        <Grid container>
+          <FormSocialsInput items={data?.socials} onChange={handleDataChnage('socials')} />
+        </Grid>
+      </FormControlSection>
+      <FormControlSection
+        title="Logo"
+        hint="Lorem ipsum dolor sit amet."
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed"
+      >
+        <FormDragnDropImage
+          style={styles.logo}
+          src={data?.logo ? modCloudinaryUrl(data.logo, { transform: { width: withDensity(535), crop: 'fill' } }) : undefined}
+          processing={processing?.logo}
+          onFileSelect={onLogoFileSelect}
+        />
+      </FormControlSection>
+    </View>
   );
 };
 
 const styles: Styles = {
   container: {},
-  rowTopIndent: {
-    marginTop: 30,
+  logo: {
+    height: 140,
+  },
+  rowBottomIndent: {
+    marginBottom: 20,
   },
 };
 
 export type EventBasicCreateFromProfileProps = Props;
+export type EventBasicCreateFromProfileProcessing = FormProcessing;
 export default EventBasicCreateFromProfile;

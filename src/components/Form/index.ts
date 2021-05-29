@@ -27,3 +27,4 @@ export * from './Toggle';
 export * from './Tooltip';
 export * from './EventTypeSelect';
 export * from './StartEndDatesInput';
+export * from './OrganizationRoleSelect';

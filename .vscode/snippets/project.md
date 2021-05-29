@@ -6,6 +6,8 @@
 
 **Description**: Create functional component
 
+**Scope**: `typescript,typescriptreact`
+
 ```typescript
 import { View } from 'components/Common';
 import React, { FC } from 'react';
@@ -35,6 +37,22 @@ export default $1;
 
 **Description**: Export props
 
+**Scope**: `typescript,typescriptreact`
+
 ```typescript
 export type $1Props = Props;
+```
+
+**Prefix**: `pst`
+
+**Description**: Create styles
+
+**Scope**: `typescript,typescriptreact`
+
+```typescript
+const styles: Styles = {
+  container: {
+    $0
+  },
+};
 ```

@@ -9,22 +9,24 @@ import {
 import { EventCreate } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
 import { StyleProps, Styles } from 'styles';
-import { GenericFormData, GenericFormErrors, GenericFormProcessing } from 'utils';
+import { GenericFormData, GenericFormErrors } from 'utils';
 
-import EventBasicCreateFromProfile from './scenes/Profile';
+import EventBasicCreateFromProfile, { EventBasicCreateFromProfileProcessing } from './scenes/Profile';
+import EventBasicCreateFromSettings from './scenes/Settings';
 
 type FormData = GenericFormData<EventCreate>;
 type FormErrors = GenericFormErrors<EventCreate>;
-type FormProcessing = GenericFormProcessing<EventCreate>;
+type FormProcessing = { profile?: EventBasicCreateFromProfileProcessing };
 
 interface Props extends StyleProps {
   data?: FormData;
   errors?: FormErrors;
   processing?: FormProcessing;
+  onLogoFileSelect?: (file: File) => void;
   onChange?: (data: FormData) => void;
 }
 
-export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, onChange }) => {
+export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
   const handleDataChnage = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
@@ -79,13 +81,13 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, onChange 
           onChange={handleOnStartEndChange}
         />
       </FormControlSection>
-      <EventBasicCreateFromProfile data={data?.profile} onChange={handleDataChnage('profile')} />
-      {/* <FormControlSection 
-      title="Assign SEO Event Tags" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
-        <Grid style={styles.tagsFieldWrapper}>
-          <FormChipInput items={[]} label="Add Tags" />
-        </Grid>
-      </FormControlSection> */}
+      <EventBasicCreateFromProfile
+        data={data?.profile}
+        processing={processing?.profile}
+        onLogoFileSelect={onLogoFileSelect}
+        onChange={handleDataChnage('profile')}
+      />
+      <EventBasicCreateFromSettings data={data?.settings} onChange={handleDataChnage('settings')} />
       {/* <FormControlSection 
       title="CSV Document Upload" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
         <Grid style={styles.uploadWrapper}>
@@ -122,4 +124,5 @@ const styles: Styles = {
 export type EventBasicCreateFromData = FormData;
 export type EventBasicCreateFromErrors = FormErrors;
 export type EventBasicCreateFromProcessing = FormProcessing;
+export type EventBasicCreateFromProps = Props;
 export default EventBasicCreateFrom;
