@@ -20,12 +20,12 @@ interface Props extends StyleProps {
 }
 
 export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing, onLogoFileSelect, onChange }) => {
-  const handleTextInputChnage = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTextInputChange = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value;
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
 
-  const handleDataChnage = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
+  const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
 
@@ -38,28 +38,28 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing
       >
         <Grid style={styles.rowBottomIndent} container spacing={2}>
           <Grid item md>
-            <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChnage('phone')} />
+            <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChange('phone')} />
           </Grid>
           <Grid item md>
-            <FormTextInput label="Country" value={data?.country || ''} onChange={handleTextInputChnage('country')} />
+            <FormTextInput label="Country" value={data?.country || ''} onChange={handleTextInputChange('country')} />
           </Grid>
         </Grid>
         <Grid style={styles.rowBottomIndent} container spacing={2}>
           <Grid item md>
-            <FormTextInput label="State" value={data?.state || ''} onChange={handleTextInputChnage('state')} />
+            <FormTextInput label="State" value={data?.state || ''} onChange={handleTextInputChange('state')} />
           </Grid>
           <Grid item md>
-            <FormTextInput label="City" value={data?.city || ''} onChange={handleTextInputChnage('city')} />
+            <FormTextInput label="City" value={data?.city || ''} onChange={handleTextInputChange('city')} />
           </Grid>
         </Grid>
         <Grid style={styles.rowBottomIndent} container>
-          <FormTextInput label="Contact Email" value={data?.email || ''} onChange={handleTextInputChnage('email')} />
+          <FormTextInput label="Contact Email" value={data?.email || ''} onChange={handleTextInputChange('email')} />
         </Grid>
         <Grid style={styles.rowBottomIndent} container>
-          <FormTextInput label="Website" value={data?.website || ''} onChange={handleTextInputChnage('website')} />
+          <FormTextInput label="Website" value={data?.website || ''} onChange={handleTextInputChange('website')} />
         </Grid>
         <Grid container>
-          <FormSocialsInput items={data?.socials} onChange={handleDataChnage('socials')} />
+          <FormSocialsInput items={data?.socials} onChange={handleDataChange('socials')} />
         </Grid>
       </FormControlSection>
       <FormControlSection

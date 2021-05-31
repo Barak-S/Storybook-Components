@@ -27,11 +27,11 @@ interface Props extends StyleProps {
 }
 
 export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
-  const handleDataChnage = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
+  const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
 
-  const handleTextInputChnage = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTextInputChange = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value;
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
@@ -60,7 +60,7 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
             label="Name"
             required
             value={data?.name || ''}
-            onChange={handleTextInputChnage('name')}
+            onChange={handleTextInputChange('name')}
           />
         </View>
         <View style={styles.rowTopIndent}>
@@ -70,7 +70,7 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
             required
             error={!!errors?.type}
             helperText={errors?.type}
-            onChange={handleDataChnage('type')}
+            onChange={handleDataChange('type')}
           />
         </View>
         <FormStartEndDatesInput
@@ -85,9 +85,9 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
         data={data?.profile}
         processing={processing?.profile}
         onLogoFileSelect={onLogoFileSelect}
-        onChange={handleDataChnage('profile')}
+        onChange={handleDataChange('profile')}
       />
-      <EventBasicCreateFromSettings data={data?.settings} onChange={handleDataChnage('settings')} />
+      <EventBasicCreateFromSettings data={data?.settings} onChange={handleDataChange('settings')} />
       {/* <FormControlSection 
       title="CSV Document Upload" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
         <Grid style={styles.uploadWrapper}>

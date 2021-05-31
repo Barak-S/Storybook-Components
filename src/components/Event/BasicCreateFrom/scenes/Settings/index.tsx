@@ -22,7 +22,7 @@ interface Props extends StyleProps {
 }
 
 export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange }) => {
-  const handleDataChnage = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
+  const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
 
@@ -37,14 +37,14 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
             <FormToggle
               title="Multi-factor Authentication"
               value={data?.multiFactorAuth || false}
-              onChange={handleDataChnage('multiFactorAuth')}
+              onChange={handleDataChange('multiFactorAuth')}
             />
           </Grid>
           <Grid item md={6} xs={12}>
             <FormToggle
               title="Require manual approval of users who sign up"
               value={data?.registrationManualApproval || false}
-              onChange={handleDataChnage('registrationManualApproval')}
+              onChange={handleDataChange('registrationManualApproval')}
             />
           </Grid>
         </Grid>
@@ -52,13 +52,13 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
       <EventSettingsEmailRestriction
         title="Email Domain Restriction"
         items={data?.allowedEmailDomains}
-        onChange={handleDataChnage('allowedEmailDomains')}
+        onChange={handleDataChange('allowedEmailDomains')}
       />
       <EventSettingsPassRequirements
         title="Password Requirements"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
         items={data?.passRequirements}
-        onChange={handleDataChnage('passRequirements')}
+        onChange={handleDataChange('passRequirements')}
       />
       <FormControlSection
         title="Email Validation/Responce Requirements "
@@ -67,11 +67,11 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
         <FormToggle
           title="Validation of Email Addresses Required"
           value={data?.emailValidation || false}
-          onChange={handleDataChnage('emailValidation')}
+          onChange={handleDataChange('emailValidation')}
         />
       </FormControlSection>
       <FormControlSection title="Assign SEO Event Tags" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
-        <FormTagsInput items={data?.seoTags} label="Add Tags" onChange={handleDataChnage('seoTags')} />
+        <FormTagsInput items={data?.seoTags} label="Add Tags" onChange={handleDataChange('seoTags')} />
       </FormControlSection>
     </View>
   );
