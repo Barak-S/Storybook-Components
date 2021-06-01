@@ -1,5 +1,5 @@
 import { View } from 'components/Common';
-import { FormControlSection, FormDragnDropImage, FormRow, FormTextInput } from 'components/Form';
+import { FormControlSection, FormCountryInput, FormDragnDropImage, FormRow, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
 import { OrganizationUpdate } from 'core/api';
 import { modCloudinaryUrl } from 'core/cloudinary';
@@ -34,6 +34,10 @@ export const OrganizationEditForm: FC<Props> = ({ style, data, errors, processin
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     onChange && onChange({ ...data, [key]: event.currentTarget.value });
+  };
+
+  const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
+    onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
 
   return (
@@ -71,14 +75,12 @@ export const OrganizationEditForm: FC<Props> = ({ style, data, errors, processin
             helperText={errors?.phone}
             onChange={handleTextFieldChanged('phone')}
           />
-          <FormTextInput
+          <FormCountryInput
             style={ms(styles.half, styles.lastChild)}
             required
             label="country"
             value={data?.country || ''}
-            error={!!errors?.country}
-            helperText={errors?.country}
-            onChange={handleTextFieldChanged('country')}
+            onChange={handleDataChange('country')}
           />
         </FormRow>
         <FormRow>

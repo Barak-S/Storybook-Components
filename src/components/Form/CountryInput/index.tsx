@@ -1,44 +1,30 @@
-import { makeStyles } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import React, { FC } from 'react';
+import { StyleProps } from 'styles';
 
-import TextInput, { FormTextInputProps } from '../TextInput';
-import countries, { CountryInfo } from './data';
+import { useFormAutocompleteProps } from '../Autocomplete';
+import { countries } from 'utils';
 
-type Props = FormTextInputProps;
+interface Props extends StyleProps {
+  required?: boolean;
+  label?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
+}
 
-export const FormCountryInput: FC<Props> = ({ style, label = 'country', required }) => {
-  const options: CountryInfo[] = countries;
-  const classes = useStyles();
-
+export const FormCountryInput: FC<Props> = ({ label = 'country', value, required, onChange, ...props }) => {
+  const customizeAutocompleteProps = useFormAutocompleteProps(required, label);
   return (
     <Autocomplete
-      className={classes.container}
-      disableClearable
-      style={style}
-      options={options}
-      getOptionLabel={option => option.name}
-      classes={{
-        endAdornment: classes.icon,
-      }}
-      renderInput={params => <TextInput {...params} required={required} label={label} />}
+      options={countries.map(itm => itm.name)}
+      inputValue={value || ''}
+      freeSolo
+      onInputChange={(_e, val) => onChange && onChange(val)}
+      {...props}
+      {...customizeAutocompleteProps}
     />
   );
 };
-
-const useStyles = makeStyles({
-  container: {
-    '&.MuiAutocomplete-root .MuiAutocomplete-inputRoot': {
-      paddingRight: 0,
-    },
-    '&.MuiAutocomplete-root .MuiFormControl-root .MuiInputBase-input': {
-      paddingLeft: 15,
-    },
-  },
-  icon: {
-    display: 'none',
-  },
-});
 
 export type FormCountryInputProps = Props;
 export default FormCountryInput;

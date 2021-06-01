@@ -14,7 +14,7 @@ import { isEventCreate } from 'core/api';
 import { Log } from 'core';
 import { useSelector, useStoreManager } from 'store';
 import { useSnackbar } from 'components/Feedback';
-import { errToStr } from 'utils';
+import { errToStr, getCurTimeZoneCode } from 'utils';
 
 const log = Log('screens.Dashboard.Onboarding.Event');
 
@@ -30,13 +30,15 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const themeId = useSelector(s => s.forms.onboarding.theme?.id);
   const storedData = useSelector(s => s.forms.onboarding.event);
 
-  const [data, setData] = useState<FormData>(storedData || {});
+  const getDefFormData = (): FormData => ({ timezone: getCurTimeZoneCode() });
+
+  const [data, setData] = useState<FormData>(storedData || getDefFormData());
   const [errors, setErrors] = useState<FormErrors | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [formProcessing, setFormProcessing] = useState<FormProcessing | undefined>();
   const { showSnackbar } = useSnackbar();
 
-  const handleDataChane = (newData: Partial<FormData>) => {
+  const handleDataChange = (newData: Partial<FormData>) => {
     setErrors(undefined);
     setData(v => ({ ...v, ...newData }));
   };
@@ -135,7 +137,7 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
           errors={errors}
           processing={formProcessing}
           onLogoFileSelect={handleLogoFileSelect}
-          onChange={handleDataChane}
+          onChange={handleDataChange}
         />
       </SetupContainer>
     </>

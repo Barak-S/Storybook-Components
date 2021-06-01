@@ -1,9 +1,9 @@
-export interface CountryInfo {
+export interface CountryData {
   name: string;
   code: string;
 }
 
-export const countries: CountryInfo[] = [
+export const countries: CountryData[] = [
   { name: 'Afghanistan', code: 'AF' },
   { name: 'Åland Islands', code: 'AX' },
   { name: 'Albania', code: 'AL' },
@@ -248,5 +248,3 @@ export const countries: CountryInfo[] = [
   { name: 'Zambia', code: 'ZM' },
   { name: 'Zimbabwe', code: 'ZW' },
 ];
-
-export default countries;

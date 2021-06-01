@@ -1,3 +1,5 @@
+import { TimeZoneData, timeZones } from './timezones';
+
 /* istanbul ignore file */
 export const secMs = 1000;
 export const minMs = secMs * 60;
@@ -34,3 +36,12 @@ export const dateToMonthName = (val: Date): string => {
 export const isSameMonth = (a: Date, b: Date) => a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear();
 
 export const isSameYear = (a: Date, b: Date) => a.getFullYear() === b.getFullYear();
+
+export const getCurTimeZone = (): TimeZoneData | undefined => {
+  const code = getCurTimeZoneCode();
+  return timeZones.find(itm => itm.code === code);
+};
+
+export const getCurTimeZoneCode = (): string => Intl.DateTimeFormat().resolvedOptions().timeZone.toLocaleLowerCase();
+
+export * from './timezones';

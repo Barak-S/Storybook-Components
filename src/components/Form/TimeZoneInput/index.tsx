@@ -1,44 +1,44 @@
-import { makeStyles } from '@material-ui/core';
-import React, { FC } from 'react';
-import { mc, StyleProps } from 'styles';
-import { FormSelect, FormSelectCommonProps } from '..';
-import { FormSelectStyledProps } from '../Select/components/Styled';
-import { timeZones, TimeZoneData } from './data';
+import { Autocomplete } from '@material-ui/lab';
+import React, { ChangeEvent, FC } from 'react';
+import { ClassNameProps, StyleProps } from 'styles';
+import { timeZones } from 'utils';
 
-interface Props extends StyleProps, FormSelectCommonProps {
-  classes?: FormSelectStyledProps['classes'];
-  value?: TimeZoneData;
-  onChange?: (newValue: TimeZoneData) => void;
+import { useFormAutocompleteProps } from '../Autocomplete';
+
+interface Props extends StyleProps, ClassNameProps {
+  required?: boolean;
+  label?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-const defTimeZone = timeZones[0];
+const codeToItem = (code: string) => timeZones.find(itm => itm.code === code);
 
-export const FormTimeZoneInput: FC<Props> = ({ style, classes, value = defTimeZone, onChange, ...commonProps }) => {
-  const localClasses = useStyles();
+export const FormTimeZoneInput: FC<Props> = ({ style, value, required, label, onChange, ...props }) => {
+  const customizeAutocompleteProps = useFormAutocompleteProps(required, label);
+  const curValue = value ? codeToItem(value) : undefined;
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const handleChange = (_e: ChangeEvent<{}>, label: string) => {
+    if (!onChange) return;
+    const itm = timeZones.find(itm => itm.label === label);
+    if (itm) {
+      onChange(itm.code);
+    }
+  };
+
   return (
-    <FormSelect<TimeZoneData>
+    <Autocomplete
       style={style}
-      classes={{
-        ...classes,
-        root: mc(classes?.root, localClasses.container),
-      }}
-      options={timeZones}
-      value={value}
-      keyExtractor={itm => itm.name}
-      titleExtractor={itm => itm.name}
-      onChange={onChange}
-      {...commonProps}
+      options={timeZones.map(itm => itm.label)}
+      value={curValue ? curValue.label : timeZones[0].label}
+      disableClearable
+      onChange={handleChange}
+      {...props}
+      {...customizeAutocompleteProps}
     />
   );
 };
-
-const useStyles = () =>
-  makeStyles({
-    container: {
-      display: 'block',
-      paddingTop: 16,
-    },
-  })();
 
 export type FormTimeZoneInputProps = Props;
 export default FormTimeZoneInput;

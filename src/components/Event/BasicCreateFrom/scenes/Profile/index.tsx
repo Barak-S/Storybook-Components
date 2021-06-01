@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormControlSection, FormDragnDropImage, FormSocialsInput, FormTextInput } from 'components/Form';
+import { FormControlSection, FormCountryInput, FormDragnDropImage, FormSocialsInput, FormTextInput } from 'components/Form';
 import { EventProfile } from 'core/api';
 import { modCloudinaryUrl } from 'core/cloudinary';
 import React, { ChangeEvent, FC } from 'react';
@@ -41,7 +41,7 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing
             <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChange('phone')} />
           </Grid>
           <Grid item md>
-            <FormTextInput label="Country" value={data?.country || ''} onChange={handleTextInputChange('country')} />
+            <FormCountryInput label="Country" value={data?.country || ''} onChange={handleDataChange('country')} />
           </Grid>
         </Grid>
         <Grid style={styles.rowBottomIndent} container spacing={2}>

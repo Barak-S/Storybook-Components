@@ -5,6 +5,7 @@ import {
   FormStartEndDatesInput,
   FormStartEndDatesInputValue,
   FormTextInput,
+  FormTimeZoneInput,
 } from 'components/Form';
 import { EventCreate } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
@@ -80,6 +81,13 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
           labels={{ start: 'Start Date', end: 'End Date' }}
           onChange={handleOnStartEndChange}
         />
+        <FormTimeZoneInput
+          style={styles.timeZone}
+          label="Time zone"
+          required
+          value={data?.timezone}
+          onChange={handleDataChange('timezone')}
+        />
       </FormControlSection>
       <EventBasicCreateFromProfile
         data={data?.profile}
@@ -115,6 +123,9 @@ const styles: Styles = {
   container: {},
   rowTopIndent: {
     marginTop: 5,
+  },
+  timeZone: {
+    marginTop: 30,
   },
   headLineField: {
     marginBottom: 30,
