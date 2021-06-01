@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.78] - 2021-06-01
+### Added
+- Onboarding: select time zone field added
+
 ## [1.0.77] - 2021-05-29
 ### Added
 - DO-164: Account organization tab - API integration
