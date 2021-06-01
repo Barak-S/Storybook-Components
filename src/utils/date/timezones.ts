@@ -633,7 +633,7 @@ export const timeZones: TimeZoneData[] = [
   {
     label: 'America/Grenada (GMT-04:00)',
     code: 'america/grenada',
-    name: "(GMT-04:00) Saint George's, Gouyave, Grenville, Victoria, Saint David’s",
+    name: `(GMT-04:00) Saint George's, Gouyave, Grenville, Victoria, Saint David’s`,
     utc: '-04:00',
   },
   {
@@ -783,7 +783,7 @@ export const timeZones: TimeZoneData[] = [
   {
     label: 'America/St_Johns (GMT-03:30)',
     code: 'america/st_johns',
-    name: "(GMT-03:30) St. John's, Mount Pearl, Corner Brook, Conception Bay South, Bay Roberts",
+    name: `(GMT-03:30) St. John's, Mount Pearl, Corner Brook, Conception Bay South, Bay Roberts`,
     utc: '-03:30',
   },
   {
@@ -1221,7 +1221,7 @@ export const timeZones: TimeZoneData[] = [
   {
     label: 'Africa/Ndjamena (GMT+01:00)',
     code: 'africa/ndjamena',
-    name: "(GMT+01:00) N'Djamena, Moundou, Sarh, Abéché, Kelo",
+    name: `(GMT+01:00) N'Djamena, Moundou, Sarh, Abéché, Kelo`,
     utc: '+01:00',
   },
   {
@@ -1653,7 +1653,7 @@ export const timeZones: TimeZoneData[] = [
   {
     label: 'Africa/Addis_Ababa (GMT+03:00)',
     code: 'africa/addis_ababa',
-    name: "(GMT+03:00) Addis Ababa, Dire Dawa, Mek'ele, Nazrēt, Bahir Dar",
+    name: `(GMT+03:00) Addis Ababa, Dire Dawa, Mek'ele, Nazrēt, Bahir Dar`,
     utc: '+03:00',
   },
   {
@@ -1671,7 +1671,7 @@ export const timeZones: TimeZoneData[] = [
   {
     label: 'Africa/Djibouti (GMT+03:00)',
     code: 'africa/djibouti',
-    name: "(GMT+03:00) Djibouti, 'Ali Sabieh, Tadjourah, Obock, Dikhil",
+    name: `(GMT+03:00) Djibouti, 'Ali Sabieh, Tadjourah, Obock, Dikhil`,
     utc: '+03:00',
   },
   {
@@ -1749,7 +1749,7 @@ export const timeZones: TimeZoneData[] = [
   {
     label: 'Europe/Minsk (GMT+03:00)',
     code: 'europe/minsk',
-    name: "(GMT+03:00) Minsk, Homyel', Mahilyow, Vitebsk, Hrodna",
+    name: `(GMT+03:00) Minsk, Homyel', Mahilyow, Vitebsk, Hrodna`,
     utc: '+03:00',
   },
   {
