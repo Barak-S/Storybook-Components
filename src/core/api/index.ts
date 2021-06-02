@@ -19,7 +19,7 @@ const log = Log('core.api');
 
 export const getApiWithOpt = ({ token }: ApiOpt) => {
   const apiReq = async <T>(opt: ApiReqOpt<T>): Promise<T> => {
-    const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true, guard, schema } = opt;
+    const { method = 'GET', path, params, data: reqData, timeout = secMs * 10, auth = true, schema } = opt;
     if (auth && !token) {
       log.err(`trying to call "${path}" without a token`);
       throw new Error(`Trying to call "${path}" without a token`);
@@ -41,14 +41,6 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
     const { data, status, statusText } = await axios(config);
     log.debug('req done, status=', status, ', statusText=', statusText, ', data=', data);
     if (isStatus200(status)) {
-      if (guard) {
-        if (guard(data)) {
-          return data;
-        } else {
-          log.err(`wrong resp data format, data=${JSON.stringify(data)}`);
-          throw new Error(`Wrong response data format`);
-        }
-      }
       if (schema) {
         const { error } = schema.validate(data);
         if (error) {

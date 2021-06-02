@@ -1,6 +1,6 @@
 import { secMs } from 'utils';
 
-import { ApiDataResp, ApiReqHandler, AssetsImage, getRespGuard, isAssetsImage } from '../types';
+import { ApiDataResp, ApiReqHandler, AssetsImage, AssetsImageSchema, getRespSchema } from '../types';
 
 export const getAssetsRequests = (apiReq: ApiReqHandler) => {
   const uploadImage = async (file: File, folder?: string): Promise<ApiDataResp<AssetsImage>> => {
@@ -15,7 +15,7 @@ export const getAssetsRequests = (apiReq: ApiReqHandler) => {
       method: 'POST',
       data,
       timeout: secMs * 30,
-      guard: getRespGuard(isAssetsImage),
+      schema: getRespSchema(AssetsImageSchema),
     });
   };
 
