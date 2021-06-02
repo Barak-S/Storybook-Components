@@ -3,7 +3,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import React, { createContext, FC, useContext, useMemo, useState } from 'react';
 
 interface SnackbarContext {
-  showSnackbar: (msg: string, type?: SnackbarMsgType) => void;
+  showSnackbar: (msg: string, type: SnackbarMsgType) => void;
 }
 
 type SnackbarMsgType = 'success' | 'info' | 'warning' | 'error';
