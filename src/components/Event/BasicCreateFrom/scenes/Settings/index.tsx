@@ -1,9 +1,9 @@
 import { Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormControlSection, FormToggle } from 'components/Form';
+import { FormControlSection, FormTextInput, FormToggle } from 'components/Form';
 import FormTagsInput from 'components/Form/TagsInput';
 import { EventSettings } from 'core/api';
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { ms, StyleProps, Styles } from 'styles';
 import { GenericFormData, GenericFormErrors, GenericFormProcessing } from 'utils';
 
@@ -24,6 +24,10 @@ interface Props extends StyleProps {
 export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange }) => {
   const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
+  };
+
+  const handleTextFieldChange = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
+    onChange && onChange(data ? { ...data, [key]: e.currentTarget.value } : { [key]: e.currentTarget.value });
   };
 
   return (
@@ -72,6 +76,16 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
       </FormControlSection>
       <FormControlSection title="Assign SEO Event Tags" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
         <FormTagsInput items={data?.seoTags} label="Add Tags" onChange={handleDataChange('seoTags')} />
+      </FormControlSection>
+      <FormControlSection
+        title="PO/Reference Number"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+      >
+        <FormTextInput
+          value={data?.registrationManualApproval}
+          label="PO/Reference Number"
+          onChange={handleTextFieldChange('purchaseOrderNumber')}
+        />
       </FormControlSection>
     </View>
   );

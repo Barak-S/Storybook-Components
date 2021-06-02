@@ -157,6 +157,7 @@ export interface EventSettings {
   emailValidation?: boolean;
   seoTags?: string[];
   passRequirements?: EventSettingsPassRequirement[];
+  purchaseOrderNumber?: string;
 }
 
 export const EventSettingsSchema = Joi.object<EventSettings>({
@@ -168,6 +169,7 @@ export const EventSettingsSchema = Joi.object<EventSettings>({
   emailValidation: Joi.bool(),
   seoTags: Joi.array().items(Joi.string()),
   passRequirements: Joi.array().items(Joi.string().valid(...EventSettingsPassRequirementArr)),
+  purchaseOrderNumber: Joi.string(),
 });
 
 export type EventSettingsUpdate = Partial<EventSettings>;

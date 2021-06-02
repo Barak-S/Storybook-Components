@@ -96,25 +96,6 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
         onChange={handleDataChange('profile')}
       />
       <EventBasicCreateFromSettings data={data?.settings} onChange={handleDataChange('settings')} />
-      {/* <FormControlSection 
-      title="CSV Document Upload" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
-        <Grid style={styles.uploadWrapper}>
-          <Grid style={styles.csvFieldWrapper}>
-            <FormTextInput label="Select CSV file to upload" />
-          </Grid>
-          <SelectFileBtn
-            btnStyle={styles.uploadBtn}
-            title="upload"
-            //   onFileSelect={() => { }}
-          />
-        </Grid>
-      </FormControlSection> */}
-      {/* <FormControlSection 
-      title="PO/Reference Number" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
-        <Grid style={styles.poFieldWrapper}>
-          <FormTextInput label="PO/Reference Number" />
-        </Grid>
-      </FormControlSection> */}
     </View>
   );
 };

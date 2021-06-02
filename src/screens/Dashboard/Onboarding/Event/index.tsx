@@ -14,7 +14,7 @@ import { isEventCreate } from 'core/api';
 import { Log } from 'core';
 import { useSelector, useStoreManager } from 'store';
 import { useSnackbar } from 'components/Feedback';
-import { errToStr, getCurTimeZoneCode } from 'utils';
+import { dateToStr, dayMs, errToStr, getCurTimeZoneCode, getTs } from 'utils';
 
 const log = Log('screens.Dashboard.Onboarding.Event');
 
@@ -30,7 +30,11 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const themeId = useSelector(s => s.forms.onboarding.theme?.id);
   const storedData = useSelector(s => s.forms.onboarding.event);
 
-  const getDefFormData = (): FormData => ({ timezone: getCurTimeZoneCode() });
+  const getDefFormData = (): FormData => ({
+    timezone: getCurTimeZoneCode(),
+    start: dateToStr(new Date(getTs() + dayMs * 3)),
+    end: dateToStr(new Date(getTs() + dayMs * 4)),
+  });
 
   const [data, setData] = useState<FormData>(storedData || getDefFormData());
   const [errors, setErrors] = useState<FormErrors | undefined>();

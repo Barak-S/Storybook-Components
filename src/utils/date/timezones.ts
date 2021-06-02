@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export interface TimeZoneData {
   label: string;
   code: string;
