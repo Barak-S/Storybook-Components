@@ -46,6 +46,10 @@ Run tests:
 yarn test
 ```
 
+## Debug
+
+To add colors to the log output, add value to the local storage with a key `iris:log:colorized` and a value `true`.
+
 ## Guidelines
 
 - [TypeScript Style Guide](https://basarat.gitbook.io/typescript/styleguide)

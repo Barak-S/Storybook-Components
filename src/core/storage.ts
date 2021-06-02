@@ -4,7 +4,7 @@ import { Log } from './log';
 
 const log = Log('core.storage');
 
-const keyPrefix = 'do';
+const keyPrefix = 'iris';
 
 const fkey = (key: string) => `${keyPrefix}:${key}`;
 

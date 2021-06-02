@@ -1,10 +1,11 @@
 import { Text } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
-import { Log, useAuth } from 'core';
+import { Log, setLogColorized, useAuth } from 'core';
 import { initAmplify } from 'core/amplify';
 import { ApiError } from 'core/api';
 import { appConfig } from 'core/configs';
 import { parseUrlSearchStr } from 'core/navigation';
+import { getStorageVal } from 'core/storage';
 import httpStatus from 'http-status';
 import React, { FC, useEffect } from 'react';
 import { Screens } from 'screens';
@@ -13,6 +14,8 @@ import { mx, Styles } from 'styles';
 import { capitalizeFirstLetter } from 'utils';
 
 const log = Log('app');
+
+setLogColorized(getStorageVal('log:colorized') === true ? true : false);
 
 initAmplify();
 
