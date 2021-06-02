@@ -1,7 +1,6 @@
 import Joi from 'joi';
-import { timeZones } from 'utils';
 
-import { colorValidatorFn, phoneValidatorFn, urlValidatorFn } from './common';
+import { colorValidatorFn, EventTimezoneSchema, phoneValidatorFn, urlValidatorFn } from './common';
 import { Social, SocialSchema } from './social';
 
 // Colors
@@ -246,9 +245,7 @@ export const EventSchema = Joi.object<Event>({
   type: EventTypeSchema.required(),
   start: Joi.date().iso().required(),
   end: Joi.date().iso().greater(Joi.ref('start')).required(),
-  timezone: Joi.string()
-    .valid(...timeZones.map(itm => itm.code))
-    .required(),
+  timezone: EventTimezoneSchema.required(),
   url: Joi.string().custom(urlValidatorFn).required(),
   themeId: Joi.string(),
   profile: EventProfileSchema,
@@ -280,6 +277,7 @@ export const EventUpdateSchema = EventSchema.keys({
   updatedAt: Joi.forbidden(),
 
   name: Joi.string(),
+  timezone: EventTimezoneSchema,
   type: EventTypeSchema,
   start: Joi.date().iso(),
   end: Joi.date().iso(),

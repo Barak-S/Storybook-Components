@@ -1,5 +1,5 @@
-import { CustomValidator } from 'joi';
-import { isStr } from 'utils';
+import Joi, { CustomValidator } from 'joi';
+import { isStr, timeZones } from 'utils';
 
 export const urlValidatorFn: CustomValidator = (value, helpers) => {
   if (!isStr(value)) {
@@ -36,3 +36,5 @@ export const colorValidatorFn: CustomValidator = (value, helpers) => {
   }
   return helpers.error('any.invalid');
 };
+
+export const EventTimezoneSchema = Joi.string().valid(...timeZones.map(itm => itm.code));
