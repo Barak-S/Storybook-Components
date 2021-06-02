@@ -3,7 +3,7 @@ import { StoreAction } from 'store/actions';
 
 export type FormsState = StoredForms;
 
-const initial: FormsState = { onboarding: { theme: {} } };
+const initial: FormsState = { onboarding: { theme: {} }, auth: {} };
 
 export const reducer = (state: FormsState = initial, action: StoreAction): FormsState => {
   switch (action.type) {
@@ -20,7 +20,7 @@ export const reducer = (state: FormsState = initial, action: StoreAction): Forms
       return { ...state, [name]: initial[name] };
     }
     case 'auth/SignOut': {
-      return initial;
+      return { ...initial, auth: state.auth };
     }
     default:
       return state;

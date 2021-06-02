@@ -1,7 +1,12 @@
 import { EventCreate, OrganizationInviteCreate, OrganizationUpdate } from 'core/api';
 
 export interface StoredForms {
+  auth: StoredAuthForm;
   onboarding: StoredOnboardingForm;
+}
+
+interface StoredAuthForm {
+  lastEmail?: string;
 }
 
 interface StoredOnboardingForm {

@@ -15,6 +15,7 @@ import { useQuery } from 'core/navigation';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { routes } from 'screens/consts';
+import { useSelector, useStoreManager } from 'store';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, isDictEmpty, polish, validators } from 'utils';
 
@@ -48,7 +49,10 @@ export const AuthSignInScreen: FC<Props> = () => {
   const emailParam = query.email || location.state?.email;
   const sourceParam = query.source || location.state?.source;
 
-  const [data, setData] = useState<FormData>({ email: emailParam });
+  const manager = useStoreManager();
+  const lastUsedEmail = useSelector(s => s.forms.auth.lastEmail);
+
+  const [data, setData] = useState<FormData>({ email: emailParam || lastUsedEmail });
   const [errs, setErrs] = useState<FormErrs | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
@@ -91,6 +95,7 @@ export const AuthSignInScreen: FC<Props> = () => {
     if (!email || !password) {
       return;
     }
+    manager.forms.set('auth', { lastEmail: email });
     const curErrs: FormErrs = {
       email: validators.getEmailErr(email),
       password: validators.getPasswordErr(password),

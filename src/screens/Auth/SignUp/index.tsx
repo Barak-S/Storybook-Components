@@ -12,6 +12,7 @@ import { appConfig, Log } from 'core';
 import { Auth, CognitoHostedUIIdentityProvider, isCognitoErrResponse, useAuth } from 'core/auth';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { routes } from 'screens/consts';
+import { useSelector, useStoreManager } from 'store';
 import { globalStyles, StyleProps } from 'styles';
 import { errToStr, validators } from 'utils';
 
@@ -23,7 +24,10 @@ const log = Log('screens.AuthSignUp');
 type Props = StyleProps;
 
 export const AuthSignUpScreen: FC<Props> = () => {
-  const [data, setData] = useState<FormData>({});
+  const manager = useStoreManager();
+  const lastUsedEmail = useSelector(s => s.forms.auth.lastEmail);
+
+  const [data, setData] = useState<FormData>({ email: lastUsedEmail });
   const [errs, setErrs] = useState<FormErrs | undefined>(undefined);
   const [processing, setProcessing] = useState<boolean>(false);
   const [passVisible, setPassVisible] = useState<boolean>(false);
@@ -47,6 +51,7 @@ export const AuthSignUpScreen: FC<Props> = () => {
       return;
     }
     log.debug('handle submit press');
+    manager.forms.set('auth', { lastEmail: email });
     try {
       setErrs(undefined);
       setProcessing(true);
