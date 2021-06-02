@@ -1,6 +1,6 @@
-import { makeStyles, TextareaAutosize, TextareaAutosizeProps, FormHelperText } from '@material-ui/core';
+import { FormHelperText, makeStyles, TextareaAutosize, TextareaAutosizeProps } from '@material-ui/core';
 import { Text } from 'components/Common';
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { colors, mc, mx, StyleProps } from 'styles';
 import { genId } from 'utils';
 
@@ -29,7 +29,7 @@ export const FormTextArea: FC<Props> = ({
   const [focus, setFocus] = useState<boolean>(false);
   const classes = useStyles();
   const isActive = focus || Boolean(value);
-  const textAreaId = genId();
+  const textAreaId = useMemo(() => genId(), []);
 
   return (
     <>

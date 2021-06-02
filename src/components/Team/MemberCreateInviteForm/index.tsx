@@ -1,5 +1,5 @@
-import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
-import { FormOrganizationRoleSelect, FormRow, FormTextArea, FormTextInput } from 'components/Form';
+import { Grid } from '@material-ui/core';
+import { FormOrganizationRoleSelect, FormTextArea, FormTextInput } from 'components/Form';
 import { OrganizationInviteCreate, OrganizationRole } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
 import { ms, StyleProps, Styles } from 'styles';
@@ -22,63 +22,47 @@ export const TeamMemberCreateInviteForm: FC<Props> = ({ style, data = {}, onChan
     onChange && onChange({ ...data, [key]: val });
   };
 
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
   return (
-    <Grid style={ms(styles.container, style)} component="form">
-      <FormRow>
-        <FormTextInput
-          className={classes.half}
-          label="first name"
-          value={firstName || ''}
-          onChange={handleTextFieldChanged('firstName')}
-        />
-        <FormTextInput
-          className={classes.half}
-          label="last name"
-          value={lastName || ''}
-          onChange={handleTextFieldChanged('lastName')}
-        />
-      </FormRow>
-      <FormRow>
+    <Grid style={ms(styles.container, style)} component="form" container direction="column">
+      <Grid style={styles.rowIndent} item container spacing={2}>
+        <Grid item md>
+          <FormTextInput label="first name" value={firstName || ''} onChange={handleTextFieldChanged('firstName')} />
+        </Grid>
+        <Grid item md>
+          <FormTextInput label="last name" value={lastName || ''} onChange={handleTextFieldChanged('lastName')} />
+        </Grid>
+      </Grid>
+      <Grid style={styles.rowIndent} item>
         <FormTextInput label="email" value={email || ''} onChange={handleTextFieldChanged('email')} />
-      </FormRow>
-      <FormRow>
+      </Grid>
+      <Grid style={styles.rowIndent} item>
         <FormOrganizationRoleSelect label="role" exclude={['owner']} value={role} onChange={handleRoleChange('role')} />
-      </FormRow>
-      <FormRow>
+      </Grid>
+      <Grid style={styles.rowIndent} item>
         <FormTextInput label="title" value={title || ''} onChange={handleTextFieldChanged('title')} />
-      </FormRow>
-      <FormRow>
+      </Grid>
+      <Grid style={styles.messageWrap} item>
         <FormTextArea label="Invititation message" value={message || ''} onChange={handleTextFieldChanged('message')} />
-      </FormRow>
+      </Grid>
     </Grid>
   );
 };
 
 const styles: Styles = {
   container: {
+    width: '100%',
+  },
+  rowIndent: {
+    marginBottom: 25,
+  },
+  messageWrap: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: '100%',
   },
 };
-
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    half: {
-      width: '100%',
-      marginBottom: 30,
-      '&:last-child': {
-        marginBottom: 0,
-      },
-      [theme.breakpoints.up('sm')]: {
-        maxWidth: '48%',
-        marginBottom: 0,
-      },
-    },
-  })();
 
 export type TeamMemberCreateInviteFormData = FormData;
 export default TeamMemberCreateInviteForm;
