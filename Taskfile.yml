@@ -1,0 +1,50 @@
+version: '3'
+
+tasks:
+  version:patch:
+    cmds:
+      - npm version patch
+  
+  version:minor:
+    cmds:
+      - npm version minor
+
+  version:major:
+    cmds:
+      - npm version major
+
+  version:dev:
+    cmds:
+      - git tag "v{{.VERSION}}-dev"
+    vars:
+      VERSION:
+        sh: |
+          echo "$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",\t ]//g')"
+
+  version:qa:
+    cmds:
+      - git tag "v{{.VERSION}}-qa"
+    vars:
+      VERSION:
+        sh: |
+          echo "$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",\t ]//g')"
+
+  version:beta:
+    cmds:
+      - git tag "v{{.VERSION}}-beta"
+    vars:
+      VERSION:
+        sh: |
+          echo "$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",\t ]//g')"
+  
+  version:prd:
+    cmds:
+      - git tag "v{{.VERSION}}-prd"
+    vars:
+      VERSION:
+        sh: |
+          echo "$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",\t ]//g')"
+
+  snippets:
+    cmds:
+      - md2snipp --root .vscode/snippets --output .vscode
