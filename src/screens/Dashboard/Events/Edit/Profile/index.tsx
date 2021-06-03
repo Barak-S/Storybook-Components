@@ -1,122 +1,122 @@
-import { Divider, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { Hidden, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
-import { FormControlSection, FormDragnDropImage, FormRow, FormSelect, FormSocialsInput, FormTextInput } from 'components/Form';
-import { LineAwesomeIcon } from 'components/Icons';
+import { FormDragnDropImage, FormTextInput } from 'components/Form';
 import { ScreenTitle } from 'components/Screen';
-import React, { FC } from 'react';
-import { colors, ms, StyleProps, Styles } from 'styles';
+import { EventProfile, EventUpdate } from 'core/api';
+import React, { ChangeEvent, FC, useState } from 'react';
+import { colors, ms, scrollToTop, StyleProps, Styles } from 'styles';
+import { GenericFormData, isDictEmpty, validators } from 'utils';
 
-type Props = StyleProps;
+import EventProfileEditFrom from './components/Form';
 
-interface CompanyType {
-  value: string;
+type FormData = GenericFormData<EventUpdate>;
+type FormErrors = Partial<Record<keyof FormData, string>> & { request?: string };
+type ProfileFormErrors = Partial<Record<keyof EventProfile, string>> & { request?: string };
+
+interface Props extends StyleProps {
+  data: FormData;
+  processing?: boolean;
+  onChange?: (data: FormData) => void;
+  onSubmit?: () => void;
 }
 
-export const DashboardEventsProfileScreen: FC<Props> = () => {
+export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onChange, onSubmit }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
-  const socialSelectClasses = {
-    iconBtn: classes.selectAdornment,
-    root: classes.selectRoot,
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const [eventErrs, setEventErrs] = useState<FormErrors | undefined>();
+  const [eventProfileErrs, setEventProfileErrs] = useState<FormErrors | undefined>();
+
+  const handleTextInputChange = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
+    setEventErrs(undefined);
+    setEventProfileErrs(undefined);
+    setDisabled(false);
+    const val = e.currentTarget.value;
+    onChange && onChange({ ...data, [key]: val });
   };
 
-  const locationState: CompanyType[] = [{ value: 'New York' }, { value: 'Pennsylvania' }, { value: 'New Hampshire' }];
+  const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
+    setEventErrs(undefined);
+    setEventProfileErrs(undefined);
+    setDisabled(false);
+    onChange && onChange({ ...data, [key]: val });
+  };
+
+  const getEventFormErrs = (data: FormData): FormErrors | undefined => {
+    const errs: FormErrors = {
+      name: !data.name || data.name === '' ? 'An Event Name is required' : undefined,
+    };
+    return !isDictEmpty(errs) ? errs : undefined;
+  };
+  const getEventProfileFormErrs = (data: EventProfile | undefined): ProfileFormErrors | undefined => {
+    const errs: ProfileFormErrors = {
+      country: !data?.country || data.country === '' ? 'A valid Country is required' : undefined,
+      state: !data?.state || data.state === '' ? 'A valid State is required' : undefined,
+      city: !data?.city || data.city === '' ? 'A valid City is required' : undefined,
+      phone: validators.getPhoneNumberErr(data?.phone, { required: true, requiredMsg: 'A phone number is required' }),
+    };
+    return !isDictEmpty(errs) ? errs : undefined;
+  };
+
+  const handleSubmitClick = () => {
+    const curEventErrs = getEventFormErrs(data);
+    const curEventProfileErrs = getEventProfileFormErrs(data.profile);
+    if (curEventErrs || curEventProfileErrs) {
+      setEventErrs(curEventErrs);
+      setEventProfileErrs(curEventProfileErrs);
+      setDisabled(true);
+      scrollToTop();
+    } else {
+      onSubmit && onSubmit();
+    }
+  };
 
   return (
     <>
       <ScreenTitle title="Event Profile" />
       <Paper className={classes.container} elevation={2}>
-        <div className={classes.eventSetupSection}>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
           <div className={classes.eventInputSection}>
             <span style={styles.title}>{'Event Information'}</span>
             <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.'}</span>
-            <View row style={{ marginBottom: 20, marginTop: 20 }}>
-              <FormTextInput className={classes.inputFull} label="Event Name" required />
+            <View row className={classes.eventNameInput}>
+              <FormTextInput
+                className={classes.inputFull}
+                label="Event Name"
+                name="name"
+                required
+                error={!!eventErrs?.name}
+                helperText={eventErrs?.name}
+                value={data.name || ''}
+                onChange={handleTextInputChange('name')}
+              />
             </View>
-            <div className={classes.formRow} style={{ maxWidth: 572, justifyContent: 'space-between', marginBottom: 20 }}>
-              <FormTextInput className={classes.inputHalf1} label="Phone Number" required />
-              <FormSelect
-                className={classes.formSelect}
-                classes={socialSelectClasses}
-                required
-                // error={!!errs?.state}
-                // helperText={errs?.state}
-                fullWidth
-                label="Country"
-                keyExtractor={itm => itm.value}
-                titleExtractor={itm => itm.value}
-                options={locationState}
-                name="companyType"
-              />
-            </div>
-            <div className={classes.formRow} style={{ maxWidth: 572, justifyContent: 'space-between', marginBottom: 47 }}>
-              <FormSelect
-                className={classes.formSelect1}
-                classes={socialSelectClasses}
-                required
-                // error={!!errs?.state}
-                // helperText={errs?.state}
-                fullWidth
-                label="State"
-                keyExtractor={itm => itm.value}
-                titleExtractor={itm => itm.value}
-                options={locationState}
-                name="companyType"
-              />
-              <FormTextInput className={classes.inputHalf} label="City" required />
-            </div>
+            <EventProfileEditFrom data={data.profile} errors={eventProfileErrs} onChange={handleDataChange('profile')} />
           </div>
-          <div className={classes.imageUploadSection}>
-            <View>
-              <span style={styles.title}>{'Event Logo'}</span>
-              <span style={ms(styles.subtitle, { paddingBottom: 15 })}>
-                {'Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less'}
-              </span>
-              <FormDragnDropImage className={classes.uploadImg} style={styles.dragField} />
-            </View>
+          <div className={classes.eventLogoSection}>
+            <Hidden mdDown>
+              <div className={classes.imageUploadSection}>
+                <View>
+                  <span style={styles.title}>{'Event Logo'}</span>
+                  <span style={ms(styles.subtitle, { paddingBottom: 15 })}>
+                    {'Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less'}
+                  </span>
+                  <FormDragnDropImage className={classes.uploadImg} style={styles.dragField} />
+                </View>
+              </div>
+            </Hidden>
           </div>
         </div>
-        <Divider style={{ marginBottom: 36 }} />
-        <span style={styles.title}>{'Website'}</span>
-        <FormRow>
-          <FormTextInput
-            label="website"
-            adornmentType="transparent"
-            className={classes.inputFull}
-            // value={data?.website || ''}
-            // error={!!errors?.website}
-            // helperText={errors?.website}
-            iconStart={<LineAwesomeIcon type="globe" style={{ color: colors.greyish }} />}
-            // onChange={handleTextFieldChanged('website')}
-          />
-        </FormRow>
-        <Divider style={{ marginBottom: 36 }} />
-        <span style={styles.title}>{'Contact Email'}</span>
-        <FormRow style={{ marginBottom: 36 }}>
-          <FormTextInput
-            label="email"
-            adornmentType="transparent"
-            className={classes.inputFull}
-            // value={data?.website || ''}
-            // error={!!errors?.website}
-            // helperText={errors?.website}
-            iconStart={<LineAwesomeIcon type="envelope-open-text" style={{ color: colors.greyish }} />}
-            // onChange={handleTextFieldChanged('website')}
-          />
-        </FormRow>
-        <Divider style={{ marginBottom: 36 }} />
-        <FormControlSection
-          title="Social Media Accounts"
-          description="These will display in the footer of event landing page, you can edit or add more in the event edit section."
-          borderTop={false}
-        >
-          <FormSocialsInput items={[]} />
-        </FormControlSection>
-        <Divider style={{ marginTop: 40, marginBottom: 44 }} />
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <ContainedButton style={styles.saveBtn} size="medium">
+          <ContainedButton
+            style={styles.saveBtn}
+            size="medium"
+            processing={processing}
+            disabled={disabled}
+            onClick={handleSubmitClick}
+          >
             {'SAVE'}
           </ContainedButton>
         </div>
@@ -164,80 +164,40 @@ const useStyles = (theme: Theme) =>
       paddingLeft: 34,
       paddingRight: 35,
     },
-    eventInputSection: {
-      minWidth: 455,
-      [theme.breakpoints.down('md')]: {
-        minWidth: '100%',
-      },
-    },
     inputFull: {
       maxWidth: 572,
-    },
-    inputHalf: {
-      maxWidth: 276,
-      [theme.breakpoints.down('sm')]: {
-        maxWidth: '100%',
-      },
-    },
-    inputHalf1: {
-      maxWidth: 276,
-      marginRight: 10,
-      [theme.breakpoints.down('sm')]: {
-        maxWidth: '100%',
-        marginRight: 0,
-      },
-    },
-    formSelect: {
-      maxWidth: 276,
-      [theme.breakpoints.down('sm')]: {
-        maxWidth: '100%',
-      },
-    },
-    formSelect1: {
-      maxWidth: 276,
-      marginRight: 10,
-      [theme.breakpoints.down('sm')]: {
-        maxWidth: '100%',
-        marginRight: 0,
-      },
-    },
-    selectAdornment: {
-      '&.MuiButtonBase-root': {
-        color: colors.brownishGrey,
-        background: colors.veryLightPinkThree,
-      },
-    },
-    selectRoot: {
-      fontSize: 16,
-      textTransform: 'capitalize',
-    },
-    eventSetupSection: {
-      display: 'flex',
-      flexDirection: 'row',
-      [theme.breakpoints.down('md')]: {
-        flexDirection: 'column',
-      },
-    },
-    formRow: {
-      display: 'flex',
-      flexDirection: 'row',
-      [theme.breakpoints.down('sm')]: {
-        flexDirection: 'column',
-        height: 124,
-      },
     },
     imageUploadSection: {
       width: '100%',
       maxWidth: 535,
-      paddingLeft: 49,
+      paddingLeft: 18,
       [theme.breakpoints.down('md')]: {
-        paddingLeft: 0,
         paddingBottom: 28,
       },
     },
     uploadImg: {
       maxHeight: 154,
       maxWidth: 631,
+    },
+    eventNameInput: {
+      marginBottom: 20,
+      marginTop: 20,
+      maxWidth: '50%',
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
+      },
+    },
+    eventInputSection: {
+      width: '100%',
+    },
+    eventLogoSection: {
+      position: 'absolute',
+      top: 37,
+      right: 35,
+      width: 'calc(50% - 35px)',
+      [theme.breakpoints.down('md')]: {
+        display: 'none',
+      },
     },
   })();
 

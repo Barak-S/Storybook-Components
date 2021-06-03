@@ -11,8 +11,7 @@ import { Event, EventTheme, EventType } from 'core/api';
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { routes } from 'screens/consts';
 import { colors, StyleProps } from 'styles';
-import { isSameMonth, isSameYear, dateToMonthName } from 'utils';
-
+import { eventToDateStr } from 'components/Event/utils';
 import BadgeStatus from './components/BadgeStatus';
 import Countdown from './components/Countdown';
 import DataTile from './components/DataTile';
@@ -39,25 +38,6 @@ const eventTypeToStr = (val: EventType): string => {
     case 'private-with-registration':
       return 'PRIVATE WITH REGISTRATION';
   }
-};
-
-const eventToDateStr = (item: Event): string => {
-  const { start, end } = item;
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-  const sDay = startDate.getDate();
-  const sMonth = dateToMonthName(startDate);
-  const sYear = startDate.getFullYear();
-  const eDay = endDate.getDate();
-  const eMonth = dateToMonthName(endDate);
-  const eYear = endDate.getFullYear();
-  if (isSameMonth(startDate, endDate)) {
-    return `${sMonth} ${sDay}-${eDay} • ${sYear}`;
-  }
-  if (isSameYear(startDate, endDate)) {
-    return `${sMonth} ${sDay} - ${eMonth} ${eDay} • ${sYear}`;
-  }
-  return `${sMonth} ${sDay} ${sYear} - ${eMonth} ${eDay} ${eYear}`;
 };
 
 export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {

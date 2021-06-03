@@ -50,6 +50,7 @@ export const ProfileAccountCompanySection: FC<Props> = ({ style, profile, data, 
             />
             <FormTextInput
               label="Email"
+              disabled
               inputStyle={styles.input}
               className={classes.inputFull}
               adornmentType="transparent"

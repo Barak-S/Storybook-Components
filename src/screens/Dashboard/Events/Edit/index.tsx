@@ -1,14 +1,22 @@
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
 import { VerticalSplitter } from 'components/Data';
+import { eventToDateStr } from 'components/Event/utils';
+import { useSnackbar } from 'components/Feedback';
 import { SidebarTabs, SideTab } from 'components/Navigation/SidebarTabs';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
-import React, { FC } from 'react';
+import { Log } from 'core';
+import { Event, eventItemToUpdate, EventUpdate } from 'core/api';
+import React, { FC, useState } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 import { routes } from 'screens/consts';
-import SetupSession from 'screens/Dashboard/Session';
-import EventProfile from './Profile';
-import EventSettings from './Settings';
-import { colors, StyleProps } from 'styles';
+import EditSetupSession from 'screens/Dashboard/Session';
+import { useSelector, useStoreManager } from 'store';
+import { colors, scrollToTop, StyleProps } from 'styles';
+
+import EditEventProfile from './Profile';
+import EditEventSettings from './Settings';
+
+const log = Log('screens.Dashboard.events.edit.profile');
 
 type Props = StyleProps;
 
@@ -49,33 +57,71 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
     },
   ];
 
-  const { id: eventId } = useParams<{ id: string }>();
+  const { id: itemId } = useParams<{ id: string }>();
+  const manager = useStoreManager();
+  const { showSnackbar } = useSnackbar();
+
+  const items = useSelector(s => s.events.items);
+  const curItem = items.find(itm => itm.id === itemId);
+
+  const [data, setData] = useState<EventUpdate>(eventItemToUpdate(curItem));
+  const [processing, setProcessing] = useState<boolean>(false);
+
+  const handleDataChange = (newData: Partial<Event>) => {
+    setData(v => ({ ...v, ...newData }));
+  };
+
+  const handleSubmitClick = async () => {
+    try {
+      log.info('updating data');
+      setProcessing(true);
+      await manager.events.modifyItem(itemId, data);
+      setProcessing(false);
+      log.info('updating data done');
+      showSnackbar('Event updated', 'success');
+      scrollToTop();
+    } catch (err: unknown) {
+      log.err('updating data err=', err);
+      setProcessing(false);
+      showSnackbar('Updating event error', 'error');
+    }
+  };
 
   return (
     <>
       <ScreenTitle />
       <div className={classes.container}>
-        <SidebarTabs tabs={tabs} initialRoute={routes.dashboard.events.getEdit(eventId)}>
+        <SidebarTabs tabs={tabs} initialRoute={routes.dashboard.events.getEdit(itemId)}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <div className={classes.eventSettingsBanner}>
               <span className={classes.banner}>{'Event Settings'}</span>
               <div className={classes.eventOverview}>
-                <span className={classes.eventTitle}>{'VR/AR Discovery Conference'}</span>
+                <span className={classes.eventTitle}>{data.name}</span>
                 <VerticalSplitter style={{ height: '100%', paddingLeft: 15 }} />
-                <span className={classes.eventDate}>{'June 9-12 • 2021'}</span>
+                <span className={classes.eventDate}>{eventToDateStr(data)}</span>
               </div>
             </div>
             <div className={classes.content}>
               <Switch>
-                <Route path={routes.dashboard.events.getEditProfile(eventId)} render={() => <EventProfile />} />
-                <Route path={routes.dashboard.events.getEditSettings(eventId)} render={() => <EventSettings />} />
                 <Route
-                  path={routes.dashboard.events.getEditRegistration(eventId)}
+                  path={routes.dashboard.events.getEditProfile(itemId)}
+                  render={() => (
+                    <EditEventProfile
+                      data={data}
+                      processing={processing}
+                      onChange={handleDataChange}
+                      onSubmit={handleSubmitClick}
+                    />
+                  )}
+                />
+                <Route path={routes.dashboard.events.getEditSettings(itemId)} render={() => <EditEventSettings />} />
+                <Route
+                  path={routes.dashboard.events.getEditRegistration(itemId)}
                   render={() => <div>{'Edit Registration Page'}</div>}
                 />
-                <Route path={routes.dashboard.events.getEditSessions(eventId)} render={() => <SetupSession />} />
-                <Route path={routes.dashboard.events.getEditSponsors(eventId)} render={() => <div>{'Edit Sponsors Page'}</div>} />
-                <Redirect to={routes.dashboard.events.getEditProfile(eventId)} />
+                <Route path={routes.dashboard.events.getEditSessions(itemId)} render={() => <EditSetupSession />} />
+                <Route path={routes.dashboard.events.getEditSponsors(itemId)} render={() => <div>{'Edit Sponsors Page'}</div>} />
+                <Redirect to={routes.dashboard.events.getEditProfile(itemId)} />
               </Switch>
             </div>
           </div>

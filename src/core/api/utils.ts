@@ -1,6 +1,6 @@
 import { omit } from 'lodash';
 
-import { EventTheme, EventThemeUpdate, Organization, OrganizationUpdate, User, UserUpdate } from './types';
+import { Event, EventUpdate, EventTheme, EventThemeUpdate, Organization, OrganizationUpdate, User, UserUpdate } from './types';
 
 // API
 
@@ -25,6 +25,11 @@ export const userToUpdate = (data: User | undefined): UserUpdate =>
 
 export const orgItemToUpdate = (item: Organization | undefined): OrganizationUpdate =>
   item ? omit(item, ['id', 'createdAt', 'updatedAt']) : {};
+
+// Events
+
+export const eventItemToUpdate = (item: Event | undefined): EventUpdate =>
+  item ? omit(item, ['id', 'orgId', 'url', 'createdAt', 'updatedAt']) : {};
 
 // Themes
 
