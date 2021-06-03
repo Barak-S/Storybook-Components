@@ -145,11 +145,6 @@ jobs:
             env.APP_ENV }}` environment
 
             ${{ env.APP_URL }}
-      - name: "Chromatic: publish"
-        uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       - name: "Storybook: build"
         run: yarn storybook:build
       - name: "Storybook: upload to unique path"
