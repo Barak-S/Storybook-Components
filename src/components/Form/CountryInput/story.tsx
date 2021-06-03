@@ -26,3 +26,9 @@ const FormCountryInputTemplate: FC<Props> = ({ value: initValue, ...props }) => 
 };
 
 export const Basic: Story<Props> = args => <FormCountryInputTemplate {...args} />;
+
+export const Prefilled: Story<Props> = args => <FormCountryInputTemplate {...args} />;
+
+Prefilled.args = {
+  value: 'Ukraine',
+};

@@ -3,19 +3,17 @@ import React, { ChangeEvent, FC } from 'react';
 import { ClassNameProps, StyleProps } from 'styles';
 import { timeZones } from 'utils';
 
-import { useFormAutocompleteProps } from '../Autocomplete';
+import { FormAutocompleteInputProps, useFormAutocompleteProps } from '../Autocomplete';
 
-interface Props extends StyleProps, ClassNameProps {
-  required?: boolean;
-  label?: string;
+interface Props extends StyleProps, ClassNameProps, FormAutocompleteInputProps {
   value?: string;
   onChange?: (value: string) => void;
 }
 
 const codeToItem = (code: string) => timeZones.find(itm => itm.code === code);
 
-export const FormTimeZoneInput: FC<Props> = ({ style, value, required, label, onChange, ...props }) => {
-  const customizeAutocompleteProps = useFormAutocompleteProps(required, label);
+export const FormTimeZoneInput: FC<Props> = ({ style, value, required, label, error, helperText, onChange, ...props }) => {
+  const customizeAutocompleteProps = useFormAutocompleteProps({ required, label, error, helperText });
   const curValue = value ? codeToItem(value) : undefined;
 
   // eslint-disable-next-line @typescript-eslint/ban-types

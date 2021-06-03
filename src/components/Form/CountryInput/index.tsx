@@ -2,22 +2,21 @@ import { Autocomplete } from '@material-ui/lab';
 import React, { FC } from 'react';
 import { StyleProps } from 'styles';
 
-import { useFormAutocompleteProps } from '../Autocomplete';
+import { FormAutocompleteInputProps, useFormAutocompleteProps } from '../Autocomplete';
 import { countries } from 'utils';
 
-interface Props extends StyleProps {
-  required?: boolean;
-  label?: string;
+interface Props extends StyleProps, FormAutocompleteInputProps {
   value?: string;
   onChange?: (value?: string) => void;
 }
 
-export const FormCountryInput: FC<Props> = ({ label = 'country', value, required, onChange, ...props }) => {
-  const customizeAutocompleteProps = useFormAutocompleteProps(required, label);
+export const FormCountryInput: FC<Props> = ({ label = 'country', value, required, error, helperText, onChange, ...props }) => {
+  const customizeAutocompleteProps = useFormAutocompleteProps({ required, label, error, helperText });
   return (
     <Autocomplete
       options={countries.map(itm => itm.name)}
       inputValue={value || ''}
+      value={value}
       freeSolo
       onInputChange={(_e, val) => onChange && onChange(val)}
       {...props}

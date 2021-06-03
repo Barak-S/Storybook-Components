@@ -38,7 +38,15 @@ const useStyles = makeStyles({
   },
 });
 
-export const useFormAutocompleteProps = (required: boolean | undefined, label: string | undefined) => {
+export interface FormAutocompleteInputProps {
+  className?: string;
+  required?: boolean;
+  label?: string;
+  error?: boolean;
+  helperText?: string;
+}
+
+export const useFormAutocompleteProps = (inputProps: FormAutocompleteInputProps) => {
   const classes = useStyles();
   return {
     className: classes.container,
@@ -46,7 +54,7 @@ export const useFormAutocompleteProps = (required: boolean | undefined, label: s
       endAdornment: classes.endAdornment,
     },
     // eslint-disable-next-line react/display-name
-    renderInput: (params: AutocompleteRenderInputParams) => <TextField {...params} required={required} label={label} />,
+    renderInput: (params: AutocompleteRenderInputParams) => <TextField {...params} {...inputProps} />,
   };
 };
 
