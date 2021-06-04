@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.81] - 2021-06-03
+### Added
+- DO-186: Max social input fields count added
+
+### Fixed
+- DO-102: There’s no Save & Continue Later link near Continue button
+- DO-102: Alert toast if Themes page is refreshed in the browser
+- DO-102: Incorrect Color palette
+- DO-103: Setting start date improoved
+
 ## [1.0.80] - 2021-06-03
 ### Added
 - DO-186: Edit Event Profile API integration
