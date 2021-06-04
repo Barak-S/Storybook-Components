@@ -9,6 +9,7 @@ export default ((): StoryMeta<Props> => ({
   title: 'components/Form/SocialSelect',
   component: FormSocialSelect,
   args: {
+    style: { width: 200 },
     title: 'Items',
     label: 'Social Select',
   },
@@ -27,4 +28,4 @@ const FormSocialSelectTemplate: FC<Omit<Props, 'value' | 'onChange'>> = args => 
   return <FormSocialSelect {...args} value={value} onChange={handleChange} />;
 };
 
-export const Default: Story<Props> = args => <FormSocialSelectTemplate {...args} style={{ width: 200 }} />;
+export const Basic: Story<Props> = args => <FormSocialSelectTemplate {...args} />;

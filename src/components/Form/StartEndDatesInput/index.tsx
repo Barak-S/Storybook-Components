@@ -2,12 +2,12 @@ import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
 import { StyleProps, Styles } from 'styles';
-import { dayMs } from 'utils';
 
 import FormDateInput from '../DateInput';
 
 interface Props extends StyleProps {
   value?: Value;
+  minDate?: Date;
   required?: boolean;
   disabled?: boolean;
   labels?: { start?: string; end?: string };
@@ -19,38 +19,48 @@ interface Value {
   end: string;
 }
 
-export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, disabled, labels, onChange }) => {
-  const curStart = value?.start ? new Date(value.start) : undefined;
-  const curEnd = value?.end ? new Date(value.end) : undefined;
+const strToDate = (val?: string) => (val ? new Date(val) : undefined);
+const dateToStr = (val: Date): string => val.toISOString();
+const tsToStr = (val: number): string => dateToStr(new Date(val));
+
+export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, minDate, disabled, labels, onChange }) => {
+  const curStart = strToDate(value?.start);
+  const curEnd = strToDate(value?.end);
+
+  // Handlers
 
   const handleStartChange = (newVal?: Date) => {
     if (!onChange) return;
     if (!newVal) return onChange(undefined);
     const newStartTs = newVal.getTime();
-    const start = new Date(newStartTs).toISOString();
-    onChange(
-      !curEnd
-        ? { start, end: new Date(newStartTs + dayMs).toISOString() }
-        : {
-            start,
-            end: curEnd.toISOString(),
-          },
-    );
+    const start = tsToStr(newStartTs);
+    if (curEnd) {
+      const curEndTs = curEnd.getTime();
+      if (curEndTs > newStartTs) {
+        onChange({ start, end: dateToStr(curEnd) });
+      } else {
+        onChange({ start, end: tsToStr(newStartTs + 1) });
+      }
+    } else {
+      onChange({ start, end: tsToStr(newStartTs + 1) });
+    }
   };
 
   const handleEndChange = (newVal?: Date) => {
     if (!onChange) return;
     if (!newVal) return onChange(undefined);
     const newEndTs = newVal.getTime();
-    const end = new Date(newEndTs).toISOString();
-    onChange(
-      !curStart
-        ? { start: new Date(newEndTs - dayMs).toISOString(), end }
-        : {
-            start: curStart.toISOString(),
-            end,
-          },
-    );
+    const end = tsToStr(newEndTs);
+    if (curStart) {
+      const curStartTs = curStart.getTime();
+      if (curStartTs < newEndTs) {
+        onChange({ start: dateToStr(curStart), end });
+      } else {
+        onChange({ start: tsToStr(newEndTs - 1), end });
+      }
+    } else {
+      onChange({ start: tsToStr(newEndTs - 1), end });
+    }
   };
 
   return (
@@ -58,8 +68,8 @@ export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, disa
       <FormDateInput
         style={styles.startInput}
         label={labels?.start || 'Start'}
+        minDate={minDate}
         value={curStart}
-        maxDate={curEnd}
         required={required}
         disabled={disabled}
         onChange={handleStartChange}
@@ -68,7 +78,7 @@ export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, disa
       <FormDateInput
         style={styles.endInput}
         label={labels?.end || 'End'}
-        minDate={curStart}
+        minDate={minDate}
         value={curEnd}
         required={required}
         disabled={disabled}
@@ -84,18 +94,15 @@ const styles: Styles = {
   },
   startInput: {
     marginRight: 10,
-    // flexGrow: 0.8,
     width: '100%',
   },
   endInput: {
-    // flexGrow: 0.8,
     width: '100%',
   },
   icon: {
     marginRight: 10,
   },
   timeZoneInput: {
-    // flexGrow: 1,
     marginLeft: 10,
   },
 };

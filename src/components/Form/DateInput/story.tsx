@@ -16,7 +16,7 @@ export default ((): StoryMeta<Props> => ({
 }))();
 
 const FormDateInputTemplate: FC<Omit<Props, 'onChange'>> = ({ value: initValue, ...props }) => {
-  const [value, setValue] = useState<Date | undefined>(initValue || new Date());
+  const [value, setValue] = useState<Date | undefined>(initValue);
   const handleChange = (newValue?: Date) => {
     action('onChange')(newValue);
     setValue(newValue);

@@ -8,7 +8,7 @@ import {
   FormTimeZoneInput,
 } from 'components/Form';
 import { EventCreate } from 'core/api';
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent, FC, useMemo } from 'react';
 import { StyleProps, Styles } from 'styles';
 import { GenericFormData, GenericFormErrors } from 'utils';
 
@@ -28,6 +28,8 @@ interface Props extends StyleProps {
 }
 
 export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
+  const curDate = useMemo(() => new Date(), []);
+
   const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
     onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
   };
@@ -78,6 +80,7 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
           value={data && data.start && data.end ? { start: data.start, end: data.end } : undefined}
           style={styles.rowTopIndent}
           required
+          minDate={curDate}
           labels={{ start: 'Start Date', end: 'End Date' }}
           onChange={handleOnStartEndChange}
         />
