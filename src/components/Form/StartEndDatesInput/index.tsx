@@ -8,22 +8,36 @@ import FormDateInput from '../DateInput';
 interface Props extends StyleProps {
   value?: Value;
   minDate?: Date;
+  disablePast?: boolean;
   required?: boolean;
   disabled?: boolean;
-  labels?: { start?: string; end?: string };
+  emptyLabel?: Partial<StartEndVal<string>>;
+  label?: Partial<StartEndVal<string>>;
   onChange?: (val?: Value) => void;
 }
 
-interface Value {
-  start: string;
-  end: string;
+interface StartEndVal<T> {
+  start: T;
+  end: T;
 }
+
+type Value = StartEndVal<string>;
 
 const strToDate = (val?: string) => (val ? new Date(val) : undefined);
 const dateToStr = (val: Date): string => val.toISOString();
 const tsToStr = (val: number): string => dateToStr(new Date(val));
 
-export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, minDate, disabled, labels, onChange }) => {
+export const FormStartEndDatesInput: FC<Props> = ({
+  style,
+  value,
+  required,
+  minDate,
+  disablePast,
+  emptyLabel,
+  disabled,
+  label,
+  onChange,
+}) => {
   const curStart = strToDate(value?.start);
   const curEnd = strToDate(value?.end);
 
@@ -67,9 +81,11 @@ export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, minD
     <View style={[styles.container, style]} row alignItems="center">
       <FormDateInput
         style={styles.startInput}
-        label={labels?.start || 'Start'}
+        label={label?.start || 'Start'}
         minDate={minDate}
         value={curStart}
+        emptyLabel={emptyLabel?.start}
+        disablePast={disablePast}
         required={required}
         disabled={disabled}
         onChange={handleStartChange}
@@ -77,9 +93,11 @@ export const FormStartEndDatesInput: FC<Props> = ({ style, value, required, minD
       <LineAwesomeIcon style={styles.icon} type="arrow-right" />
       <FormDateInput
         style={styles.endInput}
-        label={labels?.end || 'End'}
+        label={label?.end || 'End'}
         minDate={minDate}
         value={curEnd}
+        emptyLabel={emptyLabel?.end}
+        disablePast={disablePast}
         required={required}
         disabled={disabled}
         onChange={handleEndChange}

@@ -14,6 +14,8 @@ interface Props extends StyleProps {
   minDateMessage?: string;
   required?: boolean;
   disabled?: boolean;
+  emptyLabel?: string;
+  disablePast?: boolean;
   maxDate?: Date;
   maxDateMessage?: string;
   label?: string;
@@ -26,10 +28,12 @@ export const FormDateInput: FC<Props> = ({
   value,
   required,
   disabled,
+  disablePast,
   minDate,
   minDateMessage,
   maxDate,
   maxDateMessage,
+  emptyLabel,
   onChange,
 }) => {
   const [valid, setValid] = useState<boolean>(true);
@@ -61,14 +65,16 @@ export const FormDateInput: FC<Props> = ({
     <View style={ms(styles.container, style)}>
       <KeyboardDatePicker
         autoOk
-        value={value}
+        value={value ? value : null}
         disableToolbar
         label={label}
         required={required}
         disabled={disabled}
+        disablePast={disablePast}
         minDate={minDate}
         minDateMessage={minDateMessage}
         maxDate={maxDate}
+        emptyLabel={emptyLabel}
         maxDateMessage={maxDateMessage}
         variant="inline"
         format="MM/dd/yyyy"

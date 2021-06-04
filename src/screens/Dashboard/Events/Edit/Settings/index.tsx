@@ -60,7 +60,7 @@ export const DashboardEventsSettingsScreen: FC<Props> = () => {
         <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed'}</span>
         <div className={classes.dateSection}>
           <div style={{ maxWidth: 408, marginRight: 30, width: '100%' }}>
-            <FormStartEndDatesInput required labels={{ start: 'Start Date', end: 'End Date' }} />
+            <FormStartEndDatesInput required label={{ start: 'Start Date', end: 'End Date' }} />
           </div>
           <div className={classes.timeZone}>
             <FormSelect
