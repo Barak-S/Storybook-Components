@@ -2,10 +2,9 @@ import { IconButton, makeStyles } from '@material-ui/core';
 import { View } from 'components/Common';
 import { FormSocialSelect, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
-import { Social, SocialType } from 'core/api';
+import { isSocialType, Social, SocialType } from 'core/api/types';
 import React, { ChangeEvent, FC } from 'react';
 import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
-import { isStr } from 'utils';
 
 interface Props extends StyleProps {
   item: Social;
@@ -13,9 +12,6 @@ interface Props extends StyleProps {
   onChange: (newItem: Social) => void;
   onRemove: (item: Social) => void;
 }
-
-const isSocialType = (val: unknown): val is SocialType =>
-  isStr(val) && ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'].includes(val);
 
 const socialNameToPlaceholder = (val: string): string => {
   switch (val) {
