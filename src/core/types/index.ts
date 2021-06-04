@@ -1,4 +1,4 @@
-import { EventCreate, OrganizationInviteCreate, OrganizationUpdate } from 'core/api';
+import { EventCreate, EventThemeUpdate, OrganizationInviteCreate, OrganizationUpdate } from 'core/api';
 
 export interface StoredForms {
   auth: StoredAuthForm;
@@ -14,6 +14,7 @@ interface StoredOnboardingForm {
   invite?: Partial<OrganizationInviteCreate>;
   theme?: {
     id?: string;
+    data?: EventThemeUpdate;
   };
   event?: Partial<EventCreate>;
 }

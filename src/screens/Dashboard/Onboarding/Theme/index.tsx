@@ -30,9 +30,10 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const items = sortThemes(useSelector(s => s.events.themes));
   const manager = useStoreManager();
   const selected = useSelector(s => s.forms.onboarding.theme?.id);
+  const storedEditForm = useSelector(s => s.forms.onboarding.theme?.data);
 
   const [expanded, setExpanded] = useState<string | undefined>(selected);
-  const [editForm, setEditForm] = useState<EventThemeUpdate | undefined>();
+  const [editForm, setEditForm] = useState<EventThemeUpdate | undefined>(storedEditForm);
   const [processing, setProcessing] = useState<boolean | undefined>();
 
   useEffect(() => {
@@ -68,6 +69,10 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
     if (btn.id === 'back') {
       history.push(routes.dashboard.onboarding.team);
+    }
+    if (btn.id === 'save') {
+      manager.forms.modify('onboarding', { theme: { id: selected, data: editForm } });
+      history.push(routes.dashboard.events.list);
     }
     if (btn.id === 'continue') {
       handleSubmit();
@@ -106,11 +111,11 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   ];
 
   const rightBtns: SetupContainerFooterBtnItem[] = [
-    // {
-    //   id: 'save',
-    //   type: 'text',
-    //   title: 'Save & Continue Later',
-    // },
+    {
+      id: 'save',
+      type: 'text',
+      title: 'Save & Continue Later',
+    },
     {
       id: 'continue',
       type: 'contained',

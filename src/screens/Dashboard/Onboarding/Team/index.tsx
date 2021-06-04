@@ -103,7 +103,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
     },
   ];
 
-  const submitDisabled = !isOrganizationInviteCreate(data);
+  const submitDisabled = !data || !isOrganizationInviteCreate(data);
 
   const curStepIndex = 1;
 
