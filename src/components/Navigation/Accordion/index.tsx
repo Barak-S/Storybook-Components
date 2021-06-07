@@ -1,8 +1,9 @@
 import { Accordion as MuiAccordion, AccordionDetails, AccordionSummary, Divider } from '@material-ui/core';
 import { Title } from 'components/Common';
-import { LineAwesomeIcon } from 'components/Icons';
 import React, { ChangeEvent, FC } from 'react';
-import { colors, ms, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles, useHover } from 'styles';
+
+import NavigationAccordionIcon from './components/Icon';
 
 interface Props extends StyleProps {
   id: string;
@@ -18,7 +19,11 @@ export const Accordion: FC<Props> = ({ style, id, title, expanded, onChange, chi
       onChange(expanded);
     }
   };
+
+  const { hover, hoverProps } = useHover();
+
   const styles = getStyles(expanded);
+
   return (
     <MuiAccordion style={ms(styles.container, style)} expanded={expanded} onChange={handleChange}>
       {expanded && <Divider />}
@@ -26,7 +31,8 @@ export const Accordion: FC<Props> = ({ style, id, title, expanded, onChange, chi
         id={`${id}-header`}
         aria-controls={`${id}-content`}
         style={styles.header}
-        expandIcon={<LineAwesomeIcon type="chevron-circle-right" style={styles.icon} />}
+        expandIcon={<NavigationAccordionIcon hovered={hover} expanded={expanded} />}
+        {...hoverProps}
       >
         <Title type="h4" style={styles.title}>
           {title}
@@ -53,10 +59,6 @@ const getStyles = (expanded: boolean): Styles => ({
   title: {
     fontSize: 18,
     fontWeight: 'normal',
-  },
-  icon: {
-    ...(expanded && { transform: 'rotate(270deg)' }),
-    color: expanded ? colors.coolBlue : colors.marineBlue,
   },
   details: {
     display: 'flex',

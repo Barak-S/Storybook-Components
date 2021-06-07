@@ -1,19 +1,20 @@
 import { Grid, Tooltip, TooltipProps } from '@material-ui/core';
 import { LineAwesomeIcon } from 'components/Icons';
-import React, { FC, useState } from 'react';
-import { colors, mx, StyleProps, Styles } from 'styles';
+import React, { FC } from 'react';
+import { colors, mx, StyleProps, Styles, useHover } from 'styles';
 
 interface Props extends StyleProps {
   title: TooltipProps['title'];
+  placement?: TooltipProps['placement'];
 }
 
-export const FormTooltip: FC<Props> = ({ style, title }) => {
-  const [hover, setHover] = useState<boolean>(false);
+export const FormTooltip: FC<Props> = ({ style, placement = 'top-start', title }) => {
+  const { hover, hoverProps } = useHover();
   const styles = getStyles(hover);
 
   return (
-    <Tooltip style={style} arrow placement="top-start" title={title}>
-      <Grid style={styles.iconHolder} onMouseOver={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+    <Tooltip style={style} arrow placement={placement} title={title}>
+      <Grid style={styles.iconHolder} {...hoverProps}>
         <LineAwesomeIcon type="question-circle" style={{ color: 'inherit' }} />
       </Grid>
     </Tooltip>

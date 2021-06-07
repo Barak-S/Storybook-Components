@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { sbAutoDetectActionProps, Story, StoryMeta } from 'utils';
 import { action } from '@storybook/addon-actions';
 
@@ -9,6 +9,7 @@ export default ((): StoryMeta<Props> => ({
   component: FormColorPicker,
   args: {
     title: 'background',
+    value: '#ffffff',
   },
   argTypes: {},
   parameters: {
@@ -17,8 +18,11 @@ export default ((): StoryMeta<Props> => ({
   },
 }))();
 
-const FormColorPickerTemplate: FC<Omit<Props, 'onChange'>> = ({ value: inputValue, ...props }) => {
-  const [value, setValue] = useState<string>(inputValue || '#000');
+const FormColorPickerTemplate: FC<Omit<Props, 'onChange'>> = ({ value: inValue, ...props }) => {
+  const [value, setValue] = useState<string>(inValue || '#000');
+  useEffect(() => {
+    if (inValue) setValue(inValue);
+  }, [inValue]);
   const handleChange = (newColor: string) => {
     action('onChange')(newColor);
     setValue(newColor);

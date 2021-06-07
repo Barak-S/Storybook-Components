@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import ColorPicker from 'material-ui-color-picker';
-import { mx, StyleProps, Styles, colors, ms } from 'styles';
 import { Grid, InputAdornment } from '@material-ui/core';
 import { View } from 'components/Common';
+import ColorPicker from 'material-ui-color-picker';
+import React, { FC, useMemo, useState } from 'react';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   value?: string;
@@ -12,17 +12,13 @@ interface Props extends StyleProps {
 
 export const FormColorPicker: FC<Props> = ({ value = '#000', title, style, onChange }) => {
   const [color, setColor] = useState<string>(value);
-  const styles = getStyles(color);
+  const styles = useMemo(() => getStyles(color), [color]);
 
   const handleChange = (color: string) => {
-    if (!color) {
-      setColor(value);
-
-      return;
+    setColor(value);
+    if (color && onChange) {
+      return onChange(color);
     }
-
-    onChange && onChange(color);
-    setColor(color);
   };
 
   const startAdornment = (
@@ -63,13 +59,17 @@ const getStyles = (color: string): Styles => ({
   pickerAdornment: {
     position: 'absolute',
     top: 0,
+    backgroundColor: 'transparent',
     left: -1,
+    // border: '1px solid black',
   },
   pickerAdornmentField: {
-    ...mx.square(52),
+    width: 52,
+    height: 52,
     background: color,
     borderTopLeftRadius: 12,
     borderBottomLeftRadius: 12,
+    boxShadow: `inset 0 0 3px ${colors.withDark(color, 0.2)}`,
   },
   title: {
     color: colors.coolBlue,

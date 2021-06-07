@@ -21,7 +21,7 @@ export const ThemeSwitcher: FC<Props> = ({ style, selected, item, onSelectedChan
         {item.description}
         <Grid style={styles.toggleWrapper}>
           <FormToggle title="Assign Theme" value={selected} onChange={onSelectedChange} />
-          <FormTooltip title="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptatum." />
+          <FormTooltip title="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptatum." placement="top" />
         </Grid>
       </Grid>
       <Grid style={styles.imageHolder}>

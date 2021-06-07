@@ -71,9 +71,12 @@ const zeplin = {
 
 export const withAlpha = (val: string, alpha: number) => color(val).alpha(alpha).toString();
 
+export const withDark = (val: string, darken: number) => color(val).darken(darken).toString();
+
 export const colors = {
   ...base,
   ...named,
   ...zeplin,
   withAlpha,
+  withDark,
 };
