@@ -38,3 +38,5 @@ export const colorValidatorFn: CustomValidator = (value, helpers) => {
 };
 
 export const EventTimezoneSchema = Joi.string().valid(...timeZones.map(itm => itm.code));
+
+export const EmptyStrSchema = Joi.string().allow('');

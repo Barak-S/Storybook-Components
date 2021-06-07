@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import { colors, StyleProps } from 'styles';
 import { CssBaseline, List, ListItemText, Hidden, Drawer } from '@material-ui/core';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ const drawerWidth = 271.5;
 interface Props extends StyleProps {
   tabs: Tab[];
   initialRoute: string;
+  thumbnail?: string;
 }
 
 interface Tab {
@@ -18,9 +19,12 @@ interface Tab {
   link?: string;
   icon?: LineAwesomeIconType;
   disabled?: boolean;
+  type?: TabType;
 }
 
-export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, children }) => {
+type TabType = 'backLink';
+
+export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, thumbnail, children }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -28,30 +32,55 @@ export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, children }) => {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <List>
-        {tabs.map(tab => (
-          <NavLink
-            key={tab.index}
-            style={{ color: colors.greyish }}
-            className={classes.sidebarLink}
-            activeStyle={{ color: colors.marineBlue }}
-            to={`${initialRoute}${tab.link}`}
-            isActive={(match, location) => {
-              if (match) {
-                setActiveLink(tab.index);
-                return true;
-              } else {
-                return false;
-              }
-            }}
-          >
-            {tab.icon && (
-              <LineAwesomeIcon type={tab.icon} size={24} color={activeLink === tab.index ? colors.warmPurple : colors.greyish} />
-            )}
-            <ListItemText primary={tab.label} className={classes.sidebarLinkLabel} />
-          </NavLink>
-        ))}
+      {tabs.map(
+        tab =>
+          tab.type === 'backLink' && (
+            <NavLink key={tab.label} to={`${tab.link}`} className={classes.backLink}>
+              {tab.icon && <LineAwesomeIcon type={tab.icon} size={24} color={colors.brownGrey} />}
+              <ListItemText primary={tab.label} className={classes.sidebarLinkLabel} />
+            </NavLink>
+          ),
+      )}
+      <div
+        className={classes.sidebarThumbnail}
+        style={{
+          backgroundImage: thumbnail ? `url(${thumbnail})` : undefined,
+          height: thumbnail ? 168 : 0,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      />
+      <List className={classes.navList}>
+        {tabs.map(
+          tab =>
+            !tab.type && (
+              <NavLink
+                key={tab.index}
+                style={{ color: colors.brownGrey }}
+                className={classes.sidebarLink}
+                activeStyle={{ color: colors.marineBlue }}
+                to={`${initialRoute}${tab.link}`}
+                isActive={(match, location) => {
+                  if (match) {
+                    setActiveLink(tab.index);
+                    return true;
+                  } else {
+                    return false;
+                  }
+                }}
+              >
+                {tab.icon && (
+                  <LineAwesomeIcon
+                    type={tab.icon}
+                    size={24}
+                    color={activeLink === tab.index ? colors.warmPurple : colors.brownGrey}
+                  />
+                )}
+                <ListItemText primary={tab.label} className={classes.sidebarLinkLabel} />
+              </NavLink>
+            ),
+        )}
       </List>
     </div>
   );
@@ -108,7 +137,26 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
-    toolbar: theme.mixins.toolbar,
+    sidebarThumbnail: {
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
+    },
+    backLink: {
+      height: 54,
+      fontSize: 16,
+      color: colors.brownGrey,
+      display: 'flex',
+      textDecoration: 'none',
+      alignItems: 'center',
+      paddingLeft: 21,
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: 19,
+      },
+    },
+    navList: {
+      padding: 0,
+    },
     drawerPaper: {
       width: drawerWidth,
       zIndex: 1,

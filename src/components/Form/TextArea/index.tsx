@@ -11,6 +11,7 @@ interface CustomProps extends StyleProps {
   resize?: boolean;
   helperText?: string;
   className?: string;
+  fontSize?: number;
 }
 
 type Props = TextareaAutosizeProps & CustomProps;
@@ -23,6 +24,7 @@ export const FormTextArea: FC<Props> = ({
   style,
   error,
   helperText,
+  fontSize,
   resize,
   ...props
 }) => {
@@ -42,7 +44,7 @@ export const FormTextArea: FC<Props> = ({
           onChange={onChange}
           className={classes.textArea}
           value={value}
-          style={{ overflow: 'auto', resize: resize ? 'vertical' : 'none' }}
+          style={{ overflow: 'auto', resize: resize ? 'vertical' : 'none', fontSize: fontSize ? fontSize : 16 }}
         />
         <Text className={mc(classes.label, isActive && classes.focusedLabel, error && classes.error)}>{label}</Text>
       </label>
@@ -66,7 +68,6 @@ const useStyles = makeStyles({
     minHeight: 97,
     maxHeight: 255,
     height: '100%',
-    fontSize: 16,
     border: 'none',
     background: 'transparent',
     fontFamily: 'inherit',

@@ -55,6 +55,13 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
       link: '/sponsors',
       icon: 'thumbs-up',
     },
+    {
+      index: 5,
+      label: 'Event Dashboard',
+      link: '/dashboard/events',
+      icon: 'angle-left',
+      type: 'backLink',
+    },
   ];
 
   const { id: itemId } = useParams<{ id: string }>();
@@ -63,6 +70,9 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
 
   const items = useSelector(s => s.events.items);
   const curItem = items.find(itm => itm.id === itemId);
+
+  const themes = useSelector(s => s.events.themes);
+  const curTheme = themes.find(itm => itm.id === curItem?.themeId);
 
   const [data, setData] = useState<EventUpdate>(eventItemToUpdate(curItem));
   const [processing, setProcessing] = useState<boolean>(false);
@@ -91,7 +101,7 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
     <>
       <ScreenTitle />
       <div className={classes.container}>
-        <SidebarTabs tabs={tabs} initialRoute={routes.dashboard.events.getEdit(itemId)}>
+        <SidebarTabs thumbnail={curTheme?.thumbnail} tabs={tabs} initialRoute={routes.dashboard.events.getEdit(itemId)}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <div className={classes.eventSettingsBanner}>
               <span className={classes.banner}>{'Event Settings'}</span>
@@ -114,7 +124,17 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
                     />
                   )}
                 />
-                <Route path={routes.dashboard.events.getEditSettings(itemId)} render={() => <EditEventSettings />} />
+                <Route
+                  path={routes.dashboard.events.getEditSettings(itemId)}
+                  render={() => (
+                    <EditEventSettings
+                      data={data}
+                      processing={processing}
+                      onChange={handleDataChange}
+                      onSubmit={handleSubmitClick}
+                    />
+                  )}
+                />
                 <Route
                   path={routes.dashboard.events.getEditRegistration(itemId)}
                   render={() => <div>{'Edit Registration Page'}</div>}

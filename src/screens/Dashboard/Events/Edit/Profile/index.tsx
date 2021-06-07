@@ -3,9 +3,9 @@ import { ContainedButton } from 'components/Buttons';
 import { View } from 'components/Common';
 import { FormDragnDropImage, FormTextInput } from 'components/Form';
 import { ScreenTitle } from 'components/Screen';
-import { EventProfile, EventUpdate } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { colors, ms, scrollToTop, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles } from 'styles';
+import { EventProfile, EventUpdate } from 'core/api';
 import { GenericFormData, isDictEmpty, validators } from 'utils';
 
 import EventProfileEditFrom from './components/Form';
@@ -67,7 +67,6 @@ export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onCh
       setEventErrs(curEventErrs);
       setEventProfileErrs(curEventProfileErrs);
       setDisabled(true);
-      scrollToTop();
     } else {
       onSubmit && onSubmit();
     }

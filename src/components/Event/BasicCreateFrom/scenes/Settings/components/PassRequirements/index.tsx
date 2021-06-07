@@ -9,10 +9,11 @@ interface Props extends StyleProps {
   title?: string;
   description?: string;
   items?: EventSettingsPassRequirement[];
+  borderTop?: boolean;
   onChange?: (items?: EventSettingsPassRequirement[]) => void;
 }
 
-export const EventSettingsPassRequirements: FC<Props> = ({ style, title, description, items = [], onChange }) => {
+export const EventSettingsPassRequirements: FC<Props> = ({ style, title, description, items = [], borderTop, onChange }) => {
   const isChecked = (val: EventSettingsPassRequirement) => items.includes(val);
 
   const handleCheckboxChange = (val: EventSettingsPassRequirement) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +23,7 @@ export const EventSettingsPassRequirements: FC<Props> = ({ style, title, descrip
   };
 
   return (
-    <FormControlSection style={style} title={title} description={description}>
+    <FormControlSection style={style} title={title} description={description} borderTop={borderTop}>
       <Grid container>
         <Grid item container md direction="column">
           <Grid item>

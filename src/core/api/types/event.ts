@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { colorValidatorFn, EventTimezoneSchema, phoneValidatorFn, urlValidatorFn } from './common';
+import { colorValidatorFn, EmptyStrSchema, EventTimezoneSchema, phoneValidatorFn, urlValidatorFn } from './common';
 import { Social, SocialSchema } from './social';
 
 // Colors
@@ -72,8 +72,8 @@ export const EventThemeSchema = Joi.object<EventTheme>({
   type: Joi.string()
     .valid(...EventThemeTypeArr)
     .required(),
-  description: Joi.string(),
-  thumbnail: Joi.string(),
+  description: Joi.string().allow(''),
+  thumbnail: Joi.string().allow(''),
   settings: EventThemeSettingsSchema.required(),
   createdAt: Joi.string().required(),
   updatedAt: Joi.string().required(),
@@ -116,14 +116,14 @@ export interface EventProfile {
 }
 
 export const EventProfileSchema = Joi.object<EventProfile>({
-  phone: Joi.string().custom(phoneValidatorFn),
-  country: Joi.string(),
-  state: Joi.string(),
-  city: Joi.string(),
+  phone: EmptyStrSchema.custom(phoneValidatorFn),
+  country: EmptyStrSchema,
+  state: EmptyStrSchema,
+  city: EmptyStrSchema,
   socials: Joi.array().items(SocialSchema),
-  website: Joi.string().custom(urlValidatorFn),
-  email: Joi.string().email({ tlds: { allow: false } }),
-  logo: Joi.string().custom(urlValidatorFn),
+  website: EmptyStrSchema.custom(urlValidatorFn),
+  email: EmptyStrSchema.email({ tlds: { allow: false } }),
+  logo: EmptyStrSchema.custom(urlValidatorFn),
 });
 
 export type EventProfileUpdate = Partial<EventProfile>;
@@ -160,15 +160,15 @@ export interface EventSettings {
 }
 
 export const EventSettingsSchema = Joi.object<EventSettings>({
-  title: Joi.string(),
-  description: Joi.string(),
+  title: EmptyStrSchema,
+  description: EmptyStrSchema,
   multiFactorAuth: Joi.bool(),
   registrationManualApproval: Joi.bool(),
   allowedEmailDomains: Joi.array().items(Joi.string()),
   emailValidation: Joi.bool(),
   seoTags: Joi.array().items(Joi.string()),
   passRequirements: Joi.array().items(Joi.string().valid(...EventSettingsPassRequirementArr)),
-  purchaseOrderNumber: Joi.string(),
+  purchaseOrderNumber: EmptyStrSchema,
 });
 
 export type EventSettingsUpdate = Partial<EventSettings>;
@@ -192,13 +192,13 @@ export interface EventRegistration {
 export const EventRegistrationSchema = Joi.object<EventRegistration>({
   start: Joi.date().iso().required(),
   end: Joi.date().iso().greater(Joi.ref('start')).required(),
-  description: Joi.string(),
+  description: EmptyStrSchema,
   form: Joi.object({
-    headline: Joi.string(),
-    subhead: Joi.string(),
+    headline: EmptyStrSchema,
+    subhead: EmptyStrSchema,
   }),
-  termsAndConditions: Joi.string(),
-  marketingStatement: Joi.string(),
+  termsAndConditions: EmptyStrSchema,
+  marketingStatement: EmptyStrSchema,
 });
 
 export type EventRegistrationUpdate = Partial<EventRegistration>;
