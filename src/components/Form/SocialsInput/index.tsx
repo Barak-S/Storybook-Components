@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import { TextButton } from 'components/Buttons';
 import { View } from 'components/Common';
 import { Social } from 'core/api';
@@ -69,37 +70,37 @@ export const FormSocialsInput: FC<Props> = ({
   };
 
   const renderItem = (itm: Social, key: string, defItem?: boolean) => (
-    <FormSocialsInputItem
-      key={key}
-      style={styles.item}
-      item={itm}
-      defItem={defItem}
-      onRemove={handleItemRemove}
-      onChange={handleItemChange}
-    />
+    <Grid item>
+      <FormSocialsInputItem
+        key={key}
+        style={styles.item}
+        item={itm}
+        defItem={defItem}
+        onRemove={handleItemRemove}
+        onChange={handleItemChange}
+      />
+    </Grid>
   );
 
   const styles = getStyles();
 
   return (
-    <View style={ms(styles.container, style)} alignItems="flex-start">
+    <Grid style={ms(styles.container, style)} container direction="column" spacing={2}>
       {renderItems()}
       {items.length < 5 && (
-        <TextButton style={styles.addBtn} onClick={handleAddClick} disabled={false}>
-          {'+ Add'}
-        </TextButton>
+        <Grid item container justify="flex-start">
+          <TextButton style={styles.addBtn} onClick={handleAddClick} disabled={false}>
+            {'+ Add'}
+          </TextButton>
+        </Grid>
       )}
-    </View>
+    </Grid>
   );
 };
 
 const getStyles = (): Styles => ({
   container: {},
-  item: {
-    width: '100%',
-    maxWidth: 806,
-    marginBottom: 20,
-  },
+  item: {},
   addBtn: {},
 });
 
