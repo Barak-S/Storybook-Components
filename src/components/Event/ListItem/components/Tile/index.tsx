@@ -60,10 +60,10 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       {children}
       {title && (
         <div className={classes.linkTo}>
-          <span className={classes.linktoText} style={{ color: hover ? colors.link : '#afafaf' }}>
+          <span className={classes.linktoText} style={{ color: hover ? colors.link : '#afafaf', paddingRight: 6 }}>
             {title}
           </span>
-          <LineAwesomeIcon type="arrow-right" size={13} color={hover ? colors.link : '#afafaf'} />
+          <LineAwesomeIcon type="arrow-right" size={16} color={hover ? colors.link : '#afafaf'} />
         </div>
       )}
     </Paper>
@@ -89,6 +89,7 @@ const useStyles = (theme: Theme) =>
       fontWeight: 500,
       paddingTop: 10.5,
       paddingBottom: 6.5,
+      letterSpacing: 1.2,
     },
     description: {
       display: 'block',
@@ -97,6 +98,7 @@ const useStyles = (theme: Theme) =>
       fontWeight: 400,
       paddingBottom: 14.5,
       textTransform: 'none',
+      letterSpacing: 0.18,
     },
     linkTo: {
       display: 'flex',

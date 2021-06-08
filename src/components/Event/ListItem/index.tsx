@@ -1,4 +1,4 @@
-import { makeStyles, MenuItem, Paper, Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { makeStyles, MenuItem, Paper, Theme, useMediaQuery, useTheme, Divider } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
 import { Title, View } from 'components/Common';
 import { DashboardAppBarBtn } from 'components/Dashboard/AppBar/components/Menu';
@@ -10,13 +10,14 @@ import { Dropdown } from 'components/Navigation';
 import { Event, EventTheme, EventType } from 'core/api';
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { routes } from 'screens/consts';
-import { colors, StyleProps } from 'styles';
+import { colors, StyleProps, Styles } from 'styles';
 import { eventToDateStr } from 'components/Event/utils';
 import BadgeStatus from './components/BadgeStatus';
 import Countdown from './components/Countdown';
 import DataTile from './components/DataTile';
 import ImageTile from './components/ImageTile';
 import Tile from './components/Tile';
+// import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
 
 interface Props extends StyleProps {
   item: Event;
@@ -201,7 +202,14 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 linkTo={routes.dashboard.events.getEditSessions(id)}
                 style={{ height: 425 }}
                 disabled
-              />
+              >
+                <div style={styles.eventTileSection}>
+                  <span>
+                    {'You have no sessions within your event. '}
+                    <a style={{ color: colors.link, textDecoration: 'underline' }}>{'Add your first one.'}</a>
+                  </span>
+                </div>
+              </Tile>
             </div>
             <div className={classes.eventDataRow}>
               <Tile
@@ -210,16 +218,61 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 icon="thumbs-up"
                 style={{ height: 425 }}
                 disabled
-              />
+              >
+                <div style={styles.eventTileSection}>
+                  <span>
+                    {'You have no sponsors supporting your event. '}
+                    <a style={{ color: colors.link, textDecoration: 'underline' }}>{'Add your first one.'}</a>
+                  </span>
+                </div>
+              </Tile>
             </div>
             <div className={classes.eventDataRow}>
               <Tile
-                title="EVENT APPEARANCE"
                 description="Brand your selected event theme and add in messaging to your attendees."
                 icon="edit"
                 style={{ height: 425 }}
                 disabled
-              />
+              >
+                <div style={{ height: '100%', paddingTop: 12 }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', maxHeight: 89, height: '100%' }}>
+                    <div
+                      style={{ display: 'flex', flexDirection: 'column', maxWidth: 92, paddingRight: 12, textTransform: 'none' }}
+                    >
+                      <span style={{ fontSize: 12, color: colors.greyishBrown, letterSpacing: -0.05, paddingBottom: 3 }}>
+                        {'Selected Theme:'}
+                      </span>
+                      <span style={{ fontSize: 12, color: colors.marineBlue, letterSpacing: 0.24 }}>{eventTheme?.name}</span>
+                    </div>
+                    <div>
+                      <img src={eventTheme?.thumbnail} style={styles.eventThemeImg} />
+                    </div>
+                  </div>
+                  <div style={{ width: '100%' }}>
+                    <Divider style={{ marginTop: 18 }} />
+                    <div style={styles.editThemeTable}>
+                      <span style={styles.eventThemeTitle}>{'Registration'}</span>
+                      <span style={styles.eventThemeEditLink}>{'Edit'}</span>
+                    </div>
+                    <Divider />
+                    <div style={styles.editThemeTable}>
+                      <span style={styles.eventThemeTitle}>{'Event Home'}</span>
+                      <span style={styles.eventThemeEditLink}>{'Edit'}</span>
+                    </div>
+                    <Divider />
+                    <div style={styles.editThemeTable}>
+                      <span style={styles.eventThemeTitle}>{'Schedule'}</span>
+                      <span style={styles.eventThemeEditLink}>{'Edit'}</span>
+                    </div>
+                    <Divider />
+                    <div style={styles.editThemeTable}>
+                      <span style={styles.eventThemeTitle}>{'Session Viewer'}</span>
+                      <span style={styles.eventThemeEditLink}>{'Edit'}</span>
+                    </div>
+                    <Divider />
+                  </div>
+                </div>
+              </Tile>
             </div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 15, paddingBottom: 38 }}>
@@ -231,6 +284,41 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
       </View>
     </Paper>
   );
+};
+
+const styles: Styles = {
+  eventThemeTitle: {
+    fontSize: 12,
+    letterSpacing: -0.05,
+    color: colors.greyishBrown,
+  },
+  eventThemeEditLink: {
+    fontSize: 12,
+    letterSpacing: -0.05,
+    color: colors.link,
+    textDecoration: 'underline',
+  },
+  eventTileSection: {
+    paddingTop: 42,
+    textTransform: 'none',
+    fontSize: 15,
+    color: colors.warmPurple,
+    letterSpacing: 0.23,
+  },
+  eventThemeImg: {
+    maxWidth: 146,
+    maxHeight: 86,
+    objectFit: 'cover',
+    height: '100%',
+    width: '100%',
+    borderRadius: 6,
+  },
+  editThemeTable: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: 11.5,
+    paddingBottom: 10.6,
+  },
 };
 
 const useStyles = (theme: Theme) =>
