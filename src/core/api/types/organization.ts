@@ -150,7 +150,7 @@ export const OrganizationInviteSchema = Joi.object<OrganizationInvite>({
 });
 
 export const isOrganizationInvite = (val: unknown): val is OrganizationInvite =>
-  OrganizationInviteSchema.validate(val).error === undefined;
+  !!val && OrganizationInviteSchema.validate(val).error === undefined;
 
 export type OrganizationInviteCreate = Omit<OrganizationInvite, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
 
@@ -169,4 +169,4 @@ export const orgInviteCreateSchema = Joi.object<OrganizationInviteCreate>({
 });
 
 export const isOrganizationInviteCreate = (val: unknown): val is OrganizationInviteCreate =>
-  orgInviteCreateSchema.validate(val).error === undefined;
+  !!val && orgInviteCreateSchema.validate(val).error === undefined;

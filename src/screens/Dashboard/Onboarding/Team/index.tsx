@@ -1,6 +1,5 @@
-import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
-import { View } from 'components/Common';
 import { useSnackbar } from 'components/Feedback';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
@@ -27,7 +26,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const storedData = useSelector(s => s.forms.onboarding.invite);
 
   const [data, setData] = useState<FormData | undefined>(storedData);
-  const [processing, setProcessing] = useState<boolean>();
+  const [processing, setProcessing] = useState<boolean>(false);
 
   const { showSnackbar } = useSnackbar();
   const history = useHistory();
@@ -77,9 +76,6 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
     history.push(routes.dashboard.onboarding.theme);
   };
 
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
   const leftBtns: SetupContainerFooterBtnItem[] = [
     {
       id: 'back',
@@ -103,7 +99,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
     },
   ];
 
-  const submitDisabled = !data || !isOrganizationInviteCreate(data);
+  const submitDisabled = !isOrganizationInviteCreate(data);
 
   const curStepIndex = 1;
 
@@ -119,22 +115,29 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
         onSkipClick={handleSkipClick}
         onFooterBtnClick={handleFooterBtnClick}
       >
-        <Grid style={styles.container}>
-          <Grid className={classes.content}>
-            <View alignItems="flex-end">
+        <Grid style={styles.container} container direction="row" spacing={3}>
+          <Grid item sm={7} xs={12} container direction="column">
+            <Grid style={styles.formColumn} item>
               <TeamMemberCreateInviteForm style={styles.form} data={data} onChange={handleFormChange} />
-              <ContainedButton
-                style={styles.submitBtn}
-                size="medium"
-                processing={processing}
-                endIcon="envelope-open"
-                disabled={submitDisabled}
-                onClick={handleFormSubmit}
-              >
-                {'Invite and add another'}
-              </ContainedButton>
-            </View>
-            <TeamMemberInvitesList className={classes.list} items={invites} placeholder="Send first invite to see the list" />
+            </Grid>
+            <Grid item container direction="row-reverse">
+              <Grid item sm={8} xs={12}>
+                <ContainedButton
+                  style={styles.submitBtn}
+                  size="medium"
+                  color="primary"
+                  processing={processing}
+                  endIcon="envelope-open"
+                  disabled={submitDisabled}
+                  onClick={handleFormSubmit}
+                >
+                  {'Invite and add another'}
+                </ContainedButton>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid className="container-bottom-scroll-gradient" style={styles.listColumn} sm={5} xs={12} item>
+            <TeamMemberInvitesList style={styles.list} items={invites} placeholder="Send first invite to see the list" />
           </Grid>
         </Grid>
       </SetupContainer>
@@ -144,34 +147,20 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
 
 const styles: Styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
+    marginBottom: 30,
   },
   form: {
     marginBottom: 30,
   },
   submitBtn: {
-    width: 'auto',
+    minWidth: 240,
   },
+  formColumn: {},
+  listColumn: {
+    maxHeight: 500,
+    overflowY: 'scroll',
+  },
+  list: {},
 };
-
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    content: {
-      display: 'flex',
-      flexDirection: 'column',
-      paddingBottom: 30,
-      [theme.breakpoints.up(1366)]: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        maxHeight: 590,
-      },
-    },
-    list: {
-      [theme.breakpoints.up(1366)]: {
-        maxWidth: 360,
-      },
-    },
-  })();
 
 export default OnboardingTeamScreen;

@@ -76,6 +76,12 @@ const centeredContent = (): Style => ({
   alignItems: 'center',
 });
 
+const threeDots: Style = {
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+};
+
 export const mx = {
   border,
   borderBottom,
@@ -86,6 +92,7 @@ export const mx = {
   square,
   overlay,
   centeredContent,
+  threeDots,
   w100: { width: '100%' },
   zIndex: zIndexMap,
 };

@@ -7,6 +7,7 @@ export default ((): StoryMeta<Props> => ({
   title: 'components/Team/MemberInviteCard',
   component: TeamMemberInviteCard,
   args: {
+    style: {},
     data: {
       id: '1',
       firstName: 'Eddie',
@@ -15,6 +16,7 @@ export default ((): StoryMeta<Props> => ({
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       role: 'manager',
       status: 'pending',
+      title: 'Some title',
       createdAt: new Date(0).toISOString(),
       updatedAt: new Date(0).toISOString(),
     },

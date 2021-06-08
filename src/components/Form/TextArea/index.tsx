@@ -1,8 +1,9 @@
 import { FormHelperText, makeStyles, TextareaAutosize, TextareaAutosizeProps } from '@material-ui/core';
-import { Text } from 'components/Common';
+import { Text, View } from 'components/Common';
 import React, { FC, useMemo, useState } from 'react';
-import { colors, mc, mx, StyleProps } from 'styles';
+import { colors, mc, ms, mx, StyleProps, Styles } from 'styles';
 import { genId } from 'utils';
+import resizeIcon from './assets/resizeIcon.svg';
 
 interface CustomProps extends StyleProps {
   value?: string;
@@ -29,31 +30,59 @@ export const FormTextArea: FC<Props> = ({
   ...props
 }) => {
   const [focus, setFocus] = useState<boolean>(false);
-  const classes = useStyles();
   const isActive = focus || Boolean(value);
   const textAreaId = useMemo(() => genId(), []);
-
+  const classes = useStyles();
   return (
-    <>
-      <label htmlFor={textAreaId} className={mc(classes.container, isActive && classes.focusedArea, className)} style={style}>
+    <View
+      className={mc(resize && classes.containerResizeIcon, resize && focus && classes.containerResizeIconActive, className)}
+      style={ms(styles.container, isActive && styles.focusedArea, style)}
+    >
+      <label htmlFor={textAreaId}>
         <TextareaAutosize
           id={textAreaId}
           {...props}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           onChange={onChange}
-          className={classes.textArea}
           value={value}
-          style={{ overflow: 'auto', resize: resize ? 'vertical' : 'none', fontSize: fontSize ? fontSize : 16 }}
+          style={ms(styles.textArea, {
+            overflow: 'auto',
+            resize: resize ? 'vertical' : 'none',
+            fontSize: fontSize ? fontSize : 16,
+          })}
         />
-        <Text className={mc(classes.label, isActive && classes.focusedLabel, error && classes.error)}>{label}</Text>
+        <Text style={ms(styles.label, isActive && styles.focusedLabel, error && styles.error)}>{label}</Text>
       </label>
       {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
-    </>
+    </View>
   );
 };
 
 const useStyles = makeStyles({
+  containerResizeIcon: {
+    '&::after': {
+      content: '""',
+      width: 12,
+      height: 12,
+      position: 'absolute',
+      right: 15,
+      bottom: 15,
+      backgroundColor: colors.paleGrey,
+      backgroundImage: `url(${resizeIcon})`,
+      backgroundRepeat: 'no-repeat',
+      display: 'block',
+      pointerEvents: 'none',
+    },
+  },
+  containerResizeIconActive: {
+    '&::after': {
+      backgroundColor: colors.white,
+    },
+  },
+});
+
+const styles: Styles = {
   container: {
     width: '100%',
     position: 'relative',
@@ -71,6 +100,7 @@ const useStyles = makeStyles({
     border: 'none',
     background: 'transparent',
     fontFamily: 'inherit',
+    // position: 'relative',
   },
   focusedArea: {
     background: colors.white,
@@ -97,7 +127,7 @@ const useStyles = makeStyles({
   error: {
     color: colors.error,
   },
-});
+};
 
 export type FormTextAreaProps = Props;
 export default FormTextArea;

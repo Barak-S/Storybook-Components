@@ -1,124 +1,103 @@
-import { Grid, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import { TextButton } from 'components/Buttons';
 import { Text } from 'components/Common';
-import { OrganizationInvite, organizationRoleToName } from 'core/api';
+import { OrganizationInvite, organizationRoleToName } from 'core/api/types';
 import React, { FC } from 'react';
-import { colors, mx, StyleProps } from 'styles';
+import { colors, ms, mx, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   data: OrganizationInvite;
-  onResendClick?: () => void;
+  onResendClick?: (item: OrganizationInvite) => void;
 }
 
-export const TeamMemberInviteCard: FC<Props> = ({ data, onResendClick }) => {
-  const theme = useTheme();
-  const classes = useStyles(theme);
-
+export const TeamMemberInviteCard: FC<Props> = ({ style, data, onResendClick }) => {
   const { firstName, lastName, email, role, title } = data;
-
   return (
-    <Paper className={classes.container} elevation={3}>
-      <Grid className={classes.topBlock}>
-        <Grid>
-          <Text className={classes.topText}>
-            {firstName} {lastName}
-          </Text>
-          <Text className={classes.topText}>{email}</Text>
-        </Grid>
-        <Text className={classes.topLabel}>{'Invite Sent'}</Text>
-      </Grid>
-      <Grid className={classes.middleBlock}>
-        <Grid className={classes.middleData}>
-          <Text className={classes.middleLabel}>{'Role:'}</Text>
-          <Text className={classes.middleText}>{organizationRoleToName(role)}</Text>
-        </Grid>
-        {title && (
-          <Grid className={classes.middleData}>
-            <Text className={classes.middleLabel}>{'Title:'}</Text>
-            <Text className={classes.middleText}>{`${title}`}</Text>
+    <Paper style={ms(styles.container, style)} elevation={3}>
+      <Grid container direction="column">
+        <Grid item container direction="row" spacing={2} justify="space-between">
+          <Grid item>
+            <Text style={styles.nameLabel} block>
+              {firstName} {lastName}
+            </Text>
+            <Text style={styles.nameLabel} block>
+              {email}
+            </Text>
           </Grid>
-        )}
+          <Grid item>
+            <Text style={styles.statusLabel}>{'Invite Sent'}</Text>
+          </Grid>
+        </Grid>
+        <Grid style={styles.fieldsBlock} item container direction="column">
+          <Grid item container justify="space-between" direction="row">
+            <Grid style={styles.fieldLabel} item>
+              {'Role:'}
+            </Grid>
+            <Grid style={styles.fieldVal} item>{`"${organizationRoleToName(role)}"`}</Grid>
+          </Grid>
+          {!!title && (
+            <Grid item container justify="space-between" direction="row">
+              <Grid style={styles.fieldLabel} item>
+                {'Title:'}
+              </Grid>
+              <Grid style={styles.fieldVal} item>{`"${title}"`}</Grid>
+            </Grid>
+          )}
+        </Grid>
+        <Grid style={styles.footerBlock} item container direction="row" justify="center">
+          <TextButton style={styles.btn} size={14} onClick={() => onResendClick && onResendClick(data)}>
+            {'Resend Invite'}
+          </TextButton>
+        </Grid>
       </Grid>
-      <TextButton size={14} onClick={onResendClick}>
-        {'Resend Invite'}
-      </TextButton>
     </Paper>
   );
 };
 
-const useStyles = (theme: Theme) =>
-  makeStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      width: '100%',
-      padding: '26px 30px',
-      whiteSpace: 'break-spaces',
-      wordBreak: 'break-all',
-      fontSize: 14,
-      lineHeight: 1.4,
-      borderRadius: 10,
-      [theme.breakpoints.up(1366)]: {
-        maxHeight: 230,
-      },
-    },
-    topBlock: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column-reverse',
-      paddingBottom: 13,
-      fontWeight: 500,
-      [theme.breakpoints.up('sm')]: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      },
-    },
-    topText: {
-      display: 'flex',
-      color: colors.marineBlue,
-      wordBreak: 'keep-all',
-      paddingRight: 15,
-    },
-    topLabel: {
-      textAlign: 'center',
-      color: colors.brownGrey,
-      flexShrink: 0,
-      wordBreak: 'keep-all',
-      whiteSpace: 'nowrap',
-      marginBottom: 10,
-      [theme.breakpoints.up('sm')]: {
-        textAlign: 'right',
-        marginBottom: 0,
-      },
-    },
-    middleBlock: {
-      width: '100%',
-      padding: '12px 0',
-      ...mx.borderTop(1, 'solid', colors.silver),
-      ...mx.borderBottom(1, 'solid', colors.silver),
-      marginBottom: 10,
-    },
-    middleData: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    middleLabel: {
-      color: colors.darkGreen,
-    },
-    middleText: {
-      color: colors.brownishGrey,
-      fontWeight: 'bold',
-    },
-    button: {
-      color: colors.coolBlue,
-      textDecoration: 'underline',
-      textTransform: 'capitalize',
-      '&:hover': {
-        textDecoration: 'underline',
-      },
-    },
-  })();
+const styles: Styles = {
+  container: {
+    width: '100%',
+    padding: '26px 30px',
+    fontSize: 14,
+    lineHeight: 1.4,
+    borderRadius: 10,
+    backgroundColor: colors.paleGrey,
+  },
+  nameLabel: {
+    fontSize: '14px',
+    color: colors.marine,
+    fontWeight: 500,
+    maxWidth: 150,
+    ...mx.threeDots,
+  },
+  statusLabel: {
+    fontSize: '14px',
+    color: colors.green,
+    fontWeight: 500,
+    textAlign: 'right',
+  },
+  fieldsBlock: {
+    ...mx.borderTop(1, 'solid', colors.silver),
+    ...mx.borderBottom(1, 'solid', colors.silver),
+    marginTop: 13,
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  fieldLabel: {
+    fontSize: '14px',
+    color: colors.darkGreen,
+  },
+  fieldVal: {
+    fontSize: '14px',
+    color: colors.darkGreen,
+  },
+  footerBlock: {
+    paddingTop: 19,
+  },
+  btn: {
+    textDecoration: 'underline',
+  },
+};
 
 export type TeamMemberInviteCardProps = Props;
 export default TeamMemberInviteCard;

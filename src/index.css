@@ -51,3 +51,18 @@ svg {
 }
 
 .grecaptcha-badge { visibility: hidden; }
+
+.container-bottom-scroll-gradient {
+    position: relative;
+}
+
+.container-bottom-scroll-gradient::after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,1) 100%);
+}

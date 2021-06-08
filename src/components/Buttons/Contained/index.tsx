@@ -39,13 +39,15 @@ export const ContainedButton: FC<Props> = ({
     secondary: undefined,
     red: colors.rustyRed,
   });
-  const hoverColor = select(color, {
-    default: colors.coolBlueTwo,
-    inherit: colors.coolBlueTwo,
-    primary: colors.coolBlueTwo,
-    secondary: undefined,
-    red: colors.withAlpha(colors.rustyRed, 0.7),
-  });
+  const hoverColor = !disabled
+    ? select(color, {
+        default: colors.coolBlueTwo,
+        inherit: colors.coolBlueTwo,
+        primary: colors.coolBlueTwo,
+        secondary: undefined,
+        red: colors.withAlpha(colors.rustyRed, 0.7),
+      })
+    : undefined;
   const theme = useTheme();
   const classes = useStyles(theme);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));

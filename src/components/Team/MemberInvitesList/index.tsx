@@ -2,7 +2,8 @@ import { List, ListItem, makeStyles, useTheme } from '@material-ui/core';
 import { Text, View } from 'components/Common';
 import { OrganizationInvite } from 'core/api';
 import React, { FC } from 'react';
-import { ClassNameProps, mc, StyleProps } from 'styles';
+import { ClassNameProps, colors, mc, ms, StyleProps, Styles } from 'styles';
+import { lastIndex } from 'utils';
 
 import TeamMemberCard from '../MemberInviteCard';
 
@@ -16,36 +17,44 @@ export const TeamMemberInvitesList: FC<Props> = ({ style, className, items, plac
   const classes = useStyle(theme);
 
   return (
-    <List className={mc(classes.container, className)} style={style}>
+    <List className={mc(classes.container, className)} style={ms(styles.container, style)}>
       {items.length ? (
-        items.map(item => (
-          <ListItem key={item.id} className={classes.listItem}>
+        items.map((item, index) => (
+          <ListItem key={item.id} style={ms(styles.item, index !== lastIndex(items) && styles.itemIndent)}>
             <TeamMemberCard data={item} />
           </ListItem>
         ))
       ) : (
         <View alignItems="center">
-          <Text block>{placeholder}</Text>
+          <Text style={styles.placeholderText} block>
+            {placeholder}
+          </Text>
         </View>
       )}
     </List>
   );
 };
 
+const styles: Styles = {
+  container: {
+    paddingTop: 0,
+  },
+  item: {
+    padding: 0,
+  },
+  itemIndent: {
+    marginBottom: 20,
+  },
+  placeholderText: {
+    color: colors.coolGrey,
+    textAlign: 'center',
+  },
+};
+
 const useStyle = makeStyles({
   container: {
-    width: '100%',
-    padding: '0 10px 10px',
-    overflow: 'auto',
     '&::-webkit-scrollbar': {
       width: 0,
-    },
-  },
-  listItem: {
-    padding: 0,
-    marginBottom: 20,
-    '&:last-child': {
-      marginBottom: 0,
     },
   },
 });
