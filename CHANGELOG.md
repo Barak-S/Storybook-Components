@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DO-101: Top and bottom right hand cards are dispaled incorrectly
 - DO-101: Right hand cards should have a grey background color
 - DO-101: In mobile label and button are too close to each other
+- DO-185: QA Edit Event Dashboard
 
 ## [1.0.82] - 2021-06-07
 ### Added
