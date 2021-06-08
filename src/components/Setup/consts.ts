@@ -37,7 +37,7 @@ export const onboardignSetupSteps: SetupStep[] = [
   {
     index: 3,
     title: {
-      long: 'Setup Event',
+      long: 'Event Settings',
       short: 'Setup Event',
     },
     description:
