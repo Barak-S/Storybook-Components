@@ -34,6 +34,9 @@ export const colorValidatorFn: CustomValidator = (value, helpers) => {
   if (/^#(?:[0-9a-fA-F]{3,4}){1,2}$/.test(value)) {
     return value;
   }
+  if (/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/.test(value)) {
+    return value;
+  }
   return helpers.error('any.invalid');
 };
 

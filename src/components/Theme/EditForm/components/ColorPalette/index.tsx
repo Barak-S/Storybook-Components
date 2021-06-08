@@ -29,54 +29,57 @@ export const EventThemeColorPaletteForm: FC<Props> = ({ style, data = defEventTh
   };
 
   return (
-    <Grid style={ms(styles.container, style)}>
-      <Grid style={styles.row}>
-        <FormColorPicker title="background" value={data.background} style={styles.picker} onChange={handleChange('background')} />
-        <FormColorPicker
-          title="Large Headlines"
-          value={data.largeHeadlines}
-          style={styles.picker}
-          onChange={handleChange('largeHeadlines')}
-        />
-        <FormColorPicker
-          title="Medium Headlines"
-          value={data.mediumHeadlines}
-          style={styles.picker}
-          onChange={handleChange('mediumHeadlines')}
-        />
+    <Grid style={ms(styles.container, style)} container direction="column" spacing={2}>
+      <Grid item container style={styles.row} direction="row" spacing={2}>
+        <Grid item sm={4} xs={12}>
+          <FormColorPicker
+            title="background"
+            value={data.background}
+            style={styles.picker}
+            onChange={handleChange('background')}
+          />
+        </Grid>
+        <Grid item sm={4} xs={12}>
+          <FormColorPicker
+            title="Large Headlines"
+            value={data.largeHeadlines}
+            style={styles.picker}
+            onChange={handleChange('largeHeadlines')}
+          />
+        </Grid>
+        <Grid item sm={4} xs={12}>
+          <FormColorPicker
+            title="Medium Headlines"
+            value={data.mediumHeadlines}
+            style={styles.picker}
+            onChange={handleChange('mediumHeadlines')}
+          />
+        </Grid>
       </Grid>
-      <Grid style={styles.row}>
-        <FormColorPicker title="Body Text" value={data.bodyText} style={styles.picker} onChange={handleChange('bodyText')} />
-        <FormColorPicker title="Subheads" value={data.subheads} style={styles.picker} onChange={handleChange('subheads')} />
-        <FormColorPicker
-          title="Buttons & Linked Text"
-          value={data.linkedText}
-          style={styles.picker}
-          onChange={handleChange('linkedText')}
-        />
+      <Grid item container style={styles.row} spacing={2}>
+        <Grid item sm={4} xs={12}>
+          <FormColorPicker title="Body Text" value={data.bodyText} style={styles.picker} onChange={handleChange('bodyText')} />
+        </Grid>
+        <Grid item sm={4} xs={12}>
+          <FormColorPicker title="Subheads" value={data.subheads} style={styles.picker} onChange={handleChange('subheads')} />
+        </Grid>
+        <Grid item sm={4} xs={12}>
+          <FormColorPicker
+            title="Buttons & Linked Text"
+            value={data.linkedText}
+            style={styles.picker}
+            onChange={handleChange('linkedText')}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );
 };
 
 const getStyles = (isDesktop: boolean): Styles => ({
-  container: {
-    width: '100%',
-    maxWidth: 630,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  row: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    marginBottom: isDesktop ? 35 : 0,
-  },
-  picker: {
-    maxWidth: 185,
-    marginBottom: isDesktop ? 0 : 35,
-    marginRight: 10,
-  },
+  container: {},
+  row: {},
+  picker: {},
 });
 
 export default EventThemeColorPaletteForm;

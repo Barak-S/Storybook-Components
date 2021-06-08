@@ -1,7 +1,7 @@
 import { Grid, InputAdornment } from '@material-ui/core';
 import { View } from 'components/Common';
 import ColorPicker from 'material-ui-color-picker';
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC } from 'react';
 import { colors, ms, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
@@ -11,21 +11,19 @@ interface Props extends StyleProps {
 }
 
 export const FormColorPicker: FC<Props> = ({ value = '#000', title, style, onChange }) => {
-  const [color, setColor] = useState<string>(value);
-  const styles = useMemo(() => getStyles(color), [color]);
-
-  const handleChange = (color: string) => {
-    setColor(value);
-    if (color && onChange) {
-      return onChange(color);
-    }
-  };
+  const styles = getStyles(value);
 
   const startAdornment = (
     <InputAdornment style={styles.pickerAdornment} position="start">
       <View style={styles.pickerAdornmentField} />
     </InputAdornment>
   );
+
+  const handleChange = (newValue: string) => {
+    if (onChange) {
+      onChange(newValue);
+    }
+  };
 
   return (
     <View style={ms(styles.container, style)}>
@@ -37,11 +35,11 @@ export const FormColorPicker: FC<Props> = ({ value = '#000', title, style, onCha
       <ColorPicker
         style={styles.colorPicker}
         name="color"
-        value={color}
-        onChange={color => handleChange(color)}
+        value={value}
+        onChange={handleChange}
         InputProps={{
           startAdornment,
-          value: color,
+          value: value,
         }}
       />
     </View>
@@ -61,7 +59,6 @@ const getStyles = (color: string): Styles => ({
     top: 0,
     backgroundColor: 'transparent',
     left: -1,
-    // border: '1px solid black',
   },
   pickerAdornmentField: {
     width: 52,

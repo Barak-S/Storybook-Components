@@ -32,8 +32,21 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const selected = useSelector(s => s.forms.onboarding.theme?.id);
   const storedEditForm = useSelector(s => s.forms.onboarding.theme?.data);
 
+  const getInitEditForm = () => {
+    if (storedEditForm) {
+      return storedEditForm;
+    }
+    if (selected) {
+      const selectedItem = items.find(itm => itm.id === selected);
+      if (selectedItem) {
+        return eventThemeToUpdate(selectedItem);
+      }
+    }
+    return undefined;
+  };
+
   const [expanded, setExpanded] = useState<string | undefined>(selected);
-  const [editForm, setEditForm] = useState<EventThemeUpdate | undefined>(storedEditForm);
+  const [editForm, setEditForm] = useState<EventThemeUpdate | undefined>(getInitEditForm());
   const [processing, setProcessing] = useState<boolean | undefined>();
 
   useEffect(() => {
@@ -80,7 +93,6 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
   };
 
   const handleSubmit = async () => {
-    manager.user.modifySettings({ onboarding: 'event' });
     if (!editForm) {
       return history.push(routes.dashboard.onboarding.event);
     }
@@ -92,6 +104,8 @@ export const OnboardingThemeScreen: FC<Props> = ({ steps, onCloseClick }) => {
         log.info('updating theme done, id=', selected);
         showSnackbar(`Theme updated`, 'success');
         setProcessing(false);
+        manager.forms.modify('onboarding', { theme: { id: selected, data: undefined } });
+        manager.user.modifySettings({ onboarding: 'event' });
         return history.push(routes.dashboard.onboarding.event);
       } catch (err: unknown) {
         setProcessing(false);
