@@ -82,7 +82,7 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
       >
         <FormTextInput
-          value={data?.registrationManualApproval}
+          value={data?.purchaseOrderNumber}
           label="PO/Reference Number"
           onChange={handleTextFieldChange('purchaseOrderNumber')}
         />
