@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.83] - 2021-06-08
+### Fixed
+- DO-101: Error toast should be repalced by alert message above fields
+- DO-101: Asterisks for First Name, Last Name, Email fields should be added
+- DO-101: If nothing is typed "Invite and add another" button should be disabled
+- DO-101: Now all fields have an error alert if empty
+- DO-101: Cards on the right hand are too close to fields
+- DO-101: Invitation message text area should have a resize icon on the right bottom corner according to design
+- DO-101: If text is large in Invitation message text area, then it is displayed incorrectly
+- DO-101: In right hand cards "Invite sent" label should be colored green
+- DO-101: In right hand cards "Resend Invite" link should be underlined
+- DO-101: Top and bottom right hand cards are dispaled incorrectly
+- DO-101: Right hand cards should have a grey background color
+- DO-101: In mobile label and button are too close to each other
+
 ## [1.0.82] - 2021-06-07
 ### Added
 - DO-187: Edit Event Settings API integration
