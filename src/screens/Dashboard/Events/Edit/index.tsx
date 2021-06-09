@@ -15,6 +15,7 @@ import { colors, scrollToTop, StyleProps } from 'styles';
 
 import EditEventProfile from './Profile';
 import EditEventSettings from './Settings';
+import EditEventRegistration from './Registration';
 
 const log = Log('screens.Dashboard.events.edit.profile');
 
@@ -135,10 +136,7 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
                     />
                   )}
                 />
-                <Route
-                  path={routes.dashboard.events.getEditRegistration(itemId)}
-                  render={() => <div>{'Edit Registration Page'}</div>}
-                />
+                <Route path={routes.dashboard.events.getEditRegistration(itemId)} render={() => <EditEventRegistration />} />
                 <Route path={routes.dashboard.events.getEditSessions(itemId)} render={() => <EditSetupSession />} />
                 <Route path={routes.dashboard.events.getEditSponsors(itemId)} render={() => <div>{'Edit Sponsors Page'}</div>} />
                 <Redirect to={routes.dashboard.events.getEditProfile(itemId)} />

@@ -11,7 +11,7 @@ import './EditorStyles/Draft.css';
 
 interface Props extends StyleProps {
   value: string;
-  onChange: (val: string) => void;
+  onChange?: (val: string) => void;
 }
 
 interface EditorStlye {
@@ -32,7 +32,7 @@ export const FormTextEditor: FC<Props> = ({ style, value, onChange }) => {
   const handleChange = (editorState: any) => {
     setEditorState(editorState);
     if (editorState.getCurrentContent().hasText()) {
-      onChange(stateToHTML(editorState.getCurrentContent()));
+      onChange && onChange(stateToHTML(editorState.getCurrentContent()));
     }
   };
 
