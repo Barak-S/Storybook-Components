@@ -8,11 +8,10 @@ interface Props extends StyleProps {
   title?: string;
   description?: string;
   items?: string[];
-  borderTop?: boolean;
   onChange?: (items?: string[]) => void;
 }
 
-export const EventSettingsEmailRestriction: FC<Props> = ({ style, title, description, items, borderTop, onChange }) => {
+export const EventSettingsEmailRestriction: FC<Props> = ({ style, title, description, items, onChange }) => {
   const [radioValue, setRadioValue] = useState<string>(items ? 'restricted' : 'all');
 
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +30,7 @@ export const EventSettingsEmailRestriction: FC<Props> = ({ style, title, descrip
   };
 
   return (
-    <FormControlSection style={style} title={title} description={description} borderTop={borderTop}>
+    <FormControlSection style={style} title={title} description={description} borderTop={false}>
       <RadioGroup value={radioValue} onChange={handleRadioChange}>
         <FormRadioInput value="all" label="All domains are available to sign up for this event" />
         <FormRadioInput value="restricted" label="The following domains are available to sign up for this event " />

@@ -1,6 +1,7 @@
 import Joi from 'joi';
-import { firstNameMaxSize, lastNameMaxSize, longTextMaxSize } from 'utils';
+import { longTextMaxSize } from 'utils';
 
+import { NameSchema } from './common';
 import { Social, SocialSchema } from './social';
 
 // Settings
@@ -50,8 +51,8 @@ export interface User {
 
 export const UserSchema = Joi.object<User>({
   id: Joi.string().required(),
-  firstName: Joi.string().max(firstNameMaxSize).required(),
-  lastName: Joi.string().max(lastNameMaxSize).required(),
+  firstName: NameSchema.required(),
+  lastName: NameSchema.required(),
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),
@@ -70,8 +71,8 @@ export type UserCreate = Omit<User, 'createdAt' | 'updatedAt'>;
 export type UserUpdate = Partial<Omit<User, 'id' | 'email' | 'confirmed' | 'createdAt' | 'updatedAt'>>;
 
 export const UserUpdateSchema = Joi.object({
-  firstName: Joi.string().max(firstNameMaxSize),
-  lastName: Joi.string().max(lastNameMaxSize),
+  firstName: NameSchema,
+  lastName: NameSchema,
   bio: Joi.string().max(longTextMaxSize),
   thumbnail: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),

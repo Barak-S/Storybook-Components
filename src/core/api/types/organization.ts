@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { emailMaxSize, firstNameMaxSize, lastNameMaxSize, memberTitleMaxSize, shortTextMaxSize } from 'utils';
+import { shortTextMaxSize } from 'utils';
 
-import { phoneValidatorFn, urlValidatorFn } from './common';
+import { EmptyStrSchema, NameSchema, phoneValidatorFn, urlValidatorFn } from './common';
 import { Social, SocialSchema } from './social';
 import { User } from './user';
 
@@ -32,12 +32,12 @@ export const OrganizationSchema = Joi.object<Organization>({
   type: Joi.string().required(),
   email: Joi.string().email({ tlds: { allow: false } }),
   phone: Joi.string().custom(phoneValidatorFn),
-  country: Joi.string(),
-  state: Joi.string(),
-  city: Joi.string(),
-  postcode: Joi.string(),
-  website: Joi.string().custom(urlValidatorFn),
-  logo: Joi.string(),
+  country: EmptyStrSchema,
+  state: EmptyStrSchema,
+  city: EmptyStrSchema,
+  postcode: EmptyStrSchema,
+  website: EmptyStrSchema.custom(urlValidatorFn),
+  logo: EmptyStrSchema,
   socials: Joi.array().items(SocialSchema),
   createdAt: Joi.string().required(),
   updatedAt: Joi.string().required(),
@@ -155,17 +155,16 @@ export const isOrganizationInvite = (val: unknown): val is OrganizationInvite =>
 export type OrganizationInviteCreate = Omit<OrganizationInvite, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
 
 export const orgInviteCreateSchema = Joi.object<OrganizationInviteCreate>({
-  firstName: Joi.string().max(firstNameMaxSize).required(),
-  lastName: Joi.string().max(lastNameMaxSize).required(),
+  firstName: NameSchema.required(),
+  lastName: NameSchema.required(),
   email: Joi.string()
-    .max(emailMaxSize)
     .email({ tlds: { allow: false } })
     .required(),
   role: Joi.string()
     .valid(...orgRoleArr)
     .required(),
   message: Joi.string().max(shortTextMaxSize),
-  title: Joi.string().max(memberTitleMaxSize),
+  title: Joi.string().max(100),
 });
 
 export const isOrganizationInviteCreate = (val: unknown): val is OrganizationInviteCreate =>

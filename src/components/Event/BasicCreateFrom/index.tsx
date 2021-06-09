@@ -1,6 +1,7 @@
 import { View } from 'components/Common';
 import {
   FormControlSection,
+  FormDivider,
   FormEventTypeSelect,
   FormStartEndDatesInput,
   FormStartEndDatesInputValue,
@@ -90,12 +91,14 @@ export const EventBasicCreateFrom: FC<Props> = ({ style, data, errors, processin
           onChange={handleDataChange('timezone')}
         />
       </FormControlSection>
+      <FormDivider />
       <EventBasicCreateFromProfile
         data={data?.profile}
         processing={processing?.profile}
         onLogoFileSelect={onLogoFileSelect}
         onChange={handleDataChange('profile')}
       />
+      <FormDivider />
       <EventBasicCreateFromSettings data={data?.settings} onChange={handleDataChange('settings')} />
     </View>
   );

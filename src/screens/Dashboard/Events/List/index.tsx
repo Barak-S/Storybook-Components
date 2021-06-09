@@ -4,7 +4,7 @@ import { LineTab, LineTabs } from 'components/Navigation';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import { useAuth } from 'core';
 import React, { FC, useState } from 'react';
-import { useSelector } from 'store';
+import { stateToCurOrgData, useSelector } from 'store';
 import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
 
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
@@ -19,6 +19,7 @@ export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) =
   const [tab, setTab] = useState<number>(0);
   const { confirmed } = useAuth();
   const onboardingStatus = useSelector(s => s.user.settings.onboarding);
+  const curOrg = useSelector(stateToCurOrgData);
 
   // Render
 
@@ -62,6 +63,19 @@ export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) =
     />
   );
 
+  const renderContent = () => {
+    if (!confirmed) {
+      return <DashboardEmailConfirmScene />;
+    }
+    if (onboardingStatus !== 'done') {
+      return <FirstEventSetup />;
+    }
+    if (!curOrg) {
+      return null;
+    }
+    return <DashboardEventsListScene />;
+  };
+
   return (
     <>
       <ScreenTitle />
@@ -69,13 +83,7 @@ export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) =
         <Hidden smDown>{renderTabs()}</Hidden>
         <Grid>
           <DashboardTabPanel style={ms(styles.tabPanel, whenMobile(styles.tabPanelMob))} value={tab} index={0}>
-            {!confirmed ? (
-              <DashboardEmailConfirmScene />
-            ) : onboardingStatus !== 'done' ? (
-              <FirstEventSetup />
-            ) : (
-              <DashboardEventsListScene />
-            )}
+            {renderContent()}
             <Hidden smDown>
               <DashboardUserNav disabledBtns={!confirmed ? ['add'] : []} onBtnClick={handleUseNavBtnClick} />
             </Hidden>

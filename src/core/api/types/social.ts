@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import { idMaxSize, nameMaxSize } from 'utils';
+
+import { IdSchema, NameSchema } from './common';
 
 export interface Social {
   id: string;
@@ -8,8 +9,8 @@ export interface Social {
 }
 
 export const SocialSchema = Joi.object({
-  id: Joi.string().max(idMaxSize).required(),
-  name: Joi.string().max(nameMaxSize).required(),
+  id: IdSchema.required(),
+  name: NameSchema.required(),
   url: Joi.string().uri().required(),
 });
 

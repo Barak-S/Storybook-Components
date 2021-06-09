@@ -23,7 +23,8 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
 
   const updateAndCheckCurrent = async () => {
     const items = await update();
-    if (!curOrgId && items.length) {
+    const curItem = items.find(itm => itm.id === curOrgId);
+    if ((!curOrgId || !curItem) && items.length) {
       dispatch({ type: 'orgs/cur/Set', id: items[0].id });
     }
   };

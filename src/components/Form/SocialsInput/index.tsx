@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { TextButton } from 'components/Buttons';
-import { View } from 'components/Common';
 import { Social } from 'core/api';
+import { startsWith } from 'lodash';
 import React, { FC, ReactNode } from 'react';
 import { ms, StyleProps, Styles } from 'styles';
 import { genId } from 'utils';
@@ -24,16 +24,20 @@ export const FormSocialsInput: FC<Props> = ({
     const unusedSocials = ['facebook', 'twitter', 'linkedin', 'instagram', 'google', 'youtube', 'custom'].filter(
       itm => !usedSocials.includes(itm),
     );
-    return { name: unusedSocials.length ? unusedSocials[0] : 'custom', id: genId(), url: '' };
+    return { name: unusedSocials.length ? unusedSocials[0] : 'custom', id: `custom-${genId()}`, url: '' };
   };
 
-  const handleItemChange = (newItem: Social) => {
-    if (onChange) {
-      if (newItem.id.indexOf('def-') === 0) {
-        onChange([...items, { ...newItem, id: genId() }]);
+  const handleItemChange = (newItem: Social, index?: number) => {
+    if (!onChange) return;
+    if (startsWith(newItem.id, 'def-')) {
+      const exItem = items.find(itm => itm.id === newItem.id);
+      if (exItem) {
+        onChange(items.map(itm => (itm.id !== exItem.id ? itm : { ...itm, ...newItem })));
       } else {
-        onChange(items.map(itm => (itm.id !== newItem.id ? itm : { ...itm, ...newItem })));
+        onChange([...items, { ...newItem, id: `def-${index}-${genId()}` }]);
       }
+    } else {
+      onChange(items.map(itm => (itm.id !== newItem.id ? itm : { ...itm, ...newItem })));
     }
   };
 
@@ -42,26 +46,32 @@ export const FormSocialsInput: FC<Props> = ({
   };
 
   const handleAddClick = () => {
-    if (onChange) {
-      const usedSocials = items.map(itm => itm.name);
-      onChange([...items, genNewItem([...defSocials, ...usedSocials])]);
-    }
+    if (!onChange) return;
+    const usedSocials = items.map(itm => itm.name);
+    onChange([...items, genNewItem([...defSocials, ...usedSocials])]);
   };
 
   const renderItems = () => {
     let curItems: Social[] = items;
     const nodes: ReactNode[] = [];
     let index: number = 0;
-    for (const defSocial of defSocials) {
-      const curItem = curItems.find(itm => itm.name === defSocial);
+    // Going throw default socials
+    for (let i = 0; i < defSocials.length; i++) {
+      const defSocial = defSocials[i];
+      // If we do have a current item with a def social name
+      const curItem = curItems.find(itm => startsWith(itm.id, `def-${i}-`));
       if (curItem) {
+        // Add this item to the default items
         nodes.push(renderItem(curItem, `${index}`));
+        // Remove this item from the main list
         curItems = curItems.filter(itm => itm.id !== curItem.id);
       } else {
-        nodes.push(renderItem({ name: defSocial, id: `def-${defSocial}`, url: '' }, `${index}`, true));
+        // Else show def item field
+        nodes.push(renderItem({ name: defSocial, id: `def-${index}`, url: '' }, `${index}`, true, i));
       }
       index++;
     }
+    // Adding all other items which we have already
     for (const itm of curItems) {
       nodes.push(renderItem(itm, `${index}`));
       index++;
@@ -69,13 +79,13 @@ export const FormSocialsInput: FC<Props> = ({
     return nodes;
   };
 
-  const renderItem = (itm: Social, key: string, defItem?: boolean) => (
-    <Grid item>
+  const renderItem = (itm: Social, key: string, defItem?: boolean, index?: number) => (
+    <Grid key={key} item>
       <FormSocialsInputItem
-        key={key}
         style={styles.item}
         item={itm}
         defItem={defItem}
+        index={index}
         onRemove={handleItemRemove}
         onChange={handleItemChange}
       />

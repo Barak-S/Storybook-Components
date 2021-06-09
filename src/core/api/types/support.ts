@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { firstNameMaxSize, lastNameMaxSize, longTextMaxSize } from 'utils';
+import { longTextMaxSize } from 'utils';
 
-import { phoneValidatorFn } from './common';
+import { NameSchema, phoneValidatorFn } from './common';
 
 export interface SupportContactRequest {
   firstName: string;
@@ -13,8 +13,8 @@ export interface SupportContactRequest {
 }
 
 export const SupportContactRequestSchema = Joi.object<SupportContactRequest>({
-  firstName: Joi.string().max(firstNameMaxSize).required(),
-  lastName: Joi.string().max(lastNameMaxSize).required(),
+  firstName: NameSchema.required(),
+  lastName: NameSchema.required(),
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),

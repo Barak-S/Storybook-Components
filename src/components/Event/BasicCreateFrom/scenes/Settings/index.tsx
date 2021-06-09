@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormControlSection, FormTextInput, FormToggle } from 'components/Form';
+import { FormControlSection, FormDivider, FormTextInput, FormToggle } from 'components/Form';
 import FormTagsInput from 'components/Form/TagsInput';
 import { EventSettings } from 'core/api';
 import React, { ChangeEvent, FC } from 'react';
@@ -33,6 +33,7 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
   return (
     <View style={ms(styles.container, style)}>
       <FormControlSection
+        borderTop={false}
         title="Multi-factor Authentication & Manual Approval"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing dolor sit amet, consectetur adipiscing elitsed."
       >
@@ -53,20 +54,24 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
           </Grid>
         </Grid>
       </FormControlSection>
+      <FormDivider />
       <EventSettingsEmailRestriction
         title="Email Domain Restriction"
         items={data?.allowedEmailDomains}
         onChange={handleDataChange('allowedEmailDomains')}
       />
+      <FormDivider />
       <EventSettingsPassRequirements
         title="Password Requirements"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
         items={data?.passRequirements}
         onChange={handleDataChange('passRequirements')}
       />
+      <FormDivider />
       <FormControlSection
         title="Email Validation/Responce Requirements "
         description="Lorem ipsum dolor sit amet, consectetur adipiscingum dolor sit ametonsectetur adipiscing elitsed."
+        borderTop={false}
       >
         <FormToggle
           title="Validation of Email Addresses Required"
@@ -74,11 +79,18 @@ export const EventBasicCreateFromSettings: FC<Props> = ({ style, data, onChange 
           onChange={handleDataChange('emailValidation')}
         />
       </FormControlSection>
-      <FormControlSection title="Assign SEO Event Tags" description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed.">
+      <FormDivider />
+      <FormControlSection
+        title="Assign SEO Event Tags"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+        borderTop={false}
+      >
         <FormTagsInput items={data?.seoTags} label="Add Tags" onChange={handleDataChange('seoTags')} />
       </FormControlSection>
+      <FormDivider />
       <FormControlSection
         title="PO/Reference Number"
+        borderTop={false}
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed. Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
       >
         <FormTextInput

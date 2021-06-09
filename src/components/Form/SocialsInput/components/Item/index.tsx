@@ -1,14 +1,17 @@
 import { Grid, IconButton, makeStyles } from '@material-ui/core';
-import { FormSocialSelect, FormTextInput } from 'components/Form';
 import { LineAwesomeIcon } from 'components/Icons';
-import { isSocialType, Social, SocialType } from 'core/api/types';
-import React, { ChangeEvent, FC } from 'react';
+import { isSocialType, isUrl, Social, SocialType } from 'core/api/types';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { colors, ms, mx, StyleProps, Styles } from 'styles';
+
+import FormSocialSelect from '../../../SocialSelect';
+import FormTextInput from '../../../TextInput';
 
 interface Props extends StyleProps {
   item: Social;
+  index?: number;
   defItem?: boolean;
-  onChange: (newItem: Social) => void;
+  onChange: (newItem: Social, index?: number) => void;
   onRemove: (item: Social) => void;
 }
 
@@ -29,20 +32,37 @@ const socialNameToPlaceholder = (val: string): string => {
   }
 };
 
-export const FormSocialInput: FC<Props> = ({ item, style, defItem, onRemove, onChange }) => {
-  const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => onChange({ ...item, url: e.currentTarget.value });
+export const FormSocialsInputItem: FC<Props> = ({ item, style, defItem, index, onRemove, onChange }) => {
+  const [inputErr, setInputErr] = useState<string | undefined>(undefined);
+
+  const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (inputErr) setInputErr(undefined);
+    onChange({ ...item, url: e.currentTarget.value }, index);
+  };
+
+  const handleUrlBlur = () => {
+    if (!item.url) return;
+    if (!isUrl(item.url)) {
+      setInputErr('Wrong URL format');
+    }
+  };
 
   const handleSocialChange = (val: SocialType | undefined) => {
     if (val) {
-      onChange({ ...item, name: val });
+      onChange({ ...item, name: val }, index);
     }
+  };
+
+  const handleRemove = () => {
+    setInputErr(undefined);
+    onRemove(item);
   };
 
   const classes = useStyles();
 
   return (
     <Grid style={ms(styles.container, style)} container direction="row" spacing={2}>
-      <Grid item sm={4} xs={12}>
+      <Grid item xs={12} sm={4}>
         <FormSocialSelect
           style={styles.select}
           classes={{
@@ -53,16 +73,19 @@ export const FormSocialInput: FC<Props> = ({ item, style, defItem, onRemove, onC
           onChange={handleSocialChange}
         />
       </Grid>
-      <Grid style={styles.inputWrap} item sm={8} xs={12}>
+      <Grid style={styles.inputWrap} item xs={12} sm={8}>
         <FormTextInput
           inputStyle={styles.input}
           fullWidth
+          error={!!inputErr}
+          helperText={inputErr}
           value={item.url}
           onChange={handleUrlChange}
+          onBlur={handleUrlBlur}
           placeholder={socialNameToPlaceholder(item.name)}
         />
         {!defItem && (
-          <IconButton style={styles.removeBtn} size="small" onClick={() => onRemove(item)}>
+          <IconButton style={styles.removeBtn} size="small" onClick={handleRemove}>
             <LineAwesomeIcon type="times-circle" />
           </IconButton>
         )}
@@ -87,8 +110,7 @@ const styles: Styles = {
     ...mx.square(24),
     position: 'absolute',
     right: 18,
-    top: '50%',
-    marginTop: -12,
+    top: 22,
   },
 };
 
@@ -104,4 +126,4 @@ const useStyles = () =>
     },
   })();
 
-export default FormSocialInput;
+export default FormSocialsInputItem;

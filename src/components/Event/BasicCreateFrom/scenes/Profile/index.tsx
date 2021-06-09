@@ -1,6 +1,13 @@
 import { Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormControlSection, FormCountryInput, FormDragnDropImage, FormSocialsInput, FormTextInput } from 'components/Form';
+import {
+  FormControlSection,
+  FormCountryInput,
+  FormDivider,
+  FormDragnDropImage,
+  FormSocialsInput,
+  FormTextInput,
+} from 'components/Form';
 import { EventProfile } from 'core/api';
 import { modCloudinaryUrl } from 'core/cloudinary';
 import React, { ChangeEvent, FC } from 'react';
@@ -32,6 +39,7 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing
   return (
     <View style={ms(styles.container, style)}>
       <FormControlSection
+        borderTop={false}
         title="Profile"
         hint="Lorem ipsum dolor sit amet."
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed"
@@ -62,8 +70,10 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing
           <FormSocialsInput items={data?.socials} onChange={handleDataChange('socials')} />
         </Grid>
       </FormControlSection>
+      <FormDivider />
       <FormControlSection
         title="Logo"
+        borderTop={false}
         hint="Lorem ipsum dolor sit amet."
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed"
       >

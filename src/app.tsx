@@ -36,9 +36,8 @@ export const App: FC = () => {
 
   // Update user's data if we do have a token at storage.auth.token
   useEffect(() => {
-    if (token) {
-      updateUser();
-    }
+    if (!token) return;
+    updateUser();
   }, [token]);
 
   const updateUser = async () => {

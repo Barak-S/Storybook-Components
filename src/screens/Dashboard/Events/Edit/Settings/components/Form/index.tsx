@@ -86,7 +86,6 @@ export const EventSettingsEditFrom: FC<Props> = ({ data, errors, onChange, child
         <EventSettingsEmailRestriction
           title="Email Domain Restriction"
           items={data?.allowedEmailDomains}
-          borderTop={false}
           onChange={handleDataChange('allowedEmailDomains')}
         />
       </div>
@@ -96,7 +95,6 @@ export const EventSettingsEditFrom: FC<Props> = ({ data, errors, onChange, child
           title="Password Requirements"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
           items={data?.passRequirements}
-          borderTop={false}
           onChange={handleDataChange('passRequirements')}
         />
       </Grid>

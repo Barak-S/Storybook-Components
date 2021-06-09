@@ -9,7 +9,7 @@ import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { Log } from 'core';
 import { OrganizationUpdate, OrganizationUpdateSchema, orgItemToUpdate } from 'core/api';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { stateToCurOrgData, useSelector, useStoreManager } from 'store';
@@ -28,13 +28,17 @@ const getFormErrors = getFromErrsCheckerWithSchema<OrganizationUpdate>(Organizat
 export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const curOrg = useSelector(stateToCurOrgData);
   const manager = useStoreManager();
-  const { showSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    manager.orgs.updateAndCheckCurrent();
+  }, []);
 
   const storedData = useSelector(s => s.forms.onboarding.org);
   const [data, setData] = useState<FormData>(storedData || orgItemToUpdate(curOrg));
   const [errors, setErrors] = useState<FormErrors | undefined>();
   const [dataProcessing, setDataProcessing] = useState<FormProcessing>({});
   const [updateProcessing, setUpdateProcessing] = useState<boolean>(false);
+  const { showSnackbar } = useSnackbar();
 
   const history = useHistory();
 
