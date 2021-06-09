@@ -68,7 +68,7 @@ export const OrganizationEditForm: FC<Props> = ({ style, data, processing, onCha
     <Grid style={ms(styles.container, style)} container direction="column" spacing={3}>
       <Grid item>
         <FormControlInfo
-          title="Organization logo"
+          title="Organization Logo"
           description="Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less"
           hint="Logo hint"
         />
