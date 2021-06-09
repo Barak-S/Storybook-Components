@@ -1,8 +1,8 @@
-import { Grid, InputAdornment } from '@material-ui/core';
-import { View } from 'components/Common';
+import { InputAdornment } from '@material-ui/core';
+import { Text, View } from 'components/Common';
 import ColorPicker from 'material-ui-color-picker';
 import React, { FC } from 'react';
-import { colors, ms, StyleProps, Styles } from 'styles';
+import { colors, ms, mx, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   value?: string;
@@ -28,9 +28,9 @@ export const FormColorPicker: FC<Props> = ({ value = '#000', title, style, onCha
   return (
     <View style={ms(styles.container, style)}>
       {title && (
-        <Grid component="label" style={styles.title}>
+        <Text style={styles.title} block>
           {title}
-        </Grid>
+        </Text>
       )}
       <ColorPicker
         style={styles.colorPicker}
@@ -74,6 +74,7 @@ const getStyles = (color: string): Styles => ({
     fontSize: 14,
     fontWeight: 500,
     marginBottom: 10,
+    ...mx.threeDots,
   },
 });
 
