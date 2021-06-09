@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.85] - 2021-06-09
+### Fixed
+- DO-100: Such labels as Logo, Info should be renamed to "Organization logo" and "Organization Information"
+- DO-100: Such placeholder as name should be renamed to "Organization Name"
+- DO-100: Labels for such areas as Website, Contact Email + loram ipsum should be added
+- DO-100: In mobile version fields are too small
+- DO-100: Hint icon should be added for Org Logo label
+- DO-100: Format validation should be implemented for Email, Phone Number and validation if any required fields are empty should be implemented too
+- DO-103: Label at the left hand should be "Event Settings"
+- DO-103: Value of PO/Reference Number is displayed wrong if other elements were switched on/off
+- DO-103: In Date picker it's possible to select date only for a few days forward, other dates are disabled
+- DO-103: Social Media Account block dropdowns should be longer and closer to text fields
+- DO-102: In mobile version hint is not shown after clicking on hint icon (only icon's color is changing)
+- Socials: changing social type for default fields fixed
+- Events: loading events after login fixed
+
 ## [1.0.84] - 2021-06-08
 ### Fixed
 - DO-102: Can not select other color in Color Palette correctly
