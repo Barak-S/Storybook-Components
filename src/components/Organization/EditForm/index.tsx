@@ -1,152 +1,196 @@
-import { View } from 'components/Common';
-import { FormControlSection, FormCountryInput, FormDragnDropImage, FormRow, FormTextInput } from 'components/Form';
-import { LineAwesomeIcon } from 'components/Icons';
-import { OrganizationUpdate } from 'core/api';
+import { Grid } from '@material-ui/core';
+import { FormControlInfo, FormCountryInput, FormDivider, FormDragnDropImage, FormInput, FormTextInput } from 'components/Form';
+import { OrganizationUpdate, OrganizationUpdateSchema, phoneValidatorFn } from 'core/api';
 import { modCloudinaryUrl } from 'core/cloudinary';
-import React, { ChangeEvent, FC } from 'react';
-import { buildStyles, colors, ms, StyleProps, withDensity } from 'styles';
-import { GenericFormErrors, GenericFormProcessing } from 'utils';
+import Joi from 'joi';
+import React, { ChangeEvent, FC, useState } from 'react';
+import { ms, StyleProps, Styles, withDensity } from 'styles';
+import { formKeyToFieldName, GenericFormData, GenericFormErrors, GenericFormProcessing } from 'utils';
 
-type FormData = OrganizationUpdate;
-type FormErrors = GenericFormErrors<FormData>;
-type FormProcessing = GenericFormProcessing<FormData>;
+type FormData = GenericFormData<OrganizationUpdate>;
+type FormErrors = GenericFormErrors<OrganizationUpdate>;
+type FormProcessing = GenericFormProcessing<OrganizationUpdate>;
 
 interface Props extends StyleProps {
   data?: FormData;
-  errors?: FormErrors;
   processing?: FormProcessing;
-  onChange?: (data: OrganizationUpdate) => void;
+  onChange?: (data: OrganizationUpdate, valid: boolean) => void;
   onLogoFileSelect?: (file: File) => void;
 }
 
-interface Props extends StyleProps {
-  data?: OrganizationUpdate;
-  errors?: GenericFormErrors<OrganizationUpdate>;
-  processing?: GenericFormProcessing<OrganizationUpdate>;
-  onChange?: (data: OrganizationUpdate) => void;
-  onLogoFileSelect?: (file: File) => void;
-}
+const formSchema = OrganizationUpdateSchema.keys({
+  name: Joi.string().required(),
+  phone: Joi.string().custom(phoneValidatorFn).required(),
+  country: Joi.string().required(),
+  state: Joi.string().required(),
+  city: Joi.string().required(),
+});
 
-export const OrganizationEditForm: FC<Props> = ({ style, data, errors, processing, onChange, onLogoFileSelect }) => {
-  const styles = useStyles();
+export const OrganizationEditForm: FC<Props> = ({ style, data, processing, onChange, onLogoFileSelect }) => {
+  const [errors, setErrors] = useState<FormErrors | undefined>();
 
   const handleTextFieldChanged = (key: keyof OrganizationUpdate) => (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    onChange && onChange({ ...data, [key]: event.currentTarget.value });
+    handleChange(key, event.currentTarget.value);
   };
 
   const handleDataChange = <K extends keyof FormData>(key: K) => (val: FormData[K]) => {
-    onChange && onChange(data ? { ...data, [key]: val } : { [key]: val });
+    handleChange(key, val);
+  };
+
+  const handleChange = <K extends keyof FormData>(key: K, val: FormData[K]) => {
+    resetErrForKey(key);
+    const newData = data ? { ...data, [key]: val } : { [key]: val };
+    const valid = formSchema.validate(newData).error === undefined;
+    onChange && onChange(newData, valid);
+  };
+
+  const resetErrForKey = <K extends keyof FormData>(key: K) => {
+    if (errors && errors[key]) {
+      setErrors({ [key]: undefined });
+    }
+  };
+
+  const handleBlur = <K extends keyof FormData>(key: K) => () => {
+    const { error } = formSchema.validate(data, { abortEarly: false });
+    if (!error) return;
+    for (const detail of error.details) {
+      if (detail.context?.key === key) {
+        const { message: rawMsg } = detail;
+        const message = rawMsg.replace(`"${key}"`, formKeyToFieldName(key));
+        setErrors(v => (v ? { ...v, [key]: message } : { [key]: message }));
+      }
+    }
   };
 
   return (
-    <View style={[styles.container, style]}>
-      <FormControlSection borderTop={false} title="Logo" description="Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less">
+    <Grid style={ms(styles.container, style)} container direction="column" spacing={3}>
+      <Grid item>
+        <FormControlInfo
+          title="Organization logo"
+          description="Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less"
+          hint="Logo hint"
+        />
+      </Grid>
+      <Grid item>
         <FormDragnDropImage
           style={styles.logo}
           src={data?.logo ? modCloudinaryUrl(data.logo, { transform: { width: withDensity(535), crop: 'fill' } }) : undefined}
           processing={processing?.logo}
           onFileSelect={onLogoFileSelect}
         />
-      </FormControlSection>
-      <FormControlSection
-        borderTop={false}
-        title="Info"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
-      >
-        <FormRow>
+      </Grid>
+      <Grid item>
+        <FormControlInfo
+          title="Organization Information"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
+        />
+      </Grid>
+      <Grid item>
+        <FormTextInput
+          required
+          label="Organization Name"
+          value={data?.name || ''}
+          error={!!errors?.name}
+          helperText={errors?.name}
+          onBlur={handleBlur('name')}
+          onChange={handleTextFieldChanged('name')}
+        />
+      </Grid>
+      <Grid item container direction="row" spacing={3}>
+        <Grid item xs={12} sm={6}>
           <FormTextInput
             required
-            label="Name"
-            value={data?.name || ''}
-            error={!!errors?.name}
-            helperText={errors?.name}
-            onChange={handleTextFieldChanged('name')}
-          />
-        </FormRow>
-        <FormRow>
-          <FormTextInput
-            style={styles.half}
-            required
-            label="phone number"
+            fullWidth
+            label="Phone Number"
             value={data?.phone || ''}
             error={!!errors?.phone}
             helperText={errors?.phone}
+            onBlur={handleBlur('phone')}
             onChange={handleTextFieldChanged('phone')}
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <FormCountryInput
-            style={ms(styles.half, styles.lastChild)}
             required
-            label="country"
+            label="Country"
             value={data?.country || ''}
+            error={!!errors?.country}
+            helperText={errors?.country}
             onChange={handleDataChange('country')}
+            onBlur={handleBlur('country')}
           />
-        </FormRow>
-        <FormRow>
+        </Grid>
+      </Grid>
+      <Grid item container direction="row" spacing={3}>
+        <Grid item xs={12} sm={6}>
           <FormTextInput
-            style={styles.half}
             required
-            label="state"
+            label="State"
             value={data?.state || ''}
             error={!!errors?.state}
             helperText={errors?.state}
+            onBlur={handleBlur('state')}
             onChange={handleTextFieldChanged('state')}
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <FormTextInput
-            style={ms(styles.half, styles.lastChild)}
             required
-            label="city"
+            label="City"
             value={data?.city || ''}
             error={!!errors?.city}
             helperText={errors?.city}
+            onBlur={handleBlur('city')}
             onChange={handleTextFieldChanged('city')}
           />
-        </FormRow>
-        <FormRow>
-          <FormTextInput
-            label="website"
-            adornmentType="transparent"
-            value={data?.website || ''}
-            error={!!errors?.website}
-            helperText={errors?.website}
-            iconStart={<LineAwesomeIcon type="globe" style={{ color: colors.greyish }} />}
-            onChange={handleTextFieldChanged('website')}
-          />
-        </FormRow>
-        <FormRow>
-          <FormTextInput
-            label="Contact Email"
-            adornmentType="transparent"
-            value={data?.email || ''}
-            error={!!errors?.email}
-            helperText={errors?.email}
-            iconStart={<LineAwesomeIcon type="envelope-open-text" style={{ color: colors.greyish }} />}
-            onChange={handleTextFieldChanged('email')}
-          />
-        </FormRow>
-      </FormControlSection>
-    </View>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <FormControlInfo title="Website" />
+      </Grid>
+      <Grid item>
+        <FormInput
+          placeholder="Website"
+          startIcon="globe"
+          fullWidth
+          value={data?.website || ''}
+          error={!!errors?.website}
+          helperText={errors?.website}
+          onBlur={handleBlur('website')}
+          onChange={handleTextFieldChanged('website')}
+        />
+      </Grid>
+      <FormDivider />
+      <Grid item>
+        <FormControlInfo title="Contact Email" description="This email will be consectetur adipiscing elitsed." />
+      </Grid>
+      <Grid item>
+        <FormInput
+          fullWidth
+          placeholder="Email"
+          type="email"
+          startIcon="envelope-open-text"
+          value={data?.email || ''}
+          error={!!errors?.email}
+          helperText={errors?.email}
+          onBlur={handleBlur('email')}
+          onChange={handleTextFieldChanged('email')}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
-const useStyles = buildStyles(({ isMobile }) => ({
+const styles: Styles = {
   container: {
-    paddingBottom: 56,
+    paddingBottom: 30,
   },
   logo: {
     height: 140,
   },
-  half: {
-    width: '100%',
-    maxWidth: isMobile ? '100%' : '48%',
-    ...(isMobile && { marginBottom: 30 }),
-  },
-  lastChild: {
-    marginRight: 0,
-    marginBottom: 0,
-  },
-}));
+};
 
 export type OrganizationEditFormData = FormData;
 export type OrganizationEditFormErrors = FormErrors;

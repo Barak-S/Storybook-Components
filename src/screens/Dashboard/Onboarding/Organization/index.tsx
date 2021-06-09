@@ -2,19 +2,17 @@ import { useSnackbar } from 'components/Feedback';
 import {
   OrganizationEditForm,
   OrganizationEditFormData as FormData,
-  OrganizationEditFormErrors as FormErrors,
   OrganizationEditFormProcessing as FormProcessing,
 } from 'components/Organization';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
 import { Log } from 'core';
-import { OrganizationUpdate, OrganizationUpdateSchema, orgItemToUpdate } from 'core/api';
+import { OrganizationUpdate, orgItemToUpdate } from 'core/api';
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { stateToCurOrgData, useSelector, useStoreManager } from 'store';
 import { StyleProps, Styles } from 'styles';
-import { getFromErrsCheckerWithSchema } from 'utils';
 
 const log = Log('screens.Dashboard.Onboarding.Organization');
 
@@ -22,8 +20,6 @@ interface Props extends StyleProps {
   steps: SetupStep[];
   onCloseClick?: () => void;
 }
-
-const getFormErrors = getFromErrsCheckerWithSchema<OrganizationUpdate>(OrganizationUpdateSchema);
 
 export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const curOrg = useSelector(stateToCurOrgData);
@@ -35,16 +31,16 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
 
   const storedData = useSelector(s => s.forms.onboarding.org);
   const [data, setData] = useState<FormData>(storedData || orgItemToUpdate(curOrg));
-  const [errors, setErrors] = useState<FormErrors | undefined>();
   const [dataProcessing, setDataProcessing] = useState<FormProcessing>({});
   const [updateProcessing, setUpdateProcessing] = useState<boolean>(false);
+  const [formValid, setFormValid] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
 
   const history = useHistory();
 
-  const handleDataChange = (newData: OrganizationUpdate) => {
-    setErrors({});
-    setData({ ...data, ...newData });
+  const handleDataChange = (newData: OrganizationUpdate, valid: boolean) => {
+    setData(newData);
+    setFormValid(valid);
   };
 
   const handleLogoFileSelect = async (file: File) => {
@@ -76,10 +72,6 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
   };
 
   const handleContinueClick = async () => {
-    const curErrs = getFormErrors(data);
-    if (curErrs) {
-      return setErrors(curErrs);
-    }
     try {
       log.info('updating data');
       setUpdateProcessing(true);
@@ -94,8 +86,6 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
       showSnackbar('Updating information error', 'error');
     }
   };
-
-  const continueAllowed = Boolean(data.name && data.phone && data.country && data.state && data.city);
 
   const leftBtns: SetupContainerFooterBtnItem[] = [
     {
@@ -116,7 +106,7 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
       id: 'continue',
       type: 'contained',
       title: 'continue',
-      disabled: !continueAllowed,
+      disabled: !formValid,
       processing: updateProcessing,
       endIcon: 'chevron-circle-right',
     },
@@ -138,7 +128,6 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
         <OrganizationEditForm
           style={styles.form}
           data={data}
-          errors={errors}
           processing={dataProcessing}
           onChange={handleDataChange}
           onLogoFileSelect={handleLogoFileSelect}
@@ -151,7 +140,6 @@ export const OnboardingOrganizationScreen: FC<Props> = ({ steps, onCloseClick })
 const styles: Styles = {
   form: {
     width: '100%',
-    maxWidth: 535,
   },
 };
 

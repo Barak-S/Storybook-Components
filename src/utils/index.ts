@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 export * from './countries';
 export * from './date';
+export * from './forms';
 export * from './http';
 export * from './limits';
 export * from './polishers';

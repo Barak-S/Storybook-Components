@@ -3,7 +3,7 @@ import { FormOrganizationRoleSelect, FormTextArea, FormTextInput } from 'compone
 import { OrganizationInviteCreate, orgInviteCreateSchema as formSchema } from 'core/api';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { ms, StyleProps, Styles } from 'styles';
-import { GenericFormData, GenericFormErrors } from 'utils';
+import { formKeyToFieldName, GenericFormData, GenericFormErrors } from 'utils';
 
 type FormData = GenericFormData<OrganizationInviteCreate>;
 type FormErrors = GenericFormErrors<OrganizationInviteCreate>;
@@ -12,25 +12,6 @@ interface Props extends StyleProps {
   data?: FormData;
   onChange?: (data: FormData) => void;
 }
-
-const keyToFieldName = <K extends keyof FormData>(key: K): string => {
-  switch (key) {
-    case 'firstName':
-      return 'First name';
-    case 'lastName':
-      return 'Last name';
-    case 'email':
-      return 'Email';
-    case 'role':
-      return 'Role';
-    case 'title':
-      return 'Title';
-    case 'message':
-      return 'Message';
-    default:
-      return key;
-  }
-};
 
 export const TeamMemberCreateInviteForm: FC<Props> = ({ style, data = {}, onChange }) => {
   const [errors, setErrors] = useState<FormErrors>();
@@ -63,7 +44,7 @@ export const TeamMemberCreateInviteForm: FC<Props> = ({ style, data = {}, onChan
     for (const detail of error.details) {
       if (detail.context?.key === key) {
         const { message: rawMsg } = detail;
-        const message = rawMsg.replace(`"${key}"`, keyToFieldName(key));
+        const message = rawMsg.replace(`"${key}"`, formKeyToFieldName(key));
         setErrors(v => (v ? { ...v, [key]: message } : { [key]: message }));
       }
     }

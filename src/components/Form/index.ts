@@ -11,6 +11,7 @@ export * from './Divider';
 export * from './DragnDropImage';
 export * from './EventTypeSelect';
 export * from './ImgFileSelectRoundedBtn';
+export * from './Input';
 export * from './NumberInput';
 export * from './OrganizationRoleSelect';
 export * from './PasswordInput';

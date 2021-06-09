@@ -72,13 +72,15 @@ export const OrganizationCreateSchema = Joi.object<Organization>({
 export const OrganizationUpdateSchema = Joi.object<Organization>({
   name: Joi.string(),
   type: Joi.string().valid(...orgTypeArr),
-  email: Joi.string().email({ tlds: { allow: false } }),
-  phone: Joi.string().custom(phoneValidatorFn),
-  country: Joi.string(),
-  state: Joi.string(),
-  city: Joi.string(),
-  postcode: Joi.string(),
-  website: Joi.string().custom(urlValidatorFn),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .allow(''),
+  phone: Joi.string().custom(phoneValidatorFn).allow(''),
+  country: Joi.string().allow(''),
+  state: Joi.string().allow(''),
+  city: Joi.string().allow(''),
+  postcode: Joi.string().allow(''),
+  website: Joi.string().custom(urlValidatorFn).allow(''),
   logo: Joi.string().uri(),
   socials: Joi.array().items(SocialSchema),
 });

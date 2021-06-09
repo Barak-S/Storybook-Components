@@ -7,6 +7,7 @@ import { countries } from 'utils';
 
 interface Props extends StyleProps, FormAutocompleteInputProps {
   value?: string;
+  onBlur?: () => void;
   onChange?: (value?: string) => void;
 }
 

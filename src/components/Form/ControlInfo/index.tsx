@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { Text, Title } from 'components/Common';
 import React, { FC } from 'react';
-import { colors, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles } from 'styles';
 
 import { FormTooltip } from '../Tooltip';
 
@@ -15,7 +15,7 @@ export const FormControlInfo: FC<Props> = ({ title, description, hint }) => {
   const styles = getStyles();
   return (
     <>
-      <Grid style={styles.titleWrapper}>
+      <Grid style={ms(styles.titleWrapper, !!description && styles.titleWrapperIndent)}>
         {title && (
           <Title type="h5" style={styles.title}>
             {title}
@@ -32,6 +32,8 @@ const getStyles = (): Styles => ({
   titleWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+  titleWrapperIndent: {
     marginBottom: 16,
   },
   title: {
