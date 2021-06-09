@@ -36,19 +36,19 @@ export const EventBasicCreateFromProfile: FC<Props> = ({ style, data, processing
         hint="Lorem ipsum dolor sit amet."
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed"
       >
-        <Grid style={styles.rowBottomIndent} container spacing={2}>
-          <Grid item md>
+        <Grid style={styles.rowBottomIndent} container spacing={2} direction="row">
+          <Grid item sm={6} xs={12}>
             <FormTextInput label="Phone" value={data?.phone || ''} onChange={handleTextInputChange('phone')} />
           </Grid>
-          <Grid item md>
+          <Grid item sm={6} xs={12}>
             <FormCountryInput label="Country" value={data?.country || ''} onChange={handleDataChange('country')} />
           </Grid>
         </Grid>
-        <Grid style={styles.rowBottomIndent} container spacing={2}>
-          <Grid item md>
+        <Grid style={styles.rowBottomIndent} container spacing={2} direction="row">
+          <Grid item sm={6} xs={12}>
             <FormTextInput label="State" value={data?.state || ''} onChange={handleTextInputChange('state')} />
           </Grid>
-          <Grid item md>
+          <Grid item sm={6} xs={12}>
             <FormTextInput label="City" value={data?.city || ''} onChange={handleTextInputChange('city')} />
           </Grid>
         </Grid>

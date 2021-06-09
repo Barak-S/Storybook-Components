@@ -18,6 +18,7 @@ export const FormCountryInput: FC<Props> = ({ label = 'country', value, required
       inputValue={value || ''}
       value={value}
       freeSolo
+      fullWidth
       onInputChange={(_e, val) => onChange && onChange(val)}
       {...props}
       {...customizeAutocompleteProps}
