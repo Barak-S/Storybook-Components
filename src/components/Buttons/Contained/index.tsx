@@ -2,9 +2,9 @@ import { Button, CircularProgress, makeStyles, useMediaQuery, useTheme } from '@
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
 import React, { FC } from 'react';
 import { colors, mc, ms, StyleProps, Styles, useHover } from 'styles';
-import { select } from 'utils';
+import { getTestIdProps, select, TestIdProps } from 'utils';
 
-interface Props extends StyleProps {
+interface Props extends StyleProps, TestIdProps {
   className?: string;
   disabled?: boolean;
   color?: Color;
@@ -29,6 +29,7 @@ export const ContainedButton: FC<Props> = ({
   color = 'primary',
   processing,
   size = 'large',
+  testID,
   children,
   onClick,
 }) => {
@@ -69,6 +70,7 @@ export const ContainedButton: FC<Props> = ({
       startIcon={startIcon && <LineAwesomeIcon type={startIcon} />}
       endIcon={endIcon && <LineAwesomeIcon type={endIcon} />}
       onClick={onClick}
+      {...getTestIdProps(testID, 'btn')}
       {...hoverProps}
     >
       {processing ? <CircularProgress color="secondary" size={20} /> : children}

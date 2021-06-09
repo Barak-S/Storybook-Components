@@ -1,9 +1,9 @@
 import { isArray, isNumber } from 'lodash';
 import React, { FC } from 'react';
-import { ms, MergeStyleVal, px, Style } from 'styles';
+import { ms, MergeStyleVal, px, Style, ClassNameProps } from 'styles';
+import { getTestIdProps, TestIdProps } from 'utils';
 
-interface Props {
-  className?: string;
+interface Props extends ClassNameProps, TestIdProps {
   style?: Style | MergeStyleVal[];
   block?: boolean;
   size?: number | string;
@@ -12,7 +12,7 @@ interface Props {
   content?: string;
 }
 
-export const Text: FC<Props> = ({ className, style, size, block, children, color, bold, content }) => {
+export const Text: FC<Props> = ({ testID, className, style, size, block, children, color, bold, content }) => {
   const getSizeStyle = (): Style | undefined => {
     if (!size) {
       return undefined;
@@ -31,7 +31,7 @@ export const Text: FC<Props> = ({ className, style, size, block, children, color
     isArray(style) ? ms(...style) : style,
   );
   return (
-    <span className={className} style={finalStyle}>
+    <span className={className} style={finalStyle} {...getTestIdProps(testID, 'text')}>
       {content || children}
     </span>
   );

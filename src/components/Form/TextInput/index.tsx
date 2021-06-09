@@ -3,8 +3,9 @@ import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { InputAdornment, makeStyles } from '@material-ui/core';
 import { colors, Styles } from 'styles';
 import { mc, Style } from 'styles';
+import { getTestIdProps, TestIdProps } from 'utils';
 
-type Props = TextFieldProps & CustomProps;
+type Props = TextFieldProps & CustomProps & TestIdProps;
 
 interface CustomProps {
   inputStyle?: Style;
@@ -29,6 +30,7 @@ export const FormTextInput: FC<Props> = ({
   forwardRef,
   className,
   placeholder,
+  testID,
   ...props
 }) => {
   const startIconProps = <InputAdornment position="start">{iconStart}</InputAdornment>;
@@ -45,7 +47,7 @@ export const FormTextInput: FC<Props> = ({
       {...props}
       placeholder={placeholder}
       InputProps={{
-        inputProps: { style: inputStyle, maxLength },
+        inputProps: { style: inputStyle, maxLength, ...getTestIdProps(testID, 'input') },
         startAdornment: iconStart ? startIconProps : undefined,
         endAdornment: iconEnd ? endIconProps : undefined,
         ...(InputProps ? InputProps : {}),

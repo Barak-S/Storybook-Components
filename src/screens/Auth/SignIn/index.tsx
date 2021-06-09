@@ -162,6 +162,7 @@ export const AuthSignInScreen: FC<Props> = () => {
               </Title>
               <Grid item xs={12} style={globalStyles.inputItem}>
                 <FormTextInput
+                  testID="email"
                   value={email || ''}
                   type="email"
                   valid={!validators.getEmailErr(email)}
@@ -175,6 +176,7 @@ export const AuthSignInScreen: FC<Props> = () => {
               </Grid>
               <Grid item xs={12} style={globalStyles.inputItem}>
                 <FormPasswordInput
+                  testID="password"
                   value={password || ''}
                   label="Password"
                   disabled={processing}
@@ -191,11 +193,16 @@ export const AuthSignInScreen: FC<Props> = () => {
             </Grid>
             <Grid container justify="space-between" spacing={2}>
               <Grid item xs={12} sm={6}>
-                <FormCheckboxInput label="Keep me logged in" checked={keepAuth} onChange={handleKeepAuthChange} />
+                <FormCheckboxInput
+                  testID="keepLoggedIn"
+                  label="Keep me logged in"
+                  checked={keepAuth}
+                  onChange={handleKeepAuthChange}
+                />
               </Grid>
               <Grid item xs={12} sm={6} style={{ display: 'flex', alignItems: 'center' }}>
                 <View row className={classes.forgot}>
-                  <TextLink style={styles.resetPass} onClick={handleForgotPassClick}>
+                  <TextLink testID="forgotPass" style={styles.resetPass} onClick={handleForgotPassClick}>
                     {'forgot password?'}
                   </TextLink>
                 </View>
@@ -204,12 +211,17 @@ export const AuthSignInScreen: FC<Props> = () => {
           </View>
           <Grid container justify="center" spacing={2}>
             <View style={globalStyles.authErrWrap} justifyContent="center" alignItems="center">
-              {!!errs?.request && <Text style={globalStyles.authErr}>{errs.request}</Text>}
+              {!!errs?.request && (
+                <Text testID="error" style={globalStyles.authErr}>
+                  {errs.request}
+                </Text>
+              )}
             </View>
           </Grid>
           <Grid container justify="center" spacing={2} style={{ marginBottom: 15 }}>
             <Grid item xs={12} sm={4} style={globalStyles.inputItem}>
               <ContainedButton
+                testID="login"
                 processing={processing}
                 disabled={processing || submitDisabled}
                 onClick={handleLogInPress}
