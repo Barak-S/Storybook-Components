@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.87] - 2021-06-10
+### Fixed
+- DO-100: Word "Logo" in "Organization Logo" label should start from uppercased letter L
+- DO-100: It's possible to proceed to the next step if only the space symbol was typed into required fields
+
 ## [1.0.86] - 2021-06-09
 ### Fixed
 - Components: FormColorPicker label fixed
