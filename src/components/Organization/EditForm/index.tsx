@@ -1,8 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { FormControlInfo, FormCountryInput, FormDivider, FormDragnDropImage, FormInput, FormTextInput } from 'components/Form';
-import { OrganizationUpdate, OrganizationUpdateSchema, phoneValidatorFn } from 'core/api';
+import { NameSchema, OrganizationUpdate, OrganizationUpdateSchema, PhoneSchema, StrSchema } from 'core/api';
 import { modCloudinaryUrl } from 'core/cloudinary';
-import Joi from 'joi';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { ms, StyleProps, Styles, withDensity } from 'styles';
 import { formKeyToFieldName, GenericFormData, GenericFormErrors, GenericFormProcessing } from 'utils';
@@ -19,11 +18,11 @@ interface Props extends StyleProps {
 }
 
 const formSchema = OrganizationUpdateSchema.keys({
-  name: Joi.string().required(),
-  phone: Joi.string().custom(phoneValidatorFn).required(),
-  country: Joi.string().required(),
-  state: Joi.string().required(),
-  city: Joi.string().required(),
+  name: NameSchema.required(),
+  phone: PhoneSchema.required(),
+  country: StrSchema.required(),
+  state: StrSchema.required(),
+  city: StrSchema.required(),
 });
 
 export const OrganizationEditForm: FC<Props> = ({ style, data, processing, onChange, onLogoFileSelect }) => {

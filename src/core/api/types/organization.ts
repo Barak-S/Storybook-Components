@@ -1,9 +1,17 @@
 import Joi from 'joi';
 import { shortTextMaxSize } from 'utils';
 
-import { EmptyStrSchema, NameSchema, phoneValidatorFn, urlValidatorFn } from './common';
+import { EmailSchema, EmptyStrSchema, IdSchema, NameSchema, PhoneSchema, UrlSchema } from './common';
 import { Social, SocialSchema } from './social';
 import { User } from './user';
+
+// Type
+
+export type OrganizationType = 'company' | 'non-profit' | 'individual';
+
+export const OrganizationTypeArr: OrganizationType[] = ['company', 'non-profit', 'individual'];
+
+export const OrganizationTypeSchema = Joi.string().valid(...OrganizationTypeArr);
 
 // Organization
 
@@ -27,17 +35,17 @@ export interface Organization {
 }
 
 export const OrganizationSchema = Joi.object<Organization>({
-  id: Joi.string().required(),
-  name: Joi.string().required(),
-  type: Joi.string().required(),
-  email: Joi.string().email({ tlds: { allow: false } }),
-  phone: Joi.string().custom(phoneValidatorFn),
+  id: IdSchema.required(),
+  name: NameSchema.required(),
+  type: OrganizationTypeSchema.required(),
+  email: EmailSchema.allow(''),
+  phone: PhoneSchema.allow(''),
   country: EmptyStrSchema,
   state: EmptyStrSchema,
   city: EmptyStrSchema,
   postcode: EmptyStrSchema,
-  website: EmptyStrSchema.custom(urlValidatorFn),
-  logo: EmptyStrSchema,
+  website: UrlSchema.allow(''),
+  logo: UrlSchema.allow(''),
   socials: Joi.array().items(SocialSchema),
   createdAt: Joi.string().required(),
   updatedAt: Joi.string().required(),
@@ -47,42 +55,20 @@ export const isOrganization = (val: unknown): val is Organization => Organizatio
 
 export type OrganizationCreate = Omit<Organization, 'id' | 'createdAt' | 'updatedAt'>;
 
-export type OrganizationUpdate = Partial<Omit<Organization, 'id' | 'createdAt' | 'updatedAt'>>;
-
-export type OrganizationType = 'company' | 'non-profit' | 'individual';
-
-export const orgTypeArr: OrganizationType[] = ['company', 'non-profit', 'individual'];
-
-export const OrganizationCreateSchema = Joi.object<Organization>({
-  name: Joi.string().required(),
-  type: Joi.string()
-    .valid(...orgTypeArr)
-    .required(),
-  email: Joi.string().email({ tlds: { allow: false } }),
-  phone: Joi.string().custom(phoneValidatorFn),
-  country: Joi.string(),
-  state: Joi.string(),
-  city: Joi.string(),
-  postcode: Joi.string(),
-  website: Joi.string().custom(urlValidatorFn),
-  logo: Joi.string().uri(),
-  socials: Joi.array().items(SocialSchema),
+export const OrganizationCreateSchema = OrganizationSchema.keys({
+  id: Joi.forbidden(),
+  createdAt: Joi.forbidden(),
+  updatedAt: Joi.forbidden(),
 });
 
-export const OrganizationUpdateSchema = Joi.object<Organization>({
-  name: Joi.string(),
-  type: Joi.string().valid(...orgTypeArr),
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .allow(''),
-  phone: Joi.string().custom(phoneValidatorFn).allow(''),
-  country: Joi.string().allow(''),
-  state: Joi.string().allow(''),
-  city: Joi.string().allow(''),
-  postcode: Joi.string().allow(''),
-  website: Joi.string().custom(urlValidatorFn).allow(''),
-  logo: Joi.string().uri(),
-  socials: Joi.array().items(SocialSchema),
+export type OrganizationUpdate = Partial<Omit<Organization, 'id' | 'createdAt' | 'updatedAt'>>;
+
+export const OrganizationUpdateSchema = OrganizationSchema.keys({
+  id: Joi.forbidden(),
+  name: NameSchema,
+  type: OrganizationTypeSchema,
+  createdAt: Joi.forbidden(),
+  updatedAt: Joi.forbidden(),
 });
 
 // Members
