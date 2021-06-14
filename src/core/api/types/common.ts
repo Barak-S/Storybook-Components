@@ -75,6 +75,6 @@ export const StrSchema = Joi.string().trim().strict();
 
 export const EmptyStrSchema = StrSchema.allow('');
 
-export const IdSchema = Joi.string().trim().strict().max(20);
+export const IdSchema = Joi.string().trim().strict().max(30);
 
 export const NameSchema = Joi.string().trim().strict().max(50);
