@@ -240,6 +240,7 @@ export const DashboardEventsRegistrationScreen: FC<Props> = ({ data, onChange })
             value="I agree to receive product updates and marketing communications from…."
             resize
             fontSize={21}
+            style={{ minHeight: 90 }}
           />
         </View>
         <div className={classes.defaultSetting}>
@@ -343,7 +344,6 @@ const useStyles = (theme: Theme) =>
       maxWidth: 870,
     },
     textAreaInput: {
-      height: 124,
       maxWidth: 871,
     },
     selectAdornment: {

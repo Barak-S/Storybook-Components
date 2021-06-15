@@ -187,6 +187,7 @@ export const NewOrganizationInvitation: FC<Props> = ({ open, handleClick }) => {
                   helperText={errs?.message}
                   className={classes.textAreaInput}
                   onChange={handleTextFieldChanged('message')}
+                  style={{ minHeight: 127 }}
                 />
               </View>
             </div>

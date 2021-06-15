@@ -1,6 +1,6 @@
 import { Divider, makeStyles, Theme, useTheme, Grid } from '@material-ui/core';
 import { View } from 'components/Common';
-import { FormToggle, FormTextInput, FormTextArea } from 'components/Form';
+import { FormToggle, FormTextInput, FormTextArea, FormTooltip } from 'components/Form';
 import FormTagsInput from 'components/Form/TagsInput';
 import React, { FC, ChangeEvent } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
@@ -37,7 +37,13 @@ export const EventSettingsEditFrom: FC<Props> = ({ data, errors, onChange, child
 
   return (
     <>
-      <span style={styles.title}>{'Event Title & Description'}</span>
+      <div style={{ display: 'flex' }}>
+        <span style={styles.title}>{'Event Title & Description'}</span>
+        <FormTooltip
+          title="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptatum."
+          placement="top-start"
+        />
+      </div>
       <span style={styles.subtitle}>
         {'The name will appear on the event tile, the description will be used in the header tag of the event web landing page.'}
       </span>
@@ -51,16 +57,21 @@ export const EventSettingsEditFrom: FC<Props> = ({ data, errors, onChange, child
           onChange={handleTextInputChange('title')}
         />
       </View>
-      <View style={styles.textArea}>
-        <FormTextArea
-          label="Event Description"
-          className={classes.textAreaInput}
-          value={data?.description || ''}
-          error={!!errors?.description}
-          helperText={errors?.description}
-          fontSize={21}
-          onChange={handleTextInputChange('description')}
-        />
+      <View>
+        <View style={styles.textArea}>
+          <FormTextArea
+            resize
+            label="Event Description"
+            className={classes.textAreaInput}
+            value={data?.description || ''}
+            error={!!errors?.description}
+            helperText={errors?.description}
+            fontSize={21}
+            onChange={handleTextInputChange('description')}
+            style={{ minHeight: 76 }}
+          />
+        </View>
+        <Divider style={styles.divider} />
       </View>
 
       {children}
@@ -96,6 +107,7 @@ export const EventSettingsEditFrom: FC<Props> = ({ data, errors, onChange, child
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elitsed."
           items={data?.passRequirements}
           onChange={handleDataChange('passRequirements')}
+          style={{ width: '100%' }}
         />
       </Grid>
       <Divider style={{ marginTop: 22, marginBottom: 28 }} />
@@ -157,7 +169,8 @@ const styles: Styles = {
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    maxWidth: 630,
+    maxWidth: 660,
+    width: '100%',
   },
 };
 
@@ -178,7 +191,6 @@ const useStyles = (theme: Theme) =>
       maxWidth: 870,
     },
     textAreaInput: {
-      height: 97,
       maxWidth: 870,
     },
     toggleSection: {

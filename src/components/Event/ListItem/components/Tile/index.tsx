@@ -12,8 +12,13 @@ interface Props extends StyleProps {
   description?: string;
   disabled?: boolean;
   className?: string;
-  linkTo?: string;
+  linkTo?: TileLink;
   icon: LineAwesomeIconType;
+}
+
+interface TileLink {
+  route?: string;
+  label?: string;
 }
 
 export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, linkTo, children, style, className }) => {
@@ -28,7 +33,7 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       style={ms({ background: hover ? 'rgba(255,255,255,0.6)' : colors.white }, style)}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => (linkTo ? history.push(linkTo) : undefined)}
+      onClick={() => (linkTo?.route ? history.push(linkTo.route) : undefined)}
     >
       <View row style={{ justifyContent: 'space-between' }}>
         <LineAwesomeIcon
@@ -58,12 +63,12 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       </Title>
       <span className={classes.description}>{description}</span>
       {children}
-      {title && (
+      {linkTo?.label && (
         <div className={classes.linkTo}>
-          <span className={classes.linktoText} style={{ color: hover ? colors.link : '#afafaf', paddingRight: 6 }}>
-            {title}
+          <span className={classes.linktoText} style={{ color: hover ? colors.link : colors.veryLightPinkTwo, paddingRight: 6 }}>
+            {linkTo.label}
           </span>
-          <LineAwesomeIcon type="arrow-right" size={16} color={hover ? colors.link : '#afafaf'} />
+          <LineAwesomeIcon type="arrow-right" size={16} color={hover ? colors.link : colors.veryLightPinkTwo} />
         </div>
       )}
     </Paper>
@@ -76,7 +81,10 @@ const useStyles = (theme: Theme) =>
       maxWidth: 311,
       width: '100%',
       height: '100%',
-      padding: 23,
+      paddingTop: 15,
+      paddingLeft: 18,
+      paddingRight: 16,
+      paddingBottom: 14,
       borderRadius: 12,
       marginBottom: 21,
       cursor: 'pointer',

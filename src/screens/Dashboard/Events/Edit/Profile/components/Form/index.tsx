@@ -115,13 +115,15 @@ export const EventProfileEditFrom: FC<Props> = ({ data, errors, onChange }) => {
         />
       </FormRow>
       <Divider style={{ marginBottom: 36 }} />
-      <FormControlSection
-        title="Social Media Accounts"
-        description="These will display in the footer of event landing page, you can edit or add more in the event edit section."
-        borderTop={false}
-      >
-        <FormSocialsInput items={data?.socials} onChange={handleDataChange('socials')} />
-      </FormControlSection>
+      <div style={{ width: '100%', maxWidth: 750 }}>
+        <FormControlSection
+          title="Social Media Accounts"
+          description="These will display in the footer of event landing page, you can edit or add more in the event edit section."
+          borderTop={false}
+        >
+          <FormSocialsInput items={data?.socials} onChange={handleDataChange('socials')} />
+        </FormControlSection>
+      </div>
       <Divider style={{ marginTop: 40, marginBottom: 44 }} />
     </>
   );

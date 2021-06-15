@@ -193,6 +193,7 @@ export const DashboardContactScreen: FC<Props> = () => {
                     helperText={errs?.message}
                     className={classes.textAreaInput}
                     onChange={handleTextFieldChanged('message')}
+                    style={{ height: 170 }}
                   />
                 </View>
                 <Title className={classes.errors} type="h3">
@@ -298,10 +299,8 @@ export const useStyles = (theme: Theme) =>
     },
     textAreaInput: {
       maxWidth: 700,
-      height: 170,
       [theme.breakpoints.down('md')]: {
         maxWidth: '100%',
-        height: 221,
       },
     },
     resize: {

@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxProps, FormControlLabel, makeStyles } from '@material-ui/core';
 import React, { FC } from 'react';
-import { colors } from 'styles';
+import { colors, Styles } from 'styles';
 import { getTestIdProps, TestIdProps } from 'utils';
 
 interface Props extends CheckboxProps, TestIdProps {
@@ -15,11 +15,22 @@ export const FormCheckboxInput: FC<Props> = props => {
   const classes = useStyles();
   return (
     <FormControlLabel
+      style={styles.container}
       className={classes.container}
-      control={<Checkbox {...checkboxProps} inputProps={modInputProps} />}
+      control={<Checkbox style={styles.input} {...checkboxProps} inputProps={modInputProps} />}
       label={label}
     />
   );
+};
+
+const styles: Styles = {
+  container: {
+    alignItems: 'flex-start',
+  },
+  input: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
 };
 
 const useStyles = makeStyles(() => ({
@@ -27,6 +38,9 @@ const useStyles = makeStyles(() => ({
     marginRight: 0,
     '& [class*="MuiFormControlLabel"]': {
       color: colors.brownishGrey,
+    },
+    '& .MuiCheckbox-root': {
+      paddingRight: 4,
     },
   },
 }));

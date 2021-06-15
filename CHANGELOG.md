@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.88] - 2021-06-15
+### Fixed
+- DO-185: Labels at the bottom of each areas duffer from design
+- DO-185: Caption of "Event Appearance" area disappeared
+- DO-185: Labels in "Event Appearance" area should not be uppercase, only first letters
+- DO-185: Edit links in "Event Appearance" area should be clickable and lead to appropriate screens. Should be disabled and painted in the "Disabled" color according to Joe's comment
+- DO-187: Hint icons should be for "Event Title & Description" area and for "Event Dates" area
+- DO-187: "Event Description" text area has no scroll if the typed message is larger than the text area size
+- DO-187: Labels should be located in one row at "Password Requirements" area and aligned
+- DO-187: "Event Description" text area has a dark outline after it was clicked for the first time, but it should have a grey outline color
+
 ## [1.0.87] - 2021-06-10
 ### Fixed
 - DO-100: Word "Logo" in "Organization Logo" label should start from uppercased letter L

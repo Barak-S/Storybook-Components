@@ -34,11 +34,12 @@ export const FormTextArea: FC<Props> = ({
   const textAreaId = useMemo(() => genId(), []);
   const classes = useStyles();
   return (
-    <View
-      className={mc(resize && classes.containerResizeIcon, resize && focus && classes.containerResizeIconActive, className)}
-      style={ms(styles.container, isActive && styles.focusedArea, style)}
-    >
-      <label htmlFor={textAreaId}>
+    <View className={className} style={styles.container}>
+      <label
+        htmlFor={textAreaId}
+        style={styles.textAreaWrapper}
+        className={mc(resize && classes.containerResizeIcon, resize && isActive && classes.containerResizeIconActive)}
+      >
         <TextareaAutosize
           id={textAreaId}
           {...props}
@@ -46,11 +47,17 @@ export const FormTextArea: FC<Props> = ({
           onBlur={() => setFocus(false)}
           onChange={onChange}
           value={value}
-          style={ms(styles.textArea, {
-            overflow: 'auto',
-            resize: resize ? 'vertical' : 'none',
-            fontSize: fontSize ? fontSize : 16,
-          })}
+          style={ms(
+            styles.textArea,
+            {
+              overflow: 'auto',
+              resize: resize ? 'vertical' : 'none',
+              fontSize: fontSize ? fontSize : 16,
+            },
+            isActive && styles.focusedArea,
+            style,
+          )}
+          className={classes.textArea}
         />
         <Text style={ms(styles.label, isActive && styles.focusedLabel, error && styles.error)}>{label}</Text>
       </label>
@@ -66,8 +73,8 @@ const useStyles = makeStyles({
       width: 12,
       height: 12,
       position: 'absolute',
-      right: 15,
-      bottom: 15,
+      right: 8,
+      bottom: 13,
       backgroundColor: colors.paleGrey,
       backgroundImage: `url(${resizeIcon})`,
       backgroundRepeat: 'no-repeat',
@@ -80,31 +87,41 @@ const useStyles = makeStyles({
       backgroundColor: colors.white,
     },
   },
+  textArea: {
+    '&::-webkit-resizer': {
+      paddingRight: 15,
+    },
+  },
 });
 
 const styles: Styles = {
   container: {
     width: '100%',
     position: 'relative',
-    padding: 15,
-    background: colors.paleGrey,
-    ...mx.border(1, 'solid', colors.paleGrey),
-    borderRadius: 12,
     cursor: 'text',
+    boxSizing: 'border-box',
+    height: '100%',
+  },
+  textAreaWrapper: {
+    height: '100%',
+    position: 'relative',
   },
   textArea: {
     width: '100%',
-    minHeight: 97,
-    maxHeight: 255,
     height: '100%',
+    minHeight: 76,
+    maxHeight: 255,
     border: 'none',
-    background: 'transparent',
     fontFamily: 'inherit',
-    // position: 'relative',
+    boxSizing: 'border-box',
+    background: colors.paleGrey,
+    padding: 15,
+    borderRadius: 12,
   },
   focusedArea: {
     background: colors.white,
-    borderColor: colors.withAlpha(colors.brownishGrey, 0.3),
+    ...mx.border(1, 'solid', '#cecece'),
+    boxSizing: 'border-box',
   },
   label: {
     top: 0,

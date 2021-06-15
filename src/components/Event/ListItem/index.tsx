@@ -163,7 +163,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 title="EVENT PROFILE"
                 description="Lorem ipsum dolor sit amet, consectetur adipi scing elitsed. Lorem ipsum dolors consect etur adipiscing elitsed."
                 icon="passport"
-                linkTo={routes.dashboard.events.getEditProfile(id)}
+                linkTo={{ route: routes.dashboard.events.getEditProfile(id), label: 'Profile' }}
                 style={{ height: 201 }}
                 disabled={!item.profile}
               />
@@ -171,7 +171,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 title="EVENT SETTINGS"
                 description="Lorem ipsum dolor sit amet, consectetur adipi scing elitsed. Lorem ipsum dolors consect etur adipiscing elitsed."
                 icon="cog"
-                linkTo={routes.dashboard.events.getEditSettings(id)}
+                linkTo={{ route: routes.dashboard.events.getEditSettings(id), label: 'Settings' }}
                 style={{ height: 201 }}
                 disabled={!item.settings}
               />
@@ -181,7 +181,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 title="ATTENDEE REGISTRATION"
                 description="This is where your attendees will learn about and register for your event."
                 icon="clipboard-list"
-                linkTo={routes.dashboard.events.getEditRegistration(id)}
+                linkTo={{ route: routes.dashboard.events.getEditRegistration(id), label: 'Registration' }}
                 style={{ height: 201 }}
                 disabled={!item.registration}
               />
@@ -189,7 +189,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 title="EVENT TEAM"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="users"
-                linkTo="manage-users"
+                linkTo={{ route: '/manage-users', label: 'Manage Users' }}
                 style={{ height: 201 }}
                 disabled
               />
@@ -199,7 +199,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 title="EVENT SESSION"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="calendar-plus"
-                linkTo={routes.dashboard.events.getEditSessions(id)}
+                linkTo={{ route: routes.dashboard.events.getEditSessions(id), label: 'Session' }}
                 style={{ height: 425 }}
                 disabled
               >
@@ -216,6 +216,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 title="EVENT SPONSORS"
                 description="Invite the members of your organization who will be responsible for the event"
                 icon="thumbs-up"
+                linkTo={{ route: routes.dashboard.events.getEditSponsors(id), label: 'Sponsors' }}
                 style={{ height: 425 }}
                 disabled
               >
@@ -229,12 +230,13 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
             </div>
             <div className={classes.eventDataRow}>
               <Tile
+                title="EVENT APPEARANCE"
                 description="Brand your selected event theme and add in messaging to your attendees."
                 icon="edit"
                 style={{ height: 425 }}
                 disabled
               >
-                <div style={{ height: '100%', paddingTop: 12 }}>
+                <div style={{ height: '100%' }}>
                   <div style={{ display: 'flex', flexDirection: 'row', maxHeight: 89, height: '100%' }}>
                     <div
                       style={{ display: 'flex', flexDirection: 'column', maxWidth: 92, paddingRight: 12, textTransform: 'none' }}
@@ -250,22 +252,22 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                   </div>
                   <div style={{ width: '100%' }}>
                     <Divider style={{ marginTop: 18 }} />
-                    <div style={styles.editThemeTable}>
+                    <div style={styles.editThemeRow}>
                       <span style={styles.eventThemeTitle}>{'Registration'}</span>
                       <span style={styles.eventThemeEditLink}>{'Edit'}</span>
                     </div>
                     <Divider />
-                    <div style={styles.editThemeTable}>
+                    <div style={styles.editThemeRow}>
                       <span style={styles.eventThemeTitle}>{'Event Home'}</span>
                       <span style={styles.eventThemeEditLink}>{'Edit'}</span>
                     </div>
                     <Divider />
-                    <div style={styles.editThemeTable}>
+                    <div style={styles.editThemeRow}>
                       <span style={styles.eventThemeTitle}>{'Schedule'}</span>
                       <span style={styles.eventThemeEditLink}>{'Edit'}</span>
                     </div>
                     <Divider />
-                    <div style={styles.editThemeTable}>
+                    <div style={styles.editThemeRow}>
                       <span style={styles.eventThemeTitle}>{'Session Viewer'}</span>
                       <span style={styles.eventThemeEditLink}>{'Edit'}</span>
                     </div>
@@ -291,12 +293,14 @@ const styles: Styles = {
     fontSize: 12,
     letterSpacing: -0.05,
     color: colors.greyishBrown,
+    textTransform: 'none',
   },
   eventThemeEditLink: {
     fontSize: 12,
     letterSpacing: -0.05,
-    color: colors.link,
+    color: colors.veryLightPinkTwo,
     textDecoration: 'underline',
+    textTransform: 'none',
   },
   eventTileSection: {
     paddingTop: 42,
@@ -312,12 +316,14 @@ const styles: Styles = {
     height: '100%',
     width: '100%',
     borderRadius: 6,
+    boxShadow: '0px 8px 5px #aaaaaa40',
   },
-  editThemeTable: {
+  editThemeRow: {
     display: 'flex',
     justifyContent: 'space-between',
     paddingTop: 11.5,
     paddingBottom: 10.6,
+    cursor: 'not-allowed',
   },
 };
 

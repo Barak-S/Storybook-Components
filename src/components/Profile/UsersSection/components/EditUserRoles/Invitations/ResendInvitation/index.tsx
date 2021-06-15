@@ -178,6 +178,7 @@ export const ResendOrganizationInvitation: FC<Props> = ({ user, open, handleClic
             helperText={errs?.message}
             className={classes.textAreaInput}
             onChange={handleTextFieldChanged('message')}
+            style={{ minHeight: 127 }}
           />
         </View>
         <Divider style={{ margin: '25px 0' }} />

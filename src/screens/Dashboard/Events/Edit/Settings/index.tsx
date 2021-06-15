@@ -1,6 +1,12 @@
 import { Divider, makeStyles, Paper, Theme, useTheme } from '@material-ui/core';
 import { ContainedButton } from 'components/Buttons';
-import { FormStartEndDatesInput, FormStartEndDatesInputValue, FormEventTypeSelect, FormTimeZoneInput } from 'components/Form';
+import {
+  FormStartEndDatesInput,
+  FormStartEndDatesInputValue,
+  FormEventTypeSelect,
+  FormTimeZoneInput,
+  FormTooltip,
+} from 'components/Form';
 import { ScreenTitle } from 'components/Screen';
 import React, { FC, useState } from 'react';
 import { colors, StyleProps, Styles } from 'styles';
@@ -65,7 +71,13 @@ export const DashboardEventsSettingsScreen: FC<Props> = ({ data, processing, onC
       <Paper className={classes.container} elevation={2}>
         <EventSettingsEditFrom data={data?.settings} onChange={handleDataChange('settings')} errors={eventSettingErrs}>
           <Divider style={{ marginBottom: 26 }} />
-          <span style={styles.title}>{'Event Dates'}</span>
+          <div style={{ display: 'flex' }}>
+            <span style={styles.title}>{'Event Dates'}</span>
+            <FormTooltip
+              title="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, voluptatum."
+              placement="top-start"
+            />
+          </div>
           <span style={styles.subtitle}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elitsed'}</span>
           <div className={classes.dateSection}>
             <div style={{ maxWidth: 408, marginRight: 30, width: '100%' }}>
