@@ -1,7 +1,7 @@
 import { View } from 'components/Common';
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC } from 'react';
-import { StyleProps, Styles } from 'styles';
+import { ms, StyleProps, Styles, useScreenSizes } from 'styles';
 
 import FormDateInput from '../DateInput';
 
@@ -77,10 +77,12 @@ export const FormStartEndDatesInput: FC<Props> = ({
     }
   };
 
+  const { isMobile } = useScreenSizes();
+
   return (
-    <View style={[styles.container, style]} row alignItems="center">
+    <View style={[styles.container, style]} row={!isMobile} column={isMobile} alignItems="center">
       <FormDateInput
-        style={styles.startInput}
+        style={ms(styles.input, !isMobile && styles.rightIndent, isMobile && styles.bottomIndent)}
         label={label?.start || 'Start'}
         minDate={minDate}
         value={curStart}
@@ -90,9 +92,9 @@ export const FormStartEndDatesInput: FC<Props> = ({
         disabled={disabled}
         onChange={handleStartChange}
       />
-      <LineAwesomeIcon style={styles.icon} type="arrow-right" />
+      {!isMobile && <LineAwesomeIcon style={styles.icon} type="arrow-right" />}
       <FormDateInput
-        style={styles.endInput}
+        style={ms(styles.input, !isMobile && styles.leftIndent)}
         label={label?.end || 'End'}
         minDate={minDate}
         value={curEnd}
@@ -110,16 +112,19 @@ const styles: Styles = {
   container: {
     paddingTop: 30,
   },
-  startInput: {
-    marginRight: 10,
+  input: {
     width: '100%',
   },
-  endInput: {
-    width: '100%',
+  leftIndent: {
+    marginLeft: 10,
   },
-  icon: {
+  rightIndent: {
     marginRight: 10,
   },
+  bottomIndent: {
+    marginBottom: 30,
+  },
+  icon: {},
   timeZoneInput: {
     marginLeft: 10,
   },
