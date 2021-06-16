@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.89] - 2021-06-16
 ### Fixed
+- DO-101: Email label in a card at right hand is always cut even if there's enough place for full email displaying
+- DO-101: Maybe it would be better to locate Email field in a separate row to fully display it coz now it's cut
+- DO-101: Outline of Invitation message area is black after focus losing, but should be grey (see screenshot)
+- DO-101: I think that resize icon is displayed not good if there's a scrollbar
+- DO-101: In mobile version there is strange grey line
 - DO-103: In mobile version Date's fields are not fitted
 - DO-103: Expanded Date picker moves up-down while scrolling
 

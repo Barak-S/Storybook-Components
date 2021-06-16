@@ -13,7 +13,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
       log.info('update');
       const { data } = await api.orgs.list();
       log.info('update done, data=', data);
-      dispatch({ type: 'orgs/items/Set', data });
+      dispatch({ type: 'orgs/items/Update', data });
       return data;
     } catch (err: unknown) {
       log.err('update err=', err);
@@ -53,7 +53,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     }
     log.info('updating invites');
     const { data } = await api.orgs.invites.list(curOrgId);
-    log.info('updating invites done');
+    log.info('updating invites done', { data });
     dispatch({ type: 'orgs/items/invites/Set', id: curOrgId, data });
   };
 

@@ -3,7 +3,7 @@ import { Text, View } from 'components/Common';
 import React, { FC, useMemo, useState } from 'react';
 import { colors, mc, ms, mx, StyleProps, Styles } from 'styles';
 import { genId } from 'utils';
-import resizeIcon from './assets/resizeIcon.svg';
+// import resizeIcon from './assets/resizeIcon.svg';
 
 interface CustomProps extends StyleProps {
   value?: string;
@@ -69,22 +69,25 @@ export const FormTextArea: FC<Props> = ({
 const useStyles = makeStyles({
   containerResizeIcon: {
     '&::after': {
-      content: '""',
-      width: 12,
-      height: 12,
-      position: 'absolute',
-      right: 8,
-      bottom: 13,
-      backgroundColor: colors.paleGrey,
-      backgroundImage: `url(${resizeIcon})`,
-      backgroundRepeat: 'no-repeat',
-      display: 'block',
-      pointerEvents: 'none',
+      // TODO: Temporary disabled cos it is looks not well at the Windows
+      // More info here: https://meetiris.atlassian.net/browse/DO-101
+      //
+      // content: '""',
+      // width: 12,
+      // height: 12,
+      // position: 'absolute',
+      // right: 8,
+      // bottom: 13,
+      // backgroundColor: colors.paleGrey,
+      // backgroundImage: `url(${resizeIcon})`,
+      // backgroundRepeat: 'no-repeat',
+      // display: 'block',
+      // pointerEvents: 'none',
     },
   },
   containerResizeIconActive: {
     '&::after': {
-      backgroundColor: colors.white,
+      // backgroundColor: colors.white,
     },
   },
   textArea: {

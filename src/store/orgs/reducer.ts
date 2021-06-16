@@ -8,16 +8,29 @@ export type OrgsState = {
   items: Record<string, OrgsStateItem>;
 };
 
-type OrgsStateItem = { data: Organization; invites: OrganizationInvite[]; members: OrganizationMember[] };
+type OrgsStateItem = { data: Organization; invites?: OrganizationInvite[]; members?: OrganizationMember[] };
 
 const initial: OrgsState = { items: {} };
 
 const orgsArrToObj = (items: Organization[]): Record<string, OrgsStateItem> => {
   const obj: Record<string, OrgsStateItem> = {};
   for (const item of items) {
-    obj[item.id] = { data: item, invites: [], members: [] };
+    obj[item.id] = { data: item };
   }
   return obj;
+};
+
+const updateItems = (
+  oldItems: Record<string, OrgsStateItem>,
+  newItems: Record<string, OrgsStateItem>,
+): Record<string, OrgsStateItem> => {
+  const res: Record<string, OrgsStateItem> = {};
+  for (const key in newItems) {
+    const oldItem = oldItems[key];
+    const newItem = newItems[key];
+    res[key] = oldItem ? { ...oldItem, ...newItem } : { ...newItem };
+  }
+  return res;
 };
 
 export const reducer = (state: OrgsState = initial, action: StoreAction): OrgsState => {
@@ -27,6 +40,9 @@ export const reducer = (state: OrgsState = initial, action: StoreAction): OrgsSt
     }
     case 'orgs/items/Set': {
       return { ...state, items: action.data ? orgsArrToObj(action.data) : {} };
+    }
+    case 'orgs/items/Update': {
+      return { ...state, items: updateItems(state.items, orgsArrToObj(action.data)) };
     }
     case 'orgs/items/Remove': {
       const otherIds = keys(state.items).filter(id => id !== action.id);
@@ -53,7 +69,7 @@ export const reducer = (state: OrgsState = initial, action: StoreAction): OrgsSt
       if (!curItem) {
         return state;
       }
-      const invites = [...curItem.invites, invite];
+      const invites = curItem.invites ? [...curItem.invites, invite] : [invite];
       return { ...state, items: { ...state.items, [id]: { ...curItem, invites } } };
     }
     case 'orgs/items/invites/Remove': {
@@ -62,7 +78,7 @@ export const reducer = (state: OrgsState = initial, action: StoreAction): OrgsSt
       if (!curItem) {
         return state;
       }
-      const invites = curItem.invites.filter(itm => itm.id !== inviteId);
+      const invites = curItem.invites?.filter(itm => itm.id !== inviteId);
       return { ...state, items: { ...state.items, [id]: { ...curItem, invites } } };
     }
     case 'auth/SignOut':

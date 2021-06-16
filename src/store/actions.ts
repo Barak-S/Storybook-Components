@@ -13,6 +13,7 @@ type UserAction =
 type OrgsAction =
   | (Action<'orgs/cur/Set'> & { id?: string })
   | (Action<'orgs/items/Set'> & { data?: Organization[] })
+  | (Action<'orgs/items/Update'> & { data: Organization[] })
   | (Action<'orgs/items/Remove'> & { id: string })
   | (Action<'orgs/items/data/Modify'> & { id: string; data: Partial<Organization> })
   | (Action<'orgs/items/invites/Set'> & { id: string; data: OrganizationInvite[] })

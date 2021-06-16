@@ -78,22 +78,20 @@ export const TeamMemberCreateInviteForm: FC<Props> = ({ style, data = {}, onChan
           />
         </Grid>
       </Grid>
-      <Grid style={styles.rowIndent} item container spacing={2}>
-        <Grid item md={6} xs={12}>
-          <FormTextInput label="Title" value={title || ''} error={!!errors?.title} onChange={handleTextFieldChanged('title')} />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <FormTextInput
-            label="Email"
-            value={email || ''}
-            error={!!errors?.email}
-            helperText={errors?.email}
-            required
-            onFocus={handleFocus('email')}
-            onBlur={handleBlur('email')}
-            onChange={handleTextFieldChanged('email')}
-          />
-        </Grid>
+      <Grid style={styles.rowIndent} item>
+        <FormTextInput label="Title" value={title || ''} error={!!errors?.title} onChange={handleTextFieldChanged('title')} />
+      </Grid>
+      <Grid style={styles.rowIndent} item>
+        <FormTextInput
+          label="Email"
+          value={email || ''}
+          error={!!errors?.email}
+          helperText={errors?.email}
+          required
+          onFocus={handleFocus('email')}
+          onBlur={handleBlur('email')}
+          onChange={handleTextFieldChanged('email')}
+        />
       </Grid>
       <Grid style={styles.rowIndent} item>
         <FormOrganizationRoleSelect

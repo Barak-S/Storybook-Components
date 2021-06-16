@@ -4,6 +4,7 @@ import { Text } from 'components/Common';
 import { OrganizationInvite, organizationRoleToName } from 'core/api/types';
 import React, { FC } from 'react';
 import { colors, ms, mx, StyleProps, Styles } from 'styles';
+import TeamMemberInviteCardHeader from './components/Header';
 
 interface Props extends StyleProps {
   data: OrganizationInvite;
@@ -11,22 +12,12 @@ interface Props extends StyleProps {
 }
 
 export const TeamMemberInviteCard: FC<Props> = ({ style, data, onResendClick }) => {
-  const { firstName, lastName, email, role, title } = data;
+  const { role, title } = data;
   return (
     <Paper style={ms(styles.container, style)} elevation={3}>
       <Grid container direction="column">
-        <Grid item container direction="row" spacing={2} justify="space-between">
-          <Grid item>
-            <Text style={styles.nameLabel} block>
-              {firstName} {lastName}
-            </Text>
-            <Text style={styles.nameLabel} block>
-              {email}
-            </Text>
-          </Grid>
-          <Grid item>
-            <Text style={styles.statusLabel}>{'Invite Sent'}</Text>
-          </Grid>
+        <Grid item xs={12}>
+          <TeamMemberInviteCardHeader data={data} />
         </Grid>
         <Grid style={styles.fieldsBlock} item container direction="column">
           <Grid item container justify="space-between" direction="row">
@@ -62,19 +53,6 @@ const styles: Styles = {
     lineHeight: 1.4,
     borderRadius: 10,
     backgroundColor: colors.paleGrey,
-  },
-  nameLabel: {
-    fontSize: '14px',
-    color: colors.marine,
-    fontWeight: 500,
-    maxWidth: 150,
-    ...mx.threeDots,
-  },
-  statusLabel: {
-    fontSize: '14px',
-    color: colors.green,
-    fontWeight: 500,
-    textAlign: 'right',
   },
   fieldsBlock: {
     ...mx.borderTop(1, 'solid', colors.silver),

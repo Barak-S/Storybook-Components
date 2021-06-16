@@ -10,7 +10,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
 import { stateToCurOrgInvites, useSelector, useStoreManager } from 'store';
-import { StyleProps, Styles } from 'styles';
+import { StyleProps, Styles, useScreenSizes } from 'styles';
 import { errToStr } from 'utils';
 
 const log = Log('screens.Dashboard.Onboarding.Team');
@@ -27,6 +27,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
 
   const [data, setData] = useState<FormData | undefined>(storedData);
   const [processing, setProcessing] = useState<boolean>(false);
+  const { whenNotMobile } = useScreenSizes();
 
   const { showSnackbar } = useSnackbar();
   const history = useHistory();
@@ -136,7 +137,13 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid className="container-bottom-scroll-gradient" style={styles.listColumn} sm={5} xs={12} item>
+          <Grid
+            className={whenNotMobile('container-bottom-scroll-gradient')}
+            style={whenNotMobile(styles.listColumn)}
+            sm={5}
+            xs={12}
+            item
+          >
             <TeamMemberInvitesList style={styles.list} items={invites} placeholder="Send first invite to see the list" />
           </Grid>
         </Grid>
@@ -153,7 +160,9 @@ const styles: Styles = {
     marginBottom: 30,
   },
   submitBtn: {
-    minWidth: 240,
+    minWidth: 210,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   formColumn: {},
   listColumn: {
