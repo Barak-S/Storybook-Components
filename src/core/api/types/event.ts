@@ -177,28 +177,44 @@ export const EventSettingsUpdateSchema = EventSettingsSchema;
 
 // Event registration
 
+export type EventRegistrationType = 'free' | 'fixed-price' | 'tiered-pricing';
+
+export const EventRegistrationTypeArr: EventRegistrationType[] = ['free', 'fixed-price', 'tiered-pricing'];
+
+export const EventRegistrationTypeSchema = Joi.string().valid(...EventRegistrationTypeArr);
+
+export type EventRegistrationFormField = 'firstName' | 'lastName' | 'email' | 'password';
+
+export const EventRegistrationFormFieldArr: EventRegistrationFormField[] = ['firstName', 'lastName', 'email', 'password'];
+
+export const EventRegistrationFormFieldSchema = Joi.string().valid(...EventRegistrationFormFieldArr);
+
 export interface EventRegistration {
+  type?: EventRegistrationType;
   start: string;
   end: string;
   description?: string;
   form?: {
     headline?: string;
     subhead?: string;
+    fields?: EventRegistrationFormField[];
   };
   termsAndConditions?: string;
   marketingStatement?: string;
 }
 
 export const EventRegistrationSchema = Joi.object<EventRegistration>({
+  type: EventRegistrationTypeSchema,
   start: Joi.date().iso().required(),
   end: Joi.date().iso().greater(Joi.ref('start')).required(),
   description: EmptyStrSchema,
   form: Joi.object({
     headline: EmptyStrSchema,
     subhead: EmptyStrSchema,
+    fields: Joi.array().items(EventRegistrationFormFieldSchema),
   }),
-  termsAndConditions: EmptyStrSchema,
-  marketingStatement: EmptyStrSchema,
+  termsAndConditions: EmptyStrSchema.max(5000),
+  marketingStatement: EmptyStrSchema.max(5000),
 });
 
 export type EventRegistrationUpdate = Partial<EventRegistration>;
