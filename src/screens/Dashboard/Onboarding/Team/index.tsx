@@ -137,13 +137,7 @@ export const OnboardingTeamScreen: FC<Props> = ({ steps, onCloseClick }) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid
-            className={whenNotMobile('container-bottom-scroll-gradient')}
-            style={whenNotMobile(styles.listColumn)}
-            sm={5}
-            xs={12}
-            item
-          >
+          <Grid style={whenNotMobile(styles.listColumn)} sm={5} xs={12} item>
             <TeamMemberInvitesList style={styles.list} items={invites} placeholder="Send first invite to see the list" />
           </Grid>
         </Grid>

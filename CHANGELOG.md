@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.90] - 2021-06-17
+### Fixed
+- DO-101: "Invite Sent" labels could be located in one row with First and Last Names as it was before
+- DO-101: "Invitation message" label overlaps with a header while scrolling in mobile version
+- DO-101: For a tablet version on Safari I observe that strange grey line again
+- DO-187: For all desktop browsers on Windows the thickness of all lines is different
+
 ## [1.0.89] - 2021-06-16
 ### Fixed
 - DO-101: Email label in a card at right hand is always cut even if there's enough place for full email displaying

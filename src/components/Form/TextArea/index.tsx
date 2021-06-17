@@ -3,6 +3,7 @@ import { Text, View } from 'components/Common';
 import React, { FC, useMemo, useState } from 'react';
 import { colors, mc, ms, mx, StyleProps, Styles } from 'styles';
 import { genId } from 'utils';
+
 // import resizeIcon from './assets/resizeIcon.svg';
 
 interface CustomProps extends StyleProps {
@@ -129,7 +130,7 @@ const styles: Styles = {
   label: {
     top: 0,
     left: 0,
-    ...mx.zIndex.overBase,
+    zIndex: 1,
     position: 'absolute',
     fontSize: 16,
     transform: 'translate(15px, 18px) scale(1)',

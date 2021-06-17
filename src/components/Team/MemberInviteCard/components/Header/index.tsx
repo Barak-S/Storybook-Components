@@ -1,7 +1,7 @@
 import { Text, View } from 'components/Common';
 import { OrganizationInvite } from 'core/api';
 import React, { FC } from 'react';
-import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
+import { colors, ms, mx, StyleProps, Styles } from 'styles';
 
 interface Props extends StyleProps {
   data: OrganizationInvite;
@@ -9,16 +9,15 @@ interface Props extends StyleProps {
 
 export const TeamMemberInviteCardHeader: FC<Props> = ({ style, data }) => {
   const { firstName, lastName, email } = data;
-  const { isMobile } = useScreenSizes();
   return (
-    <View style={ms(styles.container, style)} direction={!isMobile ? 'row' : 'column'} justifyContent="space-between">
+    <View style={ms(styles.container, style)} direction="row" justifyContent="space-between">
       <View style={styles.labelWrap}>
         <Text style={styles.label} block>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.label} block>
           {email}
         </Text>
       </View>
-      <View style={ms(styles.valueWrap, !isMobile && styles.leftIndent)}>
+      <View style={ms(styles.valueWrap)}>
         <Text style={styles.value}>{'Invite Sent'}</Text>
       </View>
     </View>
