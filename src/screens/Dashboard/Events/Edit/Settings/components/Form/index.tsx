@@ -71,7 +71,6 @@ export const EventSettingsEditFrom: FC<Props> = ({ data, errors, onChange, child
             style={{ minHeight: 76 }}
           />
         </View>
-        <Divider style={styles.divider} />
       </View>
 
       {children}
