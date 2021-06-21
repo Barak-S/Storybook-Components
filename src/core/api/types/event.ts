@@ -1,6 +1,15 @@
 import Joi from 'joi';
 
-import { colorValidatorFn, EmptyStrSchema, EventTimezoneSchema, phoneValidatorFn, urlValidatorFn } from './common';
+import {
+  colorValidatorFn,
+  EmptyStrSchema,
+  EventTimezoneSchema,
+  IdSchema,
+  phoneValidatorFn,
+  TimeSchema,
+  UrlSchema,
+  urlValidatorFn,
+} from './common';
 import { Social, SocialSchema } from './social';
 
 // Colors
@@ -130,7 +139,7 @@ export type EventProfileUpdate = Partial<EventProfile>;
 
 export const EventProfileUpdateSchema = EventProfileSchema;
 
-// Event settings
+// Settings
 
 export type EventSettingsPassRequirement =
   | 'one-letter'
@@ -175,7 +184,7 @@ export type EventSettingsUpdate = Partial<EventSettings>;
 
 export const EventSettingsUpdateSchema = EventSettingsSchema;
 
-// Event registration
+// Registration
 
 export type EventRegistrationType = 'free' | 'fixed-price' | 'tiered-pricing';
 
@@ -191,7 +200,11 @@ export const EventRegistrationFormFieldSchema = Joi.string().valid(...EventRegis
 
 export type EventRegistrationSocialsIntegrationType = 'facebook' | 'google' | 'linkedin';
 
-export const EventRegistrationSocialsIntegrationTypeArr = ['facebook', 'google', 'linkedin'];
+export const EventRegistrationSocialsIntegrationTypeArr: EventRegistrationSocialsIntegrationType[] = [
+  'facebook',
+  'google',
+  'linkedin',
+];
 
 export const EventRegistrationSocialsIntegrationTypeSchema = Joi.string().valid(...EventRegistrationSocialsIntegrationTypeArr);
 
@@ -232,6 +245,67 @@ export const EventRegistrationUpdateSchema = EventRegistrationSchema.keys({
   end: Joi.date().iso(),
 });
 
+// Session
+
+export type EventSessionType =
+  | '​​keynote'
+  | '​​breakout'
+  | '​​track-specific'
+  | '​​watch-party'
+  | '​​speed-networking'
+  | '​​round-table';
+
+export const EventSessionTypeArr: EventSessionType[] = [
+  '​​keynote',
+  '​​breakout',
+  '​​track-specific',
+  '​​watch-party',
+  '​​speed-networking',
+  '​​round-table',
+];
+
+export const EventSessionTypeSchema = Joi.string().valid(...EventSessionTypeArr);
+
+export interface EventSession {
+  id: string;
+  type: EventSessionType;
+  start: string;
+  end: string;
+  title: string;
+  description?: string;
+  maxAudienceSize?: number;
+  artwork?: string;
+  playerBackgroundImage?: string;
+}
+
+export const EventSessionSchema = Joi.object<EventSession>({
+  id: IdSchema.required(),
+  type: EventSessionTypeSchema.required(),
+  start: TimeSchema.required(),
+  end: TimeSchema.required(),
+  title: Joi.string().trim().strict().max(200).required(),
+  description: Joi.string(),
+  maxAudienceSize: Joi.number().min(0),
+  artwork: UrlSchema,
+  playerBackgroundImage: UrlSchema,
+});
+
+export type EventSessionCreate = Omit<EventSession, 'id'>;
+
+export const EventSessionCreateSchema = EventSessionSchema.keys({
+  id: Joi.forbidden(),
+});
+
+export type EventSessionUpdate = Partial<Omit<EventSession, 'id'>>;
+
+export const EventSessionUpdateSchema = EventSessionSchema.keys({
+  id: Joi.forbidden(),
+  type: EventSessionTypeSchema,
+  start: TimeSchema,
+  end: TimeSchema,
+  title: Joi.string(),
+});
+
 // Event type
 
 export type EventType = 'public' | 'public-with-registration' | 'private-with-registration';
@@ -257,6 +331,7 @@ export interface Event {
   profile?: EventProfile;
   settings?: EventSettings;
   registration?: EventRegistration;
+  sessions?: EventSession[];
 
   createdAt: string;
   updatedAt: string;
@@ -275,6 +350,7 @@ export const EventSchema = Joi.object<Event>({
   profile: EventProfileSchema,
   settings: EventSettingsSchema,
   registration: EventRegistrationSchema,
+  sessions: Joi.array().items(EventSessionSchema),
   createdAt: Joi.string().required(),
   updatedAt: Joi.string().required(),
 });

@@ -36,6 +36,21 @@ export const PhoneSchema = Joi.string().trim().strict().custom(phoneValidatorFn)
 
 export const isPhone = (val: unknown): val is string => !!val && PhoneSchema.validate(val).error === undefined;
 
+// Time
+
+export const TimeSchema = Joi.string()
+  .trim()
+  .strict()
+  .custom((value, helpers) => {
+    if (!isStr(value)) {
+      return helpers.error('any.invalid');
+    }
+    if (/^[0-2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$/.test(value)) {
+      return value;
+    }
+    return helpers.error('any.invalid');
+  });
+
 // Color
 
 export const colorValidatorFn: CustomValidator = (value, helpers) => {
