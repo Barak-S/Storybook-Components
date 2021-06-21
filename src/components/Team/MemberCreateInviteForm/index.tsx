@@ -51,8 +51,8 @@ export const TeamMemberCreateInviteForm: FC<Props> = ({ style, data = {}, onChan
   };
 
   return (
-    <Grid style={ms(styles.container, style)} component="form" container direction="column">
-      <Grid style={styles.rowIndent} item container direction="row" spacing={2}>
+    <Grid style={ms(styles.container, style)} component="form" container direction="column" spacing={3}>
+      <Grid style={styles.rowIndent} item container direction="row" spacing={3}>
         <Grid item md={6} xs={12}>
           <FormTextInput
             label="First name"
@@ -106,7 +106,7 @@ export const TeamMemberCreateInviteForm: FC<Props> = ({ style, data = {}, onChan
       </Grid>
       <Grid item container direction="column">
         <FormTextArea
-          label="Invititation message"
+          label="Invitation message"
           value={message || ''}
           error={!!errors?.message}
           helperText={errors?.message}
@@ -123,9 +123,7 @@ const styles: Styles = {
   container: {
     width: '100%',
   },
-  rowIndent: {
-    marginBottom: 25,
-  },
+  rowIndent: {},
 };
 
 export type TeamMemberCreateInviteFormData = FormData;
