@@ -6,8 +6,8 @@ import { SidebarTabs, SideTab } from 'components/Navigation/SidebarTabs';
 import { ScreenFooter, ScreenTitle } from 'components/Screen';
 import { Log } from 'core';
 import { Event, eventItemToUpdate, EventUpdate } from 'core/api';
-import React, { FC, useState } from 'react';
-import { Redirect, Route, Switch, useParams } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { Redirect, Route, Switch, useParams, useHistory } from 'react-router-dom';
 import { routes } from 'screens/consts';
 import EditSetupSession from 'screens/Dashboard/Session';
 import { useSelector, useStoreManager } from 'store';
@@ -24,6 +24,8 @@ type Props = StyleProps;
 export const DashboardEventsEditScreen: FC<Props> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  const history = useHistory();
 
   const tabs: SideTab[] = [
     {
@@ -77,6 +79,10 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
 
   const [data, setData] = useState<EventUpdate>(eventItemToUpdate(curItem));
   const [processing, setProcessing] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!curItem) return history.push(routes.dashboard.index);
+  }, [curItem]);
 
   const handleDataChange = (newData: Partial<Event>) => {
     setData(v => ({ ...v, ...newData }));

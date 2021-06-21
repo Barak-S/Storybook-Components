@@ -10,9 +10,10 @@ import {
 import { LineAwesomeIcon } from 'components/Icons';
 import React, { FC, ChangeEvent } from 'react';
 import { View } from 'components/Common';
-import { colors, StyleProps, Styles, ms } from 'styles';
+import { colors, StyleProps, Styles, ms, withDensity } from 'styles';
 import { EventProfile } from 'core/api';
 import { GenericFormData } from 'utils';
+import { modCloudinaryUrl } from 'core/cloudinary';
 
 type FormData = GenericFormData<EventProfile>;
 type ProfileFormErrors = Partial<Record<keyof EventProfile, string>> & { request?: string };
@@ -20,10 +21,12 @@ type ProfileFormErrors = Partial<Record<keyof EventProfile, string>> & { request
 interface Props extends StyleProps {
   data?: FormData;
   errors?: ProfileFormErrors;
+  imgProcessing?: boolean;
   onChange?: (data: FormData) => void;
+  onLogoFileSelect?: (file: File) => void;
 }
 
-export const EventProfileEditFrom: FC<Props> = ({ data, errors, onChange }) => {
+export const EventProfileEditFrom: FC<Props> = ({ data, errors, imgProcessing, onChange, onLogoFileSelect }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -52,7 +55,14 @@ export const EventProfileEditFrom: FC<Props> = ({ data, errors, onChange }) => {
               onChange={handleTextInputChange('phone')}
             />
             <div className={classes.countryInput}>
-              <FormCountryInput required label="Country" value={data?.country || ''} onChange={handleDataChange('country')} />
+              <FormCountryInput
+                required
+                label="Country"
+                value={data?.country || ''}
+                error={!!errors?.country}
+                helperText={errors?.country}
+                onChange={handleDataChange('country')}
+              />
             </div>
           </div>
           <div className={classes.formRow} style={{ maxWidth: 572, justifyContent: 'space-between', marginBottom: 47 }}>
@@ -85,7 +95,14 @@ export const EventProfileEditFrom: FC<Props> = ({ data, errors, onChange }) => {
               <span style={ms(styles.subtitle, { paddingBottom: 15 })}>
                 {'Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less'}
               </span>
-              <FormDragnDropImage className={classes.uploadImg} style={styles.dragField} />
+              <FormDragnDropImage
+                style={styles.logo}
+                src={
+                  data?.logo ? modCloudinaryUrl(data.logo, { transform: { width: withDensity(535), crop: 'fill' } }) : undefined
+                }
+                processing={imgProcessing}
+                onFileSelect={onLogoFileSelect}
+              />
             </View>
           </div>
         </Hidden>
@@ -107,9 +124,8 @@ export const EventProfileEditFrom: FC<Props> = ({ data, errors, onChange }) => {
         <FormTextInput
           label="email"
           adornmentType="transparent"
-          className={classes.emailInput}
+          className={classes.inputFull}
           value={data?.email || ''}
-          disabled
           iconStart={<LineAwesomeIcon type="envelope-open-text" style={{ color: colors.greyish }} />}
           onChange={handleTextInputChange('email')}
         />
@@ -121,7 +137,7 @@ export const EventProfileEditFrom: FC<Props> = ({ data, errors, onChange }) => {
           description="These will display in the footer of event landing page, you can edit or add more in the event edit section."
           borderTop={false}
         >
-          <FormSocialsInput items={data?.socials} onChange={handleDataChange('socials')} />
+          <FormSocialsInput items={data?.socials} labelsVisible onChange={handleDataChange('socials')} />
         </FormControlSection>
       </div>
       <Divider style={{ marginTop: 40, marginBottom: 44 }} />
@@ -216,6 +232,7 @@ const useStyles = (theme: Theme) =>
     inputHalf1: {
       maxWidth: 276,
       marginRight: 10,
+      marginBottom: 'auto',
       [theme.breakpoints.down('sm')]: {
         maxWidth: '100%',
         marginRight: 0,

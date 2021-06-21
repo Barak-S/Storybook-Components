@@ -4,11 +4,16 @@ import { View } from 'components/Common';
 import { FormDragnDropImage, FormTextInput } from 'components/Form';
 import { ScreenTitle } from 'components/Screen';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { colors, ms, StyleProps, Styles } from 'styles';
+import { colors, ms, StyleProps, Styles, withDensity } from 'styles';
 import { EventProfile, EventUpdate } from 'core/api';
 import { GenericFormData, isDictEmpty, validators } from 'utils';
-
 import EventProfileEditFrom from './components/Form';
+
+import { modCloudinaryUrl } from 'core/cloudinary';
+import { Log } from 'core';
+const log = Log('screens.Dashboard.events.edit.profile');
+import { useStoreManager } from 'store';
+import { useSnackbar } from 'components/Feedback';
 
 type FormData = GenericFormData<EventUpdate>;
 type FormErrors = Partial<Record<keyof FormData, string>> & { request?: string };
@@ -24,10 +29,13 @@ interface Props extends StyleProps {
 export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onChange, onSubmit }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
+  const manager = useStoreManager();
+  const { showSnackbar } = useSnackbar();
 
   const [disabled, setDisabled] = useState<boolean>(true);
   const [eventErrs, setEventErrs] = useState<FormErrors | undefined>();
   const [eventProfileErrs, setEventProfileErrs] = useState<FormErrors | undefined>();
+  const [imgProcessing, setImgProcessing] = useState<boolean>(false);
 
   const handleTextInputChange = <K extends keyof FormData>(key: K) => (e: ChangeEvent<HTMLInputElement>) => {
     setEventErrs(undefined);
@@ -58,6 +66,23 @@ export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onCh
       phone: validators.getPhoneNumberErr(data?.phone, { required: true, requiredMsg: 'A phone number is required' }),
     };
     return !isDictEmpty(errs) ? errs : undefined;
+  };
+
+  const handleLogoFileSelect = async (file: File) => {
+    try {
+      setDisabled(false);
+      log.info('uploading logo');
+      setImgProcessing(true);
+      const { data: imgData } = await manager.api.assets.uploadImage(file);
+      setImgProcessing(false);
+      log.info('uploading logo done');
+      const profile = data.profile ? { ...data.profile, logo: imgData.url } : { logo: imgData.url };
+      onChange && onChange({ ...data, profile });
+    } catch (err: unknown) {
+      setImgProcessing(false);
+      log.err('uploading logo err=', err);
+      showSnackbar('Uploading logo error', 'error');
+    }
   };
 
   const handleSubmitClick = () => {
@@ -92,7 +117,12 @@ export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onCh
                 onChange={handleTextInputChange('name')}
               />
             </View>
-            <EventProfileEditFrom data={data.profile} errors={eventProfileErrs} onChange={handleDataChange('profile')} />
+            <EventProfileEditFrom
+              data={data.profile}
+              errors={eventProfileErrs}
+              onChange={handleDataChange('profile')}
+              onLogoFileSelect={handleLogoFileSelect}
+            />
           </div>
           <div className={classes.eventLogoSection}>
             <Hidden mdDown>
@@ -102,7 +132,17 @@ export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onCh
                   <span style={ms(styles.subtitle, { paddingBottom: 15 })}>
                     {'Lorem ipsum dolor sit amet, 600 x 200px and 1MB or less'}
                   </span>
-                  <FormDragnDropImage className={classes.uploadImg} style={styles.dragField} />
+                  <FormDragnDropImage
+                    className={classes.uploadImg}
+                    style={styles.dragField}
+                    src={
+                      data.profile?.logo
+                        ? modCloudinaryUrl(data.profile.logo, { transform: { width: withDensity(535), crop: 'fill' } })
+                        : undefined
+                    }
+                    processing={imgProcessing}
+                    onFileSelect={handleLogoFileSelect}
+                  />
                 </View>
               </div>
             </Hidden>

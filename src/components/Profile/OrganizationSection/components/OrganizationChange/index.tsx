@@ -146,7 +146,7 @@ export const ProfileOrganization: FC<Props> = ({ style, data, socials, handleSoc
             <View>
               <span className={classes.subHeader}>{'Organization Logo'}</span>
               <span className={classes.subtitle}>{'600 x 200px and 1MB or less'}</span>
-              <FormDragnDropImage className={classes.uploadImg} style={styles.dragField} />
+              <FormDragnDropImage className={classes.uploadImg} />
             </View>
           </Grid>
           <Divider style={styles.divider} />
@@ -201,9 +201,6 @@ const styles: Styles = {
   },
   input: {
     fontSize: 16,
-  },
-  dragField: {
-    ...mx.border(3, 'dashed', colors.silverTwo),
   },
 };
 export type OrganizationChangeData = FormData;

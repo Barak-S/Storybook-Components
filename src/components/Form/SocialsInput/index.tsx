@@ -11,6 +11,7 @@ import FormSocialsInputItem from './components/Item';
 interface Props extends StyleProps {
   items?: Social[];
   defSocials?: string[];
+  labelsVisible?: boolean;
   onChange?: (items: Social[]) => void;
 }
 
@@ -18,6 +19,7 @@ export const FormSocialsInput: FC<Props> = ({
   style,
   items = [],
   defSocials = ['facebook', 'twitter', 'instagram'],
+  labelsVisible,
   onChange,
 }) => {
   const genNewItem = (usedSocials: string[] = []): Social => {
@@ -62,12 +64,12 @@ export const FormSocialsInput: FC<Props> = ({
       const curItem = curItems.find(itm => startsWith(itm.id, `def-${i}-`));
       if (curItem) {
         // Add this item to the default items
-        nodes.push(renderItem(curItem, `${index}`));
+        nodes.push(renderItem(curItem, `${index}`, i));
         // Remove this item from the main list
         curItems = curItems.filter(itm => itm.id !== curItem.id);
       } else {
         // Else show def item field
-        nodes.push(renderItem({ name: defSocial, id: `def-${index}`, url: '' }, `${index}`, true, i));
+        nodes.push(renderItem({ name: defSocial, id: `def-${index}`, url: '' }, `${index}`, i, true));
       }
       index++;
     }
@@ -79,13 +81,14 @@ export const FormSocialsInput: FC<Props> = ({
     return nodes;
   };
 
-  const renderItem = (itm: Social, key: string, defItem?: boolean, index?: number) => (
+  const renderItem = (itm: Social, key: string, index?: number, defItem?: boolean) => (
     <Grid key={key} item>
       <FormSocialsInputItem
         style={styles.item}
         item={itm}
         defItem={defItem}
         index={index}
+        labelsVisible={labelsVisible}
         onRemove={handleItemRemove}
         onChange={handleItemChange}
       />

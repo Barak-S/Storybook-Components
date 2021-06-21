@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DO-101: "Invite Sent" labels could be located in one row with First and Last Names as it was before
 - DO-101: "Invitation message" label overlaps with a header while scrolling in mobile version
 - DO-101: For a tablet version on Safari I observe that strange grey line again
+- DO-186: "According to design, there should be labels "Social Media" and "Profile Address" in Social media accounts area”
+- DO-186: "Drag an image here" and "Choose file" functionality of event's logo uploading should be implemented
+- DO-186: Country field validation for emptiness should be implemented
+- DO-186: Contact Email field is disabled now. It should be enabled
+- DO-186: No Event's logo at the left top corner
 - DO-187: For all desktop browsers on Windows the thickness of all lines is different
+
 
 ## [1.0.89] - 2021-06-16
 ### Fixed

@@ -11,6 +11,7 @@ interface Props extends StyleProps {
   item: Social;
   index?: number;
   defItem?: boolean;
+  labelsVisible?: boolean;
   onChange: (newItem: Social, index?: number) => void;
   onRemove: (item: Social) => void;
 }
@@ -32,7 +33,7 @@ const socialNameToPlaceholder = (val: string): string => {
   }
 };
 
-export const FormSocialsInputItem: FC<Props> = ({ item, style, defItem, index, onRemove, onChange }) => {
+export const FormSocialsInputItem: FC<Props> = ({ item, style, defItem, index, labelsVisible, onRemove, onChange }) => {
   const [inputErr, setInputErr] = useState<string | undefined>(undefined);
 
   const handleUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +64,7 @@ export const FormSocialsInputItem: FC<Props> = ({ item, style, defItem, index, o
   return (
     <Grid style={ms(styles.container, style)} container direction="row" spacing={2}>
       <Grid item xs={12} sm={4}>
+        {labelsVisible && index === 0 && <span style={styles.socialMediaLabel}>{'Social Media'}</span>}
         <FormSocialSelect
           style={styles.select}
           classes={{
@@ -74,6 +76,7 @@ export const FormSocialsInputItem: FC<Props> = ({ item, style, defItem, index, o
         />
       </Grid>
       <Grid style={styles.inputWrap} item xs={12} sm={8}>
+        {labelsVisible && index === 0 && <span style={styles.socialMediaLabel}>{'Profile Address'}</span>}
         <FormTextInput
           inputStyle={styles.input}
           fullWidth
@@ -85,7 +88,11 @@ export const FormSocialsInputItem: FC<Props> = ({ item, style, defItem, index, o
           placeholder={socialNameToPlaceholder(item.name)}
         />
         {!defItem && (
-          <IconButton style={styles.removeBtn} size="small" onClick={handleRemove}>
+          <IconButton
+            style={ms(styles.removeBtn, { top: index === 0 && labelsVisible ? 58 : 22 })}
+            size="small"
+            onClick={handleRemove}
+          >
             <LineAwesomeIcon type="times-circle" />
           </IconButton>
         )}
@@ -110,7 +117,14 @@ const styles: Styles = {
     ...mx.square(24),
     position: 'absolute',
     right: 18,
-    top: 22,
+  },
+  socialMediaLabel: {
+    color: colors.coolBlue,
+    fontWeight: 500,
+    fontSize: 14,
+    paddingBottom: 15,
+    display: 'block',
+    textTransform: 'uppercase',
   },
 };
 
