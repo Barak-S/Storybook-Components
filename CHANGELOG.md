@@ -16,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DO-186: No Event's logo at the left top corner
 - DO-187: For all desktop browsers on Windows the thickness of all lines is different
 
-
 ## [1.0.89] - 2021-06-16
 ### Fixed
 - DO-101: Email label in a card at right hand is always cut even if there's enough place for full email displaying
