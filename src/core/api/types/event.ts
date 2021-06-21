@@ -189,6 +189,12 @@ export const EventRegistrationFormFieldArr: EventRegistrationFormField[] = ['fir
 
 export const EventRegistrationFormFieldSchema = Joi.string().valid(...EventRegistrationFormFieldArr);
 
+export type EventRegistrationSocialsIntegrationType = 'facebook' | 'google' | 'linkedin';
+
+export const EventRegistrationSocialsIntegrationTypeArr = ['facebook', 'google', 'linkedin'];
+
+export const EventRegistrationSocialsIntegrationTypeSchema = Joi.string().valid(...EventRegistrationSocialsIntegrationTypeArr);
+
 export interface EventRegistration {
   type?: EventRegistrationType;
   start: string;
@@ -199,6 +205,7 @@ export interface EventRegistration {
     subhead?: string;
     fields?: EventRegistrationFormField[];
   };
+  socialsIntegration?: EventRegistrationSocialsIntegrationType[];
   termsAndConditions?: string;
   marketingStatement?: string;
 }
@@ -213,6 +220,7 @@ export const EventRegistrationSchema = Joi.object<EventRegistration>({
     subhead: EmptyStrSchema,
     fields: Joi.array().items(EventRegistrationFormFieldSchema),
   }),
+  socialsIntegration: Joi.array().items(EventRegistrationSocialsIntegrationTypeSchema),
   termsAndConditions: EmptyStrSchema.max(5000),
   marketingStatement: EmptyStrSchema.max(5000),
 });
