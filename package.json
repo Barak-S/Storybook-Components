@@ -1,6 +1,6 @@
 {
   "name": "do-webapp",
-  "version": "1.0.92",
+  "version": "1.0.93",
   "main": "src/index.tsx",
   "title": "Home",
   "company": "Digital Oasis",
