@@ -17,6 +17,7 @@ import Countdown from './components/Countdown';
 import DataTile from './components/DataTile';
 import ImageTile from './components/ImageTile';
 import Tile from './components/Tile';
+import { appConfig } from 'core';
 // import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
 
 interface Props extends StyleProps {
@@ -130,7 +131,9 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
         </View>
       </View>
       <Title type="h2" className={classes.eventTitle}>
-        {item.name}
+        <a href={`https://iris-sites-${appConfig.env}.smartapp.dev/${item.slug}`} target="__blank">
+          {item.name}
+        </a>
       </Title>
       <View row style={{ width: '200%' }}>
         <div
@@ -444,6 +447,10 @@ const useStyles = (theme: Theme) =>
         paddingBottom: 14,
         paddingLeft: 10.5,
         paddingRight: 12,
+      },
+      '& a': {
+        textDecoration: 'none',
+        color: colors.marineBlue,
       },
     },
     dropdown: {
