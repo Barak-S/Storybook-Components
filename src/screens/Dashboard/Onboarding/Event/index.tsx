@@ -2,19 +2,19 @@ import {
   EventBasicCreateFrom,
   EventBasicCreateFromData as FormData,
   EventBasicCreateFromErrors as FormErrors,
-  EventBasicCreateFromValid as FormValid,
   EventBasicCreateFromProcessing as FormProcessing,
+  EventBasicCreateFromValid as FormValid,
 } from 'components/Event';
+import { useSnackbar } from 'components/Feedback';
 import { ScreenTitle } from 'components/Screen';
 import { SetupContainer, SetupContainerFooterBtnItem, SetupStep } from 'components/Setup';
+import { Log } from 'core';
+import { isEventCreate } from 'core/api';
 import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from 'screens/consts';
-import { StyleProps } from 'styles';
-import { isEventCreate } from 'core/api';
-import { Log } from 'core';
 import { useSelector, useStoreManager } from 'store';
-import { useSnackbar } from 'components/Feedback';
+import { StyleProps } from 'styles';
 import { dateToStr, dayMs, errToStr, getCurTimeZoneCode, getTs } from 'utils';
 
 const log = Log('screens.Dashboard.Onboarding.Event');
@@ -43,6 +43,8 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const [processing, setProcessing] = useState<boolean>(false);
   const [formProcessing, setFormProcessing] = useState<FormProcessing | undefined>();
   const { showSnackbar } = useSnackbar();
+
+  const fullData = { ...data, themeId };
 
   const handleDataChange = (newData: Partial<FormData>) => {
     setErrors(undefined);
@@ -115,12 +117,12 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   };
 
   const handleSubmit = async () => {
-    if (!isEventCreate(data) || !themeId) return;
+    if (!isEventCreate(fullData)) return;
     log.info('handle submit');
     try {
       setProcessing(true);
       log.info('creating event');
-      await manager.events.createItem({ ...data, themeId });
+      await manager.events.createItem(fullData);
       log.info('creating event done');
       log.info('updating settings');
       await manager.user.modifySettings({ onboarding: 'done' });
@@ -155,7 +157,7 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
       id: 'complete',
       type: 'contained',
       title: 'complete',
-      disabled: !isEventCreate(data),
+      disabled: !isEventCreate(fullData),
       processing,
       endIcon: 'check-circle',
     },
