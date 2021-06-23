@@ -92,3 +92,5 @@ export type GenericFormData<T> = Partial<T>;
 export type GenericFormErrors<T> = Partial<Record<keyof T, string>>;
 
 export type GenericFormProcessing<T> = Partial<Record<keyof T, boolean>>;
+
+export type GenericFormValid<T> = Partial<Record<keyof T, boolean>>;

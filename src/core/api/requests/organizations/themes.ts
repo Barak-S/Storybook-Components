@@ -7,9 +7,9 @@ import {
   EventThemeUpdate,
   getRespArrSchema,
   getRespSchema,
-} from '../types';
+} from '../../types';
 
-export const getThemesRequests = (apiReq: ApiReqHandler) => {
+export const getOrganizationsThemesRequests = (apiReq: ApiReqHandler) => {
   const list = async (orgId: string): Promise<ApiDataResp<EventTheme[]>> =>
     apiReq({ auth: true, path: `/orgs/${orgId}/themes`, schema: getRespArrSchema(EventThemeSchema) });
 

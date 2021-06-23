@@ -77,19 +77,19 @@ export const FormDragnDropImage: FC<Props> = ({
   const styles = useStyles();
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} style={styles.input} onClick={handleClick} type="file" onChange={handleChange} />
-      <View
-        className={className}
-        style={ms(
-          styles.container,
-          style,
-          { backgroundImage: previewSrc ? `url(${previewSrc})` : undefined },
-          border && !previewSrc && styles.containerBorder,
-          fullWidth && mx.w100,
-        )}
-        row
-      >
+    <View
+      className={className}
+      style={ms(
+        styles.container,
+        style,
+        { backgroundImage: previewSrc ? `url(${previewSrc})` : undefined },
+        border && !previewSrc && styles.containerBorder,
+        fullWidth && mx.w100,
+      )}
+      row
+    >
+      <div {...getRootProps()}>
+        <input {...getInputProps()} style={styles.input} onClick={handleClick} type="file" onChange={handleChange} />
         {!processing && (
           <View style={styles.content} row alignItems="center">
             {!previewSrc && (
@@ -114,8 +114,8 @@ export const FormDragnDropImage: FC<Props> = ({
             <CircularProgress />
           </View>
         )}
-      </View>
-    </div>
+      </div>
+    </View>
   );
 };
 
@@ -133,6 +133,7 @@ const useStyles = buildStyles(({ isMobile, whenMobile }) => ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     boxSizing: 'border-box',
+    position: 'relative',
   },
   containerBorder: {
     ...mx.border(3, 'dashed', colors.silverTwo),

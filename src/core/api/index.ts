@@ -3,15 +3,8 @@ import appConfig from 'core/configs';
 import { Log } from 'core/log';
 import { secMs } from 'utils';
 
-import {
-  getAssetsRequests,
-  getEventsRequests,
-  getPaywallRequests,
-  getSupportRequests,
-  getThemesRequests,
-  getUserRequests,
-} from './requests';
-import { getOrgsRequests } from './requests/organization';
+import { getAssetsRequests, getOrganizationsRequests, getPaywallRequests, getSupportRequests, getUserRequests } from './requests';
+import { getEventsRequests } from './requests/events';
 import { ApiOpt, ApiReqOpt, isApiErrResp } from './types';
 import { ApiError, isStatus200 } from './utils';
 
@@ -59,11 +52,10 @@ export const getApiWithOpt = ({ token }: ApiOpt) => {
 
   return {
     user: getUserRequests(apiReq),
-    orgs: getOrgsRequests(apiReq),
+    organizations: getOrganizationsRequests(apiReq),
     assets: getAssetsRequests(apiReq),
     support: getSupportRequests(apiReq),
     paywall: getPaywallRequests(apiReq),
-    themes: getThemesRequests(apiReq),
     events: getEventsRequests(apiReq),
   };
 };

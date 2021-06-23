@@ -11,7 +11,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
   const update = async () => {
     try {
       log.info('update');
-      const { data } = await api.orgs.list();
+      const { data } = await api.organizations.list();
       log.info('update done, data=', data);
       dispatch({ type: 'orgs/items/Update', data });
       return data;
@@ -33,7 +33,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
 
   const modify = async (orgId: string, newData: OrganizationUpdate) => {
     log.info('modify, orgId=', orgId, ', data=', newData);
-    const data = await api.orgs.modify(orgId, newData);
+    const data = await api.organizations.modify(orgId, newData);
     log.info('modify, orgId=', orgId, ' done');
     dispatch({ type: 'orgs/items/data/Modify', data, id: orgId });
   };
@@ -52,7 +52,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
       throw new Error('Trying to modify current organization when it is empty');
     }
     log.info('updating invites');
-    const { data } = await api.orgs.invites.list(curOrgId);
+    const { data } = await api.organizations.invites.list(curOrgId);
     log.info('updating invites done', { data });
     dispatch({ type: 'orgs/items/invites/Set', id: curOrgId, data });
   };
@@ -62,7 +62,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
       throw new Error('Trying to modify current organization when it is empty');
     }
     log.info('create invite');
-    const { data } = await api.orgs.invites.create(curOrgId, newData);
+    const { data } = await api.organizations.invites.create(curOrgId, newData);
     log.info('create invite done');
     dispatch({ type: 'orgs/items/invites/Add', id: curOrgId, data });
   };

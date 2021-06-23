@@ -14,7 +14,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('update items');
-      const { data } = await api.events.list(curOrgId);
+      const { data } = await api.organizations.events.list(curOrgId);
       log.info('update items done, data=', data);
       dispatch({ type: 'events/items/Set', data });
       return data;
@@ -28,7 +28,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('create item');
-      const { data } = await api.events.create(curOrgId, newData);
+      const { data } = await api.organizations.events.create(curOrgId, newData);
       log.info('create item done, data=', data);
       dispatch({ type: 'events/items/Add', data });
       return data;
@@ -42,7 +42,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('modify item');
-      const { data } = await api.events.modify(curOrgId, id, newData);
+      const { data } = await api.organizations.events.modify(curOrgId, id, newData);
       log.info('modify item done, data=', data);
       dispatch({ type: 'events/items/Modify', id, data });
       return data;
@@ -56,7 +56,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('remove item');
-      await api.events.remove(curOrgId, id);
+      await api.organizations.events.remove(curOrgId, id);
       log.info('remove item done');
       dispatch({ type: 'events/items/Remove', id });
     } catch (err: unknown) {
@@ -69,7 +69,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('update themes');
-      const { data } = await api.themes.list(curOrgId);
+      const { data } = await api.organizations.themes.list(curOrgId);
       log.info('update themes done, data=', data);
       dispatch({ type: 'events/themes/Set', data });
       return data;
@@ -83,7 +83,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('create theme');
-      const { data } = await api.themes.create(curOrgId, newData);
+      const { data } = await api.organizations.themes.create(curOrgId, newData);
       log.info('create theme done, data=', data);
       dispatch({ type: 'events/themes/Add', data });
       return data;
@@ -97,7 +97,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('modify theme');
-      const { data } = await api.themes.modify(curOrgId, id, newData);
+      const { data } = await api.organizations.themes.modify(curOrgId, id, newData);
       log.info('modify theme done, data=', data);
       dispatch({ type: 'events/themes/Modify', id, data });
       return data;
@@ -111,7 +111,7 @@ export const useFunc = ({ dispatch, api }: StoreManagerFnOpt) => {
     if (!curOrgId) throw getNoOrgErr();
     try {
       log.info('remove theme');
-      await api.themes.remove(curOrgId, id);
+      await api.organizations.themes.remove(curOrgId, id);
       log.info('remove theme done');
       dispatch({ type: 'events/themes/Remove', id });
     } catch (err: unknown) {

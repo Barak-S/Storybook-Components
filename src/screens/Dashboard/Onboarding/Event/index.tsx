@@ -2,6 +2,7 @@ import {
   EventBasicCreateFrom,
   EventBasicCreateFromData as FormData,
   EventBasicCreateFromErrors as FormErrors,
+  EventBasicCreateFromValid as FormValid,
   EventBasicCreateFromProcessing as FormProcessing,
 } from 'components/Event';
 import { ScreenTitle } from 'components/Screen';
@@ -23,6 +24,12 @@ interface Props extends StyleProps {
   onCloseClick?: () => void;
 }
 
+const getDefFormData = (): FormData => ({
+  timezone: getCurTimeZoneCode(),
+  start: dateToStr(new Date(getTs() + dayMs * 3)),
+  end: dateToStr(new Date(getTs() + dayMs * 4)),
+});
+
 export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const history = useHistory();
 
@@ -30,14 +37,9 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const themeId = useSelector(s => s.forms.onboarding.theme?.id);
   const storedData = useSelector(s => s.forms.onboarding.event);
 
-  const getDefFormData = (): FormData => ({
-    timezone: getCurTimeZoneCode(),
-    start: dateToStr(new Date(getTs() + dayMs * 3)),
-    end: dateToStr(new Date(getTs() + dayMs * 4)),
-  });
-
   const [data, setData] = useState<FormData>(storedData || getDefFormData());
   const [errors, setErrors] = useState<FormErrors | undefined>();
+  const [valid, setValid] = useState<FormValid | undefined>();
   const [processing, setProcessing] = useState<boolean>(false);
   const [formProcessing, setFormProcessing] = useState<FormProcessing | undefined>();
   const { showSnackbar } = useSnackbar();
@@ -45,6 +47,42 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   const handleDataChange = (newData: Partial<FormData>) => {
     setErrors(undefined);
     setData(v => ({ ...v, ...newData }));
+  };
+
+  const handleNameBlur = async () => {
+    if (!data.name || data.slug) return;
+    setFormProcessing(v => ({ ...v, slug: true }));
+    try {
+      log.debug('updating slug with name');
+      const {
+        data: { slug },
+      } = await manager.api.events.suggestSlug(data.name.trim());
+      log.debug('updating slug with name done', { slug });
+      setData(v => ({ ...v, slug }));
+      setValid(v => ({ ...v, slug: true }));
+      setErrors(v => ({ ...v, slug: undefined }));
+    } catch (err: unknown) {
+      log.err('updating slug with name err', { err: errToStr(err) });
+    } finally {
+      setFormProcessing(v => ({ ...v, slug: false }));
+    }
+  };
+
+  const handleSlugBlur = async () => {
+    if (!data.slug) return setValid(v => ({ ...v, slug: undefined }));
+    setFormProcessing(v => ({ ...v, slug: true }));
+    try {
+      log.debug('checking slug');
+      await manager.api.events.checkSlug(data.slug);
+      log.debug('checking slug done');
+      setValid(v => ({ ...v, slug: true }));
+    } catch (err: unknown) {
+      log.err('checking slug err', { err: errToStr(err) });
+      setValid(v => ({ ...v, slug: false }));
+      setErrors(v => ({ ...v, slug: 'Wrong format or name used already' }));
+    } finally {
+      setFormProcessing(v => ({ ...v, slug: false }));
+    }
   };
 
   const handleFooterBtnClick = async (btn: SetupContainerFooterBtnItem) => {
@@ -139,7 +177,10 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
         <EventBasicCreateFrom
           data={data}
           errors={errors}
+          valid={valid}
           processing={formProcessing}
+          onNameBlur={handleNameBlur}
+          onSlugBlur={handleSlugBlur}
           onLogoFileSelect={handleLogoFileSelect}
           onChange={handleDataChange}
         />
