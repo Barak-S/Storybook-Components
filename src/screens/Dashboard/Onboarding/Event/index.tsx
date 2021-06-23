@@ -115,7 +115,7 @@ export const OnboardingEventScreen: FC<Props> = ({ steps, onCloseClick }) => {
   };
 
   const handleSubmit = async () => {
-    if (!isEventCreate(data)) return;
+    if (!isEventCreate(data) || !themeId) return;
     log.info('handle submit');
     try {
       setProcessing(true);
