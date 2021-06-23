@@ -327,7 +327,8 @@ export interface Event {
   end: string;
   timezone: string;
   slug: string;
-  themeId?: string;
+  themeId: string;
+  archived?: boolean;
 
   profile?: EventProfile;
   settings?: EventSettings;
@@ -347,7 +348,8 @@ export const EventSchema = Joi.object<Event>({
   end: Joi.date().iso().greater(Joi.ref('start')).required(),
   timezone: EventTimezoneSchema.required(),
   slug: SlugSchema.required(),
-  themeId: Joi.string(),
+  themeId: Joi.string().required(),
+  archived: Joi.bool(),
   profile: EventProfileSchema,
   settings: EventSettingsSchema,
   registration: EventRegistrationSchema,
@@ -381,6 +383,7 @@ export const EventUpdateSchema = EventSchema.keys({
   type: EventTypeSchema,
   start: Joi.date().iso(),
   end: Joi.date().iso(),
+  themeId: Joi.string(),
 });
 
 export const isEventUpdate = (val: unknown): val is EventUpdate => EventUpdateSchema.validate(val).error === undefined;
