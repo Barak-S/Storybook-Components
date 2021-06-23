@@ -6,6 +6,7 @@ import {
   EventTimezoneSchema,
   IdSchema,
   phoneValidatorFn,
+  SlugSchema,
   TimeSchema,
   UrlSchema,
   urlValidatorFn,
@@ -325,7 +326,7 @@ export interface Event {
   start: string;
   end: string;
   timezone: string;
-  url: string;
+  slug: string;
   themeId?: string;
 
   profile?: EventProfile;
@@ -345,7 +346,7 @@ export const EventSchema = Joi.object<Event>({
   start: Joi.date().iso().required(),
   end: Joi.date().iso().greater(Joi.ref('start')).required(),
   timezone: EventTimezoneSchema.required(),
-  url: Joi.string().custom(urlValidatorFn).required(),
+  slug: SlugSchema.required(),
   themeId: Joi.string(),
   profile: EventProfileSchema,
   settings: EventSettingsSchema,
@@ -355,12 +356,11 @@ export const EventSchema = Joi.object<Event>({
   updatedAt: Joi.string().required(),
 });
 
-export type EventCreate = Omit<Event, 'id' | 'orgId' | 'url' | 'createdAt' | 'updatedAt'>;
+export type EventCreate = Omit<Event, 'id' | 'orgId' | 'createdAt' | 'updatedAt'>;
 
 export const EventCreateSchema = EventSchema.keys({
   id: Joi.forbidden(),
   orgId: Joi.forbidden(),
-  url: Joi.forbidden(),
   createdAt: Joi.forbidden(),
   updatedAt: Joi.forbidden(),
 });
@@ -372,7 +372,7 @@ export type EventUpdate = Partial<Omit<Event, 'id' | 'orgId' | 'url' | 'createdA
 export const EventUpdateSchema = EventSchema.keys({
   id: Joi.forbidden(),
   orgId: Joi.forbidden(),
-  url: Joi.forbidden(),
+  slug: SlugSchema,
   createdAt: Joi.forbidden(),
   updatedAt: Joi.forbidden(),
 

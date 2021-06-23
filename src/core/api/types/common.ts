@@ -84,6 +84,20 @@ export const EmailSchema = Joi.string()
   .strict()
   .email({ tlds: { allow: false } });
 
+// Slug
+
+const slugValidatorFn: CustomValidator = (value, helpers) => {
+  if (!isStr(value)) {
+    return helpers.error('any.invalid');
+  }
+  if (!/^[a-z0-9]{1}[a-z0-9-]+?[a-z0-9]{1}$/g.test(value)) {
+    return helpers.error('any.invalid');
+  }
+  return value;
+};
+
+export const SlugSchema = Joi.string().trim().strict().min(3).max(30).custom(slugValidatorFn);
+
 // Different
 
 export const StrSchema = Joi.string().trim().strict();
