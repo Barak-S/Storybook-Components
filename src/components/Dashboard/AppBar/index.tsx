@@ -3,7 +3,7 @@ import { BrandLogo } from 'components/Brand';
 import { VerticalSplitter } from 'components/Data';
 import { User } from 'core/api';
 import React, { FC, MouseEvent } from 'react';
-import { StyleProps } from 'styles';
+import { colors, StyleProps, mx } from 'styles';
 
 import DashboardDropdownMenu from '../DropdownMenu';
 import AppBarMenu, { AppBarMenuProps, DashboardAppBarBtn } from './components/Menu';
@@ -62,11 +62,11 @@ export const DashboardAppBar: FC<Props> = ({
       </Grid>
       <Grid style={styles.rightSection}>
         <Hidden smDown>
-          <TextBtn style={styles.supportLink} href="/dashboard/support">
+          <TextBtn style={styles.supportLink} href="/dashboard/support" onClick={() => setActiveTab(undefined)}>
             {'Support'}
           </TextBtn>
-          <VerticalSplitter />
-          <TextBtn style={styles.supportLink} href="/dashboard/contact">
+          <VerticalSplitter style={{ ...mx.borderRight(1, 'solid', colors.white) }} />
+          <TextBtn style={styles.supportLink} href="/dashboard/contact" onClick={() => setActiveTab(undefined)}>
             {'Contact Us'}
           </TextBtn>
           <VerticalSplitter />

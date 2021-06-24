@@ -21,7 +21,6 @@ export const Accordion: FC<Props> = ({ style, id, title, expanded, onChange, chi
   };
 
   const { hover, hoverProps } = useHover();
-
   const styles = getStyles(expanded);
 
   return (
@@ -30,7 +29,7 @@ export const Accordion: FC<Props> = ({ style, id, title, expanded, onChange, chi
       <AccordionSummary
         id={`${id}-header`}
         aria-controls={`${id}-content`}
-        style={styles.header}
+        style={expanded ? styles.expandedHeader : styles.header}
         expandIcon={<NavigationAccordionIcon hovered={hover} expanded={expanded} />}
         {...hoverProps}
       >
@@ -54,7 +53,13 @@ const getStyles = (expanded: boolean): Styles => ({
     display: 'flex',
     justifyContent: 'space-between',
     minHeight: 76,
-    color: colors.marineBlue,
+    color: colors.textGray,
+  },
+  expandedHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    minHeight: 76,
+    color: colors.IRISteal,
   },
   title: {
     fontSize: 18,

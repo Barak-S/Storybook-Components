@@ -1,7 +1,7 @@
 import { ContainedButton, TextButton } from 'components/Buttons';
 import { LineAwesomeIconType } from 'components/Icons';
 import React, { FC } from 'react';
-import { ms, StyleProps, Styles } from 'styles';
+import { ms, StyleProps, Styles, colors } from 'styles';
 
 interface Props extends StyleProps {
   item: SetupContainerFooterBtnItem;
@@ -44,6 +44,7 @@ const styles: Styles = {
   textBtn: {
     paddingLeft: 15,
     paddingRight: 15,
+    color: colors.IRISteal,
   },
 };
 

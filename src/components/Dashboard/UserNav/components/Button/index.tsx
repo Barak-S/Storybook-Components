@@ -50,17 +50,18 @@ const useStyles = (theme: Theme) =>
       borderRadius: 12,
       overflow: 'hidden',
       fontSize: 'inherit',
+      backgroundColor: colors.tint6,
     },
     button: {
-      background: 'transparent',
-      color: colors.marineBlue,
+      backgroundColor: colors.tint6,
+      color: colors.textGray,
       width: '100%',
       height: '100%',
       textTransform: 'none',
       fontSize: 'inherit',
       cursor: 'pointer',
       '&:disabled': {
-        color: colors.marineBlue,
+        color: colors.tint1,
         opacity: 0.5,
       },
       '& .MuiButton-label': {

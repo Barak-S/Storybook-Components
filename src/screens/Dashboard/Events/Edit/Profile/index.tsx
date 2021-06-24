@@ -167,7 +167,7 @@ export const DashboardEventsProfileScreen: FC<Props> = ({ data, processing, onCh
 const styles: Styles = {
   title: {
     letterSpacing: '0px',
-    color: colors.marine,
+    color: colors.IRISteal,
     display: 'block',
     paddingBottom: 7,
     fontWeight: 500,

@@ -11,7 +11,7 @@ export const muiTheme = createMuiTheme({
       main: colors.primary,
     },
     secondary: {
-      main: colors.link,
+      main: colors.primary,
     },
     error: {
       main: red.A400,
@@ -26,10 +26,10 @@ export const muiTheme = createMuiTheme({
   overrides: {
     MuiTooltip: {
       tooltip: {
-        backgroundColor: colors.warmPurple,
+        backgroundColor: colors.IRISyellow,
       },
       arrow: {
-        color: colors.warmPurple,
+        color: colors.IRISyellow,
       },
       popper: {
         top: '10px!important',
@@ -121,7 +121,7 @@ export const muiTheme = createMuiTheme({
       },
       root: {
         '&.Mui-focused:not(.Mui-error)': {
-          color: colors.link,
+          color: colors.IRISteal,
         },
         '&.Mui-focused:not(.Mui-error) + .MuiInputBase-root > .MuiInputBase-input': {
           border: `1px solid ${colors.withAlpha(colors.brownishGrey, 0.3)}`,
@@ -154,7 +154,7 @@ export const muiTheme = createMuiTheme({
         },
       },
       filled: {
-        color: colors.link,
+        color: colors.IRISteal,
         '& + .MuiInputBase-root > .MuiInputBase-input': {
           background: colors.white,
           border: `1px solid ${colors.withAlpha(colors.brownishGrey, 0.3)}`,
@@ -231,15 +231,15 @@ export const muiTheme = createMuiTheme({
       root: {
         '&$selected': {
           color: colors.white,
-          backgroundColor: colors.coolBlue,
+          backgroundColor: colors.IRISteal,
           '&:hover': {
             color: colors.white,
-            backgroundColor: colors.coolBlue,
+            backgroundColor: colors.IRISteal,
           },
         },
         '&:hover': {
           color: colors.white,
-          backgroundColor: colors.coolBlue,
+          backgroundColor: colors.IRISteal,
         },
       },
     },

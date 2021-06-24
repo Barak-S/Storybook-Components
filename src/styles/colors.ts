@@ -12,7 +12,7 @@ const base = {
 
 const named = {
   background: '#F7F7F7',
-  primary: '#012169',
+  primary: '#0097A0',
   error: '#ff1744',
   link: '#407DC8',
 };
@@ -67,6 +67,19 @@ const zeplin = {
   lightViolet: '#d8c6df',
   warmPurple: '#702f8a',
   warmPurpleTwo: '#702f8a',
+  IRISteal: '#0097A0',
+  IRISred: '#E53735',
+  IRISgreen: '#7AB542',
+  IRISyellow: '#F4A71D',
+  textGray: '#444545',
+  tint1: '#ABACAC',
+  tint2: '#C0C1C1',
+  tint3: '#CCCCCB',
+  tint4: '#E8E8E8',
+  tint5: '#F2F2F2',
+  tint6: '#EAEAEA',
+  primaryGradient: 'linear-gradient(90deg, rgba(244,167,29,1) 0%, rgba(229,55,53,1) 100%)',
+  secondaryGradient: 'linear-gradient(90deg, rgba(232,232,232,1) 0%, rgba(204,204,203,1) 100%)',
 };
 
 export const withAlpha = (val: string, alpha: number) => color(val).alpha(alpha).toString();

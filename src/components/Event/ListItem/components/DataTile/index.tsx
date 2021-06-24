@@ -60,7 +60,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     eventData: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 48,
       fontWeight: 500,
       [theme.breakpoints.down('sm')]: {
@@ -68,7 +68,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     eventTitle: {
-      color: colors.coolBlue,
+      color: colors.textGray,
       fontSize: 16,
       fontWeight: 500,
       textAlign: 'center',
@@ -76,7 +76,7 @@ const useStyles = (theme: Theme) =>
     subTitle: {
       fontSize: 17,
       fontWeight: 400,
-      color: colors.greyish,
+      color: colors.IRISred,
       paddingTop: 11,
       fontStyle: 'italic',
       textAlign: 'center',

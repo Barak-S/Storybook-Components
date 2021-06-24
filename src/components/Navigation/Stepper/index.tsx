@@ -88,7 +88,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     label: {
-      color: colors.silver,
+      color: colors.tint1,
       fontWeight: 500,
       '& .MuiStepLabel-iconContainer': {
         marginBottom: 9,
@@ -114,7 +114,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     activeStep: {
-      color: colors.warmPurple,
+      color: colors.IRISteal,
     },
   })();
 

@@ -1,5 +1,4 @@
 import { makeStyles, Theme, useTheme } from '@material-ui/core';
-import { VerticalSplitter } from 'components/Data';
 import { eventToDateStr } from 'components/Event/utils';
 import { useSnackbar } from 'components/Feedback';
 import { SidebarTabs, SideTab } from 'components/Navigation/SidebarTabs';
@@ -12,7 +11,7 @@ import { routes } from 'screens/consts';
 import EditSetupSession from 'screens/Dashboard/Session';
 import { useSelector, useStoreManager } from 'store';
 import { colors, scrollToTop, StyleProps } from 'styles';
-
+import backgroundImg from 'screens/Dashboard/Events/List/assets/IrisBackgroundDash.svg';
 import EditEventProfile from './Profile';
 import EditEventSettings from './Settings';
 import EditEventRegistration from './Registration';
@@ -111,10 +110,9 @@ export const DashboardEventsEditScreen: FC<Props> = () => {
         <SidebarTabs thumbnail={curTheme?.thumbnail} tabs={tabs} initialRoute={routes.dashboard.events.getEdit(itemId)}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <div className={classes.eventSettingsBanner}>
-              <span className={classes.banner}>{'Event Settings'}</span>
+              {/* <span className={classes.banner}>{'Event Settings'}</span> */}
               <div className={classes.eventOverview}>
                 <span className={classes.eventTitle}>{data.name}</span>
-                <VerticalSplitter style={{ height: '100%', paddingLeft: 15 }} />
                 <span className={classes.eventDate}>{eventToDateStr(data)}</span>
               </div>
             </div>
@@ -162,22 +160,25 @@ const useStyles = (theme: Theme) =>
       width: '100%',
     },
     eventSettingsBanner: {
-      height: 91,
+      height: 67,
       width: '100%',
-      backgroundColor: colors.whiteTwo,
-      boxShadow: '0px 3px 4px #0000001D',
+      backgroundColor: colors.tint5,
+      boxShadow: '0px 3px 6px #00000029',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
+      position: 'relative',
     },
     content: {
       padding: 41,
       paddingTop: 24,
       display: 'flex',
       justifyContent: 'center',
+      backgroundImage: `url(${backgroundImg})`,
+      objectFit: 'cover',
     },
     banner: {
-      color: colors.warmPurple,
+      color: colors.textGray,
       fontSize: 12,
       fontWeight: 500,
       textTransform: 'uppercase',
@@ -187,16 +188,18 @@ const useStyles = (theme: Theme) =>
     eventOverview: {
       display: 'flex',
       flexDirection: 'row',
+      justifyContent: 'center',
     },
     eventTitle: {
-      color: colors.marineBlue,
-      fontSize: 22,
+      color: colors.IRISteal,
+      fontSize: 23,
       fontWeight: 500,
       paddingLeft: 41,
     },
     eventDate: {
-      color: colors.coolBlue,
-      fontSize: 22,
+      color: colors.textGray,
+      textTransform: 'uppercase',
+      fontSize: 23,
       letterSpacing: '1.32px',
       paddingLeft: 12.5,
       fontWeight: 500,

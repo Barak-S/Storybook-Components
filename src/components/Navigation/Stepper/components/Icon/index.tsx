@@ -46,10 +46,10 @@ const useStyles = (theme: Theme) =>
     },
     completed: {
       fontSize: 16,
-      background: colors.warmPurple,
+      background: colors.IRISteal,
       color: colors.white,
       ...mx.square(25),
-      ...mx.border(3, 'solid', colors.warmPurple),
+      ...mx.border(3, 'solid', colors.IRISteal),
       [theme.breakpoints.up('md')]: {
         ...mx.square(40),
       },

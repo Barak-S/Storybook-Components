@@ -27,7 +27,7 @@ export const globalStyles: Styles = {
   authTitle: {
     textAlign: 'center',
     fontSize: 30,
-    color: colors.marineBlue,
+    color: colors.IRISteal,
     textTransform: 'capitalize',
     fontWeight: 500,
   },

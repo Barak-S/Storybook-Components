@@ -140,7 +140,7 @@ const useStyles = (theme: Theme) =>
       justifyContent: 'space-between',
     },
     primaryHeader: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textAlign: 'center',
       fontSize: 30,
       marginBottom: 16,

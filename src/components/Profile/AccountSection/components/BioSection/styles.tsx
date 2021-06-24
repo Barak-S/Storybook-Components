@@ -11,7 +11,7 @@ export const useStyles = () =>
     },
     title: {
       letterSpacing: '0px',
-      color: colors.marine,
+      color: colors.IRISteal,
       display: 'block',
       paddingBottom: 6,
       fontWeight: 500,

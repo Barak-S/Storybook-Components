@@ -1,4 +1,4 @@
-import backgroundImg from './assets/background.png';
+import backgroundImg from 'screens/Dashboard/Events/List/assets/IrisBackgroundDash.svg';
 import { View } from 'components/Common';
 import React, { FC } from 'react';
 import { mc, StyleProps } from 'styles';

@@ -2,22 +2,21 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { colors, Styles, sizes } from 'styles';
 
 export const styles: Styles = {
-  container: {
-    paddingTop: 58,
-    justifyContent: 'space-between',
-    minHeight: '100vh',
-  },
   title: {
     textAlign: 'center',
     color: colors.primary,
     fontSize: sizes.h2,
-    marginBottom: 10,
+    paddingBottom: 37,
   },
   subtitle: {
     textAlign: 'center',
     color: colors.gray,
     fontSize: sizes.h6,
     marginBottom: 35,
+    paddingTop: 14.5,
+    width: '100%',
+    display: 'block',
+    borderTop: `1px solid ${colors.veryLightPinkTwo}`,
   },
   password: {
     marginBottom: 30,
@@ -25,10 +24,42 @@ export const styles: Styles = {
   splitter: {
     margin: '0 10px',
   },
+  signupContainer: {
+    width: '100%',
+    maxWidth: 1460,
+  },
+  authForm: {
+    padding: 0,
+    overflow: 'hidden',
+    boxShadow: '0px 0px 30px #4445454D',
+    maxWidth: 1460,
+  },
+  sectionWrapper: {
+    display: 'flex',
+    overflow: 'hidden',
+    width: '100%',
+  },
+  irisImageBanner: {
+    objectFit: 'cover',
+    height: '100%',
+    width: '100%',
+    transform: 'scale(1.2)',
+  },
+  signupForm: {
+    maxWidth: 572.5,
+  },
 };
 
 export const useStyles = (theme: Theme) =>
   makeStyles({
+    container: {
+      paddingTop: 96,
+      justifyContent: 'space-between',
+      minHeight: '100vh',
+      [theme.breakpoints.down('md')]: {
+        paddingTop: 65,
+      },
+    },
     logoWrap: {
       display: 'flex',
       justifyContent: 'center',
@@ -64,6 +95,27 @@ export const useStyles = (theme: Theme) =>
         '& span': {
           marginBottom: 0,
         },
+      },
+    },
+    imgContainer: {
+      maxWidth: 592,
+      maxHeight: 740,
+      width: '100%',
+      overflow: 'hidden',
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
+    },
+    formWrapper: {
+      maxWidth: 868,
+      maxHeight: 740,
+      padding: '0 22.5px',
+      paddingTop: 53,
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      [theme.breakpoints.down('sm')]: {
+        maxHeight: '100%',
       },
     },
   })();

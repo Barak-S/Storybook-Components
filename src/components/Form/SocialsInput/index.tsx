@@ -3,7 +3,7 @@ import { TextButton } from 'components/Buttons';
 import { Social } from 'core/api';
 import { startsWith } from 'lodash';
 import React, { FC, ReactNode } from 'react';
-import { ms, StyleProps, Styles } from 'styles';
+import { ms, StyleProps, Styles, colors } from 'styles';
 import { genId } from 'utils';
 
 import FormSocialsInputItem from './components/Item';
@@ -114,7 +114,9 @@ export const FormSocialsInput: FC<Props> = ({
 const getStyles = (): Styles => ({
   container: {},
   item: {},
-  addBtn: {},
+  addBtn: {
+    color: colors.IRISteal,
+  },
 });
 
 export type FormSocialsInputProps = Props;

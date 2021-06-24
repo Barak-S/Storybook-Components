@@ -9,18 +9,18 @@ export const StepperConnector = withStyles({
   },
   active: {
     '& $line': {
-      background: colors.warmPurple,
+      background: colors.IRISteal,
     },
   },
   completed: {
     '& $line': {
-      background: colors.warmPurple,
+      background: colors.IRISteal,
     },
   },
   line: {
     height: 3,
     border: 0,
-    backgroundColor: colors.silver,
+    backgroundColor: colors.tint3,
     borderRadius: 1,
   },
 })(StepConnector);

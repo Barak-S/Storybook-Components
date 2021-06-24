@@ -32,7 +32,7 @@ const styles: Styles = {
   },
   label: {
     fontSize: '14px',
-    color: colors.marine,
+    color: colors.IRISteal,
     fontWeight: 500,
     ...mx.threeDots,
   },

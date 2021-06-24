@@ -59,7 +59,7 @@ export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, thumbnail, children
                 key={tab.index}
                 style={{ color: colors.brownGrey }}
                 className={classes.sidebarLink}
-                activeStyle={{ color: colors.marineBlue }}
+                activeStyle={{ color: colors.textGray }}
                 to={`${initialRoute}${tab.link}`}
                 isActive={(match, location) => {
                   if (match) {
@@ -74,7 +74,7 @@ export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, thumbnail, children
                   <LineAwesomeIcon
                     type={tab.icon}
                     size={24}
-                    color={activeLink === tab.index ? colors.warmPurple : colors.brownGrey}
+                    color={activeLink === tab.index ? colors.IRISteal : colors.brownGrey}
                   />
                 )}
                 <ListItemText primary={tab.label} className={classes.sidebarLinkLabel} />

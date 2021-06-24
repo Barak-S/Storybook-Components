@@ -16,7 +16,7 @@ type SceenFooterTheme = 'light' | 'dark';
 export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const color = controlTheme === 'dark' ? colors.white : colors.darkIndigo;
+  const color = controlTheme === 'dark' ? colors.white : colors.IRISteal;
   const styles = getStyles(controlTheme);
 
   const navLinks = [
@@ -55,7 +55,7 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
                   key={link.label}
                   style={{ color: color }}
                   className={classes.textLink}
-                  activeStyle={{ color: colors.windowsBlue }}
+                  activeStyle={{ color: colors.IRISyellow }}
                   to={link.path}
                 >
                   {link.label}
@@ -72,8 +72,8 @@ export const ScreenFooter: FC<Props> = ({ style, theme: controlTheme = 'light' }
 const getStyles = (theme: SceenFooterTheme): Styles => ({
   container: {
     width: '100%',
-    color: theme === 'dark' ? colors.white : colors.darkIndigo,
-    backgroundColor: theme === 'dark' ? colors.darkIndigo : colors.white,
+    color: theme === 'dark' ? colors.white : colors.IRISteal,
+    backgroundColor: theme === 'dark' ? colors.IRISteal : colors.white,
     borderTop: theme === 'dark' ? `2px solid ${colors.white}` : `2px solid ${colors.greyish}`,
     zIndex: 99,
   },

@@ -244,7 +244,7 @@ export const DashboardEventsRegistrationScreen: FC<Props> = ({ data, onChange })
           />
         </View>
         <div className={classes.defaultSetting}>
-          <span style={{ fontSize: 14, color: colors.coolBlue }}>{'Default Setting'}</span>
+          <span style={{ fontSize: 14, color: colors.IRISteal }}>{'Default Setting'}</span>
           <FormToggle title="Agree" />
         </div>
         <Divider style={{ marginTop: 29, marginBottom: 41 }} />
@@ -266,7 +266,7 @@ export const DashboardEventsRegistrationScreen: FC<Props> = ({ data, onChange })
 const styles: Styles = {
   title: {
     letterSpacing: '0px',
-    color: colors.marine,
+    color: colors.IRISteal,
     display: 'block',
     paddingBottom: 7,
     fontWeight: 500,

@@ -148,7 +148,7 @@ export const EventProfileEditFrom: FC<Props> = ({ data, errors, imgProcessing, o
 const styles: Styles = {
   title: {
     letterSpacing: '0px',
-    color: colors.marine,
+    color: colors.IRISteal,
     display: 'block',
     paddingBottom: 7,
     fontWeight: 500,

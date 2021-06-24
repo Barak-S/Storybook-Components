@@ -11,7 +11,7 @@ export const useStyles = () =>
     },
     title: {
       letterSpacing: '0px',
-      color: colors.marine,
+      color: colors.IRISteal,
       display: 'block',
       paddingTop: 7,
       paddingBottom: 6,
@@ -19,7 +19,7 @@ export const useStyles = () =>
     },
     subHeader: {
       letterSpacing: '0px',
-      color: colors.windowsBlue,
+      color: colors.IRISteal,
       display: 'block',
       paddingTop: 12,
       paddingBottom: 6,

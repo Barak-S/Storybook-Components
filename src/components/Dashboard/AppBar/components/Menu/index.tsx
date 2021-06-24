@@ -14,7 +14,7 @@ interface Props extends StyleProps {
   iconsVisibile?: boolean;
 }
 
-export type DashboardAppBarBtn = 'events' | 'analytics' | 'users' | 'profile' | 'notes';
+export type DashboardAppBarBtn = 'events' | 'analytics' | 'users' | 'profile' | 'notes' | undefined;
 
 interface BtnData {
   name: DashboardAppBarBtn;
@@ -105,14 +105,21 @@ const useStyles = (theme: Theme) =>
         textTransform: 'capitalize',
         display: 'none',
         '&.Mui-selected, &:hover': {
-          display: 'flex',
-          color: colors.marineBlue,
-          background: 'none',
-          height: '100%',
-          fontWeight: 500,
-          fontSize: 20,
+          transition: '0.2s ease-in',
+          color: colors.white,
+          '&::after': {
+            content: '""',
+            width: '100%',
+            backgroundColor: colors.IRISyellow,
+            display: 'block',
+            height: 7,
+            left: 0,
+            top: 65,
+            bottom: 0,
+            position: 'absolute',
+          },
           [theme.breakpoints.up('md')]: {
-            backgroundColor: colors.white,
+            backgroundColor: colors.IRISteal,
             fontSize: 18,
           },
         },
@@ -121,7 +128,7 @@ const useStyles = (theme: Theme) =>
           padding: '0 40px',
           fontWeight: 500,
           fontSize: 18,
-          color: colors.brownGrey,
+          color: colors.tint4,
           ...mx.borderRight(1, 'solid', colors.silver),
         },
         [theme.breakpoints.up('lg')]: {

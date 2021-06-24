@@ -401,7 +401,7 @@ const useStyles = (theme: Theme) =>
     },
     primaryHeader: {
       fontWeight: 500,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 36,
       marginBottom: 5,
     },
@@ -431,11 +431,11 @@ const useStyles = (theme: Theme) =>
       fontWeight: 500,
     },
     linkTo: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textDecoration: 'none',
     },
     linkToLast: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textDecoration: 'none',
       [theme.breakpoints.down('sm')]: {
         marginBottom: 28,
@@ -473,7 +473,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     listItemHeader: {
-      color: colors.coolBlue,
+      color: colors.IRISteal,
       paddingTop: 3,
       fontWeight: 500,
     },

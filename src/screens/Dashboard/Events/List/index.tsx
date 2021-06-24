@@ -6,7 +6,6 @@ import { useAuth } from 'core';
 import React, { FC, useState } from 'react';
 import { stateToCurOrgData, useSelector } from 'store';
 import { colors, ms, mx, StyleProps, Styles, useScreenSizes } from 'styles';
-
 import DashboardEmailConfirmScene from './scenes/EmailConfirm';
 import FirstEventSetup from './scenes/FirstEventSetup';
 import DashboardEventsListScene from './scenes/List';
@@ -102,7 +101,6 @@ export const DashboardEventsListScreen: FC<Props> = ({ handleUseNavBtnClick }) =
           <Grid style={styles.mobileTabsWrap}>{renderTabs()}</Grid>
         </Hidden>
       </DashboardScreenContainer>
-
       <ScreenFooter theme="light" />
     </>
   );

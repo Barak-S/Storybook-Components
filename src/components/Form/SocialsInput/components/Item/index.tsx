@@ -119,7 +119,7 @@ const styles: Styles = {
     right: 18,
   },
   socialMediaLabel: {
-    color: colors.coolBlue,
+    color: colors.IRISteal,
     fontWeight: 500,
     fontSize: 14,
     paddingBottom: 15,

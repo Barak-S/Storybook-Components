@@ -232,7 +232,7 @@ export const NewOrganizationInvitation: FC<Props> = ({ open, handleClick }) => {
           <div className={classes.modalEnd}>
             {isMobile ? (
               <div style={{ width: '100%', marginTop: 46 }}>
-                <span style={{ display: 'block', color: colors.marineBlue, fontWeight: 500, marginBottom: 18, fontSize: 18 }}>
+                <span style={{ display: 'block', color: colors.IRISteal, fontWeight: 500, marginBottom: 18, fontSize: 18 }}>
                   {'Sent Invites'}
                 </span>
                 <Divider style={{ width: '100%', marginBottom: '25px' }} />
@@ -381,7 +381,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     primaryHeader: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textAlign: 'center',
       fontSize: 30,
       marginBottom: 16,
@@ -526,12 +526,12 @@ const styles: Styles = {
     padding: 0,
   },
   userDetials: {
-    color: colors.marineBlue,
+    color: colors.IRISteal,
     fontWeight: 400,
     fontSize: 15,
   },
   userEmail: {
-    color: colors.marineBlue,
+    color: colors.IRISteal,
     fontWeight: 400,
     fontSize: 15,
     paddingTop: 4,

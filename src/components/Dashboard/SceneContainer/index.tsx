@@ -1,7 +1,6 @@
 import { Paper } from '@material-ui/core';
-import { BackgroundedContainer } from 'components/Layout';
 import React, { FC } from 'react';
-import { ms, Style, StyleProps, Styles } from 'styles';
+import { ms, Style, StyleProps, Styles, colors } from 'styles';
 
 interface Props extends StyleProps {
   className?: string;
@@ -11,7 +10,7 @@ interface Props extends StyleProps {
 export const DashboardSceneContainer: FC<Props> = ({ className, style, children }) => {
   return (
     <Paper style={ms(styles.container, style)} className={className} elevation={3}>
-      <BackgroundedContainer>{children}</BackgroundedContainer>
+      {children}
     </Paper>
   );
 };
@@ -21,6 +20,7 @@ const styles: Styles = {
     width: '100%',
     borderRadius: 15,
     overflow: 'hidden',
+    backgroundColor: colors.tint6,
   },
 };
 

@@ -1,6 +1,7 @@
 import { Grid, makeStyles, Theme, useTheme } from '@material-ui/core';
 import React, { FC } from 'react';
 import { mc, Style, StyleProps } from 'styles';
+import backgroundImg from 'screens/Dashboard/Events/List/assets/IrisBackgroundDash.svg';
 
 interface Props extends StyleProps {
   className?: string;
@@ -24,6 +25,7 @@ const useStyles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
+      backgroundImage: `url(${backgroundImg})`,
       [theme.breakpoints.up('md')]: {
         padding: '40px 45px',
       },

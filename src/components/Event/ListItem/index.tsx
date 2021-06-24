@@ -5,12 +5,11 @@ import { DashboardAppBarBtn } from 'components/Dashboard/AppBar/components/Menu'
 import { VerticalSplitter } from 'components/Data';
 import { FormToggle } from 'components/Form';
 import { LineAwesomeIcon, LineAwesomeIconType } from 'components/Icons';
-import backgroundImg from 'components/Layout/BackgroundedContainer/assets/background.png';
 import { Dropdown } from 'components/Navigation';
 import { Event, EventTheme, EventType } from 'core/api';
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
 import { routes } from 'screens/consts';
-import { colors, StyleProps, Styles } from 'styles';
+import { colors, StyleProps, Styles, mx } from 'styles';
 import { eventToDateStr } from 'components/Event/utils';
 import BadgeStatus from './components/BadgeStatus';
 import Countdown from './components/Countdown';
@@ -18,7 +17,6 @@ import DataTile from './components/DataTile';
 import ImageTile from './components/ImageTile';
 import Tile from './components/Tile';
 import { appConfig } from 'core';
-// import { styles } from '@material-ui/pickers/views/Calendar/Calendar';
 
 interface Props extends StyleProps {
   item: Event;
@@ -87,54 +85,64 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
     <Paper
       className={classes.container}
       style={{
-        backgroundImage: editDash ? `url("${backgroundImg}")` : undefined,
-        backgroundSize: 'cover',
         minHeight: editDash ? 699 : 508,
         transition: '0.3s ease all',
       }}
     >
-      <View row className={classes.eventSummary}>
-        <div className={classes.eventHeader}>
-          <BadgeStatus label={eventTypeToStr(item.type)} />
-          <Title type="h5" className={classes.eventDate}>
-            {eventToDateStr(item)}
+      <div>
+        <div style={{ marginBottom: 40 }}>
+          <View row className={classes.eventSummary}>
+            <div className={classes.eventHeader}>
+              <BadgeStatus label={eventTypeToStr(item.type)} color="gradient" />
+              <Title type="h5" className={classes.eventDate}>
+                {eventToDateStr(item)}
+              </Title>
+            </div>
+            <View row style={{ alignItems: 'center', display: isTablet ? 'none' : 'flex' }}>
+              <Title
+                type="h6"
+                className={classes.toggleTitle}
+                style={{ color: !editDash ? colors.brownishGrey : colors.warmPurple }}
+              >
+                {'EDIT'}
+              </Title>
+              <FormToggle
+                style={{ flexDirection: 'row-reverse', height: 32 }}
+                value={editDash}
+                onChange={setEditDash}
+                toggleClassName={classes.formToggle}
+              />
+              <VerticalSplitter style={{ height: 32, paddingLeft: 15, ...mx.borderRight(1, 'solid', colors.tint3) }} />
+              <Dropdown
+                anchor={anchorEl}
+                open={!!anchorEl}
+                onClose={handleMenuClose}
+                onToggle={handleProfileClick}
+                classes={{
+                  menu: classes.dropdown,
+                  icon: classes.dropdownIcon,
+                }}
+              >
+                {buttons.map(({ name, icon, label }) => (
+                  <MenuItem key={name} component="button">
+                    {<LineAwesomeIcon type={icon} />}
+                    {label}
+                  </MenuItem>
+                ))}
+              </Dropdown>
+            </View>
+          </View>
+          <Title type="h2" className={classes.eventTitle}>
+            <a
+              style={{ color: colors.IRISteal }}
+              href={`https://iris-sites-${appConfig.env}.smartapp.dev/${item.slug}`}
+              target="__blank"
+            >
+              {item.name}
+            </a>
           </Title>
         </div>
-        <View row style={{ alignItems: 'center', display: isTablet ? 'none' : 'flex' }}>
-          <Title type="h6" className={classes.toggleTitle} style={{ color: !editDash ? colors.brownishGrey : colors.warmPurple }}>
-            {'EDIT'}
-          </Title>
-          <FormToggle
-            style={{ flexDirection: 'row-reverse', height: 32 }}
-            value={editDash}
-            onChange={setEditDash}
-            toggleClassName={classes.formToggle}
-          />
-          <VerticalSplitter style={{ height: 32, paddingLeft: 15 }} />
-          <Dropdown
-            anchor={anchorEl}
-            open={!!anchorEl}
-            onClose={handleMenuClose}
-            onToggle={handleProfileClick}
-            classes={{
-              menu: classes.dropdown,
-              icon: classes.dropdownIcon,
-            }}
-          >
-            {buttons.map(({ name, icon, label }) => (
-              <MenuItem key={name} component="button">
-                {<LineAwesomeIcon type={icon} />}
-                {label}
-              </MenuItem>
-            ))}
-          </Dropdown>
-        </View>
-      </View>
-      <Title type="h2" className={classes.eventTitle}>
-        <a href={`https://iris-sites-${appConfig.env}.smartapp.dev/${item.slug}`} target="__blank">
-          {item.name}
-        </a>
-      </Title>
+      </div>
       <View row style={{ width: '200%' }}>
         <div
           className={classes.eventContainer}
@@ -209,7 +217,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 <div style={styles.eventTileSection}>
                   <span>
                     {'You have no sessions within your event. '}
-                    <a style={{ color: colors.link, textDecoration: 'underline' }}>{'Add your first one.'}</a>
+                    <a style={{ color: colors.IRISteal, textDecoration: 'underline' }}>{'Add your first one.'}</a>
                   </span>
                 </div>
               </Tile>
@@ -226,7 +234,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                 <div style={styles.eventTileSection}>
                   <span>
                     {'You have no sponsors supporting your event. '}
-                    <a style={{ color: colors.link, textDecoration: 'underline' }}>{'Add your first one.'}</a>
+                    <a style={{ color: colors.IRISteal, textDecoration: 'underline' }}>{'Add your first one.'}</a>
                   </span>
                 </div>
               </Tile>
@@ -247,7 +255,7 @@ export const EventsListItem: FC<Props> = ({ item, theme: eventTheme }) => {
                       <span style={{ fontSize: 12, color: colors.greyishBrown, letterSpacing: -0.05, paddingBottom: 3 }}>
                         {'Selected Theme:'}
                       </span>
-                      <span style={{ fontSize: 12, color: colors.marineBlue, letterSpacing: 0.24 }}>{eventTheme?.name}</span>
+                      <span style={{ fontSize: 12, color: colors.IRISteal, letterSpacing: 0.24 }}>{eventTheme?.name}</span>
                     </div>
                     <div>
                       <img src={eventTheme?.thumbnail} style={styles.eventThemeImg} />
@@ -301,7 +309,7 @@ const styles: Styles = {
   eventThemeEditLink: {
     fontSize: 12,
     letterSpacing: -0.05,
-    color: colors.veryLightPinkTwo,
+    color: colors.IRISteal,
     textDecoration: 'underline',
     textTransform: 'none',
   },
@@ -309,7 +317,7 @@ const styles: Styles = {
     paddingTop: 42,
     textTransform: 'none',
     fontSize: 15,
-    color: colors.warmPurple,
+    color: colors.IRISred,
     letterSpacing: 0.23,
   },
   eventThemeImg: {
@@ -426,7 +434,7 @@ const useStyles = (theme: Theme) =>
     eventDate: {
       letterSpacing: 1.44,
       fontSize: 18,
-      color: colors.coolBlue,
+      color: colors.textGray,
       paddingLeft: 14,
       [theme.breakpoints.down('sm')]: {
         fontSize: 14,
@@ -435,12 +443,13 @@ const useStyles = (theme: Theme) =>
       },
     },
     eventTitle: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 29,
       fontWeight: 500,
-      paddingTop: 21,
-      paddingBottom: 34,
+      paddingTop: 8,
+      paddingBottom: 22,
       paddingLeft: 39,
+      borderBottom: '1px solid #CDD0D0',
       [theme.breakpoints.down('sm')]: {
         fontSize: 21,
         paddingTop: 7,
@@ -465,25 +474,25 @@ const useStyles = (theme: Theme) =>
           display: 'flex',
           width: '100%',
           padding: '8px 16px',
-          color: colors.marineBlue,
+          color: colors.IRISteal,
           fontWeight: 400,
           fontSize: 16,
           '&:hover, &.Mui-selected': {
             fontWeight: 'normal',
             fontSize: 16,
             backgroundColor: colors.white,
-            color: colors.coolBlue,
+            color: colors.IRISteal,
           },
         },
         '& .MuiIcon-root': {
-          color: colors.coolBlue,
+          color: colors.IRISteal,
           marginRight: 10,
         },
       },
     },
     dropdownIcon: {
       fontSize: 24,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       transform: 'initial',
       marginLeft: 15,
       marginTop: 5,
@@ -491,12 +500,13 @@ const useStyles = (theme: Theme) =>
     toggleTitle: {
       fontSize: 16,
       fontWeight: 400,
+      color: `${colors.tint1} !important`,
     },
     formToggle: {
       transform: 'rotate(180deg)',
       marginLeft: 9,
       '& .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track': {
-        background: colors.warmPurple,
+        background: colors.IRISteal,
       },
     },
   })();

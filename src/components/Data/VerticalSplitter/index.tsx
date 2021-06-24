@@ -12,7 +12,7 @@ const styles: Styles = {
   splitter: {
     width: 1,
     height: 20,
-    ...mx.borderRight(1, 'solid', colors.coolGrey),
+    ...mx.borderRight(1, 'solid', colors.tint4),
   },
 };
 

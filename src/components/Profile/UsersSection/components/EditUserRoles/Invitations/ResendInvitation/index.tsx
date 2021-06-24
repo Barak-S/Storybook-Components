@@ -248,7 +248,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     primaryHeader: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textAlign: 'center',
       fontSize: 30,
       marginBottom: 16,

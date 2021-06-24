@@ -154,10 +154,9 @@ export const useStyles = (iconStart: boolean) =>
     error: {
       color: colors.error,
     },
-
     selectedItem: {
       color: colors.white,
-      backgroundColor: colors.coolBlue,
+      backgroundColor: colors.IRISteal,
     },
     selectMenu: {
       padding: '8px 0',

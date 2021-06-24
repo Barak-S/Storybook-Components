@@ -34,7 +34,7 @@ export const DashboardScreens: FC<Props> = () => {
   const user = useSelector(s => s.user.data);
 
   const [mobileMenuVisible, setMobileMenuVisible] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<DashboardAppBarBtn>('events');
+  const [activeTab, setActiveTab] = useState<DashboardAppBarBtn | undefined>('events');
 
   const theme = useTheme();
   const classes = useStyles(theme);

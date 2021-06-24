@@ -34,26 +34,27 @@ export const ContainedButton: FC<Props> = ({
   onClick,
 }) => {
   const mainColor = select(color, {
-    default: undefined,
-    inherit: undefined,
-    primary: undefined,
-    secondary: undefined,
-    red: colors.rustyRed,
+    default: colors.primaryGradient,
+    inherit: colors.primaryGradient,
+    primary: colors.primaryGradient,
+    secondary: colors.secondaryGradient,
+    red: colors.IRISred,
   });
   const hoverColor = !disabled
     ? select(color, {
-        default: colors.coolBlueTwo,
-        inherit: colors.coolBlueTwo,
-        primary: colors.coolBlueTwo,
-        secondary: undefined,
-        red: colors.withAlpha(colors.rustyRed, 0.7),
+        default: colors.IRISred,
+        inherit: colors.IRISred,
+        primary: colors.IRISred,
+        secondary: colors.tint3,
+        red: colors.withAlpha(colors.IRISred, 0.7),
       })
     : undefined;
+  const fontColor = disabled ? colors.tint2 : color === 'secondary' ? colors.textGray : colors.white;
   const theme = useTheme();
   const classes = useStyles(theme);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const styles = getStyles(mainColor, hoverColor, shadow, isMobile);
+  const styles = getStyles(mainColor, hoverColor, fontColor, disabled, shadow, isMobile);
   const { hover, hoverProps } = useHover();
   return (
     <Button
@@ -81,21 +82,24 @@ export const ContainedButton: FC<Props> = ({
 const getStyles = (
   mainColor: string | undefined,
   hoverColor: string | undefined,
+  fontColor: string,
+  disabled: boolean | undefined,
   shadow: boolean,
   isMobile: boolean,
 ): Styles => ({
   container: {
     width: '100%',
-    color: colors.white,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     boxShadow: shadow ? `0 3px 5px 0 ${colors.withAlpha(colors.black, 0.3)}` : undefined,
-    borderRadius: 6,
-    backgroundColor: mainColor,
+    borderRadius: 12,
+    background: !disabled ? mainColor : colors.tint4,
+    color: fontColor,
   },
   hover: {
-    backgroundColor: !isMobile ? hoverColor : undefined,
+    transition: 'none',
+    background: !isMobile ? hoverColor : undefined,
   },
 });
 

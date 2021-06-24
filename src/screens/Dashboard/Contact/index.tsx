@@ -81,9 +81,7 @@ export const DashboardContactScreen: FC<Props> = () => {
   return (
     <>
       <ScreenTitle title="Contact Us" />
-      <DashboardScreenContainer
-        style={{ minHeight: '100vh', backgroundColor: colors.darkIndigo, alignItems: 'center', padding: 0 }}
-      >
+      <DashboardScreenContainer style={{ minHeight: '100vh', alignItems: 'center', padding: 0 }}>
         <Paper className={classes.container}>
           <Grid container>
             <Grid item sm={12} lg={5}>
@@ -103,7 +101,7 @@ export const DashboardContactScreen: FC<Props> = () => {
                 <Grid item xs={12} sm={12} md={6} lg={12}>
                   <View className={classes.getInTouch}>
                     <div className={classes.phoneNumber}>
-                      <LineAwesomeIcon type="phone" color={colors.coolBlue} size={35} className={classes.phoneIcon} />
+                      <LineAwesomeIcon type="phone" color={colors.IRISteal} size={35} className={classes.phoneIcon} />
                       <p>{'800-477-7469'}</p>
                     </div>
                     <p className={classes.subText}>
@@ -116,7 +114,6 @@ export const DashboardContactScreen: FC<Props> = () => {
                 </Grid>
               </Grid>
             </Grid>
-
             <Grid container item sm={12} xs={12} lg={7} className={classes.contactForm}>
               <Grid item xs={12} sm={12} lg={12}>
                 <Title type="h3" className={classes.secondaryHeader}>
@@ -231,6 +228,7 @@ export const useStyles = (theme: Theme) =>
       lineHeight: 1.3,
       display: 'flex',
       alignItems: 'center',
+      boxShadow: '0px 0px 30px #4445454D',
       [theme.breakpoints.down('lg')]: {
         margin: '50px 57px',
       },
@@ -256,7 +254,7 @@ export const useStyles = (theme: Theme) =>
     },
     primaryHeader: {
       fontWeight: 500,
-      color: colors.warmPurple,
+      color: colors.IRISteal,
       fontSize: 30,
       marginBottom: 13,
       paddingLeft: 6,
@@ -267,7 +265,7 @@ export const useStyles = (theme: Theme) =>
     secondaryHeader: {
       paddingLeft: 8,
       fontWeight: 500,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 16,
       marginBottom: 20,
       [theme.breakpoints.down('md')]: {
@@ -286,10 +284,10 @@ export const useStyles = (theme: Theme) =>
       fontSize: 30,
       marginBottom: 30,
       fontWeight: 500,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
     },
     listText: {
-      color: colors.brownishGrey,
+      color: colors.textGray,
     },
     input: {
       maxWidth: 337,
@@ -316,7 +314,7 @@ export const useStyles = (theme: Theme) =>
       paddingTop: 112,
       display: 'flex',
       alignItems: 'center',
-      color: colors.coolBlue,
+      color: colors.textGray,
       paddingLeft: 6,
       fontSize: 18,
       [theme.breakpoints.down('md')]: {
@@ -345,7 +343,7 @@ export const useStyles = (theme: Theme) =>
       },
     },
     subText: {
-      color: colors.coolBlue,
+      color: colors.IRISteal,
       marginTop: 23,
       paddingLeft: 6,
       [theme.breakpoints.down('md')]: {
@@ -359,7 +357,7 @@ export const useStyles = (theme: Theme) =>
       },
     },
     link: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       display: 'inline-block',
     },
     errors: {
@@ -401,7 +399,6 @@ export const useStyles = (theme: Theme) =>
       justifyContent: 'center',
     },
     btn: {
-      background: colors.marineBlue,
       borderRadius: '6px',
       width: '200px!important',
       height: '52px',

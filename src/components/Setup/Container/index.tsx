@@ -143,7 +143,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     headerTitle: {
-      color: colors.coolBlueTwo,
+      color: colors.IRISteal,
       fontWeight: 500,
       fontSize: 18,
       textTransform: 'uppercase',
@@ -168,7 +168,7 @@ const useStyles = (theme: Theme) =>
     stepIndex: {
       fontWeight: 500,
       fontSize: 20,
-      color: colors.warmPurple,
+      color: colors.IRISteal,
       marginRight: 5,
       [theme.breakpoints.up('md')]: {
         display: 'block',
@@ -183,7 +183,7 @@ const useStyles = (theme: Theme) =>
       fontWeight: 500,
       fontSize: 20,
       letterSpacing: -0.08,
-      color: colors.warmPurple,
+      color: colors.IRISteal,
       textTransform: 'capitalize',
       marginBottom: 10,
       [theme.breakpoints.up('md')]: {

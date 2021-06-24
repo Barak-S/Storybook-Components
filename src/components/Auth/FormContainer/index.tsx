@@ -26,7 +26,6 @@ export const useStyles = (theme: Theme) =>
       alignItems: 'center',
       position: 'relative',
       maxWidth: 740,
-
       [theme.breakpoints.up('sm')]: {
         padding: '45px 80px',
       },

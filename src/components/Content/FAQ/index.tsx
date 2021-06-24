@@ -179,7 +179,7 @@ const useStyles = (theme: Theme) =>
     },
     primaryHeader: {
       fontWeight: 500,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 40,
       marginBottom: 5,
     },
@@ -197,7 +197,7 @@ const useStyles = (theme: Theme) =>
     },
     listItemHeader: {
       fontWeight: 500,
-      color: colors.coolBlue,
+      color: colors.IRISteal,
       paddingTop: 12,
       marginBottom: 20,
       fontSize: 18,

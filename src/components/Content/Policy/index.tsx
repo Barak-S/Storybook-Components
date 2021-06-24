@@ -657,7 +657,7 @@ const useStyles = (theme: Theme) =>
     },
     primaryHeader: {
       fontWeight: 500,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 36,
       marginBottom: 1,
       lineHeight: 1.2,
@@ -670,7 +670,7 @@ const useStyles = (theme: Theme) =>
     },
     secondaryHeader: {
       fontWeight: 500,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       fontSize: 30,
       paddingTop: 8,
       lineHeight: 1.2,
@@ -759,12 +759,12 @@ const useStyles = (theme: Theme) =>
       },
     },
     linkTo: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textDecoration: 'none',
     },
     endText: {
       fontSize: 19,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       textDecoration: 'none',
       fontWeight: 400,
       marginTop: 24,
@@ -776,7 +776,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     tableHeaderCell: {
-      color: colors.marineBlue,
+      color: colors.IRISteal,
       backgroundColor: colors.lightPeriwinkle,
       textTransform: 'uppercase',
       fontWeight: 500,

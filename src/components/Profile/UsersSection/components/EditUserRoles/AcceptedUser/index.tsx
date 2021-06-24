@@ -35,7 +35,6 @@ export const ProfileAcceptedUser: FC<User> = ({ user }) => {
     <>
       <div className={classes.tableRow}>
         <div className={classes.userCol}>{`${user?.firstName} ${user?.lastName}`}</div>
-        <div className={classes.userCol}>{user?.email}</div>
         <div className={classes.actionCol} style={{ alignItems: 'flex-end', height: '100%' }}>
           <div className={classes.actionContainer}>
             <FormSelect
@@ -52,7 +51,7 @@ export const ProfileAcceptedUser: FC<User> = ({ user }) => {
               handleClick={() => setRemove(true)}
               type="user-times"
               className={classes.removeIcon}
-              color={colors.windowsBlue}
+              color={colors.tint3}
               size={32}
             />
           </div>
@@ -67,7 +66,8 @@ const useStyles = (theme: Theme) =>
   makeStyles({
     tableRow: {
       height: 90,
-      poosition: 'relative',
+      position: 'relative',
+      justifyContent: 'space-between',
       display: 'flex',
       flexDirection: 'row',
       borderBottom: `1px solid ${colors.greyish}`,
@@ -93,7 +93,6 @@ const useStyles = (theme: Theme) =>
       },
     },
     userCol: {
-      width: '35%',
       fontSize: 19,
       display: 'flex',
       alignItems: 'center',
@@ -103,7 +102,6 @@ const useStyles = (theme: Theme) =>
     },
     actionCol: {
       position: 'relative',
-      width: '30%',
       display: 'flex',
       [theme.breakpoints.down('sm')]: {
         width: '100%',

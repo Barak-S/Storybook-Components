@@ -20,7 +20,7 @@ export const styles: Styles = {
     fontSize: 30,
     marginBottom: 30,
     fontWeight: 500,
-    color: colors.marineBlue,
+    color: colors.IRISteal,
   },
   resetPass: {
     textTransform: 'capitalize',
@@ -83,10 +83,6 @@ export const useStyles = (theme: Theme) =>
     logo: {
       width: 112,
       height: 63,
-
-      [theme.breakpoints.up('lg')]: {
-        width: 224,
-        height: 126,
-      },
+      marginBottom: 23,
     },
   })();

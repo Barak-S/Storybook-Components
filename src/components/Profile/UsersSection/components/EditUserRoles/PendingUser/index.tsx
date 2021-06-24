@@ -32,9 +32,6 @@ export const ProfilePendingUser: FC<Props> = ({ user, open, handleClick, setSele
       <div className={classes.userCol}>
         <span className={classes.userName}>{`${user.firstName} ${user.lastName}`} </span>
       </div>
-      <div className={classes.userCol}>
-        <span className={classes.userEmail}>{user.email}</span>
-      </div>
       <div className={classes.actionCol} style={{ height: '100%' }}>
         <div className={classes.actionContainer}>
           <span className={classes.inviteStatus}>{user.status}</span>
@@ -56,6 +53,7 @@ const useStyles = (theme: Theme) =>
       borderBottom: `1px solid ${colors.greyish}`,
       paddingLeft: 25,
       paddingRight: 15,
+      justifyContent: 'space-between',
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         height: 150,
@@ -72,7 +70,6 @@ const useStyles = (theme: Theme) =>
       },
     },
     userCol: {
-      width: '35%',
       fontSize: 19,
       display: 'flex',
       alignItems: 'center',
@@ -81,11 +78,17 @@ const useStyles = (theme: Theme) =>
       },
     },
     actionCol: {
-      width: '30%',
+      maxWidth: 313,
+      width: '100%',
       display: 'flex',
       alignItems: 'center',
+      paddingRight: 48,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: 293,
+      },
       [theme.breakpoints.down('sm')]: {
-        width: '100%',
+        maxWidth: '100%',
+        paddingRight: 0,
       },
     },
     userName: {
@@ -99,12 +102,12 @@ const useStyles = (theme: Theme) =>
       display: 'block',
     },
     inviteStatus: {
-      color: colors.green,
+      color: colors.IRISgreen,
       fontWeight: 400,
       fontSize: 15,
     },
     emailAction: {
-      color: colors.coolBlue,
+      color: colors.IRISteal,
       cursor: 'pointer',
       textDecoration: 'underline',
       [theme.breakpoints.down('sm')]: {

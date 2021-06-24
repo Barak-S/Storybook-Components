@@ -31,7 +31,7 @@ export const useStyles = (theme: Theme) =>
       position: 'fixed',
       top: 0,
       height: 60,
-      backgroundColor: colors.whiteTwo,
+      backgroundColor: colors.IRISteal,
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
@@ -39,7 +39,7 @@ export const useStyles = (theme: Theme) =>
       alignItems: 'center',
       paddingRight: 10,
       fontSize: 20,
-      ...mx.borderBottom(1, 'solid', colors.lightBlueGrey),
+      boxShadow: `0 3px 6px ${colors.withAlpha(colors.black, 0.3)}`,
       ...mx.borderTop(1, 'solid', colors.lightBlueGrey),
       ...mx.zIndex.appbar,
       [theme.breakpoints.up('md')]: {
@@ -72,7 +72,7 @@ export const useStyles = (theme: Theme) =>
       },
       '& .Mui-selected': {
         backgroundColor: colors.white,
-        color: colors.marineBlue,
+        color: colors.IRISteal,
       },
     },
   })();

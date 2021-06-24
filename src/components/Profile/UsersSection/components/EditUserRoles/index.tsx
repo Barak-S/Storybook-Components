@@ -42,25 +42,20 @@ export const ProfileUserRoles: FC<Props> = ({ style }) => {
             {!isMobile && (
               <div className={classes.tableHeadRow}>
                 <div className={classes.userCol}>{'NAME'}</div>
-                <div className={classes.userCol}>{'EMAIL'}</div>
                 <div className={classes.actionCol}>{'ACCOUNT ROLE'}</div>
               </div>
             )}
             <div className={classes.usersTable}>
               <ProfilePendingUser
-                user={{ firstName: 'Barak', lastName: 'Saidoff', email: 'name@domain.com', status: 'Invite Sent' }}
+                user={{ firstName: 'Barak', lastName: 'Saidoff', status: 'Invite Sent' }}
                 open={showResendInvitation}
                 handleClick={setShowResendInvitation}
                 setSelectedUser={setSelectedUser}
               />
-              <ProfileAcceptedUser
-                user={{ firstName: 'Jarosllav', lastName: 'Khorishchenko', email: 'name@domain.com', role: 'Owner' }}
-              />
-              <ProfileAcceptedUser
-                user={{ firstName: 'Theresa', lastName: 'Saunders', email: 'name@domain.com', role: 'Admin' }}
-              />
-              <ProfileAcceptedUser user={{ firstName: 'Helen', lastName: 'Slavko', email: 'name@domain.com', role: 'Editor' }} />
-              <ProfileAcceptedUser user={{ firstName: 'Joe', lastName: 'Arcuri', email: 'name@domain.com', role: 'Manager' }} />
+              <ProfileAcceptedUser user={{ firstName: 'Jarosllav', lastName: 'Khorishchenko', role: 'Owner' }} />
+              <ProfileAcceptedUser user={{ firstName: 'Theresa', lastName: 'Saunders', role: 'Admin' }} />
+              <ProfileAcceptedUser user={{ firstName: 'Helen', lastName: 'Slavko', role: 'Editor' }} />
+              <ProfileAcceptedUser user={{ firstName: 'Joe', lastName: 'Arcuri', role: 'Manager' }} />
             </div>
           </div>
         </div>
@@ -104,7 +99,7 @@ const useStyles = (theme: Theme) =>
     },
     title: {
       letterSpacing: '0px',
-      color: colors.marine,
+      color: colors.IRISteal,
       display: 'block',
       paddingTop: 7,
       paddingBottom: 6,
@@ -131,12 +126,13 @@ const useStyles = (theme: Theme) =>
       height: 65,
       display: 'flex',
       flexDirection: 'row',
+      justifyContent: 'space-between',
       paddingLeft: 25,
       paddingRight: 15,
       backgroundColor: colors.paleGrey,
       border: `1px solid ${colors.greyish}`,
       borderBottom: 'none',
-      color: colors.coolBlue,
+      color: colors.IRISteal,
       fontWeight: 500,
       letterSpacing: 2,
     },
@@ -154,7 +150,6 @@ const useStyles = (theme: Theme) =>
       },
     },
     userCol: {
-      width: '35%',
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.down('sm')]: {
@@ -162,7 +157,6 @@ const useStyles = (theme: Theme) =>
       },
     },
     actionCol: {
-      width: '30%',
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.down('sm')]: {

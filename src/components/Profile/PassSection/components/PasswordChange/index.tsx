@@ -90,7 +90,7 @@ const styles: Styles = {
   },
   title: {
     letterSpacing: '0px',
-    color: colors.marine,
+    color: colors.IRISteal,
     display: 'block',
     paddingTop: 6,
     fontWeight: 500,

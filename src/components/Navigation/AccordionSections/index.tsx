@@ -104,7 +104,7 @@ const useStyles = makeStyles({
     },
   },
   accordion: {
-    color: colors.marineBlue,
+    color: colors.textGray,
     borderRadius: 10,
     '&:hover': {
       '& .MuiIcon-root': {
@@ -121,7 +121,7 @@ const useStyles = makeStyles({
       },
     },
     '& .MuiIcon-root': {
-      color: colors.marineBlue,
+      color: colors.textGray,
       alignItems: 'center',
       transform: 'rotate(-90deg)',
       transition: '0.3s ease',
@@ -133,7 +133,7 @@ const useStyles = makeStyles({
       alignItems: 'center',
       display: 'flex',
       '& .MuiIcon-root': {
-        color: colors.windowsBlue,
+        color: colors.textGray,
         transform: 'rotate(180deg)',
         '&:hover': {
           transform: 'rotate(180deg)',

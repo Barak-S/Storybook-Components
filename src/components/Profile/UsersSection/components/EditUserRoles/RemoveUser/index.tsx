@@ -51,10 +51,10 @@ export const RemoveUser: FC<Props> = ({ user, open, handleClick }) => {
           </span>
         </div>
         <div className={classes.actionContainer}>
-          <ContainedButton style={styles.confirmAction} className={classes.confirmAction} size="large" color="red">
+          <ContainedButton style={styles.confirmAction} className={classes.confirmAction} size="large">
             {'REMOVE USER'}
           </ContainedButton>
-          <span style={{ color: colors.coolBlue, textDecoration: 'underline', cursor: 'pointer' }} onClick={handleClickButton}>
+          <span style={{ color: colors.IRISteal, textDecoration: 'underline', cursor: 'pointer' }} onClick={handleClickButton}>
             {'Cancel'}
           </span>
         </div>
@@ -110,7 +110,7 @@ const useStyles = (theme: Theme) =>
       justifyContent: 'space-between',
     },
     primaryHeader: {
-      color: colors.rustyRed,
+      color: colors.IRISred,
       textAlign: 'center',
       fontSize: 30,
       marginBottom: 14,

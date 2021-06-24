@@ -39,15 +39,15 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
         <LineAwesomeIcon
           type={icon}
           size={22}
-          color={hover ? colors.white : colors.warmPurple}
+          color={hover ? colors.white : colors.IRISteal}
           style={{
-            border: `2px solid ${hover ? colors.white : colors.warmPurple}`,
+            border: `2px solid ${hover ? colors.white : colors.IRISteal}`,
             borderRadius: 100,
             padding: 17,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: hover ? colors.warmPurple : colors.white,
+            backgroundColor: hover ? colors.IRISteal : colors.white,
           }}
         />
         <EventBadgeStatus
@@ -65,10 +65,13 @@ export const EditEventTile: FC<Props> = ({ title, description, disabled, icon, l
       {children}
       {linkTo?.label && (
         <div className={classes.linkTo}>
-          <span className={classes.linktoText} style={{ color: hover ? colors.link : colors.veryLightPinkTwo, paddingRight: 6 }}>
+          <span
+            className={classes.linktoText}
+            style={{ color: hover ? colors.IRISteal : colors.veryLightPinkTwo, paddingRight: 6 }}
+          >
             {linkTo.label}
           </span>
-          <LineAwesomeIcon type="arrow-right" size={16} color={hover ? colors.link : colors.veryLightPinkTwo} />
+          <LineAwesomeIcon type="arrow-right" size={16} color={hover ? colors.IRISteal : colors.veryLightPinkTwo} />
         </div>
       )}
     </Paper>
@@ -92,7 +95,7 @@ const useStyles = (theme: Theme) =>
       boxShadow: '0px 0px 20px #AAAAAA40',
     },
     eventTitle: {
-      color: colors.warmPurple,
+      color: colors.IRISteal,
       fontSize: 15,
       fontWeight: 500,
       paddingTop: 10.5,

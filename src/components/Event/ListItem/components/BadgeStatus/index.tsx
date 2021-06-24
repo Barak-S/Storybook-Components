@@ -10,9 +10,9 @@ interface Props extends StyleProps {
   iconStart?: LineAwesomeIconType;
 }
 
-type EventBadgeColor = 'green' | 'purple';
+type EventBadgeColor = 'green' | 'gradient';
 
-export const EventBadgeStatus: FC<Props> = ({ label, disabled, iconStart, color = 'purple', style }) => {
+export const EventBadgeStatus: FC<Props> = ({ label, disabled, iconStart, color = 'gradient', style }) => {
   const styles = getStyles(color, disabled);
 
   return (
@@ -27,7 +27,7 @@ export const EventBadgeStatus: FC<Props> = ({ label, disabled, iconStart, color 
 
 const getStyles = (badgeColor: EventBadgeColor, disabled?: boolean): Styles => ({
   eventBadge: {
-    backgroundColor: !disabled ? (badgeColor === 'green' ? colors.green : colors.warmPurple) : colors.silverTwo,
+    background: !disabled ? (badgeColor === 'green' ? colors.IRISgreen : colors.primaryGradient) : colors.silverTwo,
     height: 24,
     width: 'fit-content',
     display: 'flex',

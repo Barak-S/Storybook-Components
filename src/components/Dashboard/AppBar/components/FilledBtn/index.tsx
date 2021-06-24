@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
     transition: 'all .2s ease-in-out',
     '&:hover': {
       backgroundColor: colors.white,
-      color: colors.marineBlue,
+      color: colors.IRISteal,
     },
   },
   text: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
 const styles: Styles = {
   active: {
     backgroundColor: colors.white,
-    color: colors.marineBlue,
+    color: colors.IRISteal,
   },
 };
 

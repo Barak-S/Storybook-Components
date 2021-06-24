@@ -39,7 +39,7 @@ export const DashboardFirstEventSetupView: FC<Props> = ({
           <Stepper steps={steps} activeStep={curStepIndex} />
           {!isTablet && (
             <IconButton style={styles.iconButton} onClick={onIconBtnClick}>
-              <LineAwesomeIcon type="angle-right" size={34} />
+              <LineAwesomeIcon type="angle-right" size={34} color={colors.IRISteal} />
             </IconButton>
           )}
           {isMobile && <DashbaordStepperMobileLabel steps={steps} curStepIndex={curStepIndex} />}
@@ -96,7 +96,7 @@ const useStyles = (theme: Theme) =>
     },
     title: {
       fontWeight: 500,
-      color: colors.coolBlueTwo,
+      color: colors.IRISteal,
       fontSize: 18,
       textTransform: 'uppercase',
       marginBottom: 24,

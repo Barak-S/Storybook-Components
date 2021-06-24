@@ -123,16 +123,19 @@ const useStyles = (theme: Theme) =>
         '& .MuiButtonBase-root': {
           display: 'flex',
           padding: '8px 16px',
-          color: colors.marineBlue,
+          color: colors.IRISteal,
           fontWeight: 400,
           fontSize: 16,
           '&:hover, &.Mui-selected': {
             fontWeight: 'normal',
             fontSize: 16,
+            '& .MuiIcon-root': {
+              color: colors.white,
+            },
           },
         },
         '& .MuiIcon-root': {
-          color: colors.coolBlue,
+          color: colors.IRISteal,
           marginRight: 10,
         },
       },
@@ -142,7 +145,7 @@ const useStyles = (theme: Theme) =>
       color: colors.brownishGrey,
       transform: 'translateX(-5px)',
       [theme.breakpoints.up('md')]: {
-        color: colors.marineBlue,
+        color: colors.white,
         fontSize: 16,
         transform: 'initial',
       },

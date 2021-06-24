@@ -5,17 +5,19 @@ import { NavLink } from 'react-router-dom';
 
 interface Props extends StyleProps {
   href: string;
+  onClick?: () => void;
 }
 
-export const DashboardAppBarTextBtn: FC<Props> = ({ style, children, href }) => {
+export const DashboardAppBarTextBtn: FC<Props> = ({ style, children, href, onClick }) => {
   const classes = useStyles();
 
   return (
     <NavLink
       style={ms([styles.container, style])}
       className={classes.container}
-      activeStyle={{ color: colors.marineBlue }}
+      activeStyle={{ color: colors.IRISyellow }}
       to={href}
+      onClick={onClick && onClick}
     >
       {children}
     </NavLink>
@@ -28,20 +30,20 @@ const styles: Styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    color: colors.coolBlueTwo,
     padding: '0 16px',
     boxSizing: 'border-box',
     textDecoration: 'none',
     whiteSpace: 'nowrap',
     fontSize: 'inherit',
-    transition: 'all .3s ease-in-out',
+    transition: 'all .2s ease-in-out',
   },
 };
 
 const useStyles = makeStyles(() => ({
   container: {
+    color: colors.tint4,
     '&:hover': {
-      opacity: 0.7,
+      color: colors.IRISyellow,
     },
   },
 }));

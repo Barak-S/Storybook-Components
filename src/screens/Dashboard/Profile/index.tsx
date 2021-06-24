@@ -277,11 +277,11 @@ const useStyles = (theme: Theme) =>
       },
     },
     title: {
-      ...mx.font(50, colors.marineBlue),
+      ...mx.font(50, colors.IRISteal),
       fontWeight: 500,
       marginBottom: 35,
       [theme.breakpoints.down('sm')]: {
-        ...mx.font(30, colors.marineBlue),
+        ...mx.font(30, colors.IRISteal),
         marginBottom: 12,
       },
     },

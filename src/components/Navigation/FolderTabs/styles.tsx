@@ -5,26 +5,22 @@ export const useStyles = (theme: Theme) =>
   makeStyles({
     root: {
       boxShadow: `inset 0px -12px 8px -10px #CCC !important`,
-      '& .MuiTabs-flexContainer': {
-        marginTop: '3px !important',
-      },
     },
     container: {
-      backgroundColor: colors.white,
+      backgroundColor: 'transparent',
       boxShadow: 'none',
       '& [class*="-fixed"]': {
         overflow: 'visible !important',
       },
     },
     tabs: {
-      backgroundColor: colors.whiteTwo,
+      backgroundColor: 'transparent',
     },
     blockContent: {
       padding: '32px',
     },
     tab: {
       fontSize: 20,
-      marginTop: '3px !important',
       margin: '0 2px',
       padding: '0px 3px',
       minWidth: 'fit-content',

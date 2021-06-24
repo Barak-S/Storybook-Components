@@ -322,7 +322,7 @@ const styles: Styles = {
   },
   primaryHeader: {
     fontWeight: 500,
-    color: colors.warmPurple,
+    color: colors.IRISteal,
     fontSize: 30,
     marginBottom: 11,
   },
@@ -344,7 +344,7 @@ const styles: Styles = {
   },
   title: {
     letterSpacing: '0px',
-    color: colors.marine,
+    color: colors.IRISteal,
     display: 'block',
     paddingBottom: 7,
     fontWeight: 500,

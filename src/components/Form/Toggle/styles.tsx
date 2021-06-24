@@ -26,11 +26,11 @@ export const StyledToggle = withStyles((theme: Theme) =>
       height: 14,
       boxShadow: 'none',
       color: colors.white,
-      border: `1px solid ${colors.brownishGrey}`,
+      border: `1px solid ${colors.tint1}`,
       transform: 'translateX(-1.5px)',
     },
     track: {
-      border: `1px solid ${colors.brownishGrey}`,
+      border: `1px solid ${colors.tint1}`,
       borderRadius: 16 / 2,
       opacity: 1,
       backgroundColor: theme.palette.common.white,
@@ -52,6 +52,9 @@ export const useStyles = () =>
         flexDirection: 'row-reverse !important',
         justifyContent: 'space-between',
       },
+      '& .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track': {
+        background: colors.IRISteal,
+      },
     },
     swicher: {
       padding: '2px',
@@ -67,7 +70,7 @@ export const useStyles = () =>
       marginLeft: '8px',
       font: 'normal normal normal 16px/23px Rubik',
       letterSpacing: '0px',
-      color: colors.brownishGrey,
+      color: colors.textGray,
       [theme.breakpoints.down('sm')]: {
         marginLeft: '0px',
       },
