@@ -54,7 +54,7 @@ const useStyles = (theme: Theme) =>
       '& .MuiTabs-indicator': {
         height: 5,
         borderRadius: 50,
-        background: colors.IRISteal,
+        background: colors.steal,
       },
       '& .MuiTab-root': {
         padding: '0 10px',
@@ -66,7 +66,7 @@ const useStyles = (theme: Theme) =>
         },
       },
       '& .Mui-selected': {
-        color: colors.IRISteal,
+        color: colors.steal,
       },
       '& .MuiTabs-flexContainer': {
         [theme.breakpoints.down('sm')]: {

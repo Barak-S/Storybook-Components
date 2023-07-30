@@ -71,11 +71,7 @@ export const SidebarTabs: FC<Props> = ({ tabs, initialRoute, thumbnail, children
                 }}
               >
                 {tab.icon && (
-                  <LineAwesomeIcon
-                    type={tab.icon}
-                    size={24}
-                    color={activeLink === tab.index ? colors.IRISteal : colors.brownGrey}
-                  />
+                  <LineAwesomeIcon type={tab.icon} size={24} color={activeLink === tab.index ? colors.steal : colors.brownGrey} />
                 )}
                 <ListItemText primary={tab.label} className={classes.sidebarLinkLabel} />
               </NavLink>

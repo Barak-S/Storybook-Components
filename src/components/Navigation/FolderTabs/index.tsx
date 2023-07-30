@@ -80,7 +80,7 @@ const overrides = createMuiTheme({
         padding: 0,
         '&.Mui-selected': {
           background: `${colors.white}`,
-          color: `${colors.IRISteal}`,
+          color: `${colors.steal}`,
           boxShadow: `0 -3px 4px -1px ${colors.silver};`,
           '&:first-child': {
             boxShadow: ` -1.5px -3px 4px -1px ${colors.silver};`,

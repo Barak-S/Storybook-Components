@@ -40,7 +40,7 @@ export const FormTooltip: FC<Props> = ({ style, placement = 'top-start', title }
 
 const getStyles = (hover: boolean): Styles => ({
   iconHolder: {
-    color: hover ? colors.IRISyellow : colors.greyish,
+    color: hover ? colors.yellow : colors.greyish,
     ...mx.centeredContent,
     ...mx.square(24),
     marginLeft: 6,

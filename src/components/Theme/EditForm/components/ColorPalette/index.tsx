@@ -10,11 +10,11 @@ interface Props extends StyleProps {
 }
 
 export const defEventThemeColors: EventThemeColors = {
-  background: colors.IRISteal,
+  background: colors.steal,
   largeHeadlines: colors.coolBlue,
-  mediumHeadlines: colors.IRISteal,
+  mediumHeadlines: colors.steal,
   bodyText: colors.blackTwo,
-  subheads: colors.IRISteal,
+  subheads: colors.steal,
   linkedText: colors.warmPurple,
 };
 

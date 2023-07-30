@@ -37,16 +37,16 @@ export const ContainedButton: FC<Props> = ({
     default: colors.primaryGradient,
     inherit: colors.primaryGradient,
     primary: colors.primaryGradient,
-    secondary: colors.secondaryGradient,
-    red: colors.IRISred,
+    secondary: colors.secondary,
+    red: colors.alert,
   });
   const hoverColor = !disabled
     ? select(color, {
-        default: colors.IRISred,
-        inherit: colors.IRISred,
-        primary: colors.IRISred,
-        secondary: colors.tint3,
-        red: colors.withAlpha(colors.IRISred, 0.7),
+        default: colors.withAlpha(colors.primaryGradient, 0.7),
+        inherit: colors.withAlpha(colors.primaryGradient, 0.7),
+        primary: colors.withAlpha(colors.primaryGradient, 0.7),
+        secondary: colors.withAlpha(colors.secondary, 0.7),
+        red: colors.withAlpha(colors.alert, 0.7),
       })
     : undefined;
   const fontColor = disabled ? colors.tint2 : color === 'secondary' ? colors.textGray : colors.white;
@@ -54,7 +54,7 @@ export const ContainedButton: FC<Props> = ({
   const classes = useStyles(theme);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const styles = getStyles(mainColor, hoverColor, fontColor, disabled, shadow, isMobile);
+  const styles = getStyles(mainColor, hoverColor, fontColor, disabled, shadow, isMobile, processing);
   const { hover, hoverProps } = useHover();
   return (
     <Button
@@ -86,6 +86,7 @@ const getStyles = (
   disabled: boolean | undefined,
   shadow: boolean,
   isMobile: boolean,
+  processing: boolean | undefined,
 ): Styles => ({
   container: {
     width: '100%',
@@ -94,7 +95,7 @@ const getStyles = (
     alignItems: 'center',
     boxShadow: shadow ? `0 3px 5px 0 ${colors.withAlpha(colors.black, 0.3)}` : undefined,
     borderRadius: 12,
-    background: !disabled ? mainColor : colors.tint4,
+    background: disabled ? colors.tint4 : processing ? colors.withAlpha(mainColor, 0.7) : mainColor,
     color: fontColor,
   },
   hover: {

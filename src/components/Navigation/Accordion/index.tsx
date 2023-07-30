@@ -59,7 +59,7 @@ const getStyles = (expanded: boolean): Styles => ({
     display: 'flex',
     justifyContent: 'space-between',
     minHeight: 76,
-    color: colors.IRISteal,
+    color: colors.steal,
   },
   title: {
     fontSize: 18,

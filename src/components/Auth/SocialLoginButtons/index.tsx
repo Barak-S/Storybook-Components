@@ -16,12 +16,12 @@ export const AuthSocialLoginButtons: FC<Props> = ({ style, onBtnClick }) => {
         <Grid item xs={12} sm={4}>
           <SocialButton style={styles.item} type="google" onClick={onBtnClick} />
         </Grid>
-        {/* <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={4}>
           <SocialButton style={styles.item} type="facebook" onClick={onBtnClick} />
-        </Grid> */}
-        {/* <Grid item xs={12} sm={4}>
+        </Grid>
+        <Grid item xs={12} sm={4}>
           <SocialButton style={styles.item} type="linkedin" onClick={onBtnClick} />
-        </Grid> */}
+        </Grid>
       </Grid>
     </View>
   );

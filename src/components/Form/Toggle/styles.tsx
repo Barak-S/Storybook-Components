@@ -53,7 +53,7 @@ export const useStyles = () =>
         justifyContent: 'space-between',
       },
       '& .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track': {
-        background: colors.IRISteal,
+        background: colors.steal,
       },
     },
     swicher: {

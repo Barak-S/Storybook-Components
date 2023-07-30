@@ -114,7 +114,7 @@ const useStyles = (theme: Theme) =>
       },
     },
     activeStep: {
-      color: colors.IRISteal,
+      color: colors.steal,
     },
   })();
 

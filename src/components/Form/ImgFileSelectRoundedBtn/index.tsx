@@ -52,7 +52,7 @@ export const FormImgFileSelectRoundedBtn: FC<Props> = ({
             border: !src ? `dashed 2px ${colors.lightPeriwinkle}` : undefined,
           })}
         >
-          {!src && !processing && <LineAwesomeIcon size={48} type="plus" color={colors.IRISteal} />}
+          {!src && !processing && <LineAwesomeIcon size={48} type="plus" color={colors.steal} />}
           {processing && <CircularProgress size={36} color="secondary" />}
         </IconButton>
       </label>

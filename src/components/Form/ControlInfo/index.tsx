@@ -37,7 +37,7 @@ const getStyles = (): Styles => ({
     marginBottom: 16,
   },
   title: {
-    color: colors.IRISteal,
+    color: colors.steal,
     fontSize: 'inherit',
     fontWeight: 500,
   },

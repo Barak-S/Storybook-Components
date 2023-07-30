@@ -8,7 +8,7 @@ interface Props extends StyleProps {
 }
 
 export const NavigationAccordionIcon: FC<Props> = ({ style, expanded, hovered }) => {
-  const color = expanded ? colors.IRISteal : colors.textGray;
+  const color = expanded ? colors.steal : colors.textGray;
   let transform: string = 'rotate(0deg)';
   if (hovered) {
     transform = 'rotate(90deg)';

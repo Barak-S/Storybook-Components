@@ -98,7 +98,7 @@ export const FormDragnDropImage: FC<Props> = ({
                   style={styles.icon}
                   size={62}
                   type="image"
-                  color={!disabled ? colors.IRISteal : colors.veryLightPinkTwo}
+                  color={!disabled ? colors.steal : colors.veryLightPinkTwo}
                 />
                 <Text style={[styles.iconText, disabled && { color: colors.veryLightPinkTwo }]} block>
                   {'Drag an image here'}

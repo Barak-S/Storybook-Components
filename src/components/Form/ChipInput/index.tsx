@@ -162,7 +162,7 @@ const getStyles = (focused: boolean, inputWidth: number): Styles => ({
     top: 0,
     left: 0,
     ...mx.zIndex.overBase,
-    color: focused ? colors.IRISteal : colors.withAlpha(colors.black, 0.54),
+    color: focused ? colors.steal : colors.withAlpha(colors.black, 0.54),
     transform: focused ? 'translate(-7px, -20px) scale(0.75)' : 'translate(15px, 17px)',
     transition: 'color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
   },
